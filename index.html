@@ -5,58 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pilar Narvaez Portfolio</title>
     <style>
-        /* [Previous CSS remains exactly the same] */
+        /* Reset and Base Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: #fff;
+            color: #333;
+        }
+        
+        /* Video Container */
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #000;
+        }
+        
+        #showreel-video {
+            width: 100%;
+            display: block;
+        }
+        
+        /* Play Button Fallback */
+        .play-fallback {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="5"/><polygon points="40,30 70,50 40,70" fill="white"/></svg>') center/15% no-repeat;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .play-fallback.hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <!-- [Previous HTML structure remains the same] -->
-
-    <!-- Updated Video Embed with Correct URLs -->
-    <div class="video-item" id="showreel">
-        <video class="video-player"
-               autoplay
-               muted
-               loop
-               playsinline
-               controls
-               poster="https://pilarnarvaez.github.io/videos/showreel-poster.png">
+    <!-- Simple Video Container -->
+    <div class="video-container">
+        <video id="showreel-video"
+               poster="https://pilarnarvaez.github.io/videos/showreel-poster.png"
+               preload="metadata">
             <source src="https://pilarnarvaez.github.io/videos/showreel.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
         </video>
+        <div class="play-fallback" id="play-fallback"></div>
     </div>
 
-    <!-- [Rest of your HTML remains the same] -->
-
+    <!-- Reliable Video Control Script -->
     <script>
-        // Enhanced autoplay script
         document.addEventListener('DOMContentLoaded', () => {
-            const video = document.querySelector('.video-player');
+            const video = document.getElementById('showreel-video');
+            const fallback = document.getElementById('play-fallback');
             
-            // First try standard autoplay
+            // First try autoplay (muted)
             video.muted = true;
             const playPromise = video.play();
             
-            // Fallback for stubborn browsers
             if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    // Show poster image prominently if autoplay fails
-                    video.setAttribute('poster', 'https://pilarnarvaez.github.io/videos/showreel-poster.png');
-                    video.load();
-                    
-                    // Add click-to-play overlay
-                    const playOverlay = document.createElement('div');
-                    playOverlay.style.position = 'absolute';
-                    playOverlay.style.top = '0';
-                    playOverlay.style.width = '100%';
-                    playOverlay.style.height = '100%';
-                    playOverlay.style.background = 'rgba(0,0,0,0.5) url(https://pilarnarvaez.github.io/videos/play-button.png) center no-repeat';
-                    playOverlay.style.cursor = 'pointer';
-                    playOverlay.onclick = () => {
-                        video.play();
-                        playOverlay.remove();
-                    };
-                    video.parentNode.appendChild(playOverlay);
+                playPromise.then(_ => {
+                    // Autoplay worked - hide fallback
+                    fallback.classList.add('hidden');
+                }).catch(error => {
+                    // Autoplay blocked - show fallback
+                    setupFallback();
+                });
+            } else {
+                setupFallback();
+            }
+            
+            function setupFallback() {
+                fallback.classList.remove('hidden');
+                fallback.addEventListener('click', () => {
+                    video.play().then(_ => {
+                        fallback.classList.add('hidden');
+                    }).catch(e => {
+                        alert("Playback failed. Please try again.");
+                    });
                 });
             }
+            
+            // Ensure video loads properly
+            video.addEventListener('error', () => {
+                console.error("Video error:", video.error);
+                alert("Video failed to load. Please check your connection.");
+            });
         });
     </script>
 </body>
