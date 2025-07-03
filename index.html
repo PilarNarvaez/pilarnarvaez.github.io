@@ -72,34 +72,37 @@
         /* ===== VIDEO CONTAINER ===== */
         .video-container {
             position: relative;
+            width: 100%;
             padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            height: 0;
-            overflow: hidden;
+        }
+
+        /* Video Player - Now scales proportionally */
+        .video-player {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
         }
 
         /* Thumbnail Styles */
         .video-thumbnail {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
             transition: opacity 0.3s;
             z-index: 2;
-        }
-
-        /* Video Player */
-        .video-player {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            z-index: 1;
         }
 
         /* Play Button */
@@ -134,7 +137,7 @@
             opacity: 1;
         }
 
-        /* ===== FOOTER ===== */
+        /* ===== FOOTER (UPDATED) ===== */
         .footer {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -213,9 +216,9 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Updated Footer (without copyright) -->
     <div class="footer">
-        <div class="footer-left">© 2024 Pilar Narvaez</div>
+        <div class="footer-left">Pilar Narvaez Portfolio</div>
         <div class="footer-center">Motion Graphics Designer & Video Editor</div>
         <div class="footer-right"><a href="http://uk.linkedin.com/in/pilarnarvaez">LinkedIn</a></div>
     </div>
