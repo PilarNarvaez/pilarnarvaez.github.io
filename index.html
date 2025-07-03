@@ -9,40 +9,94 @@
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             margin: 0;
-            padding: 40px;
+            padding: 0;
             color: #333;
             background: #fff;
             line-height: 1.5;
         }
 
-        /* Main Content Grid */
+        /* Main Content */
         .main-content {
             display: grid;
             grid-template-columns: 1fr 2fr;
+            padding: 40px;
             max-width: 1400px;
             margin: 0 auto;
-            gap: 40px;
         }
 
-        /* Video Container with Proper Scaling */
-        .video-container {
+        /* Left Column - Text */
+        .text-column {
+            padding-right: 40px;
+        }
+
+        .portfolio-title {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 30px;
+        }
+
+        .info-contact {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .info-contact a {
+            color: #333;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .info-contact a:hover {
+            opacity: 0.6;
+        }
+
+        .project-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .project-list li {
+            margin-bottom: 10px;
+        }
+
+        .project-list a {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            transition: opacity 0.2s;
+        }
+
+        .project-list a:hover {
+            opacity: 0.6;
+        }
+
+        /* Right Column - Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .video-item {
             position: relative;
-            width: 100%;
             padding-bottom: 56.25%; /* 16:9 aspect ratio */
             overflow: hidden;
             background: #000;
         }
 
+        /* Video Player with Thumbnail */
         .video-player {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Ensures full video is visible */
+            object-fit: cover;
+            transition: opacity 0.3s;
         }
 
-        /* Play Button Fallback */
+        /* Play Button Overlay */
         .play-overlay {
             position: absolute;
             top: 0;
@@ -54,30 +108,134 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            z-index: 2;
             opacity: 0;
             transition: opacity 0.3s;
         }
 
         .play-overlay::before {
             content: "";
-            width: 80px;
-            height: 80px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="5"/><polygon points="40,30 70,50 40,70" fill="white"/></svg>') center/contain no-repeat;
+            width: 60px;
+            height: 60px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="5"/><polygon points="38,30 72,50 38,70" fill="white"/></svg>') center/contain no-repeat;
         }
 
-        .video-container:hover .play-overlay {
+        .video-item:hover .play-overlay {
             opacity: 1;
         }
 
-        /* Your existing styles for other elements... */
+        /* Footer */
+        .footer {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 20px 40px;
+            font-size: 12px;
+            color: #999;
+            background: #fff;
+            border-top: 1px solid #eee;
+        }
+
+        .footer-left { text-align: left; }
+        .footer-center { text-align: center; }
+        .footer-right { text-align: right; }
+
+        .footer a {
+            color: #999;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
+    <!-- Main Content -->
     <div class="main-content">
-        <!-- Left Column - Text Content -->
+        <!-- Left Column - Text -->
         <div class="text-column">
             <div class="portfolio-title">Pilar Narvaez Portfolio</div>
+            
             <ul class="project-list">
                 <li class="info-contact"><a href="mailto:pilar.narvaez@gmail.com">Info/Contact</a></li>
-                <li><a hre
+                <li><a href="#showreel">Showreel</a></li>
+                <li><a href="#project1">Nike Campaign</a></li>
+                <li><a href="#project2">Netflix Title Sequence</a></li>
+                <!-- Add more projects as needed -->
+            </ul>
+        </div>
+
+        <!-- Right Column - Video Grid -->
+        <div class="video-grid">
+            <!-- Showreel -->
+            <div class="video-item" id="showreel">
+                <video class="video-player"
+                       poster="https://pilarnarvaez.github.io/videos/showreel-poster.png"
+                       preload="metadata">
+                    <source src="https://pilarnarvaez.github.io/videos/showreel.mp4" type="video/mp4">
+                </video>
+                <div class="play-overlay" id="showreel-overlay"></div>
+            </div>
+
+            <!-- Project 1 -->
+            <div class="video-item" id="project1">
+                <iframe src="https://www.behance.net/embed/project/193028185?ilo0=1" 
+                        class="video-player" 
+                        allowfullscreen></iframe>
+                <div class="play-overlay"></div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="video-item" id="project2">
+                <iframe src="https://www.behance.net/embed/project/PROJECT-2-ID?ilo0=1" 
+                        class="video-player" 
+                        allowfullscreen></iframe>
+                <div class="play-overlay"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-left">Pilar Narvaez Portfolio</div>
+        <div class="footer-center">Motion Graphics Designer & Video Editor</div>
+        <div class="footer-right"><a href="http://uk.linkedin.com/in/pilarnarvaez">LinkedIn</a></div>
+    </div>
+
+    <!-- Video Control Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Showreel Video Setup
+            const showreelVideo = document.querySelector('#showreel video');
+            const showreelOverlay = document.getElementById('showreel-overlay');
+            
+            // Try autoplay (muted)
+            showreelVideo.muted = true;
+            const playPromise = showreelVideo.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    // Show overlay if autoplay fails
+                    showreelOverlay.style.opacity = '1';
+                });
+            }
+            
+            // Click to play
+            showreelOverlay.addEventListener('click', function() {
+                showreelVideo.play()
+                    .then(() => showreelOverlay.style.opacity = '0')
+                    .catch(e => console.log("Playback failed:", e));
+            });
+            
+            // For Behance projects
+            document.querySelectorAll('.video-item:not(#showreel) .play-overlay').forEach(overlay => {
+                overlay.addEventListener('click', function() {
+                    const iframe = this.previousElementSibling;
+                    if (iframe.tagName === 'IFRAME') {
+                        iframe.src += ''; // Refresh iframe to trigger play
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
