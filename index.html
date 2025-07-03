@@ -13,9 +13,11 @@
             color: #333;
             background: #fff;
             line-height: 1.5;
-   .video-embed {
+        }
+        
+        .video-embed {
             border: none !important;
-        }        }
+        }
 
         /* Main Content */
         .main-content {
@@ -84,6 +86,7 @@
             position: relative;
             padding-bottom: 100%;
             overflow: hidden;
+            background: #000; /* Black background before hover */
         }
 
         .video-embed {
@@ -145,14 +148,17 @@
         <div class="video-grid">
             <!-- Showreel -->
             <div class="video-item" id="showreel">
-                <iframe <source src="https://cdn.jsdelivr.net/gh/pilarnarvaez/REPO@main/videos/showreel.mp4" type="video/mp4">
-                </iframe>
+                <video class="video-embed" controls poster="showreel-poster.jpg">
+                    <source src="https://cdn.jsdelivr.net/gh/pilarnarvaez/REPO@main/videos/showreel.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
 
             <!-- Project 1 -->
-           <iframe src="https://www.behance.net/embed/project/193028185?ilo0=1" 
-        frameborder="0" 
-        allowfullscreen></iframe>
+            <div class="video-item" id="project1">
+                <iframe src="https://www.behance.net/embed/project/193028185?ilo0=1" 
+                        class="video-embed" 
+                        allowfullscreen></iframe>
                 <a href="https://www.behance.net/gallery/193028185" 
                    target="_blank" 
                    class="video-link"></a>
