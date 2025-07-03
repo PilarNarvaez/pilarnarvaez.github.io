@@ -5,49 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pilar Narvaez Portfolio</title>
     <style>
-        /* Base Styles */
+        /* ===== BASE STYLES ===== */
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 40px;
             color: #333;
             background: #fff;
             line-height: 1.5;
         }
 
-        /* Main Content */
+        /* ===== MAIN LAYOUT ===== */
         .main-content {
             display: grid;
             grid-template-columns: 1fr 2fr;
-            padding: 40px;
             max-width: 1400px;
             margin: 0 auto;
+            gap: 40px;
         }
 
-        /* Left Column - Text */
+        /* ===== LEFT COLUMN ===== */
         .text-column {
-            padding-right: 40px;
+            padding-right: 20px;
         }
 
         .portfolio-title {
             font-size: 18px;
             font-weight: 500;
             margin-bottom: 30px;
-        }
-
-        .info-contact {
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .info-contact a {
-            color: #333;
-            text-decoration: none;
-            transition: opacity 0.2s;
-        }
-
-        .info-contact a:hover {
-            opacity: 0.6;
         }
 
         .project-list {
@@ -71,7 +56,7 @@
             opacity: 0.6;
         }
 
-        /* Right Column - Video Grid */
+        /* ===== VIDEO GRID ===== */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -80,50 +65,76 @@
 
         .video-item {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
             overflow: hidden;
             background: #000;
         }
 
-        /* Video Player with Thumbnail */
+        /* ===== VIDEO CONTAINER ===== */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        /* Thumbnail Styles */
+        .video-thumbnail {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: opacity 0.3s;
+            z-index: 2;
+        }
+
+        /* Video Player */
         .video-player {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            transition: opacity 0.3s;
+            object-fit: contain;
+            z-index: 1;
         }
 
-        /* Play Button Overlay */
-        .play-overlay {
+        /* Play Button */
+        .play-button {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
             cursor: pointer;
+            z-index: 3;
             opacity: 0;
             transition: opacity 0.3s;
         }
 
-        .play-overlay::before {
+        .play-button::after {
             content: "";
-            width: 60px;
-            height: 60px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="5"/><polygon points="38,30 72,50 38,70" fill="white"/></svg>') center/contain no-repeat;
+            position: absolute;
+            left: 55%;
+            top: 50%;
+            transform: translate(-40%, -50%);
+            border-width: 12px 0 12px 20px;
+            border-style: solid;
+            border-color: transparent transparent transparent #fff;
         }
 
-        .video-item:hover .play-overlay {
+        .video-item:hover .play-button {
             opacity: 1;
         }
 
-        /* Footer */
+        /* ===== FOOTER ===== */
         .footer {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -160,7 +171,6 @@
                 <li><a href="#showreel">Showreel</a></li>
                 <li><a href="#project1">Nike Campaign</a></li>
                 <li><a href="#project2">Netflix Title Sequence</a></li>
-                <!-- Add more projects as needed -->
             </ul>
         </div>
 
@@ -168,72 +178,101 @@
         <div class="video-grid">
             <!-- Showreel -->
             <div class="video-item" id="showreel">
-                <video class="video-player"
-                       poster="https://pilarnarvaez.github.io/videos/showreel-poster.png"
-                       preload="metadata">
-                    <source src="https://pilarnarvaez.github.io/videos/showreel.mp4" type="video/mp4">
-                </video>
-                <div class="play-overlay" id="showreel-overlay"></div>
+                <div class="video-container">
+                    <div class="video-thumbnail" 
+                         style="background-image: url('https://pilarnarvaez.github.io/videos/showreel-poster.png')">
+                    </div>
+                    <video class="video-player"
+                           preload="metadata"
+                           loop
+                           playsinline
+                           controls>
+                        <source src="https://pilarnarvaez.github.io/videos/showreel.mp4" type="video/mp4">
+                    </video>
+                    <div class="play-button" id="play-button"></div>
+                </div>
             </div>
 
             <!-- Project 1 -->
             <div class="video-item" id="project1">
-                <iframe src="https://www.behance.net/embed/project/193028185?ilo0=1" 
-                        class="video-player" 
-                        allowfullscreen></iframe>
-                <div class="play-overlay"></div>
+                <div class="video-container">
+                    <iframe src="https://www.behance.net/embed/project/193028185?ilo0=1" 
+                            allowfullscreen></iframe>
+                    <div class="play-button"></div>
+                </div>
             </div>
 
             <!-- Project 2 -->
             <div class="video-item" id="project2">
-                <iframe src="https://www.behance.net/embed/project/PROJECT-2-ID?ilo0=1" 
-                        class="video-player" 
-                        allowfullscreen></iframe>
-                <div class="play-overlay"></div>
+                <div class="video-container">
+                    <iframe src="https://www.behance.net/embed/project/PROJECT-2-ID?ilo0=1" 
+                            allowfullscreen></iframe>
+                    <div class="play-button"></div>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
     <div class="footer">
-        <div class="footer-left">Pilar Narvaez Portfolio</div>
+        <div class="footer-left">© 2024 Pilar Narvaez</div>
         <div class="footer-center">Motion Graphics Designer & Video Editor</div>
         <div class="footer-right"><a href="http://uk.linkedin.com/in/pilarnarvaez">LinkedIn</a></div>
     </div>
 
-    <!-- Video Control Script -->
+    <!-- ===== VIDEO CONTROL SCRIPT ===== -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Showreel Video Setup
-            const showreelVideo = document.querySelector('#showreel video');
-            const showreelOverlay = document.getElementById('showreel-overlay');
+            // Showreel Elements
+            const showreel = document.getElementById('showreel');
+            const video = showreel.querySelector('video');
+            const thumbnail = showreel.querySelector('.video-thumbnail');
+            const playButton = document.getElementById('play-button');
             
-            // Try autoplay (muted)
-            showreelVideo.muted = true;
-            const playPromise = showreelVideo.play();
+            // 1. Set thumbnail to always show initially
+            thumbnail.style.opacity = '1';
             
+            // 2. Attempt Autoplay (Muted)
+            video.muted = true;
+            const playPromise = video.play();
+            
+            // 3. Handle Playback
             if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    // Show overlay if autoplay fails
-                    showreelOverlay.style.opacity = '1';
+                playPromise
+                    .then(() => {
+                        // Autoplay worked - hide thumbnail
+                        thumbnail.style.opacity = '0';
+                    })
+                    .catch(error => {
+                        // Autoplay blocked - setup manual play
+                        setupPlayControls();
+                    });
+            } else {
+                setupPlayControls();
+            }
+            
+            function setupPlayControls() {
+                // Show play button
+                playButton.style.opacity = '1';
+                
+                // Click handler
+                playButton.addEventListener('click', function() {
+                    video.play()
+                        .then(() => {
+                            thumbnail.style.opacity = '0';
+                            playButton.style.opacity = '0';
+                        })
+                        .catch(e => {
+                            // Fallback to native controls if still fails
+                            video.setAttribute('controls', '');
+                        });
                 });
             }
             
-            // Click to play
-            showreelOverlay.addEventListener('click', function() {
-                showreelVideo.play()
-                    .then(() => showreelOverlay.style.opacity = '0')
-                    .catch(e => console.log("Playback failed:", e));
-            });
-            
-            // For Behance projects
-            document.querySelectorAll('.video-item:not(#showreel) .play-overlay').forEach(overlay => {
-                overlay.addEventListener('click', function() {
-                    const iframe = this.previousElementSibling;
-                    if (iframe.tagName === 'IFRAME') {
-                        iframe.src += ''; // Refresh iframe to trigger play
-                    }
-                });
+            // Reset when video ends
+            video.addEventListener('ended', function() {
+                thumbnail.style.opacity = '1';
+                playButton.style.opacity = '1';
             });
         });
     </script>
