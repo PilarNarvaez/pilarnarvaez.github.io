@@ -5,97 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pilar Narvaez Portfolio</title>
     <style>
-        /* Reset and Base Styles */
+        /* Base Styles */
         body {
-            margin: 0;
-            padding: 0;
             font-family: 'Helvetica Neue', Arial, sans-serif;
-            background: #fff;
+            margin: 0;
+            padding: 40px;
             color: #333;
+            background: #fff;
+            line-height: 1.5;
         }
-        
-        /* Video Container */
+
+        /* Main Content Grid */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 40px;
+        }
+
+        /* Video Container with Proper Scaling */
         .video-container {
             position: relative;
             width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            overflow: hidden;
             background: #000;
         }
-        
-        #showreel-video {
-            width: 100%;
-            display: block;
-        }
-        
-        /* Play Button Fallback */
-        .play-fallback {
+
+        .video-player {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="5"/><polygon points="40,30 70,50 40,70" fill="white"/></svg>') center/15% no-repeat;
+            object-fit: contain; /* Ensures full video is visible */
+        }
+
+        /* Play Button Fallback */
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            z-index: 10;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
-        
-        .play-fallback.hidden {
-            display: none;
+
+        .play-overlay::before {
+            content: "";
+            width: 80px;
+            height: 80px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="5"/><polygon points="40,30 70,50 40,70" fill="white"/></svg>') center/contain no-repeat;
         }
+
+        .video-container:hover .play-overlay {
+            opacity: 1;
+        }
+
+        /* Your existing styles for other elements... */
     </style>
 </head>
 <body>
-    <!-- Simple Video Container -->
-    <div class="video-container">
-        <video id="showreel-video"
-               poster="https://pilarnarvaez.github.io/videos/showreel-poster.png"
-               preload="metadata">
-            <source src="https://pilarnarvaez.github.io/videos/showreel.mp4" type="video/mp4">
-            Your browser does not support HTML5 video.
-        </video>
-        <div class="play-fallback" id="play-fallback"></div>
-    </div>
-
-    <!-- Reliable Video Control Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const video = document.getElementById('showreel-video');
-            const fallback = document.getElementById('play-fallback');
-            
-            // First try autoplay (muted)
-            video.muted = true;
-            const playPromise = video.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.then(_ => {
-                    // Autoplay worked - hide fallback
-                    fallback.classList.add('hidden');
-                }).catch(error => {
-                    // Autoplay blocked - show fallback
-                    setupFallback();
-                });
-            } else {
-                setupFallback();
-            }
-            
-            function setupFallback() {
-                fallback.classList.remove('hidden');
-                fallback.addEventListener('click', () => {
-                    video.play().then(_ => {
-                        fallback.classList.add('hidden');
-                    }).catch(e => {
-                        alert("Playback failed. Please try again.");
-                    });
-                });
-            }
-            
-            // Ensure video loads properly
-            video.addEventListener('error', () => {
-                console.error("Video error:", video.error);
-                alert("Video failed to load. Please check your connection.");
-            });
-        });
-    </script>
-</body>
-</html>
+    <div class="main-content">
+        <!-- Left Column - Text Content -->
+        <div class="text-column">
+            <div class="portfolio-title">Pilar Narvaez Portfolio</div>
+            <ul class="project-list">
+                <li class="info-contact"><a href="mailto:pilar.narvaez@gmail.com">Info/Contact</a></li>
+                <li><a hre
