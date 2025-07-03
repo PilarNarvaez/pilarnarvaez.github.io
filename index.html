@@ -114,34 +114,42 @@
         }
 
         /* Hide when playing */
-        .playing .play-overlay {
+        .video-playing .play-overlay {
             opacity: 0;
             pointer-events: none;
         }
 
-        /* ===== FOOTER ===== */
+        /* ===== PERFECTLY ALIGNED FOOTER ===== */
         .footer {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            padding: 20px 40px;
+            grid-template-columns: 1fr 2fr;
+            padding: 20px 0;
             font-size: 12px;
             color: #999;
             background: #fff;
             border-top: none;
             margin-top: 40px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .footer-left { 
+        .footer-left {
             text-align: left;
-            padding-left: 0; /* Ensures proper left alignment */
+            padding-left: 40px; /* Matches body padding */
+            grid-column: 1;
         }
         
-        .footer-center { 
-            text-align: center;
+        .footer-center {
+            text-align: left;
+            grid-column: 2;
+            padding-left: 20px; /* Aligns with video container */
         }
         
-        .footer-right { 
+        .footer-right {
             text-align: right;
+            padding-right: 40px; /* Matches body padding */
+            grid-column: 3;
         }
 
         .footer a {
@@ -151,17 +159,6 @@
 
         .footer a:hover {
             text-decoration: underline;
-        }
-
-        /* Error message styling */
-        .video-error {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            text-align: center;
-            z-index: 3;
         }
     </style>
 </head>
@@ -183,10 +180,8 @@
         <!-- Right Column - Video -->
         <div id="showreel" class="video-container">
             <video poster="https://pilarnarvaez.github.io/videos/showreel-poster.png">
-                <source src="https://pilarnarvaez.github.io/videos/showreel.mp4" type="video/mp4">
-                <div class="video-error">
-                    Video failed to load. Please check the file.
-                </div>
+                <!-- NOTE: Case-sensitive file name "Showreel.mp4" -->
+                <source src="https://pilarnarvaez.github.io/videos/Showreel.mp4" type="video/mp4">
             </video>
             <div class="play-overlay">
                 <div class="play-button"></div>
@@ -194,7 +189,7 @@
         </div>
     </div>
 
-    <!-- Footer with corrected alignment -->
+    <!-- Perfectly aligned footer -->
     <div class="footer">
         <div class="footer-left">Pilar Narvaez Portfolio</div>
         <div class="footer-center">Motion graphics/video edit</div>
@@ -207,26 +202,42 @@
             const video = document.querySelector('video');
             const playOverlay = document.querySelector('.play-overlay');
             
-            // Check if video is valid
+            // First check if video loads
+            video.addEventListener('loadeddata', function() {
+                console.log('Video loaded successfully');
+            });
+            
             video.addEventListener('error', function() {
-                console.error('Video load error:', video.error);
-                const errorMsg = document.createElement('div');
-                errorMsg.className = 'video-error';
-                errorMsg.textContent = 'Video failed to load. Please check the file.';
-                videoContainer.appendChild(errorMsg);
+                console.error('Video error:', video.error);
+                const errorDiv = document.createElement('div');
+                errorDiv.style.position = 'absolute';
+                errorDiv.style.top = '50%';
+                errorDiv.style.left = '50%';
+                errorDiv.style.transform = 'translate(-50%, -50%)';
+                errorDiv.style.color = 'white';
+                errorDiv.style.backgroundColor = 'rgba(0,0,0,0.7)';
+                errorDiv.style.padding = '20px';
+                errorDiv.style.borderRadius = '5px';
+                errorDiv.style.textAlign = 'center';
+                errorDiv.innerHTML = `
+                    Video loading issue. Please:<br>
+                    1. Check filename is <strong>Showreel.mp4</strong> (case-sensitive)<br>
+                    2. Wait a few minutes after upload<br>
+                    3. <a href="#" style="color: #4da6ff" onclick="window.location.reload()">Refresh page</a>
+                `;
+                videoContainer.appendChild(errorDiv);
             });
 
             // Click to play functionality
             playOverlay.addEventListener('click', function() {
                 video.play()
                     .then(() => {
-                        videoContainer.classList.add('playing');
+                        videoContainer.classList.add('video-playing');
                     })
                     .catch(error => {
-                        // Fallback to native controls if needed
                         video.controls = true;
                         video.play();
-                        videoContainer.classList.add('playing');
+                        videoContainer.classList.add('video-playing');
                     });
             });
             
@@ -235,17 +246,17 @@
                 if (video.paused) {
                     video.play()
                         .then(() => {
-                            videoContainer.classList.add('playing');
+                            videoContainer.classList.add('video-playing');
                         });
                 } else {
                     video.pause();
-                    videoContainer.classList.remove('playing');
+                    videoContainer.classList.remove('video-playing');
                 }
             });
             
             // Reset when video ends
             video.addEventListener('ended', function() {
-                videoContainer.classList.remove('playing');
+                videoContainer.classList.remove('video-playing');
                 video.currentTime = 0;
             });
         });
