@@ -66,19 +66,17 @@
         .video-item {
             position: relative;
             overflow: hidden;
+            background: #000;
         }
 
         /* ===== VIDEO CONTAINER ===== */
         .video-container {
             position: relative;
             width: 100%;
-            height: 0;
             padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            background: black;
-            overflow: hidden;
         }
 
-        /* Video element - fills container completely */
+        /* Video element - fills container */
         .video-player {
             position: absolute;
             top: 0;
@@ -88,21 +86,8 @@
             object-fit: cover;
         }
 
-        /* Poster image - shows before play */
-        .video-poster {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 2;
-            transition: opacity 0.3s;
-            cursor: pointer;
-        }
-
-        /* Iframe styling */
-        .video-container iframe {
+        /* Iframe styling - Behance embeds */
+        .behance-embed {
             position: absolute;
             top: 0;
             left: 0;
@@ -111,33 +96,51 @@
             border: none;
         }
 
-        /* Play button - always visible when paused */
-        .play-button {
+        /* Play button - only shows when needed */
+        .play-overlay {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 50%;
-            border: none;
-            z-index: 3;
-            cursor: pointer;
-            transition: all 0.3s;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            z-index: 2;
+            transition: opacity 0.3s;
         }
 
-        .play-button:hover {
-            background: rgba(0, 0, 0, 0.8);
-            transform: translate(-50%, -50%) scale(1.1);
+        .play-button {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
         }
 
-        /* Hide elements when video is playing */
-        .video-playing .video-poster,
-        .video-playing .play-button {
+        .play-button::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 10px 0 10px 16px;
+            border-color: transparent transparent transparent #fff;
+            margin-left: 4px;
+        }
+
+        .play-overlay:hover .play-button {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        /* Hide overlay when playing */
+        .playing .play-overlay {
             opacity: 0;
             pointer-events: none;
         }
@@ -151,7 +154,6 @@
             color: #999;
             background: #fff;
             border-top: none;
-            margin-top: 40px;
         }
 
         .footer-left { text-align: left; }
@@ -188,48 +190,40 @@
             <!-- Showreel -->
             <div class="video-item" id="showreel">
                 <div class="video-container">
-                    <img class="video-poster" 
-                         src="https://pilarnarvaez.github.io/videos/showreel-poster.png"
-                         alt="Showreel thumbnail">
                     <video class="video-player"
-                           preload="auto"
+                           poster="https://pilarnarvaez.github.io/videos/showreel-poster.png"
+                           preload="metadata"
                            loop
-                           playsinline
-                           muted
-                           autoplay>
+                           playsinline>
                         <source src="https://pilarnarvaez.github.io/videos/showreel.mp4?cachebust=1" type="video/mp4">
                     </video>
-                    <button class="play-button" aria-label="Play showreel">
-                        <svg viewBox="0 0 24 24" width="48" height="48">
-                            <path fill="white" d="M8 5v14l11-7z"/>
-                        </svg>
-                    </button>
+                    <div class="play-overlay">
+                        <div class="play-button"></div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Project 1 -->
+            <!-- Project 1 - Behance Embed -->
             <div class="video-item" id="project1">
                 <div class="video-container">
-                    <iframe src="https://www.behance.net/embed/project/193028185?ilo0=1" 
+                    <iframe class="behance-embed" 
+                            src="https://www.behance.net/embed/project/193028185?ilo0=1"
                             allowfullscreen></iframe>
-                    <button class="play-button" aria-label="Play video">
-                        <svg viewBox="0 0 24 24" width="48" height="48">
-                            <path fill="white" d="M8 5v14l11-7z"/>
-                        </svg>
-                    </button>
+                    <div class="play-overlay">
+                        <div class="play-button"></div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Project 2 -->
+            <!-- Project 2 - Behance Embed -->
             <div class="video-item" id="project2">
                 <div class="video-container">
-                    <iframe src="https://www.behance.net/embed/project/PROJECT-2-ID?ilo0=1" 
+                    <iframe class="behance-embed" 
+                            src="https://www.behance.net/embed/project/PROJECT-2-ID?ilo0=1"
                             allowfullscreen></iframe>
-                    <button class="play-button" aria-label="Play video">
-                        <svg viewBox="0 0 24 24" width="48" height="48">
-                            <path fill="white" d="M8 5v14l11-7z"/>
-                        </svg>
-                    </button>
+                    <div class="play-overlay">
+                        <div class="play-button"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -245,66 +239,36 @@
     <!-- ===== VIDEO CONTROL SCRIPT ===== -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Showreel Elements
-            const videoContainer = document.querySelector('#showreel .video-container');
+            // Handle HTML5 video
             const video = document.querySelector('#showreel video');
-            const poster = document.querySelector('#showreel .video-poster');
-            const playButton = document.querySelector('#showreel .play-button');
+            const videoOverlay = document.querySelector('#showreel .play-overlay');
             
-            // 1. First try: Autoplay muted
-            video.muted = true;
-            const playPromise = video.play();
+            // Setup video click handler
+            videoOverlay.addEventListener('click', function() {
+                video.play()
+                    .then(() => {
+                        video.parentElement.classList.add('playing');
+                    })
+                    .catch(error => {
+                        video.controls = true;
+                        video.parentElement.classList.add('playing');
+                    });
+            });
             
-            // 2. Handle autoplay success/failure
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    // Autoplay worked - hide UI
-                    videoContainer.classList.add('video-playing');
-                }).catch(error => {
-                    // Autoplay blocked - setup manual controls
-                    setupManualControls();
-                });
-            } else {
-                setupManualControls();
-            }
-            
-            // 3. Setup reliable manual controls
-            function setupManualControls() {
-                // Make sure controls are visible
-                video.muted = false; // Allow sound on click
-                video.removeAttribute('autoplay');
-                
-                // Click handlers for both button and poster
-                const playVideo = () => {
-                    video.play()
-                        .then(() => {
-                            videoContainer.classList.add('video-playing');
-                        })
-                        .catch(error => {
-                            // Ultimate fallback
-                            video.controls = true;
-                            videoContainer.classList.add('video-playing');
-                        });
-                };
-                
-                playButton.addEventListener('click', playVideo);
-                poster.addEventListener('click', playVideo);
-            }
-            
-            // 4. Reset UI when video ends
+            // Reset when video ends
             video.addEventListener('ended', function() {
-                videoContainer.classList.remove('video-playing');
+                video.parentElement.classList.remove('playing');
                 video.currentTime = 0;
             });
 
             // Handle Behance embeds
-            document.querySelectorAll('.video-item iframe').forEach(iframe => {
+            document.querySelectorAll('.behance-embed').forEach(iframe => {
                 const container = iframe.closest('.video-container');
-                const btn = container.querySelector('.play-button');
+                const overlay = container.querySelector('.play-overlay');
                 
-                btn.addEventListener('click', () => {
-                    btn.style.opacity = '0';
-                    btn.style.pointerEvents = 'none';
+                overlay.addEventListener('click', function() {
+                    // Behance iframes can't be controlled directly, so we just hide overlay
+                    container.classList.add('playing');
                 });
             });
         });
