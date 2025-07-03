@@ -10,23 +10,32 @@
             font-family: 'Helvetica Neue', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            min-height: 100vh;
-            color: #000; /* All black text */
+            color: #000;
+            background: #fff;
             line-height: 1.5;
-            background: #fff; /* Pure white background */
         }
 
-        /* Left Index - Pure White */
+        /* Full-width Banner */
+        .banner {
+            width: 100%;
+            height: 200px;
+            background-image: url('portfolio-banner.png');
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 40px;
+        }
+
+        /* Two-column Layout */
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: calc(100vh - 240px); /* Account for banner and footer */
+        }
+
+        /* Left Column - Project List */
         .index {
-            padding: 40px 20px;
-            background: #fff; /* Changed to white */
-            border-right: 1px solid #eee;
-            position: fixed;
-            width: 250px;
-            height: 100vh;
-            box-sizing: border-box;
+            padding: 0 20px;
+            background: #fff;
         }
 
         .index h1 {
@@ -35,43 +44,27 @@
             font-weight: 600;
         }
 
-        /* Showreel Highlight */
-        .project-link.showreel {
-            font-weight: 700; /* Bold */
-            color: #000 !important; /* Black */
-            border-left: 3px solid #000; /* Accent bar */
-            padding-left: 10px;
-            margin-left: -13px;
-        }
-
         .project-link {
             display: block;
             padding: 8px 0;
-            color: #000; /* Black text */
+            color: #000;
             text-decoration: none;
             font-size: 14px;
         }
 
-        /* Banner at Top */
-        .banner {
-            grid-column: 1 / -1;
-            height: 200px;
-            background-image: url('portfolio-banner.png');
-            background-size: cover;
-            background-position: center;
-            margin-bottom: 40px;
+        .project-link.showreel {
+            font-weight: 700;
+            border-left: 3px solid #000;
+            padding-left: 10px;
+            margin-left: -13px;
         }
 
-        /* Video Grid - Larger Embeds */
-        .content {
-            margin-left: 250px;
-            padding: 40px;
-        }
-
+        /* Right Column - Videos */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px; /* Increased gap */
+            gap: 30px;
+            padding: 0 20px;
         }
 
         .video-item {
@@ -82,10 +75,8 @@
             background: #000;
         }
 
-        /* Full-width Showreel */
         #showreel {
             grid-column: 1 / -1;
-            padding-bottom: 56.25%; /* 16:9 */
         }
 
         .video-embed {
@@ -103,63 +94,61 @@
             opacity: 1;
         }
 
-        /* Full-width Footer */
+        /* Footer - Pure White */
         footer {
-            grid-column: 1 / -1; /* Span all columns */
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            padding: 20px 40px;
-            background: #fafafa;
-            border-top: 1px solid #eee;
+            padding: 20px;
+            background: #fff;
             font-size: 12px;
-            color: #999;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            box-sizing: border-box;
+            color: #000;
+            border-top: 1px solid #fff; /* Invisible border */
         }
 
-        .footer-left { 
-            text-align: left; 
-            padding-left: 270px; /* Align with index */
-        }
+        .footer-left { text-align: left; }
         .footer-center { text-align: center; }
         .footer-right { text-align: right; }
 
         footer a {
-            color: #999;
+            color: #000;
             text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <!-- Banner -->
+    <!-- Full-width Banner -->
     <div class="banner"></div>
 
-    <!-- Left Index -->
-    <div class="index">
-        <h1>Pilar Narvaez Portfolio</h1>
-        <a href="#showreel" class="project-link showreel">Showreel</a>
-        <a href="#project1" class="project-link">Project 1</a>
-        <a href="#project2" class="project-link">Project 2</a>
-    </div>
+    <!-- Two-column Content -->
+    <div class="container">
+        <!-- Left Column - Text -->
+        <div class="index">
+            <h1>Pilar Narvaez Portfolio</h1>
+            <a href="#showreel" class="project-link showreel">Showreel</a>
+            <a href="#project1" class="project-link">Project 1</a>
+            <a href="#project2" class="project-link">Project 2</a>
+        </div>
 
-    <!-- Video Grid -->
-    <div class="content">
+        <!-- Right Column - Videos -->
         <div class="video-grid">
             <!-- Showreel (Full-width) -->
             <div class="video-item" id="showreel">
                 <iframe src="https://www.behance.net/embed/project/193028185?ilo0=1" 
                         class="video-embed" 
                         allowfullscreen></iframe>
-                <a href="https://www.behance.net/gallery/193028185" 
-                   class="video-link" 
-                   target="_blank"></a>
+                <a href="https://www.behance.net/gallery/YOUR-SHOWREEL-ID" 
+                   target="_blank" 
+                   class="video-link"></a>
             </div>
 
             <!-- Other Projects -->
             <div class="video-item" id="project1">
-                <!-- Repeat structure for other projects -->
+                <iframe src="https://www.behance.net/embed/project/193028185?ilo0=1" 
+                        class="video-embed" 
+                        allowfullscreen></iframe>
+                <a href="https://www.behance.net/gallery/193028185" 
+                   target="_blank" 
+                   class="video-link"></a>
             </div>
         </div>
     </div>
