@@ -56,88 +56,90 @@
             opacity: 0.6;
         }
 
-        /* ===== VIDEO GRID (UPDATED) ===== */
+        /* ===== VIDEO GRID ===== */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
-            width: 100%;
         }
 
         .video-item {
             position: relative;
             overflow: hidden;
-            background: #000;
-            aspect-ratio: 16/9; /* Ensures perfect video proportions */
         }
 
-        /* ===== VIDEO CONTAINER (SIMPLIFIED) ===== */
+        /* ===== VIDEO CONTAINER ===== */
         .video-container {
             position: relative;
             width: 100%;
-            height: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            background: black;
+            overflow: hidden;
         }
 
-        /* Video Player - Now perfectly fills container */
+        /* Video element - fills container completely */
         .video-player {
-            width: 100%;
-            height: 100%;
-            object-fit: fill; /* Changed to FILL to eliminate black bars */
-            display: block;
-        }
-
-        /* Iframe styling */
-        .video-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-        }
-
-        /* Thumbnail Styles */
-        .video-thumbnail {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-size: cover;
-            background-position: center;
-            transition: opacity 0.3s;
+            object-fit: cover;
+        }
+
+        /* Poster image - shows before play */
+        .video-poster {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             z-index: 2;
+            transition: opacity 0.3s;
             cursor: pointer;
         }
 
-        /* Play Button (Always visible if paused) */
+        /* Iframe styling */
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Play button - always visible when paused */
         .play-button {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 70px;
-            height: 70px;
-            background: rgba(0,0,0,0.5);
+            width: 80px;
+            height: 80px;
+            background: rgba(0, 0, 0, 0.6);
             border-radius: 50%;
-            cursor: pointer;
+            border: none;
             z-index: 3;
-            border: 2px solid white;
+            cursor: pointer;
             transition: all 0.3s;
-        }
-
-        .play-button::after {
-            content: "";
-            position: absolute;
-            left: 52%;
-            top: 50%;
-            transform: translate(-40%, -50%);
-            border-width: 12px 0 12px 20px;
-            border-style: solid;
-            border-color: transparent transparent transparent #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .play-button:hover {
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.8);
             transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* Hide elements when video is playing */
+        .video-playing .video-poster,
+        .video-playing .play-button {
+            opacity: 0;
+            pointer-events: none;
         }
 
         /* ===== FOOTER ===== */
@@ -186,18 +188,22 @@
             <!-- Showreel -->
             <div class="video-item" id="showreel">
                 <div class="video-container">
-                    <div class="video-thumbnail" 
-                         style="background-image: url('https://pilarnarvaez.github.io/videos/showreel-poster.png')">
-                    </div>
+                    <img class="video-poster" 
+                         src="https://pilarnarvaez.github.io/videos/showreel-poster.png"
+                         alt="Showreel thumbnail">
                     <video class="video-player"
                            preload="auto"
                            loop
                            playsinline
                            muted
                            autoplay>
-                        <source src="https://pilarnarvaez.github.io/videos/showreel.mp4" type="video/mp4">
+                        <source src="https://pilarnarvaez.github.io/videos/showreel.mp4?cachebust=1" type="video/mp4">
                     </video>
-                    <div class="play-button" id="play-button"></div>
+                    <button class="play-button" aria-label="Play showreel">
+                        <svg viewBox="0 0 24 24" width="48" height="48">
+                            <path fill="white" d="M8 5v14l11-7z"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
 
@@ -206,7 +212,11 @@
                 <div class="video-container">
                     <iframe src="https://www.behance.net/embed/project/193028185?ilo0=1" 
                             allowfullscreen></iframe>
-                    <div class="play-button"></div>
+                    <button class="play-button" aria-label="Play video">
+                        <svg viewBox="0 0 24 24" width="48" height="48">
+                            <path fill="white" d="M8 5v14l11-7z"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
 
@@ -215,7 +225,11 @@
                 <div class="video-container">
                     <iframe src="https://www.behance.net/embed/project/PROJECT-2-ID?ilo0=1" 
                             allowfullscreen></iframe>
-                    <div class="play-button"></div>
+                    <button class="play-button" aria-label="Play video">
+                        <svg viewBox="0 0 24 24" width="48" height="48">
+                            <path fill="white" d="M8 5v14l11-7z"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
@@ -228,82 +242,70 @@
         <div class="footer-right"><a href="http://uk.linkedin.com/in/pilarnarvaez">LinkedIn</a></div>
     </div>
 
-    <!-- ===== VIDEO CONTROL SCRIPT (RELIABLE VERSION) ===== -->
+    <!-- ===== VIDEO CONTROL SCRIPT ===== -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Showreel Elements
-            const showreel = document.getElementById('showreel');
-            const video = showreel.querySelector('video');
-            const thumbnail = showreel.querySelector('.video-thumbnail');
-            const playButton = document.getElementById('play-button');
+            const videoContainer = document.querySelector('#showreel .video-container');
+            const video = document.querySelector('#showreel video');
+            const poster = document.querySelector('#showreel .video-poster');
+            const playButton = document.querySelector('#showreel .play-button');
             
-            // Initialize state
-            let autoplayAttempted = false;
+            // 1. First try: Autoplay muted
+            video.muted = true;
+            const playPromise = video.play();
             
-            // 1. Always show controls initially
-            playButton.style.opacity = '1';
-            
-            // 2. Attempt autoplay with sound muted
-            function tryAutoplay() {
-                if (autoplayAttempted) return;
-                
-                video.muted = true;
-                const playPromise = video.play();
-                
-                if (playPromise !== undefined) {
-                    playPromise
-                        .then(() => {
-                            // Success - hide UI
-                            thumbnail.style.opacity = '0';
-                            playButton.style.opacity = '0';
-                        })
-                        .catch(error => {
-                            // Failed - setup manual controls
-                            setupManualControls();
-                        });
-                }
-                autoplayAttempted = true;
+            // 2. Handle autoplay success/failure
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    // Autoplay worked - hide UI
+                    videoContainer.classList.add('video-playing');
+                }).catch(error => {
+                    // Autoplay blocked - setup manual controls
+                    setupManualControls();
+                });
+            } else {
+                setupManualControls();
             }
             
-            // 3. Manual controls setup
+            // 3. Setup reliable manual controls
             function setupManualControls() {
-                // Make controls visible
-                playButton.style.opacity = '1';
-                thumbnail.style.opacity = '1';
+                // Make sure controls are visible
+                video.muted = false; // Allow sound on click
+                video.removeAttribute('autoplay');
                 
-                // Click handlers
-                playButton.addEventListener('click', playVideo);
-                thumbnail.addEventListener('click', playVideo);
-                
-                function playVideo() {
+                // Click handlers for both button and poster
+                const playVideo = () => {
                     video.play()
                         .then(() => {
-                            thumbnail.style.opacity = '0';
-                            playButton.style.opacity = '0';
+                            videoContainer.classList.add('video-playing');
                         })
-                        .catch(e => {
-                            // Final fallback
+                        .catch(error => {
+                            // Ultimate fallback
                             video.controls = true;
-                            playButton.style.opacity = '0';
+                            videoContainer.classList.add('video-playing');
                         });
-                }
+                };
+                
+                playButton.addEventListener('click', playVideo);
+                poster.addEventListener('click', playVideo);
             }
             
-            // First attempt (with slight delay for better success)
-            setTimeout(tryAutoplay, 300);
-            
-            // Reset when video ends
+            // 4. Reset UI when video ends
             video.addEventListener('ended', function() {
-                thumbnail.style.opacity = '1';
-                playButton.style.opacity = '1';
+                videoContainer.classList.remove('video-playing');
                 video.currentTime = 0;
             });
-            
-            // Handle tab visibility changes
-            document.addEventListener('visibilitychange', function() {
-                if (!document.hidden && video.paused) {
-                    tryAutoplay();
-                }
+
+            // Handle Behance embeds
+            document.querySelectorAll('.video-item iframe').forEach(iframe => {
+                const container = iframe.closest('.video-container');
+                const btn = container.querySelector('.play-button');
+                
+                btn.addEventListener('click', () => {
+                    btn.style.opacity = '0';
+                    btn.style.pointerEvents = 'none';
+                });
             });
         });
     </script>
