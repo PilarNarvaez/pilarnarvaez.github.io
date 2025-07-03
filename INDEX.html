@@ -3,52 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pilar Narvaez | Motion Design</title>
+    <title>Pilar Narvaez Portfolio</title>
     <style>
+        /* Base Styles */
         body {
-            font-family: 'Helvetica Neue', sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: #fafafa;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
             color: #333;
+            line-height: 1.5;
+            scroll-behavior: smooth; /* Smooth scrolling */
         }
-        
-        /* Banner Styles */
-        .portfolio-banner {
-            width: 100%;
-            height: 200px; /* Adjust height as needed */
-            background-image: url('portfolio-banner.png');
-            background-size: cover;
-            background-position: center;
-            margin-bottom: 40px;
+
+        /* Left Index */
+        .index {
+            padding: 40px 20px;
+            background: #fafafa;
+            border-right: 1px solid #eee;
+            position: fixed;
+            width: 250px;
+            height: 100vh;
+            box-sizing: border-box;
         }
-        
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+
+        .index h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            font-weight: 600;
         }
-        
+
+        .project-link {
+            display: block;
+            padding: 8px 0;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .project-link:hover {
+            color: #999;
+        }
+
+        /* Highlight Showreel */
+        .project-link.showreel {
+            font-weight: 600;
+            color: #000;
+        }
+
         /* Video Grid */
+        .content {
+            margin-left: 250px;
+            padding: 40px;
+        }
+
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
         }
-        
+
         .video-item {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 */
+            padding-bottom: 100%;
             overflow: hidden;
-            border-radius: 4px;
             cursor: pointer;
             background: #000;
         }
-        
-        .video-item iframe {
+
+        /* Showreel Highlight */
+        #showreel {
+            grid-column: 1 / -1; /* Full width */
+            padding-bottom: 56.25%; /* 16:9 ratio */
+        }
+
+        .video-embed {
             position: absolute;
             top: 0;
             left: 0;
@@ -56,13 +88,13 @@
             height: 100%;
             border: none;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s;
         }
-        
-        .video-item:hover iframe {
+
+        .video-item:hover .video-embed {
             opacity: 1;
         }
-        
+
         /* Click-through overlay */
         .video-link {
             position: absolute;
@@ -72,42 +104,84 @@
             height: 100%;
             z-index: 2;
         }
+
+        /* Footer */
+        footer {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 20px 40px;
+            background: #fafafa;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .footer-left { text-align: left; }
+        .footer-center { text-align: center; }
+        .footer-right { text-align: right; }
+
+        footer a {
+            color: #999;
+            text-decoration: none;
+        }
+        footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
-    <!-- Portfolio Banner -->
-    <div class="portfolio-banner"></div>
-    
-    <div class="header-content">
-        <h1>Pilar Narvaez</h1>
-        <p>Motion Graphics Designer & Video Editor</p>
+    <!-- Left Index -->
+    <div class="index">
+        <h1>Pilar Narvaez Portfolio</h1>
+        <a href="#showreel" class="project-link showreel">Showreel 2024</a>
+        <a href="#nike-campaign" class="project-link">Nike Campaign</a>
+        <a href="#netflix-title" class="project-link">Netflix Titles</a>
+        <!-- Add more projects -->
     </div>
 
-    <!-- Behance Video Grid -->
-    <div class="video-grid">
-        <!-- Project 1 -->
-        <div class="video-item">
-            <iframe src="https://www.behance.net/embed/project/1234567?ilo0=1" 
-                    frameborder="0" 
-                    allowfullscreen></iframe>
-            <a href="https://www.behance.net/gallery/1234567/Project-Title" 
-               class="video-link" 
-               target="_blank"
-               aria-label="View project on Behance"></a>
+    <!-- Video Grid -->
+    <div class="content">
+        <div class="video-grid">
+            <!-- Showreel (Full-width) -->
+            <div class="video-item" id="showreel">
+                <iframe src="https://www.behance.net/embed/project/123456789?ilo0=1" 
+                        class="video-embed" 
+                        allowfullscreen></iframe>
+                <a href="https://www.behance.net/gallery/123456789" 
+                   class="video-link" 
+                   target="_blank"
+                   aria-label="View showreel on Behance"></a>
+            </div>
+
+            <!-- Project 1 -->
+            <div class="video-item" id="nike-campaign">
+                <iframe src="https://www.behance.net/embed/project/987654321?ilo0=1" 
+                        class="video-embed" 
+                        allowfullscreen></iframe>
+                <a href="https://www.behance.net/gallery/987654321" 
+                   class="video-link" 
+                   target="_blank"
+                   aria-label="View Nike campaign on Behance"></a>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="video-item" id="netflix-title">
+                <iframe src="https://www.behance.net/embed/project/567891234?ilo0=1" 
+                        class="video-embed" 
+                        allowfullscreen></iframe>
+                <a href="https://www.behance.net/gallery/567891234" 
+                   class="video-link" 
+                   target="_blank"
+                   aria-label="View Netflix titles on Behance"></a>
+            </div>
+            <!-- Add more projects -->
         </div>
-        
-        <!-- Project 2 -->
-        <div class="video-item">
-            <iframe src="https://www.behance.net/embed/project/7654321?ilo0=1" 
-                    frameborder="0" 
-                    allowfullscreen></iframe>
-            <a href="https://www.behance.net/gallery/7654321/Project-Title" 
-               class="video-link" 
-               target="_blank"
-               aria-label="View project on Behance"></a>
-        </div>
-        
-        <!-- Add more projects as needed -->
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-left">Pilar Narvaez Portfolio</div>
+        <div class="footer-center">Motion Graphics Designer & Video Editor</div>
+        <div class="footer-right"><a href="http://uk.linkedin.com/in/pilarnarvaez">LinkedIn</a></div>
+    </footer>
 </body>
 </html>
