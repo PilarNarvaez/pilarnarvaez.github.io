@@ -56,65 +56,43 @@
             opacity: 0.6;
         }
 
-        /* ===== VIDEO GRID ===== */
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .video-item {
-            position: relative;
-            overflow: hidden;
-            background: #000;
-        }
-
         /* ===== VIDEO CONTAINER ===== */
         .video-container {
             position: relative;
             width: 100%;
             padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            background: #000;
+            overflow: hidden;
         }
 
-        /* Video element - fills container */
-        .video-player {
+        video {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
         }
 
-        /* Iframe styling - Behance embeds */
-        .behance-embed {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Play button - only shows when needed */
+        /* ===== PLAY BUTTON ===== */
         .play-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
             display: flex;
             align-items: center;
             justify-content: center;
+            background: rgba(0,0,0,0.3);
             cursor: pointer;
             z-index: 2;
             transition: opacity 0.3s;
         }
 
         .play-button {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             background: rgba(255,255,255,0.2);
             border-radius: 50%;
             display: flex;
@@ -124,14 +102,10 @@
         }
 
         .play-button::after {
-            content: "";
-            display: block;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 10px 0 10px 16px;
-            border-color: transparent transparent transparent #fff;
-            margin-left: 4px;
+            content: "▶";
+            color: white;
+            font-size: 24px;
+            margin-left: 5px;
         }
 
         .play-overlay:hover .play-button {
@@ -139,7 +113,7 @@
             transform: scale(1.1);
         }
 
-        /* Hide overlay when playing */
+        /* Hide when playing */
         .playing .play-overlay {
             opacity: 0;
             pointer-events: none;
@@ -154,11 +128,21 @@
             color: #999;
             background: #fff;
             border-top: none;
+            margin-top: 40px;
         }
 
-        .footer-left { text-align: left; }
-        .footer-center { text-align: center; }
-        .footer-right { text-align: right; }
+        .footer-left { 
+            text-align: left;
+            padding-left: 0; /* Ensures proper left alignment */
+        }
+        
+        .footer-center { 
+            text-align: center;
+        }
+        
+        .footer-right { 
+            text-align: right;
+        }
 
         .footer a {
             color: #999;
@@ -167,6 +151,17 @@
 
         .footer a:hover {
             text-decoration: underline;
+        }
+
+        /* Error message styling */
+        .video-error {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            z-index: 3;
         }
     </style>
 </head>
@@ -178,98 +173,80 @@
             <div class="portfolio-title">Pilar Narvaez Portfolio</div>
             
             <ul class="project-list">
-                <li class="info-contact"><a href="mailto:pilar.narvaez@gmail.com">Info/Contact</a></li>
+                <li><a href="mailto:pilar.narvaez@gmail.com">Info/Contact</a></li>
                 <li><a href="#showreel">Showreel</a></li>
                 <li><a href="#project1">Nike Campaign</a></li>
                 <li><a href="#project2">Netflix Title Sequence</a></li>
             </ul>
         </div>
 
-        <!-- Right Column - Video Grid -->
-        <div class="video-grid">
-            <!-- Showreel -->
-            <div class="video-item" id="showreel">
-                <div class="video-container">
-                    <video class="video-player"
-                           poster="https://pilarnarvaez.github.io/videos/showreel-poster.png"
-                           preload="metadata"
-                           loop
-                           playsinline>
-                        <source src="https://pilarnarvaez.github.io/videos/showreel.mp4?cachebust=1" type="video/mp4">
-                    </video>
-                    <div class="play-overlay">
-                        <div class="play-button"></div>
-                    </div>
+        <!-- Right Column - Video -->
+        <div id="showreel" class="video-container">
+            <video poster="https://pilarnarvaez.github.io/videos/showreel-poster.png">
+                <source src="https://pilarnarvaez.github.io/videos/showreel.mp4" type="video/mp4">
+                <div class="video-error">
+                    Video failed to load. Please check the file.
                 </div>
-            </div>
-
-            <!-- Project 1 - Behance Embed -->
-            <div class="video-item" id="project1">
-                <div class="video-container">
-                    <iframe class="behance-embed" 
-                            src="https://www.behance.net/embed/project/193028185?ilo0=1"
-                            allowfullscreen></iframe>
-                    <div class="play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 2 - Behance Embed -->
-            <div class="video-item" id="project2">
-                <div class="video-container">
-                    <iframe class="behance-embed" 
-                            src="https://www.behance.net/embed/project/PROJECT-2-ID?ilo0=1"
-                            allowfullscreen></iframe>
-                    <div class="play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+            </video>
+            <div class="play-overlay">
+                <div class="play-button"></div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer with corrected alignment -->
     <div class="footer">
         <div class="footer-left">Pilar Narvaez Portfolio</div>
-        <div class="footer-center">Motion Graphics Designer & Video Editor</div>
+        <div class="footer-center">Motion graphics/video edit</div>
         <div class="footer-right"><a href="http://uk.linkedin.com/in/pilarnarvaez">LinkedIn</a></div>
     </div>
 
-    <!-- ===== VIDEO CONTROL SCRIPT ===== -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Handle HTML5 video
-            const video = document.querySelector('#showreel video');
-            const videoOverlay = document.querySelector('#showreel .play-overlay');
+            const videoContainer = document.querySelector('.video-container');
+            const video = document.querySelector('video');
+            const playOverlay = document.querySelector('.play-overlay');
             
-            // Setup video click handler
-            videoOverlay.addEventListener('click', function() {
+            // Check if video is valid
+            video.addEventListener('error', function() {
+                console.error('Video load error:', video.error);
+                const errorMsg = document.createElement('div');
+                errorMsg.className = 'video-error';
+                errorMsg.textContent = 'Video failed to load. Please check the file.';
+                videoContainer.appendChild(errorMsg);
+            });
+
+            // Click to play functionality
+            playOverlay.addEventListener('click', function() {
                 video.play()
                     .then(() => {
-                        video.parentElement.classList.add('playing');
+                        videoContainer.classList.add('playing');
                     })
                     .catch(error => {
+                        // Fallback to native controls if needed
                         video.controls = true;
-                        video.parentElement.classList.add('playing');
+                        video.play();
+                        videoContainer.classList.add('playing');
                     });
+            });
+            
+            // Also allow clicking directly on the video
+            video.addEventListener('click', function() {
+                if (video.paused) {
+                    video.play()
+                        .then(() => {
+                            videoContainer.classList.add('playing');
+                        });
+                } else {
+                    video.pause();
+                    videoContainer.classList.remove('playing');
+                }
             });
             
             // Reset when video ends
             video.addEventListener('ended', function() {
-                video.parentElement.classList.remove('playing');
+                videoContainer.classList.remove('playing');
                 video.currentTime = 0;
-            });
-
-            // Handle Behance embeds
-            document.querySelectorAll('.behance-embed').forEach(iframe => {
-                const container = iframe.closest('.video-container');
-                const overlay = container.querySelector('.play-overlay');
-                
-                overlay.addEventListener('click', function() {
-                    // Behance iframes can't be controlled directly, so we just hide overlay
-                    container.classList.add('playing');
-                });
             });
         });
     </script>
