@@ -56,7 +56,7 @@
         .video-container {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            padding-bottom: 56.25%;
             background: #000;
         }
 
@@ -132,29 +132,17 @@
             .text-column {
                 padding-right: 0;
             }
-            
-            .footer {
-                grid-template-columns: 1fr;
-                gap: 10px;
-                text-align: center;
-            }
-            
-            .footer-left,
-            .footer-center,
-            .footer-right {
-                text-align: center;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Two Column Layout (stacks on mobile) -->
+    <!-- Two Column Layout -->
     <div class="main-content">
         <!-- Left Column - Text -->
         <div class="text-column">
             <div class="portfolio-title">Pilar Narvaez Portfolio</div>
             <ul class="project-list">
-                <li><a href="mailto:pilar.narvaez@gmail.com">Info/Contact</a></li>
+                <li><a href="mailto:pilar.narvaez@gmail.com">Info / Contact</a></li>
                 <li><a href="#showreel">Showreel</a></li>
                 <li><a href="#project1">Nike Campaign</a></li>
                 <li><a href="#project2">Netflix Title Sequence</a></li>
@@ -170,7 +158,7 @@
         </div>
     </div>
 
-    <!-- Three Column Footer (stacks on mobile) -->
+    <!-- Three Column Footer -->
     <footer class="footer">
         <div class="footer-left">Pilar Narvaez Portfolio</div>
         <div class="footer-center">Motion Graphics / Video Edit</div>
@@ -182,7 +170,6 @@
             const video = document.querySelector('video');
             const playButton = document.querySelector('.play-button');
             
-            // Click to play functionality
             playButton.addEventListener('click', function() {
                 video.play().catch(() => {
                     video.controls = true;
@@ -190,7 +177,6 @@
                 });
             });
             
-            // Click video to pause/play
             video.addEventListener('click', function() {
                 video.paused ? video.play() : video.pause();
             });
