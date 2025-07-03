@@ -14,10 +14,6 @@
             background: #fff;
             line-height: 1.5;
         }
-        
-        .video-embed {
-            border: none !important;
-        }
 
         /* Main Content */
         .main-content {
@@ -84,24 +80,18 @@
 
         .video-item {
             position: relative;
-            padding-bottom: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
             overflow: hidden;
-            background: #000; /* Black background before hover */
+            background: #000;
         }
 
-        .video-embed {
+        .video-player {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border: none;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .video-item:hover .video-embed {
-            opacity: 1;
+            object-fit: cover;
         }
 
         /* Footer */
@@ -140,45 +130,36 @@
                 <li><a href="#showreel">Showreel</a></li>
                 <li><a href="#project1">Nike Campaign</a></li>
                 <li><a href="#project2">Netflix Title Sequence</a></li>
-                <!-- Add more projects as needed -->
             </ul>
         </div>
 
-        <!-- Right Column - Video Grid (updated showreel) -->
+        <!-- Right Column - Video Grid -->
         <div class="video-grid">
-            <!-- Updated Showreel with autoplay muted -->
+            <!-- Showreel -->
             <div class="video-item" id="showreel">
-                <video class="video-embed" 
-                       autoplay 
-                       muted 
+                <video class="video-player"
+                       autoplay
+                       muted
                        loop
                        playsinline
                        controls
                        poster="https://cdn.jsdelivr.net/gh/pilarnarvaez/repo@main/videos/showreel-poster.png">
                     <source src="https://cdn.jsdelivr.net/gh/pilarnarvaez/repo@main/videos/showreel.mp4" type="video/mp4">
+                    Your browser does not support HTML5 video.
                 </video>
             </div>
 
             <!-- Project 1 -->
             <div class="video-item" id="project1">
                 <iframe src="https://www.behance.net/embed/project/193028185?ilo0=1" 
-                        class="video-embed" 
                         allowfullscreen></iframe>
-                <a href="https://www.behance.net/gallery/193028185" 
-                   target="_blank" 
-                   class="video-link"></a>
             </div>
 
             <!-- Project 2 -->
             <div class="video-item" id="project2">
                 <iframe src="https://www.behance.net/embed/project/PROJECT-2-ID?ilo0=1" 
-                        class="video-embed" 
                         allowfullscreen></iframe>
-                <a href="https://www.behance.net/gallery/PROJECT-2-ID" 
-                   target="_blank" 
-                   class="video-link"></a>
             </div>
-            <!-- Add more projects as needed -->
         </div>
     </div>
 
@@ -188,5 +169,24 @@
         <div class="footer-center">Motion Graphics Designer & Video Editor</div>
         <div class="footer-right"><a href="http://uk.linkedin.com/in/pilarnarvaez">LinkedIn</a></div>
     </div>
+
+    <!-- Autoplay Fix Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.querySelector('.video-player');
+            
+            // Force autoplay on mobile
+            video.muted = true;
+            const playPromise = video.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    // Fallback: Show poster image if autoplay fails
+                    video.poster = "https://cdn.jsdelivr.net/gh/pilarnarvaez/repo@main/videos/showreel-poster.png";
+                    video.load();
+                });
+            }
+        });
+    </script>
 </body>
 </html>
