@@ -5,45 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pilar Narvaez Portfolio</title>
     <style>
-        /* ===== RESET & BASE STYLES ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        /* ===== BASE STYLES ===== */
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 40px;
             color: #333;
             background: #fff;
             line-height: 1.5;
-            padding: 40px;
-        }
-
-        /* ===== MAIN LAYOUT CONTAINER ===== */
-        .container {
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* ===== TWO-COLUMN CONTENT ===== */
-        .content-wrapper {
-            display: flex;
+        /* ===== TWO-COLUMN DESKTOP LAYOUT ===== */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
             gap: 40px;
             margin-bottom: 40px;
         }
 
+        /* ===== LEFT COLUMN ===== */
         .text-column {
-            flex: 1;
-            min-width: 250px;
+            padding-right: 20px;
         }
 
-        .video-column {
-            flex: 2;
-            min-width: 0;
-        }
-
-        /* ===== TEXT CONTENT ===== */
         .portfolio-title {
             font-size: 18px;
             font-weight: 500;
@@ -52,6 +38,8 @@
 
         .project-list {
             list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
         .project-list li {
@@ -62,10 +50,9 @@
             color: #333;
             text-decoration: none;
             font-size: 14px;
-            display: inline-block;
         }
 
-        /* ===== VIDEO PLAYER ===== */
+        /* ===== VIDEO COLUMN ===== */
         .video-container {
             position: relative;
             width: 100%;
@@ -82,21 +69,11 @@
             object-fit: contain;
         }
 
-        .play-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0,0,0,0.3);
-            cursor: pointer;
-            z-index: 2;
-        }
-
         .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 80px;
             height: 80px;
             background: rgba(255,255,255,0.2);
@@ -104,6 +81,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            z-index: 2;
         }
 
         .play-button::after {
@@ -115,27 +94,23 @@
 
         /* ===== THREE-COLUMN FOOTER ===== */
         .footer {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
             width: 100%;
-            padding: 20px 0;
             font-size: 12px;
             color: #999;
         }
 
         .footer-left {
             text-align: left;
-            flex: 1;
         }
 
         .footer-center {
             text-align: center;
-            flex: 1;
         }
 
         .footer-right {
             text-align: right;
-            flex: 1;
         }
 
         .footer a {
@@ -143,19 +118,23 @@
             text-decoration: none;
         }
 
-        /* ===== RESPONSIVE ADJUSTMENTS ===== */
+        /* ===== MOBILE RESPONSIVE ===== */
         @media (max-width: 768px) {
             body {
                 padding: 20px;
             }
             
-            .content-wrapper {
-                flex-direction: column;
+            .main-content {
+                grid-template-columns: 1fr;
                 gap: 30px;
             }
             
+            .text-column {
+                padding-right: 0;
+            }
+            
             .footer {
-                flex-direction: column;
+                grid-template-columns: 1fr;
                 gap: 10px;
                 text-align: center;
             }
@@ -169,48 +148,42 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Two Column Content -->
-        <div class="content-wrapper">
-            <!-- Left Column - Text -->
-            <div class="text-column">
-                <h1 class="portfolio-title">Pilar Narvaez Portfolio</h1>
-                <ul class="project-list">
-                    <li><a href="mailto:pilar.narvaez@gmail.com">Info/Contact</a></li>
-                    <li><a href="#showreel">Showreel</a></li>
-                    <li><a href="#project1">Nike Campaign</a></li>
-                    <li><a href="#project2">Netflix Title Sequence</a></li>
-                </ul>
-            </div>
-
-            <!-- Right Column - Video -->
-            <div class="video-column">
-                <div class="video-container">
-                    <video poster="https://pilarnarvaez.github.io/videos/showreel-poster.png">
-                        <source src="https://pilarnarvaez.github.io/videos/Showreel.mp4" type="video/mp4">
-                    </video>
-                    <div class="play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
-            </div>
+    <!-- Two Column Layout (stacks on mobile) -->
+    <div class="main-content">
+        <!-- Left Column - Text -->
+        <div class="text-column">
+            <div class="portfolio-title">Pilar Narvaez Portfolio</div>
+            <ul class="project-list">
+                <li><a href="mailto:pilar.narvaez@gmail.com">Info/Contact</a></li>
+                <li><a href="#showreel">Showreel</a></li>
+                <li><a href="#project1">Nike Campaign</a></li>
+                <li><a href="#project2">Netflix Title Sequence</a></li>
+            </ul>
         </div>
 
-        <!-- Three Column Footer -->
-        <footer class="footer">
-            <div class="footer-left">Pilar Narvaez Portfolio</div>
-            <div class="footer-center">Motion Graphics / Video Edit</div>
-            <div class="footer-right"><a href="http://uk.linkedin.com/in/pilarnarvaez">LinkedIn</a></div>
-        </footer>
+        <!-- Right Column - Video -->
+        <div class="video-container">
+            <video poster="https://pilarnarvaez.github.io/videos/showreel-poster.png">
+                <source src="https://pilarnarvaez.github.io/videos/Showreel.mp4" type="video/mp4">
+            </video>
+            <div class="play-button"></div>
+        </div>
     </div>
+
+    <!-- Three Column Footer (stacks on mobile) -->
+    <footer class="footer">
+        <div class="footer-left">Pilar Narvaez Portfolio</div>
+        <div class="footer-center">Motion Graphics / Video Edit</div>
+        <div class="footer-right"><a href="http://uk.linkedin.com/in/pilarnarvaez">LinkedIn</a></div>
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const video = document.querySelector('video');
-            const playOverlay = document.querySelector('.play-overlay');
+            const playButton = document.querySelector('.play-button');
             
             // Click to play functionality
-            playOverlay.addEventListener('click', function() {
+            playButton.addEventListener('click', function() {
                 video.play().catch(() => {
                     video.controls = true;
                     video.play();
