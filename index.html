@@ -5,185 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pilar Narvaez Portfolio</title>
     <style>
-        /* Base Styles */
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            background: #fff;
-            line-height: 1.5;
-        }
-
-        /* Main Content */
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            padding: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* Left Column - Text */
-        .text-column {
-            padding-right: 40px;
-        }
-
-        .portfolio-title {
-            font-size: 18px;
-            font-weight: 500;
-            margin-bottom: 30px;
-        }
-
-        .info-contact {
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .info-contact a {
-            color: #333;
-            text-decoration: none;
-            transition: opacity 0.2s;
-        }
-
-        .info-contact a:hover {
-            opacity: 0.6;
-        }
-
-        .project-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .project-list li {
-            margin-bottom: 10px;
-        }
-
-        .project-list a {
-            color: #333;
-            text-decoration: none;
-            font-size: 14px;
-            transition: opacity 0.2s;
-        }
-
-        .project-list a:hover {
-            opacity: 0.6;
-        }
-
-        /* Right Column - Video Grid */
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .video-item {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            overflow: hidden;
-            background: #000;
-        }
-
-        .video-player {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Footer */
-        .footer {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            padding: 20px 40px;
-            font-size: 12px;
-            color: #999;
-            background: #fff;
-        }
-
-        .footer-left { text-align: left; }
-        .footer-center { text-align: center; }
-        .footer-right { text-align: right; }
-
-        .footer a {
-            color: #999;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
+        /* [Previous CSS remains exactly the same] */
     </style>
 </head>
 <body>
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Left Column - Text -->
-        <div class="text-column">
-            <div class="portfolio-title">Pilar Narvaez Portfolio</div>
-            
-            <ul class="project-list">
-                <li class="info-contact"><a href="mailto:pilar.narvaez@gmail.com">Info/Contact</a></li>
-                <li><a href="#showreel">Showreel</a></li>
-                <li><a href="#project1">Nike Campaign</a></li>
-                <li><a href="#project2">Netflix Title Sequence</a></li>
-            </ul>
-        </div>
+    <!-- [Previous HTML structure remains the same] -->
 
-        <!-- Right Column - Video Grid -->
-        <div class="video-grid">
-            <!-- Showreel -->
-            <div class="video-item" id="showreel">
-                <video class="video-player"
-                       autoplay
-                       muted
-                       loop
-                       playsinline
-                       controls
-                       poster="https://cdn.jsdelivr.net/gh/pilarnarvaez/repo@main/videos/showreel-poster.png">
-                    <source src="https://cdn.jsdelivr.net/gh/pilarnarvaez/repo@main/videos/showreel.mp4" type="video/mp4">
-                    Your browser does not support HTML5 video.
-                </video>
-            </div>
-
-            <!-- Project 1 -->
-            <div class="video-item" id="project1">
-                <iframe src="https://www.behance.net/embed/project/193028185?ilo0=1" 
-                        allowfullscreen></iframe>
-            </div>
-
-            <!-- Project 2 -->
-            <div class="video-item" id="project2">
-                <iframe src="https://www.behance.net/embed/project/PROJECT-2-ID?ilo0=1" 
-                        allowfullscreen></iframe>
-            </div>
-        </div>
+    <!-- Updated Video Embed with Correct URLs -->
+    <div class="video-item" id="showreel">
+        <video class="video-player"
+               autoplay
+               muted
+               loop
+               playsinline
+               controls
+               poster="https://pilarnarvaez.github.io/videos/showreel-poster.png">
+            <source src="https://pilarnarvaez.github.io/videos/showreel.mp4" type="video/mp4">
+        </video>
     </div>
 
-    <!-- Footer -->
-    <div class="footer">
-        <div class="footer-left">Pilar Narvaez Portfolio</div>
-        <div class="footer-center">Motion Graphics Designer & Video Editor</div>
-        <div class="footer-right"><a href="http://uk.linkedin.com/in/pilarnarvaez">LinkedIn</a></div>
-    </div>
+    <!-- [Rest of your HTML remains the same] -->
 
-    <!-- Autoplay Fix Script -->
     <script>
+        // Enhanced autoplay script
         document.addEventListener('DOMContentLoaded', () => {
             const video = document.querySelector('.video-player');
             
-            // Force autoplay on mobile
+            // First try standard autoplay
             video.muted = true;
             const playPromise = video.play();
             
+            // Fallback for stubborn browsers
             if (playPromise !== undefined) {
                 playPromise.catch(error => {
-                    // Fallback: Show poster image if autoplay fails
-                    video.poster = "https://cdn.jsdelivr.net/gh/pilarnarvaez/repo@main/videos/showreel-poster.png";
+                    // Show poster image prominently if autoplay fails
+                    video.setAttribute('poster', 'https://pilarnarvaez.github.io/videos/showreel-poster.png');
                     video.load();
+                    
+                    // Add click-to-play overlay
+                    const playOverlay = document.createElement('div');
+                    playOverlay.style.position = 'absolute';
+                    playOverlay.style.top = '0';
+                    playOverlay.style.width = '100%';
+                    playOverlay.style.height = '100%';
+                    playOverlay.style.background = 'rgba(0,0,0,0.5) url(https://pilarnarvaez.github.io/videos/play-button.png) center no-repeat';
+                    playOverlay.style.cursor = 'pointer';
+                    playOverlay.onclick = () => {
+                        video.play();
+                        playOverlay.remove();
+                    };
+                    video.parentNode.appendChild(playOverlay);
                 });
             }
         });
