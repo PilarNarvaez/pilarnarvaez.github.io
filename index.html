@@ -124,28 +124,54 @@
         .video-page-content {
             max-width: 800px;
             margin: 0 auto;
+                 flex-direction: column;
+            align-items: center;
         }
 
         .video-page-player {
-            width: 100%;
+            width: 80%; /* Reduced from 100% */
+            max-width: 700px; /* Added maximum width */
             aspect-ratio: 16/9;
             background: #000;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
-
+    .video-page-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 10px;
+            align-self: flex-start; /* Align text to left */
+            width: 80%; /* Match video width */
+            max-width: 700px; /* Match video max-width */
+        }
         .video-page-description {
-            padding: 20px;
-            background: #f9f9f9;
+            font-size: 14px;
+            color: #333;
+            line-height: 1.5;
+            align-self: flex-start; /* Align text to left */
+            width: 80%; /* Match video width */
+            max-width: 700px; /* Match video max-width */
         }
 
-        .close-button {
+           .close-button {
             position: absolute;
             top: 20px;
             right: 20px;
             font-size: 24px;
+            color: #333;
             cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
         }
-
+   @media (max-width: 768px) {
+            .video-page-player,
+            .video-page-title,
+            .video-page-description {
+                width: 100%; /* Full width on mobile */
+            }
+        }
+        
         /* ===== FOOTER ===== */
         .footer {
             display: grid;
@@ -229,18 +255,17 @@
     <!-- Video Page Template -->
     <div id="video-page" class="video-page">
         <div class="video-page-content">
-            <span class="close-button">&times;</span>
+            <button class="close-button">&times;</button>
             <div class="video-page-player">
                 <video controls autoplay muted style="width:100%;height:100%;object-fit:contain;">
                     <source src="" type="video/mp4">
                 </video>
             </div>
-            <div class="video-page-description">
-                <h2 id="video-page-title"></h2>
-                <p id="video-page-description"></p>
-            </div>
+            <h1 class="video-page-title" id="video-page-title"></h1>
+            <p class="video-page-description" id="video-page-description"></p>
         </div>
     </div>
+
 
     <!-- Footer -->
     <footer class="footer">
