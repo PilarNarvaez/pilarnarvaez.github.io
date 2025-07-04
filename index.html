@@ -1,32 +1,385 @@
-<!-- ===== VIDEO PROJECT 1 ===== -->
-<div class="project">
-  <h2>▲ REPLACE THIS TITLE (e.g., "Tercer Restaurant Campaign")</h2>
-  <!-- 
-    HOW TO REPLACE THIS VIDEO:
-    1. UPLOAD THUMBNAIL: Save your thumbnail as 'tercer-restaurant.jpg' in the 'images' folder.
-    2. CHANGE IMAGE PATH: Update 'src="images/tercer-restaurant.jpg"' if your filename is different.
-    3. LINK TO VIDEO: Replace the 'href' with your Vimeo/YouTube link.
-  -->
-  <a href="▲ REPLACE WITH VIDEO LINK (e.g., https://vimeo.com/...)" target="_blank">
-    <img 
-      src="▲ REPLACE WITH IMAGE PATH (e.g., images/tercer-restaurant.jpg)" 
-      alt="▲ REPLACE WITH DESCRIPTION (e.g., Tercer Restaurant Showreel Thumbnail)"
-    >
-  </a>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilar Narvaez Portfolio</title>
+    <style>
+        /* ===== BASE STYLES ===== */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+            background: #fff;
+            line-height: 1.5;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-<!-- ===== VIDEO PROJECT 2 ===== -->
-<div class="project">
-  <h2>▲ REPLACE THIS TITLE (e.g., "Netflix: Title Sequence")</h2>
-  <!-- 
-    Same steps as above!
-    1. Thumbnail: Save as 'netflix-sequence.jpg' in 'images'.
-    2. Update 'src' and 'href'.
-  -->
-  <a href="▲ REPLACE WITH VIDEO LINK" target="_blank">
-    <img 
-      src="▲ REPLACE WITH IMAGE PATH (e.g., images/netflix-sequence.jpg)" 
-      alt="▲ REPLACE WITH DESCRIPTION"
-    >
-  </a>
-</div>
+        /* ===== TWO-COLUMN LAYOUT ===== */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        /* ===== LEFT COLUMN - TEXT ===== */
+        .text-column {
+            padding-right: 20px;
+        }
+
+        .portfolio-title {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 30px;
+        }
+
+        .project-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .project-list li {
+            margin-bottom: 10px;
+        }
+
+        .project-list a {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /* ===== RIGHT COLUMN - 3 VIDEO COLUMNS ===== */
+        .video-columns {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            background: #000;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            background-color: #000;
+        }
+
+        /* Play Button */
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2;
+            transition: all 0.3s;
+        }
+
+        .play-button::after {
+            content: "▶";
+            color: white;
+            font-size: 20px;
+            margin-left: 3px;
+        }
+
+        /* Fullscreen Button */
+        .fullscreen-button {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 4;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .fullscreen-button::after {
+            content: "⤢";
+            color: white;
+            font-size: 16px;
+        }
+
+        video:not([paused]) + .play-button + .fullscreen-button {
+            opacity: 1;
+        }
+
+        /* Hover Text Overlay */
+        .video-title-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 3;
+            box-sizing: border-box;
+        }
+
+        #tercer-restaurant .video-title-overlay {
+            font-size: 11px;
+            line-height: 1.3;
+        }
+
+        #showreel .video-title-overlay {
+            font-size: 14px;
+        }
+
+        .video-container:hover .video-title-overlay {
+            opacity: 1;
+        }
+
+        .video-container:hover .play-button {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Poster Image Fallback */
+        .poster-fallback {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+
+        /* Loading State */
+        .video-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            background: rgba(0,0,0,0.7);
+            z-index: 4;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            width: 100%;
+            font-size: 12px;
+            color: #999;
+            margin-top: 40px;
+        }
+
+        .footer-left { text-align: left; }
+        .footer-center { text-align: center; }
+        .footer-right { text-align: right; }
+
+        .footer a {
+            color: #999;
+            text-decoration: none;
+        }
+
+        /* ===== MOBILE RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .video-columns {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 20px; }
+            .main-content { grid-template-columns: 1fr; }
+            .text-column { padding-right: 0; margin-bottom: 30px; }
+            .video-title-overlay { 
+                font-size: 12px; 
+                padding: 8px; 
+            }
+            .fullscreen-button {
+                bottom: 10px;
+                right: 10px;
+                width: 25px;
+                height: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Two Column Layout -->
+    <div class="main-content">
+        <!-- Left Column - Text -->
+        <div class="text-column">
+            <div class="portfolio-title">Pilar Narvaez Portfolio</div>
+            <ul class="project-list">
+                <li><a href="mailto:pilar.narvaez@gmail.com">Info / Contact</a></li>
+                <li><a href="#showreel">Showreel</a></li>
+                <li><a href="#tercer-restaurant">Tercer Restaurant Campaign Social</a></li>
+                <li><a href="#netflix">Netflix Title Sequence</a></li>
+            </ul>
+        </div>
+
+        <!-- Right Column - 3 Video Columns -->
+        <div class="video-columns">
+            <!-- Showreel -->
+            <div id="showreel" class="video-container">
+                <video poster="https://pilarnarvaez.github.io/videos/showreel-poster.webp">
+                    <source src="https://pilarnarvaez.github.io/videos/Showreel.mp4" type="video/mp4">
+                </video>
+                <div class="poster-fallback" style="background-image: url('https://pilarnarvaez.github.io/videos/showreel-poster.webp')"></div>
+                <div class="play-button"></div>
+                <div class="fullscreen-button" title="Fullscreen"></div>
+                <div class="video-title-overlay">Showreel</div>
+                <div class="video-loading" style="display: none;">Loading...</div>
+            </div>
+
+            <!-- Tercer Restaurant -->
+            <div id="tercer-restaurant" class="video-container">
+                <video poster="https://pilarnarvaez.github.io/videos/tercer-poster.webp">
+                    <source src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4" type="video/mp4">
+                </video>
+                <div class="poster-fallback" style="background-image: url('https://pilarnarvaez.github.io/videos/tercer-poster.webp')"></div>
+                <div class="play-button"></div>
+                <div class="fullscreen-button" title="Fullscreen"></div>
+                <div class="video-title-overlay">Tercer Restaurant - Social Media Campaign<br><br>Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics.</div>
+                <div class="video-loading" style="display: none;">Loading...</div>
+            </div>
+
+            <!-- Netflix -->
+            <div id="netflix" class="video-container">
+                <video poster="https://pilarnarvaez.github.io/videos/netflix-poster.webp">
+                    <source src="https://pilarnarvaez.github.io/videos/Netflix-Title.mp4" type="video/mp4">
+                </video>
+                <div class="poster-fallback" style="background-image: url('https://pilarnarvaez.github.io/videos/netflix-poster.webp')"></div>
+                <div class="play-button"></div>
+                <div class="fullscreen-button" title="Fullscreen"></div>
+                <div class="video-title-overlay">Netflix - Title Sequence Design</div>
+                <div class="video-loading" style="display: none;">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-left">Pilar Narvaez Portfolio</div>
+        <div class="footer-center">Motion Graphics / Video Edit</div>
+        <div class="footer-right"><a href="http://uk.linkedin.com/in/pilarnarvaez">LinkedIn</a></div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setup all video players
+            document.querySelectorAll('.video-container').forEach(container => {
+                const video = container.querySelector('video');
+                const playButton = container.querySelector('.play-button');
+                const fullscreenButton = container.querySelector('.fullscreen-button');
+                const loadingIndicator = container.querySelector('.video-loading');
+                const posterFallback = container.querySelector('.poster-fallback');
+                
+                // Show loading state while videos load
+                video.addEventListener('waiting', function() {
+                    loadingIndicator.style.display = 'flex';
+                });
+                
+                video.addEventListener('canplay', function() {
+                    loadingIndicator.style.display = 'none';
+                    posterFallback.style.display = 'none';
+                });
+                
+                // Handle poster image fallback
+                if (video.poster) {
+                    posterFallback.style.backgroundImage = `url(${video.poster})`;
+                }
+                
+                // Toggle play/pause on button click
+                playButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (video.paused) {
+                        loadingIndicator.style.display = 'flex';
+                        video.play().catch(error => {
+                            console.error('Video play failed:', error);
+                            loadingIndicator.style.display = 'none';
+                            video.controls = true;
+                        });
+                    } else {
+                        video.pause();
+                    }
+                });
+                
+                // Toggle play/pause on video click
+                video.addEventListener('click', function() {
+                    if (video.paused) {
+                        loadingIndicator.style.display = 'flex';
+                        video.play().catch(error => {
+                            console.error('Video play failed:', error);
+                            loadingIndicator.style.display = 'none';
+                            video.controls = true;
+                        });
+                    } else {
+                        video.pause();
+                    fullscreenButton.style.opacity = '0';
+                    }
+                });
+                
+                // Fullscreen toggle
+                fullscreenButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (video.requestFullscreen) {
+                        video.requestFullscreen();
+                    } else if (video.webkitRequestFullscreen) {
+                        video.webkitRequestFullscreen();
+                    } else if (video.msRequestFullscreen) {
+                        video.msRequestFullscreen();
+                    }
+                });
+                
+                // Error handling
+                video.addEventListener('error', function() {
+                    loadingIndicator.style.display = 'none';
+                    console.error('Video error:', video.error);
+                });
+                
+                // Hide poster when video starts playing
+                video.addEventListener('play', function() {
+                    posterFallback.style.display = 'none';
+                });
+                
+                // Show poster when video ends
+                video.addEventListener('ended', function() {
+                    posterFallback.style.display = 'block';
+                    fullscreenButton.style.opacity = '0';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
