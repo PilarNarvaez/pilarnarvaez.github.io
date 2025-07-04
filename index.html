@@ -66,6 +66,7 @@
             background: #000;
             aspect-ratio: 16/9;
             overflow: hidden;
+            cursor: pointer;
         }
 
         video {
@@ -74,59 +75,6 @@
             object-fit: cover;
             display: block;
             background-color: #000;
-        }
-
-        /* Play Button */
-        .play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 2;
-            transition: all 0.3s;
-        }
-
-        .play-button::after {
-            content: "▶";
-            color: white;
-            font-size: 20px;
-            margin-left: 3px;
-        }
-
-        /* Fullscreen Button */
-        .fullscreen-button {
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
-            width: 30px;
-            height: 30px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 4;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .fullscreen-button::after {
-            content: "⤢";
-            color: white;
-            font-size: 16px;
-        }
-
-        video:not([paused]) + .play-button + .fullscreen-button {
-            opacity: 1;
         }
 
         /* Hover Text Overlay */
@@ -158,36 +106,44 @@
             opacity: 1;
         }
 
-        .video-container:hover .play-button {
-            background: rgba(255,255,255,0.3);
-        }
-
-        /* Poster Image Fallback */
-        .poster-fallback {
-            position: absolute;
+        /* ===== VIDEO PAGE STYLES ===== */
+        .video-page {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-size: cover;
-            background-position: center;
-            z-index: 1;
+            background: white;
+            z-index: 100;
+            padding: 40px;
+            box-sizing: border-box;
+            overflow-y: auto;
         }
 
-        /* Loading State */
-        .video-loading {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .video-page-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .video-page-player {
             width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 14px;
-            background: rgba(0,0,0,0.7);
-            z-index: 4;
+            aspect-ratio: 16/9;
+            background: #000;
+            margin-bottom: 20px;
+        }
+
+        .video-page-description {
+            padding: 20px;
+            background: #f9f9f9;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
         }
 
         /* ===== FOOTER ===== */
@@ -225,12 +181,6 @@
                 font-size: 12px; 
                 padding: 8px; 
             }
-            .fullscreen-button {
-                bottom: 10px;
-                right: 10px;
-                width: 25px;
-                height: 25px;
-            }
         }
     </style>
 </head>
@@ -251,39 +201,43 @@
         <!-- Right Column - 3 Video Columns -->
         <div class="video-columns">
             <!-- Showreel -->
-            <div id="showreel" class="video-container">
-                <video poster="https://pilarnarvaez.github.io/images/showreel-poster.jpg">
+            <div id="showreel" class="video-container" data-video-src="https://pilarnarvaez.github.io/videos/Showreel.mp4">
+                <video poster="https://pilarnarvaez.github.io/images/showreel-poster.jpg" muted loop>
                     <source src="https://pilarnarvaez.github.io/videos/Showreel.mp4" type="video/mp4">
                 </video>
-                <div class="poster-fallback" style="background-image: url('https://pilarnarvaez.github.io/images/showreel-poster.jpg')"></div>
-                <div class="play-button"></div>
-                <div class="fullscreen-button" title="Fullscreen"></div>
                 <div class="video-title-overlay">Showreel</div>
-                <div class="video-loading" style="display: none;">Loading...</div>
             </div>
 
             <!-- Tercer Restaurant -->
-            <div id="tercer-restaurant" class="video-container">
-                <video poster="https://pilarnarvaez.github.io/images/tercer-poster.jpg">
+            <div id="tercer-restaurant" class="video-container" data-video-src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4">
+                <video poster="https://pilarnarvaez.github.io/images/tercer-poster.jpg" muted loop>
                     <source src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4" type="video/mp4">
                 </video>
-                <div class="poster-fallback" style="background-image: url('https://pilarnarvaez.github.io/images/tercer-poster.jpg')"></div>
-                <div class="play-button"></div>
-                <div class="fullscreen-button" title="Fullscreen"></div>
                 <div class="video-title-overlay">Tercer Restaurant - Social Media Campaign<br><br>Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics.</div>
-                <div class="video-loading" style="display: none;">Loading...</div>
             </div>
 
             <!-- Netflix -->
-            <div id="netflix" class="video-container">
-                <video poster="https://pilarnarvaez.github.io/images/netflix-poster.jpg">
+            <div id="netflix" class="video-container" data-video-src="https://pilarnarvaez.github.io/videos/Netflix-Title.mp4">
+                <video poster="https://pilarnarvaez.github.io/images/netflix-poster.jpg" muted loop>
                     <source src="https://pilarnarvaez.github.io/videos/Netflix-Title.mp4" type="video/mp4">
                 </video>
-                <div class="poster-fallback" style="background-image: url('https://pilarnarvaez.github.io/images/netflix-poster.jpg')"></div>
-                <div class="play-button"></div>
-                <div class="fullscreen-button" title="Fullscreen"></div>
                 <div class="video-title-overlay">Netflix - Title Sequence Design</div>
-                <div class="video-loading" style="display: none;">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Page Template -->
+    <div id="video-page" class="video-page">
+        <div class="video-page-content">
+            <span class="close-button">&times;</span>
+            <div class="video-page-player">
+                <video controls autoplay muted style="width:100%;height:100%;object-fit:contain;">
+                    <source src="" type="video/mp4">
+                </video>
+            </div>
+            <div class="video-page-description">
+                <h2 id="video-page-title"></h2>
+                <p id="video-page-description"></p>
             </div>
         </div>
     </div>
@@ -295,99 +249,50 @@
         <div class="footer-right"><a href="http://uk.linkedin.com/in/pilarnarvaez">LinkedIn</a></div>
     </footer>
 
- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- [Keep all your existing head content exactly the same] -->
-    <!-- ... -->
-</head>
-<body>
-    <!-- [Keep all your existing HTML structure exactly the same until the script] -->
-    <!-- ... -->
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Setup all video players
+            // Hover play functionality
             document.querySelectorAll('.video-container').forEach(container => {
                 const video = container.querySelector('video');
-                const playButton = container.querySelector('.play-button');
-                const fullscreenButton = container.querySelector('.fullscreen-button');
-                const loadingIndicator = container.querySelector('.video-loading');
-                const posterFallback = container.querySelector('.poster-fallback');
                 
-                // Initialize video state
-                let isVideoEnded = false;
-                
-                // Show loading state only when buffering
-                video.addEventListener('waiting', function() {
-                    if (!video.paused) {
-                        loadingIndicator.style.display = 'flex';
-                    }
+                // Play on hover
+                container.addEventListener('mouseenter', function() {
+                    video.play().catch(e => console.log("Autoplay prevented:", e));
                 });
                 
-                video.addEventListener('canplay', function() {
-                    loadingIndicator.style.display = 'none';
+                // Pause when not hovering
+                container.addEventListener('mouseleave', function() {
+                    video.pause();
+                    video.currentTime = 0;
                 });
                 
-                video.addEventListener('playing', function() {
-                    loadingIndicator.style.display = 'none';
-                    posterFallback.style.display = 'none';
-                    isVideoEnded = false;
+                // Click to open video page
+                container.addEventListener('click', function() {
+                    const videoPage = document.getElementById('video-page');
+                    const videoPlayer = videoPage.querySelector('video');
+                    const videoTitle = videoPage.querySelector('#video-page-title');
+                    const videoDescription = videoPage.querySelector('#video-page-description');
+                    const overlayText = container.querySelector('.video-title-overlay').textContent;
+                    
+                    // Split title and description
+                    const parts = overlayText.split('\n\n');
+                    
+                    videoPlayer.src = container.dataset.videoSrc;
+                    videoTitle.textContent = parts[0];
+                    videoDescription.textContent = parts[1] || '';
+                    
+                    videoPage.style.display = 'block';
+                    videoPlayer.play();
                 });
+            });
+            
+            // Close video page
+            document.querySelector('.close-button').addEventListener('click', function() {
+                const videoPage = document.getElementById('video-page');
+                const videoPlayer = videoPage.querySelector('video');
                 
-                // Toggle play/pause on button click
-                playButton.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    togglePlayPause();
-                });
-                
-                // Toggle play/pause on video click
-                video.addEventListener('click', function() {
-                    togglePlayPause();
-                });
-                
-                function togglePlayPause() {
-                    if (video.paused || isVideoEnded) {
-                        loadingIndicator.style.display = 'flex';
-                        video.play().then(() => {
-                            loadingIndicator.style.display = 'none';
-                            posterFallback.style.display = 'none';
-                            isVideoEnded = false;
-                        }).catch(error => {
-                            console.error('Video play failed:', error);
-                            loadingIndicator.style.display = 'none';
-                            video.controls = true;
-                        });
-                    } else {
-                        video.pause();
-                        fullscreenButton.style.opacity = '0';
-                    }
-                }
-                
-                // Fullscreen toggle
-                fullscreenButton.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    if (video.requestFullscreen) {
-                        video.requestFullscreen();
-                    } else if (video.webkitRequestFullscreen) {
-                        video.webkitRequestFullscreen();
-                    } else if (video.msRequestFullscreen) {
-                        video.msRequestFullscreen();
-                    }
-                });
-                
-                // Error handling
-                video.addEventListener('error', function() {
-                    loadingIndicator.style.display = 'none';
-                    console.error('Video error:', video.error);
-                });
-                
-                // Show poster when video ends
-                video.addEventListener('ended', function() {
-                    posterFallback.style.display = 'block';
-                    fullscreenButton.style.opacity = '0';
-                    isVideoEnded = true;
-                });
+                videoPlayer.pause();
+                videoPage.style.display = 'none';
             });
         });
     </script>
