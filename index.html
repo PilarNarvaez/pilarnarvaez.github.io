@@ -295,6 +295,16 @@
         <div class="footer-right"><a href="http://uk.linkedin.com/in/pilarnarvaez">LinkedIn</a></div>
     </footer>
 
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- [Keep all your existing head content exactly the same] -->
+    <!-- ... -->
+</head>
+<body>
+    <!-- [Keep all your existing HTML structure exactly the same until the script] -->
+    <!-- ... -->
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Setup all video players
@@ -305,50 +315,54 @@
                 const loadingIndicator = container.querySelector('.video-loading');
                 const posterFallback = container.querySelector('.poster-fallback');
                 
-                // Show loading state while videos load
+                // Initialize video state
+                let isVideoEnded = false;
+                
+                // Show loading state only when buffering
                 video.addEventListener('waiting', function() {
-                    loadingIndicator.style.display = 'flex';
+                    if (!video.paused) {
+                        loadingIndicator.style.display = 'flex';
+                    }
                 });
                 
                 video.addEventListener('canplay', function() {
                     loadingIndicator.style.display = 'none';
-                    posterFallback.style.display = 'none';
                 });
                 
-                // Handle poster image fallback
-                if (video.poster) {
-                    posterFallback.style.backgroundImage = `url(${video.poster})`;
-                }
+                video.addEventListener('playing', function() {
+                    loadingIndicator.style.display = 'none';
+                    posterFallback.style.display = 'none';
+                    isVideoEnded = false;
+                });
                 
                 // Toggle play/pause on button click
                 playButton.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    if (video.paused) {
-                        loadingIndicator.style.display = 'flex';
-                        video.play().catch(error => {
-                            console.error('Video play failed:', error);
-                            loadingIndicator.style.display = 'none';
-                            video.controls = true;
-                        });
-                    } else {
-                        video.pause();
-                    }
+                    togglePlayPause();
                 });
                 
                 // Toggle play/pause on video click
                 video.addEventListener('click', function() {
-                    if (video.paused) {
+                    togglePlayPause();
+                });
+                
+                function togglePlayPause() {
+                    if (video.paused || isVideoEnded) {
                         loadingIndicator.style.display = 'flex';
-                        video.play().catch(error => {
+                        video.play().then(() => {
+                            loadingIndicator.style.display = 'none';
+                            posterFallback.style.display = 'none';
+                            isVideoEnded = false;
+                        }).catch(error => {
                             console.error('Video play failed:', error);
                             loadingIndicator.style.display = 'none';
                             video.controls = true;
                         });
                     } else {
                         video.pause();
-                    fullscreenButton.style.opacity = '0';
+                        fullscreenButton.style.opacity = '0';
                     }
-                });
+                }
                 
                 // Fullscreen toggle
                 fullscreenButton.addEventListener('click', function(e) {
@@ -368,15 +382,11 @@
                     console.error('Video error:', video.error);
                 });
                 
-                // Hide poster when video starts playing
-                video.addEventListener('play', function() {
-                    posterFallback.style.display = 'none';
-                });
-                
                 // Show poster when video ends
                 video.addEventListener('ended', function() {
                     posterFallback.style.display = 'block';
                     fullscreenButton.style.opacity = '0';
+                    isVideoEnded = true;
                 });
             });
         });
