@@ -180,23 +180,49 @@
         }
 
         /* ===== MOBILE RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            .video-columns {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-        }
+        /* [Keep all your existing CSS until the media queries] */
 
-        @media (max-width: 768px) {
-            body { padding: 20px; }
-            .main-content { grid-template-columns: 1fr; }
-            .text-column { padding-right: 0; margin-bottom: 30px; }
-            .video-page-player,
-            .video-page-title,
-            .video-page-description {
-                width: 100%;
-            }
+    /* Tablet View (1024px and below) */
+    @media (max-width: 1024px) {
+        .video-columns {
+            grid-template-columns: 1fr;
+            gap: 30px;
         }
+    }
+
+    /* Mobile View (768px and below) - UPDATED */
+    @media (max-width: 768px) {
+        body { 
+            padding: 20px; 
+        }
+        .main-content { 
+            grid-template-columns: 1fr; 
+        }
+        .text-column { 
+            padding-right: 0; 
+            margin-bottom: 30px; 
+        }
+        .video-page {
+            padding: 20px;
+        }
+        .video-page-player {
+            width: 100%;
+            margin-top: 60px; /* Space for back button */
+        }
+        .back-button {
+            top: 20px;
+            right: 20px;
+            z-index: 101;
+        }
+        .video-page-title,
+        .video-page-description {
+            width: 100%;
+        }
+        .video-title-overlay { 
+            font-size: 12px; 
+            padding: 8px; 
+        }
+    }
     </style>
 </head>
 <body>
