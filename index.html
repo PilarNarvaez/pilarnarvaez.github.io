@@ -313,7 +313,7 @@
                 <li class="spacer">&nbsp;</li>
                 <li><a href="#showreel">Showreel</a></li>
                 <li><a href="#tercer-campaign">Tercer Campaign</a></li>
-                <li><a href="#scb-facebook">SCB Facebook</a></li>
+                <li><a href="#supercar-blondie">Supercar Blondie Facebook</a></li>
                 <li><a href="#fire-walk-with-me">Fire Walk With Me</a></li>
                 <li><a href="#menopause-campaign">Menopause Campaign</a></li>
                 <li><a href="#expedia-social">Expedia Social</a></li>
@@ -349,16 +349,16 @@
                 <div class="video-title-overlay">Tercer Campaign</div>
             </div>
 
-            <!-- Netflix -->
-            <div id="netflix" class="video-container" 
-                 data-video-src="https://pilarnarvaez.github.io/videos/Netflix-Title.mp4"
-                 data-title="Netflix Title Sequence"
-                 data-description="Title sequence design for Netflix project">
-                <video poster="https://pilarnarvaez.github.io/images/netflix-poster.jpg" muted loop>
-                    <source src="https://pilarnarvaez.github.io/videos/Netflix-Title.mp4" type="video/mp4">
-                </video>
-                <div class="video-title-overlay">Netflix</div>
-            </div>
+       <!-- Supercar Blondie Facebook Video -->
+<div id="supercar-blondie" class="video-container" 
+     data-video-src="https://pilarnarvaez.github.io/videos/Super-Car-Blondie-Facebook.mp4"
+     data-title="Social Media videos for Supercar Blondie"
+     data-description="Vertical (1080x1920) social media content for Supercar Blondie's Facebook featuring luxury car showcases">
+    <video poster="https://pilarnarvaez.github.io/images/super-car-blondie-facebook-poster.jpg" muted loop>
+        <source src="https://pilarnarvaez.github.io/videos/Super-Car-Blondie-Facebook.mp4" type="video/mp4">
+    </video>
+    <div class="video-title-overlay">Supercar Blondie</div>
+</div>
         </div>
     </div>
 
@@ -366,7 +366,7 @@
     <ul class="mobile-project-list">
         <li><a href="#showreel">Showreel</a></li>
         <li><a href="#tercer-campaign">Tercer Campaign</a></li>
-        <li><a href="#scb-facebook">SCB Facebook</a></li>
+        <li><a href="#supercar-blondie">Supercar Blondie Facebook</a></li>
         <li><a href="#fire-walk-with-me">Fire Walk With Me</a></li>
         <li><a href="#menopause-campaign">Menopause Campaign</a></li>
         <li><a href="#expedia-social">Expedia Social</a></li>
@@ -398,48 +398,58 @@
         <div class="footer-right"><a href="http://uk.linkedin.com/in/pilarnarvaez">LinkedIn</a></div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Hover play functionality
-            document.querySelectorAll('.video-container').forEach(container => {
-                const video = container.querySelector('video');
-                
-                // Play on hover
-                container.addEventListener('mouseenter', function() {
-                    video.play().catch(e => console.log("Autoplay prevented:", e));
-                });
-                
-                // Pause when not hovering
-                container.addEventListener('mouseleave', function() {
-                    video.pause();
-                    video.currentTime = 0;
-                });
-                
-                // Click to open video page
-                container.addEventListener('click', function() {
-                    const videoPage = document.getElementById('video-page');
-                    const videoPlayer = videoPage.querySelector('video');
-                    const videoTitle = videoPage.querySelector('#video-page-title');
-                    const videoDescription = videoPage.querySelector('#video-page-description');
-                    
-                    // Set content
-                    videoPlayer.src = this.dataset.videoSrc;
-                    videoTitle.textContent = this.dataset.title;
-                    videoDescription.textContent = this.dataset.description;
-                    
-                    videoPage.style.display = 'block';
-                    videoPlayer.play().catch(e => console.log("Autoplay prevented:", e));
-                });
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Video descriptions
+        const videoDescriptions = {
+            'showreel': 'A selection of my last video edit and Motion graphics works.',
+            'tercer-campaign': 'Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics.',
+            'supercar-blondie': 'Vertical (1080x1920) social media content for Supercar Blondie\'s Facebook featuring luxury car showcases'
+        };
+
+        // Hover play functionality
+        document.querySelectorAll('.video-container').forEach(container => {
+            const video = container.querySelector('video');
+            
+            // Play on hover
+            container.addEventListener('mouseenter', function() {
+                video.play().catch(e => console.log("Autoplay prevented:", e));
             });
             
-            // Back button
-            document.querySelector('.back-button').addEventListener('click', function() {
+            // Pause when not hovering
+            container.addEventListener('mouseleave', function() {
+                video.pause();
+                video.currentTime = 0;
+            });
+            
+            // Click to open video page
+            container.addEventListener('click', function() {
                 const videoPage = document.getElementById('video-page');
                 const videoPlayer = videoPage.querySelector('video');
-                videoPlayer.pause();
-                videoPage.style.display = 'none';
+                const videoTitle = videoPage.querySelector('#video-page-title');
+                const videoDescription = videoPage.querySelector('#video-page-description');
+                
+                // Set content
+                videoPlayer.src = this.dataset.videoSrc;
+                videoTitle.textContent = this.dataset.title;
+                
+                // Use description from our object if available, otherwise use data attribute
+                const videoId = this.id;
+                videoDescription.textContent = videoDescriptions[videoId] || this.dataset.description;
+                
+                videoPage.style.display = 'block';
+                videoPlayer.play().catch(e => console.log("Autoplay prevented:", e));
             });
         });
-    </script>
+        
+        // Back button
+        document.querySelector('.back-button').addEventListener('click', function() {
+            const videoPage = document.getElementById('video-page');
+            const videoPlayer = videoPage.querySelector('video');
+            videoPlayer.pause();
+            videoPage.style.display = 'none';
+        });
+    });
+</script>
 </body>
 </html>
