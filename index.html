@@ -19,11 +19,13 @@
             flex-direction: column;
             min-height: 100vh;
         }
-     /* ===== MAIN CONTENT ===== */
+
+        /* ===== MAIN CONTENT ===== */
         .content-wrapper {
             flex: 1;
             margin-bottom: 80px; /* Increased space before footer */
         }
+
         /* ===== TWO-COLUMN LAYOUT ===== */
         .main-content {
             display: grid;
@@ -51,6 +53,12 @@
 
         .project-list li {
             margin-bottom: 10px;
+        }
+
+        /* Larger font for About and Contact */
+        .project-list li.emphasis a {
+            font-size: 16px;
+            font-weight: 500;
         }
 
         .project-list a {
@@ -173,7 +181,7 @@
             font-family: 'Helvetica Neue', Arial, sans-serif;
         }
 
-           /* ===== FOOTER ===== */
+        /* ===== FOOTER ===== */
         .footer {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -182,7 +190,6 @@
             color: #999;
             margin-top: 80px; /* Increased space from content */
             padding-top: 20px;
-            border-top: 1px solid #eee;
         }
 
         .footer-left { text-align: left; }
@@ -233,25 +240,25 @@
     <!-- Two Column Layout -->
     <div class="main-content">
         <!-- Left Column - Text -->
- <div class="text-column">
-                <div class="portfolio-title">Pilar Narvaez Portfolio</div>
-                <ul class="project-list">
-                    <li class="emphasis"><a href="#about">About</a></li>
-                    <li class="emphasis"><a href="#contact">Contact</a></li>
-                    <li class="spacer">&nbsp;</li>
-                    <li><a href="#showreel">Showreel</a></li>
-                    <li><a href="#tercer-campaign">Tercer Campaign</a></li>
-                    <li><a href="#scb-facebook">SCB Facebook</a></li>
-                    <li><a href="#fire-walk-with-me">Fire Walk With Me</a></li>
-                    <li><a href="#menopause-campaign">Menopause Campaign</a></li>
-                    <li><a href="#expedia-social">Expedia Social</a></li>
-                    <li><a href="#pepsi-max">Pepsi Max Creamfields Festival</a></li>
-                    <li><a href="#i-am-groot">I Am Groot Twitter</a></li>
-                    <li><a href="#just-eat">Just Eat Adaptations</a></li>
-                    <li><a href="#social-media-videos">Social Media Videos</a></li>
-                    <li><a href="#kings-league">Kings League Twitch</a></li>
-                </ul>
-            </div>
+        <div class="text-column">
+            <div class="portfolio-title">Pilar Narvaez Portfolio</div>
+            <ul class="project-list">
+                <li class="emphasis"><a href="#about">About</a></li>
+                <li class="emphasis"><a href="#contact">Contact</a></li>
+                <li class="spacer">&nbsp;</li>
+                <li><a href="#showreel">Showreel</a></li>
+                <li><a href="#tercer-campaign">Tercer Campaign</a></li>
+                <li><a href="#scb-facebook">SCB Facebook</a></li>
+                <li><a href="#fire-walk-with-me">Fire Walk With Me</a></li>
+                <li><a href="#menopause-campaign">Menopause Campaign</a></li>
+                <li><a href="#expedia-social">Expedia Social</a></li>
+                <li><a href="#pepsi-max">Pepsi Max Creamfields Festival</a></li>
+                <li><a href="#i-am-groot">I Am Groot Twitter</a></li>
+                <li><a href="#just-eat">Just Eat Adaptations</a></li>
+                <li><a href="#social-media-videos">Social Media Videos</a></li>
+                <li><a href="#kings-league">Kings League Twitch</a></li>
+            </ul>
+        </div>
 
         <!-- Right Column - 3 Video Columns -->
         <div class="video-columns">
