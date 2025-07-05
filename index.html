@@ -15,8 +15,15 @@
             line-height: 1.5;
             max-width: 1400px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
-
+     /* ===== MAIN CONTENT ===== */
+        .content-wrapper {
+            flex: 1;
+            margin-bottom: 80px; /* Increased space before footer */
+        }
         /* ===== TWO-COLUMN LAYOUT ===== */
         .main-content {
             display: grid;
@@ -166,14 +173,16 @@
             font-family: 'Helvetica Neue', Arial, sans-serif;
         }
 
-        /* ===== FOOTER ===== */
+           /* ===== FOOTER ===== */
         .footer {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             width: 100%;
             font-size: 12px;
             color: #999;
-            margin-top: 40px;
+            margin-top: 80px; /* Increased space from content */
+            padding-top: 20px;
+            border-top: 1px solid #eee;
         }
 
         .footer-left { text-align: left; }
@@ -224,42 +233,25 @@
     <!-- Two Column Layout -->
     <div class="main-content">
         <!-- Left Column - Text -->
-        <div class="text-column">
-            <div class="portfolio-title">Pilar Narvaez Portfolio</div>
-            <ul class="project-list">
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li class="spacer">&nbsp;</li>
-                <li><a href="#showreel">Showreel</a></li>
-                <li><a href="#tercer-campaign">Tercer Campaign</a></li>
-                <li><a href="#scb-facebook">SCB Facebook</a></li>
-                <li><a href="#fire-walk-with-me">Fire Walk With Me</a></li>
-                <li><a href="#menopause-campaign">Menopause Campaign</a></li>
-                <li><a href="#expedia-social">Expedia Social</a></li>
-                <li><a href="#pepsi-max">Pepsi Max Creamfields Festival</a></li>
-                <li><a href="#i-am-groot">I Am Groot Twitter</a></li>
-                <li><a href="#just-eat">Just Eat Adaptations</a></li>
-                <li><a href="#social-media-videos">Social Media Videos</a></li>
-                <li><a href="#kings-league">Kings League Twitch</a></li>
-                <li><a href="#dries-van-noten">Dries Van Noten SS20</a></li>
-                <li><a href="#vivienne-westwood">Vivienne Westwood AW21</a></li>
-                <li><a href="#spot-lizzo">Spot Lizzo</a></li>
-                <li><a href="#uoc">UOC Corporative</a></li>
-                <li><a href="#godard">Godard Tribute</a></li>
-                <li><a href="#madrid-ruido">Madrid Es Ruido Promo</a></li>
-                <li><a href="#shoegaze">Shoegaze Event</a></li>
-                <li><a href="#tipstr">Tipstr TV Packaging design</a></li>
-                <li><a href="#adult-swim">Adult Swim Promos</a></li>
-                <li><a href="#15m-doc">15M from the Inside Documentary</a></li>
-                <li><a href="#amc">AMC Chellomedia Promos</a></li>
-                <li><a href="#soft-science">Soft Science Promo</a></li>
-                <li><a href="#tarwater">Tarwater Stone</a></li>
-                <li><a href="#cartoon-network">Cartoon Network Promo</a></li>
-                <li><a href="#nickelodeon">Nickelodeon Promo</a></li>
-                <li><a href="#nomi">Nomi Music Video</a></li>
-                <li><a href="#mashup">Mashup Videos</a></li>
-            </ul>
-        </div>
+ <div class="text-column">
+                <div class="portfolio-title">Pilar Narvaez Portfolio</div>
+                <ul class="project-list">
+                    <li class="emphasis"><a href="#about">About</a></li>
+                    <li class="emphasis"><a href="#contact">Contact</a></li>
+                    <li class="spacer">&nbsp;</li>
+                    <li><a href="#showreel">Showreel</a></li>
+                    <li><a href="#tercer-campaign">Tercer Campaign</a></li>
+                    <li><a href="#scb-facebook">SCB Facebook</a></li>
+                    <li><a href="#fire-walk-with-me">Fire Walk With Me</a></li>
+                    <li><a href="#menopause-campaign">Menopause Campaign</a></li>
+                    <li><a href="#expedia-social">Expedia Social</a></li>
+                    <li><a href="#pepsi-max">Pepsi Max Creamfields Festival</a></li>
+                    <li><a href="#i-am-groot">I Am Groot Twitter</a></li>
+                    <li><a href="#just-eat">Just Eat Adaptations</a></li>
+                    <li><a href="#social-media-videos">Social Media Videos</a></li>
+                    <li><a href="#kings-league">Kings League Twitch</a></li>
+                </ul>
+            </div>
 
         <!-- Right Column - 3 Video Columns -->
         <div class="video-columns">
