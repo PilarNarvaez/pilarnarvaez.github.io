@@ -52,6 +52,12 @@
             font-size: 14px;
         }
 
+        /* Blank line spacer */
+        .project-list li.spacer {
+            height: 1em;
+            list-style: none;
+        }
+
         /* ===== RIGHT COLUMN - 3 VIDEO COLUMNS ===== */
         .video-columns {
             display: grid;
@@ -180,61 +186,50 @@
         }
 
         /* ===== MOBILE RESPONSIVE ===== */
-        /* [Keep all your existing CSS until the media queries] */
+        @media (max-width: 1024px) {
+            .video-columns {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
 
-    /* Tablet View (1024px and below) */
-    @media (max-width: 1024px) {
-        .video-columns {
-            grid-template-columns: 1fr;
-            gap: 30px;
+        @media (max-width: 768px) {
+            body { padding: 20px; }
+            .main-content { grid-template-columns: 1fr; }
+            .text-column { padding-right: 0; margin-bottom: 30px; }
+            .video-page {
+                padding: 20px;
+            }
+            .video-page-player {
+                width: 100%;
+                margin-top: 60px;
+            }
+            .back-button {
+                top: 20px;
+                right: 20px;
+                z-index: 101;
+            }
+            .video-page-title,
+            .video-page-description {
+                width: 100%;
+            }
+            .video-title-overlay { 
+                font-size: 12px; 
+                padding: 8px; 
+            }
         }
-    }
-
-    /* Mobile View (768px and below) - UPDATED */
-    @media (max-width: 768px) {
-        body { 
-            padding: 20px; 
-        }
-        .main-content { 
-            grid-template-columns: 1fr; 
-        }
-        .text-column { 
-            padding-right: 0; 
-            margin-bottom: 30px; 
-        }
-        .video-page {
-            padding: 20px;
-        }
-        .video-page-player {
-            width: 100%;
-            margin-top: 60px; /* Space for back button */
-        }
-        .back-button {
-            top: 20px;
-            right: 20px;
-            z-index: 101;
-        }
-        .video-page-title,
-        .video-page-description {
-            width: 100%;
-        }
-        .video-title-overlay { 
-            font-size: 12px; 
-            padding: 8px; 
-        }
-    }
     </style>
 </head>
 <body>
     <!-- Two Column Layout -->
-     <div class="main-content">
+    <div class="main-content">
         <!-- Left Column - Text -->
         <div class="text-column">
             <div class="portfolio-title">Pilar Narvaez Portfolio</div>
             <ul class="project-list">
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li class="spacer">&nbsp;</li> <!-- Blank line -->
+                <li class="spacer">&nbsp;</li>
                 <li><a href="#showreel">Showreel</a></li>
                 <li><a href="#tercer-campaign">Tercer Campaign</a></li>
                 <li><a href="#scb-facebook">SCB Facebook</a></li>
@@ -266,12 +261,13 @@
             </ul>
         </div>
 
-
         <!-- Right Column - 3 Video Columns -->
         <div class="video-columns">
             <!-- Showreel -->
             <div id="showreel" class="video-container" 
-                 data-video-src="https://pilarnarvaez.github.io/videos/Showreel.mp4">
+                 data-video-src="https://pilarnarvaez.github.io/videos/Showreel.mp4"
+                 data-title="Showreel"
+                 data-description="A selection of my last video edit and Motion graphics works">
                 <video poster="https://pilarnarvaez.github.io/images/showreel-poster.jpg" muted loop>
                     <source src="https://pilarnarvaez.github.io/videos/Showreel.mp4" type="video/mp4">
                 </video>
@@ -279,17 +275,21 @@
             </div>
 
             <!-- Tercer Restaurant -->
-            <div id="tercer-restaurant" class="video-container" 
-                 data-video-src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4">
+            <div id="tercer-campaign" class="video-container" 
+                 data-video-src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4"
+                 data-title="Tercer Campaign"
+                 data-description="Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics">
                 <video poster="https://pilarnarvaez.github.io/images/tercer-poster.jpg" muted loop>
                     <source src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4" type="video/mp4">
                 </video>
-                <div class="video-title-overlay">Tercer Restaurant Campaign</div>
+                <div class="video-title-overlay">Tercer Campaign</div>
             </div>
 
             <!-- Netflix -->
             <div id="netflix" class="video-container" 
-                 data-video-src="https://pilarnarvaez.github.io/videos/Netflix-Title.mp4">
+                 data-video-src="https://pilarnarvaez.github.io/videos/Netflix-Title.mp4"
+                 data-title="Netflix Title Sequence"
+                 data-description="Title sequence design for Netflix project">
                 <video poster="https://pilarnarvaez.github.io/images/netflix-poster.jpg" muted loop>
                     <source src="https://pilarnarvaez.github.io/videos/Netflix-Title.mp4" type="video/mp4">
                 </video>
@@ -324,7 +324,7 @@
             // Video descriptions
             const videoDescriptions = {
                 'showreel': 'A selection of my last video edit and Motion graphics works.',
-                'tercer-restaurant': 'Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics.',
+                'tercer-campaign': 'Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics.',
                 'netflix': 'Title sequence design for Netflix project'
             };
 
@@ -352,8 +352,8 @@
                     
                     // Set content
                     videoPlayer.src = this.dataset.videoSrc;
-                    videoTitle.textContent = this.querySelector('.video-title-overlay').textContent;
-                    videoDescription.textContent = videoDescriptions[this.id];
+                    videoTitle.textContent = this.dataset.title;
+                    videoDescription.textContent = this.dataset.description;
                     
                     videoPage.style.display = 'block';
                     videoPlayer.play().catch(e => console.log("Autoplay prevented:", e));
