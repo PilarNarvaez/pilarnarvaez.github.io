@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pilar Narvaez Portfolio</title>
     <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
         /* ===== BASE STYLES ===== */
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -30,8 +35,9 @@
         .main-content {
             display: grid;
             grid-template-columns: 1fr 3fr;
-            gap: 40px;
+            gap: 30px;
             margin-bottom: 0px;
+                padding-bottom: 0;
         }
 
         /* ===== LEFT COLUMN - TEXT ===== */
@@ -79,7 +85,6 @@
     width: 100%;
     margin: 0; /* Remove any default margins */
     padding: 0; /* Remove any default padding */
-    box-sizing: border-box;
 }
         .video-container {
             position: relative;
@@ -293,6 +298,10 @@
         }
     </style>
 </head>
+        /* TEMPORARY DEBUG - REMOVE AFTER FIXING SPACING */
+    * {
+        outline: 1px solid red !important;
+    }
 <body>
     <!-- Title -->
     <div class="portfolio-title">Pilar Narvaez Portfolio</div>
@@ -442,11 +451,10 @@ For the social media format, visuals took priority over text. The final piece fe
 (Music placeholder: Bensound.com / License: PRF3J70PUMA2EYO6)`,
                 'pepsi-recycle': 'Video created for Wireless and Reading Festival, adaptation from the Think Different campaign.',
                 'expedia-social': 'Adaptation and localisation of Expedia (VRBO) campaign for social media.',
-                'fire-walk-with-me': 'I was deeply saddened by David Lynch’s passing, so I recreated Twin Peaks’ iconic opening as a tribute to his work. I used Xiu Xiu’s excellent Badalamenti cover, originally commissioned by the Queensland Gallery of Modern Art for their 2015 exhibition, David Lynch: Between Two Worlds.
+                'fire-walk-with-me': `I was deeply saddened by David Lynch's passing, so I recreated Twin Peaks' iconic opening as a tribute to his work. I used Xiu Xiu's excellent Badalamenti cover, originally commissioned by the Queensland Gallery of Modern Art for their 2015 exhibition, David Lynch: Between Two Worlds.
 
-Some scenes are flooded with light—an intentional reference to Fire Walk With Me—using Video Copilot’s Saber plug-in for a luminous glow. I aimed for an abstract, experimental feel, inspired by László Moholy-Nagy’s Light Space Modulator.'
-            };
-
+Some scenes are flooded with light—an intentional reference to Fire Walk With Me—using Video Copilot's Saber plug-in for a luminous glow. I aimed for an abstract, experimental feel, inspired by László Moholy-Nagy's Light Space Modulator.`
+};
             // Hover play functionality
             document.querySelectorAll('.video-container').forEach(container => {
                 const video = container.querySelector('video');
