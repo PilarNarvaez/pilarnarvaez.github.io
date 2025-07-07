@@ -10,6 +10,16 @@
     padding: 0;
     box-sizing: border-box;
 }
+        .play-icon {
+    font-size: 24px;
+    margin-top: 5px;
+    animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
         /* ===== BASE STYLES ===== */
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -488,50 +498,62 @@ For the social media format, visuals took priority over text. The final piece fe
 
 Some scenes are flooded with light—an intentional reference to Fire Walk With Me—using Video Copilot's Saber plug-in for a luminous glow. I aimed for an abstract, experimental feel, inspired by László Moholy-Nagy's Light Space Modulator.`
 };
-            // Hover play functionality
-            document.querySelectorAll('.video-container').forEach(container => {
-                const video = container.querySelector('video');
+    // Enhanced video playback functionality
+        document.querySelectorAll('.video-container').forEach(container => {
+            const video = container.querySelector('video');
+            const overlay = container.querySelector('.video-title-overlay');
+            
+            // Optimize video loading
+            video.preload = 'auto';
+            video.playsinline = true;
+            video.muted = true; // Ensure muted for autoplay
+            video.disablePictureInPicture = true;
+            
+            // Play on hover with better error handling
+            container.addEventListener('mouseenter', async function() {
+                try {
+                    video.currentTime = 0;
+                    await video.play();
+                    overlay.style.opacity = 1; // Show title during playback
+                } catch (err) {
+                    console.log('Autoplay blocked:', err);
+                    overlay.style.opacity = 1; // Show title
+                    overlay.innerHTML += '<div class="play-icon">▶</div>'; // Add play indicator
+                }
+            });
+            
+            // Reset on mouse leave
+            container.addEventListener('mouseleave', function() {
+                video.pause();
+                video.currentTime = 0;
+                overlay.style.opacity = 0;
+                overlay.querySelector('.play-icon')?.remove(); // Remove play icon if exists
+            });
+            
+            // Click handler for modal
+            container.addEventListener('click', function() {
+                const videoPage = document.getElementById('video-page');
+                const videoPlayer = videoPage.querySelector('video');
+                const videoTitle = document.getElementById('video-page-title');
+                const videoDesc = document.getElementById('video-page-description');
                 
-                // Play on hover
-                container.addEventListener('mouseenter', function() {
-                    video.play().catch(e => console.log("Autoplay prevented:", e));
-                });
+                videoPlayer.src = this.dataset.videoSrc;
+                videoTitle.textContent = this.dataset.title;
+                videoDesc.textContent = videoDescriptions[this.id] || this.dataset.description;
                 
-                // Pause when not hovering
-                // Hover play functionality
-document.querySelectorAll('.video-container').forEach(container => {
-    const video = container.querySelector('video');
-    
-    // Ensure videos are ready to play
-    video.preload = "auto";
-    video.playsinline = true;
-    
-    // Play on hover
-    container.addEventListener('mouseenter', function() {
-        video.currentTime = 0;
-        video.play().catch(e => {
-            // Fallback: Show play button if autoplay blocked
-            console.log("Autoplay prevented, showing fallback");
-            this.querySelector('.video-title-overlay').style.opacity = 1;
+                videoPage.style.display = 'block';
+                videoPlayer.play().catch(e => console.log('Modal play failed:', e));
+            });
+        });
+        
+        // Back button handler (keep your existing)
+        document.querySelector('.back-button').addEventListener('click', function() {
+            const videoPage = document.getElementById('video-page');
+            videoPage.querySelector('video').pause();
+            videoPage.style.display = 'none';
         });
     });
-    
-    // Pause when not hovering
-    container.addEventListener('mouseleave', function() {
-        video.pause();
-        video.currentTime = 0;
-    });
-    
-    // Click to open video page
-    container.addEventListener('click', function() {
-        const videoPage = document.getElementById('video-page');
-        const videoPlayer = videoPage.querySelector('video');
-        videoPlayer.src = this.dataset.videoSrc;
-        videoPlayer.load(); // Force reload
-        videoPage.style.display = 'block';
-        videoPlayer.play().catch(e => console.log("Modal play prevented:", e));
-    });
-});
+</script>
             
             // Back button
             document.querySelector('.back-button').addEventListener('click', function() {
