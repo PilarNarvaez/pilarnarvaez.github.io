@@ -74,7 +74,7 @@
 /* ===== RIGHT COLUMN - 3 VIDEO COLUMNS ===== */
 .video-columns {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 equal columns on desktop */
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     width: 100%;
 }
@@ -83,7 +83,7 @@
     position: relative;
     width: 100%;
     background: #000;
-    aspect-ratio: 16/9; /* Standard video aspect ratio */
+    aspect-ratio: 16/9;
     overflow: hidden;
     cursor: pointer;
 }
@@ -98,12 +98,43 @@ video {
 
 /* Mobile responsiveness (single column) */
 @media (max-width: 768px) {
+    .main-content {
+        display: block;
+    }
+    
     .video-columns {
-        grid-template-columns: 1fr; /* Stack videos vertically on mobile */
-        gap: 30px; /* Slightly larger gap for mobile */
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    /* Keep other mobile styles you need */
+    .text-column {
+        display: none;
+    }
+    
+    .mobile-nav-header,
+    .mobile-project-list {
+        display: block;
     }
 }
 
+/* Desktop styles */
+@media (min-width: 769px) {
+    .main-content {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        gap: 40px;
+    }
+    
+    .text-column {
+        display: block;
+    }
+    
+    .mobile-nav-header,
+    .mobile-project-list {
+        display: none;
+    }
+}
         /* Hover Text Overlay */
         .video-title-overlay {
             position: absolute;
