@@ -4,118 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pilar Narvaez Portfolio</title>
-<style>
+    <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-        
-        .play-icon {
-            font-size: 24px;
-            margin-top: 5px;
-            animation: pulse 1.5s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-        
-        /* ===== BASE STYLES ===== */
-        body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
-            margin: 0;
-            padding: 40px;
+        }
+        
+        body {
+            background-color: white;
             color: #333;
-            background: #fff;
-            line-height: 1.5;
+            line-height: 1.6;
+            padding: 40px;
             max-width: 1400px;
             margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
-
-        /* ===== MAIN CONTENT ===== */
-        .content-wrapper {
-            flex: 1;
-            margin-bottom: 0px;
-        }
-
-        /* ===== TWO-COLUMN LAYOUT ===== */
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 3fr;
-            gap: 30px;
-            margin-top: 0 !important;
-            padding-top: 0 !important;
-            padding-bottom: 0;
-        }
-
-        /* ===== LEFT COLUMN - TEXT ===== */
-        .text-column {
-            padding-right: 20px;
-        }
-
+        
         .portfolio-title {
             font-size: 18px;
             font-weight: 500;
             margin-bottom: 30px;
         }
-
+        
+        /* Main Content Grid */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 30px;
+        }
+        
+        /* Left Column - Text */
+        .text-column {
+            padding-right: 20px;
+        }
+        
         .project-list {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-
+        
         .project-list li {
             margin-bottom: 10px;
         }
-
+        
         .project-list li.emphasis a {
             font-size: 16px;
             font-weight: 500;
         }
-
+        
         .project-list a {
             color: #333;
             text-decoration: none;
             font-size: 14px;
         }
-
-        .project-list li.spacer {
-            height: 1em;
-            list-style: none;
+        
+        /* Video Grid */
+        .video-columns {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px; /* Reduced gap for tighter spacing */
+            width: 100%;
         }
-
-        /* ===== RIGHT COLUMN - VIDEO GRID ===== */
-      .video-columns {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr)); /* Ensures 3 columns */
-    gap: 10px; /* Consistent 10px spacing */
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-.video-container {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16/9; /* Fixed aspect ratio */
-    background: #000;
-    overflow: hidden;
-}
-
-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-        /* Hover Text Overlay */
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+        }
+        
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
         .video-title-overlay {
             position: absolute;
             bottom: 0;
@@ -127,16 +92,13 @@ video {
             font-size: 14px;
             opacity: 0;
             transition: opacity 0.3s;
-            z-index: 3;
-            box-sizing: border-box;
-            text-align: center;
         }
-
+        
         .video-container:hover .video-title-overlay {
             opacity: 1;
         }
-
-        /* ===== VIDEO PAGE STYLES ===== */
+        
+        /* Video Page Modal */
         .video-page {
             display: none;
             position: fixed;
@@ -147,44 +109,32 @@ video {
             background: white;
             z-index: 100;
             padding: 40px;
-            box-sizing: border-box;
         }
-
+        
         .video-page-content {
             max-width: 800px;
             margin: 0 auto;
             position: relative;
         }
-
+        
         .video-page-player {
-            width: 80%;
-            max-width: 700px;
+            width: 100%;
             aspect-ratio: 16/9;
             background: #000;
             margin: 40px auto 30px;
         }
-
+        
         .video-page-title {
             font-size: 18px;
             font-weight: 500;
-            color: #333;
             margin-bottom: 10px;
-            width: 80%;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
         }
-
+        
         .video-page-description {
             font-size: 14px;
-            color: #333;
             line-height: 1.5;
-            width: 80%;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
         }
-
+        
         .back-button {
             position: absolute;
             top: 0;
@@ -194,11 +144,9 @@ video {
             cursor: pointer;
             background: none;
             border: none;
-            padding: 10px;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
         }
-
-        /* ===== FOOTER ===== */
+        
+        /* Footer - Kept exactly as in your original */
         .footer {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -207,53 +155,36 @@ video {
             color: #999;
             margin-top: 80px;
             padding-top: 20px;
-            border-top: none;
         }
-
+        
         .footer-left { text-align: left; }
         .footer-center { text-align: center; }
         .footer-right { text-align: right; }
-
+        
         .footer a {
             color: #999;
             text-decoration: none;
         }
-
-        /* ===== MOBILE STYLES ===== */
-            @media (max-width: 768px) {
-                 .main-content {
-        display: block;
-    }
-    .text-column {
-        display: none;
-    }
-    .video-columns {
-        grid-template-columns: 1fr;
-        gap: 20px;
-
-            }
-                .mobile-nav-header {
-        display: flex;
-        gap: 20px;
-        margin-bottom: 30px;
-    }
-            .video-container {
-                padding-bottom: 56.25%; /* Maintain aspect ratio */
-            }
         
-            
-            .portfolio-title {
-                font-size: 20px;
-                margin-bottom: 15px;
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .main-content {
+                display: block;
             }
             
-
+            .text-column {
+                display: none;
+            }
             
-            .mobile-nav-header a {
-                font-size: 16px;
-                font-weight: 500;
-                color: #333;
-                text-decoration: none;
+            .video-columns {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .mobile-nav-header {
+                display: flex;
+                gap: 20px;
+                margin-bottom: 30px;
             }
             
             .mobile-project-list {
@@ -276,36 +207,14 @@ video {
             .video-page {
                 padding: 20px;
             }
-            
-            .video-page-player {
-                width: 100%;
-                margin-top: 60px;
-            }
-            
-            .back-button {
-                top: 20px;
-                right: 20px;
-                z-index: 101;
-            }
-            
-            .video-page-title,
-            .video-page-description {
-                width: 100%;
-            }
-            
-            .video-title-overlay {
-                font-size: 12px;
-                padding: 8px;
-            }
-                
-     /* ===== DESKTOP-ONLY ELEMENTS ===== */
-@media (min-width: 769px) {
-    .mobile-nav-header,
-    .mobile-project-list {
-        display: none;
-    }
-}
+        }
         
+        @media (min-width: 769px) {
+            .mobile-nav-header,
+            .mobile-project-list {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -326,7 +235,7 @@ video {
                 <li class="emphasis"><a href="#about">About</a></li>
                 <li class="emphasis"><a href="#contact">Contact</a></li>
                 <li class="spacer">&nbsp;</li>
-                 <li><a href="#showreel">Showreel</a></li>
+                <li><a href="#showreel">Showreel</a></li>
                 <li><a href="#tercer-campaign">Tercer Campaign</a></li>
                 <li><a href="#menopause-campaign">Menopause Campaign</a></li>
                 <li><a href="#pepsi-recycle">Pepsi Recycle to Win</a></li>
@@ -342,66 +251,103 @@ video {
 
         <!-- Right Column - Videos -->
         <div class="video-columns">
-            <!-- First Row -->
+            <!-- Showreel -->
             <div id="showreel" class="video-container" 
                  data-video-src="https://pilarnarvaez.github.io/videos/Showreel.mp4"
                  data-title="Showreel"
                  data-description="A selection of my last video edit and Motion graphics works">
-                <video poster="https://pilarnarvaez.github.io/images/showreel-poster.jpg" muted loop playsinline preload="metadata" disablePictureInPicture>
+                <video poster="https://pilarnarvaez.github.io/images/showreel-poster.jpg" muted loop playsinline>
                     <source src="https://pilarnarvaez.github.io/videos/Showreel.mp4" type="video/mp4">
                 </video>
                 <div class="video-title-overlay">Showreel</div>
             </div>
 
+            <!-- Tercer Campaign -->
             <div id="tercer-campaign" class="video-container" 
                  data-video-src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4"
                  data-title="Tercer Campaign"
                  data-description="Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics">
-                <video poster="https://pilarnarvaez.github.io/images/tercer-poster.jpg" muted loop playsinline preload="metadata" disablePictureInPicture>
+                <video poster="https://pilarnarvaez.github.io/images/tercer-poster.jpg" muted loop playsinline>
                     <source src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4" type="video/mp4">
                 </video>
                 <div class="video-title-overlay">Tercer Campaign</div>
             </div>
 
+            <!-- Menopause Campaign -->
             <div id="menopause-campaign" class="video-container" 
                  data-video-src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4"
                  data-title="Menopause Awareness Day"
                  data-description="Social media video for the Women's Institute in Spain, commemorating World Menopause Day">
-                <video poster="https://pilarnarvaez.github.io/images/menopause-poster.jpg" muted loop playsinline preload="metadata" disablePictureInPicture>
+                <video poster="https://pilarnarvaez.github.io/images/menopause-poster.jpg" muted loop playsinline>
                     <source src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4" type="video/mp4">
                 </video>
                 <div class="video-title-overlay">Menopause Awareness Day</div>
             </div>
             
-            <!-- Second Row -->
+            <!-- Pepsi Recycle to Win -->
             <div id="pepsi-recycle" class="video-container"
                  data-video-src="https://pilarnarvaez.github.io/videos/Pepsi-Recycle-to-Win-Reading-Festival.mp4"
                  data-title="Pepsi Recycle to Win"
                  data-description="Video created for Wireless and Reading Festival, adaptation from the Think Different campaign">
-                <video poster="https://pilarnarvaez.github.io/images/pepsi-poster.jpg" muted loop playsinline preload="metadata" disablePictureInPicture>
+                <video poster="https://pilarnarvaez.github.io/images/pepsi-poster.jpg" muted loop playsinline>
                     <source src="https://pilarnarvaez.github.io/videos/Pepsi-Recycle-to-Win-Reading-Festival.mp4" type="video/mp4">
                 </video>
                 <div class="video-title-overlay">Pepsi Recycle to Win</div>
             </div>
             
+            <!-- Expedia Social -->
             <div id="expedia-social" class="video-container"
                  data-video-src="https://pilarnarvaez.github.io/videos/Expedia-social.mp4"
                  data-title="Expedia Social"
                  data-description="Adaptation and localisation of Expedia (VRBO) campaign for social media">
-                <video poster="https://pilarnarvaez.github.io/images/expedia-poster.jpg" muted loop playsinline preload="metadata" disablePictureInPicture>
+                <video poster="https://pilarnarvaez.github.io/images/expedia-poster.jpg" muted loop playsinline>
                     <source src="https://pilarnarvaez.github.io/videos/Expedia-social.mp4" type="video/mp4">
                 </video>
                 <div class="video-title-overlay">Expedia Social</div>
             </div>
             
+            <!-- Fire Walk With Me -->
             <div id="fire-walk-with-me" class="video-container"
                  data-video-src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4"
                  data-title="Fire Walk With Me"
                  data-description="Experimental video project inspired by Twin Peaks">
-                <video poster="https://pilarnarvaez.github.io/images/fire-poster.jpg" muted loop playsinline preload="metadata" disablePictureInPicture>
+                <video poster="https://pilarnarvaez.github.io/images/fire-poster.jpg" muted loop playsinline>
                     <source src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4" type="video/mp4">
                 </video>
                 <div class="video-title-overlay">Fire Walk With Me</div>
+            </div>
+            
+            <!-- Supercar Blondie Facebook -->
+            <div id="supercar-blondie" class="video-container"
+                 data-video-src="https://pilarnarvaez.github.io/videos/Supercar-Blondie.mp4"
+                 data-title="Supercar Blondie Facebook"
+                 data-description="Social media content for Supercar Blondie's Facebook page">
+                <video poster="https://pilarnarvaez.github.io/images/supercar-poster.jpg" muted loop playsinline>
+                    <source src="https://pilarnarvaez.github.io/videos/Supercar-Blondie.mp4" type="video/mp4">
+                </video>
+                <div class="video-title-overlay">Supercar Blondie Facebook</div>
+            </div>
+            
+            <!-- I Am Groot Twitter -->
+            <div id="i-am-groot" class="video-container"
+                 data-video-src="https://pilarnarvaez.github.io/videos/I-Am-Groot.mp4"
+                 data-title="I Am Groot Twitter"
+                 data-description="Twitter video series for Marvel's I Am Groot">
+                <video poster="https://pilarnarvaez.github.io/images/groot-poster.jpg" muted loop playsinline>
+                    <source src="https://pilarnarvaez.github.io/videos/I-Am-Groot.mp4" type="video/mp4">
+                </video>
+                <div class="video-title-overlay">I Am Groot Twitter</div>
+            </div>
+            
+            <!-- Just Eat Adaptations -->
+            <div id="just-eat" class="video-container"
+                 data-video-src="https://pilarnarvaez.github.io/videos/Just-Eat.mp4"
+                 data-title="Just Eat Adaptations"
+                 data-description="Localized adaptations for Just Eat's international markets">
+                <video poster="https://pilarnarvaez.github.io/images/justeat-poster.jpg" muted loop playsinline>
+                    <source src="https://pilarnarvaez.github.io/videos/Just-Eat.mp4" type="video/mp4">
+                </video>
+                <div class="video-title-overlay">Just Eat Adaptations</div>
             </div>
         </div>
     </div>
@@ -424,9 +370,9 @@ video {
     <!-- Video Page Modal -->
     <div id="video-page" class="video-page">
         <div class="video-page-content">
-            <button class="back-button">&lt;&lt;</button>
+            <button class="back-button">&lt;&lt; Back</button>
             <div class="video-page-player">
-                <video controls autoplay muted style="width:100%;height:100%;object-fit:contain;">
+                <video controls autoplay style="width:100%;height:100%;object-fit:contain;">
                     <source src="" type="video/mp4">
                 </video>
             </div>
@@ -435,7 +381,7 @@ video {
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer - Exactly as in your original -->
     <footer class="footer">
         <div class="footer-left">Pilar Narvaez Portfolio</div>
         <div class="footer-center">Motion Graphics / Video Edit</div>
@@ -462,39 +408,25 @@ For the social media format, visuals took priority over text. The final piece fe
 Some scenes are flooded with light—an intentional reference to Fire Walk With Me—using Video Copilot's Saber plug-in for a luminous glow. I aimed for an abstract, experimental feel, inspired by László Moholy-Nagy's Light Space Modulator.`
             };
 
-            // Enhanced video playback functionality
+            // Video hover and click functionality
             document.querySelectorAll('.video-container').forEach(container => {
                 const video = container.querySelector('video');
                 const overlay = container.querySelector('.video-title-overlay');
                 
-                // Optimize video loading
-                video.preload = 'auto';
-                video.playsinline = true;
-                video.muted = true; // Ensure muted for autoplay
-                video.disablePictureInPicture = true;
-                
-                // Play on hover with better error handling
-                container.addEventListener('mouseenter', async function() {
-                    try {
-                        video.currentTime = 0;
-                        await video.play();
-                        overlay.style.opacity = 1; // Show title during playback
-                    } catch (err) {
-                        console.log('Autoplay blocked:', err);
-                        overlay.style.opacity = 1; // Show title
-                        overlay.innerHTML += '<div class="play-icon">▶</div>'; // Add play indicator
-                    }
+                // Play on hover
+                container.addEventListener('mouseenter', function() {
+                    video.play().catch(e => console.log('Autoplay prevented:', e));
+                    overlay.style.opacity = 1;
                 });
                 
-                // Reset on mouse leave
+                // Pause on mouse leave
                 container.addEventListener('mouseleave', function() {
                     video.pause();
                     video.currentTime = 0;
                     overlay.style.opacity = 0;
-                    overlay.querySelector('.play-icon')?.remove(); // Remove play icon if exists
                 });
                 
-                // Click handler for modal
+                // Click to open modal
                 container.addEventListener('click', function() {
                     const videoPage = document.getElementById('video-page');
                     const videoPlayer = videoPage.querySelector('video');
@@ -510,10 +442,11 @@ Some scenes are flooded with light—an intentional reference to Fire Walk With 
                 });
             });
             
-            // Back button handler
+            // Back button functionality
             document.querySelector('.back-button').addEventListener('click', function() {
                 const videoPage = document.getElementById('video-page');
-                videoPage.querySelector('video').pause();
+                const videoPlayer = videoPage.querySelector('video');
+                videoPlayer.pause();
                 videoPage.style.display = 'none';
             });
         });
