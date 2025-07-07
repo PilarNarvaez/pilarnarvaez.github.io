@@ -234,45 +234,39 @@ video {
 
         /* ===== MOBILE STYLES ===== */
             @media (max-width: 768px) {
-            .video-columns {
-                grid-template-columns: 1fr;
-                gap: 20px;
+                 .main-content {
+        display: block;
+    }
+    .text-column {
+        display: none;
+    }
+    .video-columns {
+        grid-template-columns: 1fr;
+        gap: 20px;
+
             }
-            
+                .mobile-nav-header {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
             .video-container {
                 padding-bottom: 56.25%; /* Maintain aspect ratio */
             }
-        }
+        
             
             .portfolio-title {
                 font-size: 20px;
                 margin-bottom: 15px;
             }
             
-            .main-content {
-                display: block;
-            }
-            
-            .text-column {
-                display: none;
-            }
-            
-            .mobile-nav-header {
-                display: flex;
-                gap: 20px;
-                margin-bottom: 30px;
-            }
+
             
             .mobile-nav-header a {
                 font-size: 16px;
                 font-weight: 500;
                 color: #333;
                 text-decoration: none;
-            }
-            
-            .video-columns {
-                grid-template-columns: 1fr;
-                gap: 30px;
             }
             
             .mobile-project-list {
@@ -316,15 +310,15 @@ video {
                 font-size: 12px;
                 padding: 8px;
             }
-        }
+                
+     /* ===== DESKTOP-ONLY ELEMENTS ===== */
+@media (min-width: 769px) {
+    .mobile-nav-header,
+    .mobile-project-list {
+        display: none;
+    }
+}
         
-        /* ===== DESKTOP-ONLY ELEMENTS ===== */
-        @media (min-width: 769px) {
-            .mobile-nav-header,
-            .mobile-project-list {
-                display: none;
-            }
-        }
     </style>
 </head>
 <body>
