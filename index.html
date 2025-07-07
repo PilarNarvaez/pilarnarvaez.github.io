@@ -71,70 +71,31 @@
             list-style: none;
         }
 
-/* ===== RIGHT COLUMN - 3 VIDEO COLUMNS ===== */
-.video-columns {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    width: 100%;
-}
+        /* ===== RIGHT COLUMN - VIDEO GRID ===== */
+        .video-columns {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
 
-.video-container {
-    position: relative;
-    width: 100%;
-    background: #000;
-    aspect-ratio: 16/9;
-    overflow: hidden;
-    cursor: pointer;
-}
+        .video-container {
+            position: relative;
+            width: 100%;
+            background: #000;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            cursor: pointer;
+        }
 
-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    background-color: #000;
-}
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            background-color: #000;
+        }
 
-/* Mobile responsiveness (single column) */
-@media (max-width: 768px) {
-    .main-content {
-        display: block;
-    }
-    
-    .video-columns {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-    
-    /* Keep other mobile styles you need */
-    .text-column {
-        display: none;
-    }
-    
-    .mobile-nav-header,
-    .mobile-project-list {
-        display: block;
-    }
-}
-
-/* Desktop styles */
-@media (min-width: 769px) {
-    .main-content {
-        display: grid;
-        grid-template-columns: 1fr 3fr;
-        gap: 40px;
-    }
-    
-    .text-column {
-        display: block;
-    }
-    
-    .mobile-nav-header,
-    .mobile-project-list {
-        display: none;
-    }
-}
         /* Hover Text Overlay */
         .video-title-overlay {
             position: absolute;
@@ -218,38 +179,46 @@ video {
             font-family: 'Helvetica Neue', Arial, sans-serif;
         }
 
- /* ===== FOOTER ===== */
-.footer {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    width: 100%;
-    font-size: 12px;
-    color: #999;
-    margin-top: 80px;
-    padding-top: 20px;
-    border-top: none; /* This removes the grey line */
-}
+        /* ===== FOOTER ===== */
+        .footer {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            width: 100%;
+            font-size: 12px;
+            color: #999;
+            margin-top: 80px;
+            padding-top: 20px;
+            border-top: none;
+        }
 
-.footer-left { text-align: left; }
-.footer-center { text-align: center; }
-.footer-right { text-align: right; }
+        .footer-left { text-align: left; }
+        .footer-center { text-align: center; }
+        .footer-right { text-align: right; }
 
-.footer a {
-    color: #999;
-    text-decoration: none;
-}
+        .footer a {
+            color: #999;
+            text-decoration: none;
+        }
+
+        /* ===== MOBILE STYLES ===== */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
             
             .portfolio-title {
                 font-size: 20px;
                 margin-bottom: 15px;
             }
             
-            /* Hide the original left column text */
+            .main-content {
+                display: block;
+            }
+            
             .text-column {
                 display: none;
             }
             
-            /* Mobile navigation header */
             .mobile-nav-header {
                 display: flex;
                 gap: 20px;
@@ -263,7 +232,11 @@ video {
                 text-decoration: none;
             }
             
-            /* Mobile project list that appears after videos */
+            .video-columns {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
             .mobile-project-list {
                 display: block;
                 list-style: none;
@@ -279,16 +252,6 @@ video {
                 color: #333;
                 text-decoration: none;
                 font-size: 14px;
-            }
-            
-            /* Video grid becomes single column */
-            .main-content {
-                display: block;
-            }
-            
-            .video-columns {
-                grid-template-columns: 1fr;
-                gap: 30px;
             }
             
             .video-page {
@@ -311,13 +274,13 @@ video {
                 width: 100%;
             }
             
-            .video-title-overlay { 
-                font-size: 12px; 
-                padding: 8px; 
+            .video-title-overlay {
+                font-size: 12px;
+                padding: 8px;
             }
         }
         
-        /* Hide mobile elements on desktop */
+        /* ===== DESKTOP-ONLY ELEMENTS ===== */
         @media (min-width: 769px) {
             .mobile-nav-header,
             .mobile-project-list {
@@ -327,18 +290,18 @@ video {
     </style>
 </head>
 <body>
-    <!-- Title (shown on both desktop and mobile) -->
+    <!-- Title -->
     <div class="portfolio-title">Pilar Narvaez Portfolio</div>
     
-    <!-- Mobile Navigation Header (hidden on desktop) -->
+    <!-- Mobile Navigation Header -->
     <div class="mobile-nav-header">
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
     </div>
 
-    <!-- Main Content Container -->
+    <!-- Main Content -->
     <div class="main-content">
-        <!-- Left Column - Text (hidden on mobile) -->
+        <!-- Left Column - Text -->
         <div class="text-column">
             <ul class="project-list">
                 <li class="emphasis"><a href="#about">About</a></li>
@@ -358,7 +321,7 @@ video {
             </ul>
         </div>
 
-        <!-- Right Column - Videos (3 columns on desktop, 1 column on mobile) -->
+        <!-- Right Column - Videos -->
         <div class="video-columns">
             <!-- Showreel -->
             <div id="showreel" class="video-container" 
@@ -382,19 +345,20 @@ video {
                 <div class="video-title-overlay">Tercer Campaign</div>
             </div>
 
-     <!-- Menopause Awareness Day -->
-        <div id="menopause-campaign" class="video-container" 
-             data-video-src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4"
-             data-title="Menopause Awareness Day"
-             data-description="Social media video for the Women's Institute in Spain, commemorating World Menopause Day">
-            <video poster="https://pilarnarvaez.github.io/images/menopause-poster.jpg" muted loop>
-                <source src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4" type="video/mp4">
-            </video>
-            <div class="video-title-overlay">Menopause Awareness Day</div>
+            <!-- Menopause Awareness Day -->
+            <div id="menopause-campaign" class="video-container" 
+                 data-video-src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4"
+                 data-title="Menopause Awareness Day"
+                 data-description="Social media video for the Women's Institute in Spain, commemorating World Menopause Day">
+                <video poster="https://pilarnarvaez.github.io/images/menopause-poster.jpg" muted loop>
+                    <source src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4" type="video/mp4">
+                </video>
+                <div class="video-title-overlay">Menopause Awareness Day</div>
+            </div>
         </div>
     </div>
         
-    <!-- Mobile Project List (hidden on desktop) -->
+    <!-- Mobile Project List -->
     <ul class="mobile-project-list">
         <li><a href="#showreel">Showreel</a></li>
         <li><a href="#tercer-campaign">Tercer Campaign</a></li>
@@ -409,7 +373,7 @@ video {
         <li><a href="#kings-league">Kings League Twitch</a></li>
     </ul>
 
-    <!-- Video Page -->
+    <!-- Video Page Modal -->
     <div id="video-page" class="video-page">
         <div class="video-page-content">
             <button class="back-button">&lt;&lt;</button>
@@ -430,65 +394,62 @@ video {
         <div class="footer-right"><a href="http://uk.linkedin.com/in/pilarnarvaez">LinkedIn</a></div>
     </footer>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Video descriptions
-        const videoDescriptions = {
-            'showreel': 'A selection of my last video edit and Motion graphics works.',
-            'tercer-campaign': 'Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics.',
-            'menopause-campaign': `Minúsculas Producciones collaborated with me on a social media video for Spain's Women's Institute, marking World Menopause Day (October 18, 2025). The goal was to spotlight menopause as a global women's health issue while encouraging broader societal awareness.
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Video descriptions
+            const videoDescriptions = {
+                'showreel': 'A selection of my last video edit and Motion graphics works.',
+                'tercer-campaign': 'Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics.',
+                'menopause-campaign': `Minúsculas Producciones collaborated with me on a social media video for Spain's Women's Institute, marking World Menopause Day (October 18, 2025). The goal was to spotlight menopause as a global women's health issue while encouraging broader societal awareness.
 
 To avoid clichés, I drew inspiration from female artists—Carmen Herrera (Cuban abstract painter) and Barbara Stauffacher Solomon (US graphic designer)—whose bold, minimalist styles shaped the video's aesthetic. In Illustrator, I adapted their geometric motifs and color palettes, animating them with clean, dynamic abstraction.
 
 For the social media format, visuals took priority over text. The final piece features two brief messages ("It is not in her head / Symptoms are real") and a closing title, unified by a grainy film-reel backdrop. The soundtrack (pending confirmation) leans playful, echoing the retro-cartoon vibe.
 
 (Music placeholder: Bensound.com / License: PRF3J70PUMA2EYO6)`
-        };
+            };
 
-        // Hover play functionality
-        document.querySelectorAll('.video-container').forEach(container => {
-            const video = container.querySelector('video');
-            
-            // Play on hover
-            container.addEventListener('mouseenter', function() {
-                video.play().catch(e => console.log("Autoplay prevented:", e));
+            // Hover play functionality
+            document.querySelectorAll('.video-container').forEach(container => {
+                const video = container.querySelector('video');
+                
+                // Play on hover
+                container.addEventListener('mouseenter', function() {
+                    video.play().catch(e => console.log("Autoplay prevented:", e));
+                });
+                
+                // Pause when not hovering
+                container.addEventListener('mouseleave', function() {
+                    video.pause();
+                    video.currentTime = 0;
+                });
+                
+                // Click to open video page
+                container.addEventListener('click', function() {
+                    const videoPage = document.getElementById('video-page');
+                    const videoPlayer = videoPage.querySelector('video');
+                    const videoTitle = videoPage.querySelector('#video-page-title');
+                    const videoDescription = videoPage.querySelector('#video-page-description');
+                    
+                    // Set content
+                    videoPlayer.src = this.dataset.videoSrc;
+                    videoTitle.textContent = this.dataset.title;
+                    const videoId = this.id;
+                    videoDescription.textContent = videoDescriptions[videoId] || this.dataset.description;
+                    
+                    videoPage.style.display = 'block';
+                    videoPlayer.play().catch(e => console.log("Autoplay prevented:", e));
+                });
             });
             
-            // Pause when not hovering
-            container.addEventListener('mouseleave', function() {
-                video.pause();
-                video.currentTime = 0;
-            });
-            
-            // Click to open video page
-            container.addEventListener('click', function() {
+            // Back button
+            document.querySelector('.back-button').addEventListener('click', function() {
                 const videoPage = document.getElementById('video-page');
                 const videoPlayer = videoPage.querySelector('video');
-                const videoTitle = videoPage.querySelector('#video-page-title');
-                const videoDescription = videoPage.querySelector('#video-page-description');
-                
-                // Set content
-                videoPlayer.src = this.dataset.videoSrc;
-                videoTitle.textContent = this.dataset.title;
-                
-                // Use description from our object if available, otherwise use data attribute
-                const videoId = this.id;
-                videoDescription.textContent = videoDescriptions[videoId] || this.dataset.description;
-                
-                videoPage.style.display = 'block';
-                videoPlayer.play().catch(e => console.log("Autoplay prevented:", e));
+                videoPlayer.pause();
+                videoPage.style.display = 'none';
             });
         });
-        
-        // Back button
-        document.querySelector('.back-button').addEventListener('click', function() {
-            const videoPage = document.getElementById('video-page');
-            const videoPlayer = videoPage.querySelector('video');
-            videoPlayer.pause();
-            videoPage.style.display = 'none';
-        });
-    });
-</script>
+    </script>
 </body>
 </html>
-
