@@ -92,15 +92,15 @@
         }
 
         /* ===== RIGHT COLUMN - VIDEO GRID ===== */
-        .video-columns {
+            .video-columns {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-auto-rows: minmax(0, 1fr);
-            gap: 10px;
+            gap: 10px; /* Uniform gap between items */
             width: 100%;
             margin: 0;
             padding: 0;
-            align-items: start;
+            grid-auto-rows: 1fr; /* Equal row heights */
+            align-items: start; /* Prevent stretching */
         }
         
         .video-container {
@@ -110,10 +110,7 @@
             aspect-ratio: 16/9;
             margin: 0;
             padding: 0;
-            overflow: hidden;
-            cursor: pointer;
         }
-
         video {
             width: 100%;
             height: 100%;
