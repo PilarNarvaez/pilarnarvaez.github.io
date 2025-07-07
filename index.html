@@ -6,20 +6,23 @@
     <title>Pilar Narvaez Portfolio</title>
     <style>
         * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         .play-icon {
-    font-size: 24px;
-    margin-top: 5px;
-    animation: pulse 1.5s infinite;
-}
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
-}
+            font-size: 24px;
+            margin-top: 5px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
         /* ===== BASE STYLES ===== */
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -89,23 +92,24 @@
         }
 
         /* ===== RIGHT COLUMN - VIDEO GRID ===== */
-.video-columns {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px; /* Equal small gap between all items */
-    width: 100%;
-    margin: 0; /* Remove any default margins */
-    padding: 0; /* Remove any default padding */
-    grid-row-gap: 10px !important;
-    grid-column-gap: 10px !important;
-}
+        .video-columns {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: minmax(0, 1fr);
+            gap: 10px;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            align-items: start;
+        }
+        
         .video-container {
             position: relative;
             width: 100%;
             background: #000;
             aspect-ratio: 16/9;
-            margin: 0 !important;
-            padding: 0 !important;
+            margin: 0;
+            padding: 0;
             overflow: hidden;
             cursor: pointer;
         }
@@ -311,10 +315,6 @@
         }
     </style>
 </head>
-        /* TEMPORARY DEBUG - REMOVE AFTER FIXING SPACING */
-    * {
-        outline: 1px solid red !important;
-    }
 <body>
     <!-- Title -->
     <div class="portfolio-title">Pilar Narvaez Portfolio</div>
@@ -354,12 +354,7 @@
                  data-video-src="https://pilarnarvaez.github.io/videos/Showreel.mp4"
                  data-title="Showreel"
                  data-description="A selection of my last video edit and Motion graphics works">
-                <video poster="https://pilarnarvaez.github.io/images/showreel-poster.jpg"     muted 
-    loop 
-    playsinline 
-    preload="metadata"
-    disablePictureInPicture
->
+                <video poster="https://pilarnarvaez.github.io/images/showreel-poster.jpg" muted loop playsinline preload="metadata" disablePictureInPicture>
                     <source src="https://pilarnarvaez.github.io/videos/Showreel.mp4" type="video/mp4">
                 </video>
                 <div class="video-title-overlay">Showreel</div>
@@ -369,12 +364,7 @@
                  data-video-src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4"
                  data-title="Tercer Campaign"
                  data-description="Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics">
-                <video poster="https://pilarnarvaez.github.io/images/tercer-poster.jpg"     muted 
-    loop 
-    playsinline 
-    preload="metadata"
-    disablePictureInPicture
->
+                <video poster="https://pilarnarvaez.github.io/images/tercer-poster.jpg" muted loop playsinline preload="metadata" disablePictureInPicture>
                     <source src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4" type="video/mp4">
                 </video>
                 <div class="video-title-overlay">Tercer Campaign</div>
@@ -384,12 +374,7 @@
                  data-video-src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4"
                  data-title="Menopause Awareness Day"
                  data-description="Social media video for the Women's Institute in Spain, commemorating World Menopause Day">
-                <video poster="https://pilarnarvaez.github.io/images/menopause-poster.jpg"     muted 
-    loop 
-    playsinline 
-    preload="metadata"
-    disablePictureInPicture
->
+                <video poster="https://pilarnarvaez.github.io/images/menopause-poster.jpg" muted loop playsinline preload="metadata" disablePictureInPicture>
                     <source src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4" type="video/mp4">
                 </video>
                 <div class="video-title-overlay">Menopause Awareness Day</div>
@@ -400,42 +385,27 @@
                  data-video-src="https://pilarnarvaez.github.io/videos/Pepsi-Recycle-to-Win-Reading-Festival.mp4"
                  data-title="Pepsi Recycle to Win"
                  data-description="Video created for Wireless and Reading Festival, adaptation from the Think Different campaign">
-                <video poster="https://pilarnarvaez.github.io/images/pepsi-poster.jpg"     muted 
-    loop 
-    playsinline 
-    preload="metadata"
-    disablePictureInPicture
->
+                <video poster="https://pilarnarvaez.github.io/images/pepsi-poster.jpg" muted loop playsinline preload="metadata" disablePictureInPicture>
                     <source src="https://pilarnarvaez.github.io/videos/Pepsi-Recycle-to-Win-Reading-Festival.mp4" type="video/mp4">
                 </video>
                 <div class="video-title-overlay">Pepsi Recycle to Win</div>
             </div>
             
-<div id="expedia-social" class="video-container"
-     data-video-src="https://pilarnarvaez.github.io/videos/Expedia-social.mp4"
-     data-title="Expedia Social"
-     data-description="Adaptation and localisation of Expedia (VRBO) campaign for social media">
-    <video poster="https://pilarnarvaez.github.io/images/expedia-poster.jpg"     muted 
-    loop 
-    playsinline 
-    preload="metadata"
-    disablePictureInPicture
->
-        <source src="https://pilarnarvaez.github.io/videos/Expedia-social.mp4" type="video/mp4">
-    </video>
-    <div class="video-title-overlay">Expedia Social</div>
-</div>
+            <div id="expedia-social" class="video-container"
+                 data-video-src="https://pilarnarvaez.github.io/videos/Expedia-social.mp4"
+                 data-title="Expedia Social"
+                 data-description="Adaptation and localisation of Expedia (VRBO) campaign for social media">
+                <video poster="https://pilarnarvaez.github.io/images/expedia-poster.jpg" muted loop playsinline preload="metadata" disablePictureInPicture>
+                    <source src="https://pilarnarvaez.github.io/videos/Expedia-social.mp4" type="video/mp4">
+                </video>
+                <div class="video-title-overlay">Expedia Social</div>
+            </div>
             
             <div id="fire-walk-with-me" class="video-container"
                  data-video-src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4"
                  data-title="Fire Walk With Me"
                  data-description="Experimental video project inspired by Twin Peaks">
-                <video poster="https://pilarnarvaez.github.io/images/fire-poster.jpg"     muted 
-    loop 
-    playsinline 
-    preload="metadata"
-    disablePictureInPicture
->
+                <video poster="https://pilarnarvaez.github.io/images/fire-poster.jpg" muted loop playsinline preload="metadata" disablePictureInPicture>
                     <source src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4" type="video/mp4">
                 </video>
                 <div class="video-title-overlay">Fire Walk With Me</div>
@@ -444,7 +414,7 @@
     </div>
         
     <!-- Mobile Project List -->
-   <ul class="mobile-project-list">
+    <ul class="mobile-project-list">
         <li><a href="#showreel">Showreel</a></li>
         <li><a href="#tercer-campaign">Tercer Campaign</a></li>
         <li><a href="#menopause-campaign">Menopause Campaign</a></li>
@@ -497,69 +467,60 @@ For the social media format, visuals took priority over text. The final piece fe
                 'fire-walk-with-me': `I was deeply saddened by David Lynch's passing, so I recreated Twin Peaks' iconic opening as a tribute to his work. I used Xiu Xiu's excellent Badalamenti cover, originally commissioned by the Queensland Gallery of Modern Art for their 2015 exhibition, David Lynch: Between Two Worlds.
 
 Some scenes are flooded with light—an intentional reference to Fire Walk With Me—using Video Copilot's Saber plug-in for a luminous glow. I aimed for an abstract, experimental feel, inspired by László Moholy-Nagy's Light Space Modulator.`
-};
-    // Enhanced video playback functionality
-        document.querySelectorAll('.video-container').forEach(container => {
-            const video = container.querySelector('video');
-            const overlay = container.querySelector('.video-title-overlay');
-            
-            // Optimize video loading
-            video.preload = 'auto';
-            video.playsinline = true;
-            video.muted = true; // Ensure muted for autoplay
-            video.disablePictureInPicture = true;
-            
-            // Play on hover with better error handling
-            container.addEventListener('mouseenter', async function() {
-                try {
+            };
+
+            // Enhanced video playback functionality
+            document.querySelectorAll('.video-container').forEach(container => {
+                const video = container.querySelector('video');
+                const overlay = container.querySelector('.video-title-overlay');
+                
+                // Optimize video loading
+                video.preload = 'auto';
+                video.playsinline = true;
+                video.muted = true; // Ensure muted for autoplay
+                video.disablePictureInPicture = true;
+                
+                // Play on hover with better error handling
+                container.addEventListener('mouseenter', async function() {
+                    try {
+                        video.currentTime = 0;
+                        await video.play();
+                        overlay.style.opacity = 1; // Show title during playback
+                    } catch (err) {
+                        console.log('Autoplay blocked:', err);
+                        overlay.style.opacity = 1; // Show title
+                        overlay.innerHTML += '<div class="play-icon">▶</div>'; // Add play indicator
+                    }
+                });
+                
+                // Reset on mouse leave
+                container.addEventListener('mouseleave', function() {
+                    video.pause();
                     video.currentTime = 0;
-                    await video.play();
-                    overlay.style.opacity = 1; // Show title during playback
-                } catch (err) {
-                    console.log('Autoplay blocked:', err);
-                    overlay.style.opacity = 1; // Show title
-                    overlay.innerHTML += '<div class="play-icon">▶</div>'; // Add play indicator
-                }
-            });
-            
-            // Reset on mouse leave
-            container.addEventListener('mouseleave', function() {
-                video.pause();
-                video.currentTime = 0;
-                overlay.style.opacity = 0;
-                overlay.querySelector('.play-icon')?.remove(); // Remove play icon if exists
-            });
-            
-            // Click handler for modal
-            container.addEventListener('click', function() {
-                const videoPage = document.getElementById('video-page');
-                const videoPlayer = videoPage.querySelector('video');
-                const videoTitle = document.getElementById('video-page-title');
-                const videoDesc = document.getElementById('video-page-description');
+                    overlay.style.opacity = 0;
+                    overlay.querySelector('.play-icon')?.remove(); // Remove play icon if exists
+                });
                 
-                videoPlayer.src = this.dataset.videoSrc;
-                videoTitle.textContent = this.dataset.title;
-                videoDesc.textContent = videoDescriptions[this.id] || this.dataset.description;
-                
-                videoPage.style.display = 'block';
-                videoPlayer.play().catch(e => console.log('Modal play failed:', e));
+                // Click handler for modal
+                container.addEventListener('click', function() {
+                    const videoPage = document.getElementById('video-page');
+                    const videoPlayer = videoPage.querySelector('video');
+                    const videoTitle = document.getElementById('video-page-title');
+                    const videoDesc = document.getElementById('video-page-description');
+                    
+                    videoPlayer.src = this.dataset.videoSrc;
+                    videoTitle.textContent = this.dataset.title;
+                    videoDesc.textContent = videoDescriptions[this.id] || this.dataset.description;
+                    
+                    videoPage.style.display = 'block';
+                    videoPlayer.play().catch(e => console.log('Modal play failed:', e));
+                });
             });
-        });
-        
-        // Back button handler (keep your existing)
-        document.querySelector('.back-button').addEventListener('click', function() {
-            const videoPage = document.getElementById('video-page');
-            videoPage.querySelector('video').pause();
-            videoPage.style.display = 'none';
-        });
-    });
-</script>
             
-            // Back button
+            // Back button handler
             document.querySelector('.back-button').addEventListener('click', function() {
                 const videoPage = document.getElementById('video-page');
-                const videoPlayer = videoPage.querySelector('video');
-                videoPlayer.pause();
+                videoPage.querySelector('video').pause();
                 videoPage.style.display = 'none';
             });
         });
