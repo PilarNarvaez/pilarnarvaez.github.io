@@ -261,9 +261,9 @@ a[href^="mailto:"]:hover {
     
     <!-- Mobile Navigation Header -->
     <div class="mobile-nav-header">
-        <a href="#about">About</a>
-        <a href="mailto:pilar.narvaez@gmail.com">Contact</a> <!-- Updated link -->
-    </div>
+   <a href="#" data-modal="about-page">About</a>
+    <a href="#" data-modal="contact-page">Contact</a>
+</div>
 
     <!-- Main Content -->
     <div class="main-content">
@@ -471,43 +471,76 @@ For the social media format, visuals took priority over text. The final piece fe
 Some scenes are flooded with light—an intentional reference to Fire Walk With Me—using Video Copilot's Saber plug-in for a luminous glow. I aimed for an abstract, experimental feel, inspired by László Moholy-Nagy's Light Space Modulator.`
             };
 
-       document.addEventListener('DOMContentLoaded', function() {
-    // 1. Video hover/click functionality (existing - keep this exactly as is)
-    document.querySelectorAll('.video-container').forEach(container => {
-        // ... your existing video code ...
-    }); // <-- Closes video-container forEach
-
-    // 2. Fixed About link functionality (NEW)
-document.querySelectorAll('[href="#about"]').forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        // First close video modal if open
-        const videoModal = document.getElementById('video-page');
-        if (videoModal.style.display === 'block') {
-            const video = videoModal.querySelector('video');
-            video.pause();
-            video.currentTime = 0;
-            videoModal.style.display = 'none';
-        }
-        // Then open about modal
-        document.getElementById('about-page').style.display = 'block';
-    });
-}); <-- Closes about-link forEach
-
-    // 3. Back button (existing - modified slightly)
-    document.querySelector('.back-button').addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelectorAll('.video-page').forEach(modal => {
-            const video = modal.querySelector('video');
-            if (video) {
+        // 1. Video hover/click functionality
+        document.querySelectorAll('.video-container').forEach(container => {
+            const video = container.querySelector('video');
+            const overlay = container.querySelector('.video-title-overlay');
+            
+            // Play on hover
+            container.addEventListener('mouseenter', function() {
+                video.play().catch(e => console.log('Autoplay prevented:', e));
+                overlay.style.opacity = 1;
+            });
+            
+            // Pause on mouse leave
+            container.addEventListener('mouseleave', function() {
                 video.pause();
                 video.currentTime = 0;
-            }
-            modal.style.display = 'none';
+                overlay.style.opacity = 0;
+            });
+            
+            // Click to open modal
+            container.addEventListener('click', function() {
+                const videoPage = document.getElementById('video-page');
+                const videoPlayer = videoPage.querySelector('video');
+                const videoTitle = document.getElementById('video-page-title');
+                const videoDesc = document.getElementById('video-page-description');
+                
+                videoPlayer.src = this.dataset.videoSrc;
+                videoTitle.textContent = this.dataset.title;
+                videoDesc.textContent = videoDescriptions[this.id] || this.dataset.description;
+                
+                videoPage.style.display = 'block';
+                videoPlayer.play().catch(e => console.log('Modal play failed:', e));
+            });
+        });
+
+        // 2. Unified modal handler for About and Contact
+        document.querySelectorAll('[data-modal]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const modalId = this.dataset.modal;
+                
+                // Close any open modals first
+                document.querySelectorAll('.video-page').forEach(modal => {
+                    const video = modal.querySelector('video');
+                    if (video) {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
+                    modal.style.display = 'none';
+                });
+                
+                // Open requested modal
+                document.getElementById(modalId).style.display = 'block';
+            });
+        });
+
+        // 3. Back button functionality
+        document.querySelectorAll('.back-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const modal = this.closest('.video-page');
+                const video = modal.querySelector('video');
+                
+                if (video) {
+                    video.pause();
+                    video.currentTime = 0;
+                }
+                modal.style.display = 'none';
+            });
         });
     });
-    
-    // NO EXTRA }); HERE - this line should not exist!
-}); // <-- THIS is the ONLY closing brace for DOMContentLoaded
+</script>
 </body>
 </html>
