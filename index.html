@@ -504,115 +504,121 @@ a:hover {
         <div class="footer-right"><a href="http://uk.linkedin.com/in/pilarnarvaez">LinkedIn</a></div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Video descriptions
-            const videoDescriptions = {
-                'showreel': 'A selection of my last video edit and Motion graphics works.',
-                'tercer-campaign': 'Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics.',
-                'menopause-campaign': `Minúsculas Producciones collaborated with me on a social media video for Spain's Women's Institute, marking World Menopause Day (October 18, 2025). The goal was to spotlight menopause as a global women's health issue while encouraging broader societal awareness.
+   <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Video descriptions
+    const videoDescriptions = {
+        'showreel': 'A selection of my last video edit and Motion graphics works.',
+        'tercer-campaign': 'Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics.',
+        'menopause-campaign': `Minúsculas Producciones collaborated with me on a social media video for Spain's Women's Institute...`,
+        'pepsi-recycle': 'Video created for Wireless and Reading Festival, adaptation from the Think Different campaign.',
+        'expedia-social': 'Adaptation and localisation of Expedia (VRBO) campaign for social media.',
+        'fire-walk-with-me': `I was deeply saddened by David Lynch's passing, so I recreated Twin Peaks' iconic opening...`
+    };
 
-To avoid clichés, I drew inspiration from female artists—Carmen Herrera (Cuban abstract painter) and Barbara Stauffacher Solomon (US graphic designer)—whose bold, minimalist styles shaped the video's aesthetic. In Illustrator, I adapted their geometric motifs and color palettes, animating them with clean, dynamic abstraction.
+    // 1. Setup video containers
+    document.querySelectorAll('.video-container').forEach(container => {
+        const video = container.querySelector('video');
+        const overlay = container.querySelector('.video-title-overlay');
+        const poster = video.getAttribute('poster');
 
-For the social media format, visuals took priority over text. The final piece features two brief messages ("It is not in her head / Symptoms are real") and a closing title, unified by a grainy film-reel backdrop. The soundtrack (pending confirmation) leans playful, echoing the retro-cartoon vibe.
-
-(Music placeholder: Bensound.com / License: PRF3J70PUMA2EYO6)`,
-                'pepsi-recycle': 'Video created for Wireless and Reading Festival, adaptation from the Think Different campaign.',
-                'expedia-social': 'Adaptation and localisation of Expedia (VRBO) campaign for social media.',
-                'fire-walk-with-me': `I was deeply saddened by David Lynch's passing, so I recreated Twin Peaks' iconic opening as a tribute to his work. I used Xiu Xiu's excellent Badalamenti cover, originally commissioned by the Queensland Gallery of Modern Art for their 2015 exhibition, David Lynch: Between Two Worlds.
-
-Some scenes are flooded with light—an intentional reference to Fire Walk With Me—using Video Copilot's Saber plug-in for a luminous glow. I aimed for an abstract, experimental feel, inspired by László Moholy-Nagy's Light Space Modulator.`
-            };
-
-        // 1. Video hover/click functionality
-  document.querySelectorAll('.video-container').forEach(container => {
-    const video = container.querySelector('video');
-    const overlay = container.querySelector('.video-title-overlay');
-    const poster = video.getAttribute('poster');
-    
-    // Play on hover
-    container.addEventListener('mouseenter', function() {
-        video.play().catch(e => console.log('Autoplay prevented:', e));
-        overlay.style.opacity = 1;
-    });
-    
-    // Pause and reset on mouse leave
-    container.addEventListener('mouseleave', function() {
-        video.pause();
-        video.currentTime = 0;
-        overlay.style.opacity = 0;
-        video.setAttribute('poster', poster);
-        video.load();
-    });
-    
-    // Click to open modal (updated with sessionStorage)
-    container.addEventListener('click', function() {
-        // Store which video was clicked (for mobile fix)
-        sessionStorage.setItem('activeVideo', this.id);
-        
-        // Your existing modal opening code
-        const videoPage = document.getElementById('video-page');
-        const videoPlayer = videoPage.querySelector('video');
-        const videoTitle = document.getElementById('video-page-title');
-        const videoDesc = document.getElementById('video-page-description');
-        
-        videoPlayer.src = this.dataset.videoSrc;
-        videoTitle.textContent = this.dataset.title;
-        videoDesc.textContent = videoDescriptions[this.id] || this.dataset.description;
-        
-        videoPage.style.display = 'block';
-        videoPlayer.play().catch(e => console.log('Modal play failed:', e));
-    });
-});
-        // 2. Unified modal handler for About and Contact
-        document.querySelectorAll('[data-modal]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const modalId = this.dataset.modal;
-                
-                // Close any open modals first
-                document.querySelectorAll('.video-page').forEach(modal => {
-                    const video = modal.querySelector('video');
-                    if (video) {
-                        video.pause();
-                        video.currentTime = 0;
-                    }
-                    modal.style.display = 'none';
-                });
-                
-                // Open requested modal
-                document.getElementById(modalId).style.display = 'block';
-            });
+        // Hover to play
+        container.addEventListener('mouseenter', () => {
+            video.play().catch(e => console.log('Hover play prevented:', e));
+            overlay.style.opacity = 1;
         });
 
-   // 3. Back button functionality
-document.querySelectorAll('.back-button').forEach(button => {
-    button.addEventListener('click', function(e) {
-        e.preventDefault();
-        const modal = this.closest('.video-page');
-        const video = modal.querySelector('video');
-        
-        if (video) {
+        // Reset on mouse leave
+        container.addEventListener('mouseleave', () => {
             video.pause();
             video.currentTime = 0;
-        }
-        
-        // Close modal
-        modal.style.display = 'none';
-        
-        // SPECIAL FIX FOR MOBILE: Restore the clicked video's poster
-        if (window.innerWidth <= 768) { // Only for mobile
-            const activeVideoId = sessionStorage.getItem('activeVideo');
-            if (activeVideoId) {
-                const originalVideo = document.getElementById(activeVideoId);
-                if (originalVideo) {
-                    const videoEl = originalVideo.querySelector('video');
-                    const poster = videoEl.getAttribute('poster');
-                    videoEl.setAttribute('poster', poster);
-                    videoEl.load();
+            overlay.style.opacity = 0;
+            video.setAttribute('poster', poster);
+            video.load();
+        });
+
+        // Click to open modal
+        container.addEventListener('click', function() {
+            const videoPage = document.getElementById('video-page');
+            const modalVideo = videoPage.querySelector('video');
+            const videoTitle = document.getElementById('video-page-title');
+            const videoDesc = document.getElementById('video-page-description');
+            
+            // Store active video ID for mobile restoration
+            sessionStorage.setItem('activeVideo', this.id);
+            
+            // Set modal content
+            modalVideo.src = this.dataset.videoSrc;
+            videoTitle.textContent = this.dataset.title;
+            videoDesc.textContent = videoDescriptions[this.id] || this.dataset.description;
+            
+            // Show and play
+            videoPage.style.display = 'block';
+            modalVideo.load();
+            modalVideo.play().catch(e => {
+                console.log('Modal autoplay failed, showing controls:', e);
+                modalVideo.controls = true;
+            });
+        });
+    });
+
+    // 2. Back button functionality
+    document.querySelectorAll('.back-button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const modal = this.closest('.video-page');
+            const video = modal.querySelector('video');
+            
+            // Reset modal video
+            if (video) {
+                video.pause();
+                video.currentTime = 0;
+                video.removeAttribute('controls');
+            }
+            
+            // Close modal
+            modal.style.display = 'none';
+            
+            // Mobile-specific restoration
+            if (window.innerWidth <= 768) {
+                const activeVideoId = sessionStorage.getItem('activeVideo');
+                if (activeVideoId) {
+                    const originalVideo = document.getElementById(activeVideoId);
+                    if (originalVideo) {
+                        const videoEl = originalVideo.querySelector('video');
+                        // Force reload of poster image
+                        videoEl.setAttribute('poster', videoEl.getAttribute('poster'));
+                        videoEl.load();
+                        
+                        // Trigger reflow to ensure display
+                        originalVideo.style.display = 'none';
+                        void originalVideo.offsetHeight; // eslint-disable-line no-void
+                        originalVideo.style.display = 'block';
+                    }
                 }
             }
-        }
+        });
+    });
+
+    // 3. Other modal handlers (About/Contact)
+    document.querySelectorAll('[data-modal]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const modalId = this.dataset.modal;
+            
+            // Close any open modals first
+            document.querySelectorAll('.video-page').forEach(modal => {
+                const video = modal.querySelector('video');
+                if (video) {
+                    video.pause();
+                    video.currentTime = 0;
+                }
+                modal.style.display = 'none';
+            });
+            
+            // Open requested modal
+            document.getElementById(modalId).style.display = 'block';
+        });
     });
 });
 </script>
