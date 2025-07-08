@@ -136,15 +136,16 @@
         }
         
         .back-button {
-            position: absolute;
-            top: 20;
-            right: 20;
+    position: fixed; /* Changed from absolute to fixed */
+            top: 20px;
+            right: 20px;
             color: #999;
-            font-size: 14px;
+            font-size: 18px;
             cursor: pointer;
             background: none;
             border: none;
             z-index: 101;
+            padding: 10px;
         }
         
         /* Footer - Kept exactly as in your original */
@@ -371,7 +372,7 @@
     <!-- Video Page Modal -->
     <div id="video-page" class="video-page">
         <div class="video-page-content">
-            <button class="back-button">&lt;&lt; Back</button>
+            <button class="back-button">&lt;&lt;</button> <!-- Removed "Back" text -->
             <div class="video-page-player">
                 <video controls autoplay style="width:100%;height:100%;object-fit:contain;">
                     <source src="" type="video/mp4">
@@ -445,11 +446,13 @@ Some scenes are flooded with light—an intentional reference to Fire Walk With 
                 });
             });
             
-            // Back button functionality
-            document.querySelector('.back-button').addEventListener('click', function() {
+            // Back button functionality - fixed
+            document.querySelector('.back-button').addEventListener('click', function(e) {
+                e.preventDefault();
                 const videoPage = document.getElementById('video-page');
                 const videoPlayer = videoPage.querySelector('video');
                 videoPlayer.pause();
+                videoPlayer.currentTime = 0;
                 videoPage.style.display = 'none';
             });
         });
