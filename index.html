@@ -256,26 +256,39 @@ a:hover {
         }
          
         
-    /* Mobile Styles */
-    @media (max-width: 768px) {
-        body {
-            padding: 30px; /* Your increased padding */
-        }
-        
-        .main-content {
-            display: block;
-        }
-        
-        /* Hide left text column only in mobile */
-        .text-column {
-            display: none;
-        }
-        
-        .video-columns {
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-        /* Style mobile header links to match desktop */
+/* Mobile Styles */
+@media (max-width: 768px) {
+    body {
+        padding: 30px;
+    }
+    
+    .main-content {
+        display: block;
+    }
+    
+    /* Hide left text column only in mobile */
+    .text-column {
+        display: none;
+    }
+    
+    .video-columns {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    /* Video Overlay Mobile Adaptations */
+    .video-title-overlay {
+        opacity: 1 !important; /* Force show on mobile */
+        height: 22px; /* Slightly smaller */
+        font-size: 11px; /* Smaller text */
+        background: rgba(70, 70, 70, 0.9); /* More opaque for readability */
+    }
+    
+    .video-container video[poster] {
+        opacity: 0.9; /* Slightly fade thumbnails */
+    }
+    
+    /* Style mobile header links to match desktop */
     .mobile-nav-header {
         display: flex;
         gap: 20px;
@@ -283,16 +296,10 @@ a:hover {
     }
     
     .mobile-nav-header a {
-        color: #333; /* Match desktop link color */
+        color: #333;
         text-decoration: none;
-        font-size: 16px; /* Match desktop "emphasis" size */
-        font-weight: 500; /* Match desktop "emphasis" weight */
-    }
-    
-    /* Video grid adjustments */
-    .video-columns {
-        grid-template-columns: 1fr;
-        gap: 20px;
+        font-size: 16px;
+        font-weight: 500;
     }
     
     /* Hide the duplicate mobile project list */
@@ -300,11 +307,10 @@ a:hover {
         display: none;
     }
     
-        
-        .video-page {
-            padding: 20px;
-        }
+    .video-page {
+        padding: 20px;
     }
+}
     
     /* Desktop Styles - Exactly as you had it */
     @media (min-width: 769px) {
