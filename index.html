@@ -207,25 +207,21 @@ a:hover {
     position: fixed;
     top: 20px;
     right: 20px;
-    width: 40px;
-    height: 40px;
-    background: none;
+    padding: 10px 15px;
+    background: #e74c3c;
     border: none;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
     cursor: pointer;
     z-index: 101;
-    overflow: hidden;
+    transition: all 0.3s ease;
 }
 
-.back-button::before {
-    content: "←";
-    position: absolute;
-    font-size: 24px;
-    color: #333;
-    transition: transform 0.3s ease;
-}
-
-.back-button:hover::before {
-    transform: translateX(-5px);
+.back-button:hover {
+    background: #c0392b;
+    box-shadow: 0 2px 10px rgba(231, 76, 60, 0.4);
 }
         /* Footer */
         .footer {
