@@ -183,18 +183,23 @@ a:hover {
         }
 
 /* ===== ADD CONTACT MODAL STYLES HERE ===== */
-    .contact-email {
-    font-size: 18px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
+ /* CONTACT EMAIL FIX (replace all previous email styles) */
+a.contact-email, 
+a.contact-email:link, 
+a.contact-email:visited {
+    color: #333 !important;
     text-decoration: none !important;
+    font-size: 16px;
+    font-family: 'Helvetica Neue', Arial, sans-serif !important;
+    transition: color 0.2s ease;
+    display: inline-block; /* Better than inline-flex for email links */
 }
 
-.email-icon {
-    font-size: 24px;
-    margin-left: 10px;
+a.contact-email:hover {
+    color: #e74c3c !important;
+    text-decoration: underline !important;
 }
+
 /* ===== END CONTACT MODAL STYLES ===== */
    .back-button {
     position: fixed;
@@ -237,10 +242,6 @@ a:hover {
             text-decoration: none;
         }
          
-/* Mailto link hover effect (applies to ALL email links) */
-a[href^="mailto:"]:hover {
-    text-decoration: underline;
-}
         
     /* Mobile Styles */
     @media (max-width: 768px) {
@@ -484,11 +485,11 @@ a[href^="mailto:"]:hover {
     <div class="video-page-content">
         <button class="back-button">&lt;&lt;</button>
         <h1 class="video-page-title">Contact</h1>
-        <p class="video-page-description">
-            <a href="mailto:pilar.narvaez@gmail.com" class="contact-email">
-                pilar.narvaez@gmail.com
-            </a>
-        </p>
+    <p class="video-page-description">
+    <a href="mailto:pilar.narvaez@gmail.com" class="contact-email">
+        pilar.narvaez@gmail.com
+    </a>
+</p>
     </div>
 </div>
     <!-- Footer - Your existing footer stays here -->
