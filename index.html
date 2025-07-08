@@ -183,22 +183,24 @@ a:hover {
         }
 
 /* ===== ADD CONTACT MODAL STYLES HERE ===== */
- /* CONTACT EMAIL FIX (replace all previous email styles) */
-a.contact-email, 
-a.contact-email:link, 
-a.contact-email:visited {
+/* ===== CONTACT EMAIL - FINAL VERSION ===== */
+#contact-page a.contact-email,
+#contact-page a.contact-email:link,
+#contact-page a.contact-email:visited,
+#contact-page a.contact-email:hover {
     color: #333 !important;
     text-decoration: none !important;
     font-size: 16px;
     font-family: 'Helvetica Neue', Arial, sans-serif !important;
     transition: color 0.2s ease;
-    display: inline-block; /* Better than inline-flex for email links */
+    display: inline-block;
 }
 
-a.contact-email:hover {
+#contact-page a.contact-email:hover {
     color: #e74c3c !important;
     text-decoration: underline !important;
 }
+/* ===== END CONTACT EMAIL ===== */
 
 /* ===== END CONTACT MODAL STYLES ===== */
    .back-button {
