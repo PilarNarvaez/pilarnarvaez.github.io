@@ -528,27 +528,29 @@ Some scenes are flooded with light—an intentional reference to Fire Walk With 
   document.querySelectorAll('.video-container').forEach(container => {
     const video = container.querySelector('video');
     const overlay = container.querySelector('.video-title-overlay');
-    
-    // Store poster attribute
     const poster = video.getAttribute('poster');
-            
-         // Play on hover
+    
+    // Play on hover
     container.addEventListener('mouseenter', function() {
         video.play().catch(e => console.log('Autoplay prevented:', e));
         overlay.style.opacity = 1;
     });
-            
-         // Pause and reset on mouse leave
+    
+    // Pause and reset on mouse leave
     container.addEventListener('mouseleave', function() {
         video.pause();
         video.currentTime = 0;
         overlay.style.opacity = 0;
-        // Force show poster again
         video.setAttribute('poster', poster);
         video.load();
     });
-           // Click to open modal
+    
+    // Click to open modal (updated with sessionStorage)
     container.addEventListener('click', function() {
+        // Store which video was clicked (for mobile fix)
+        sessionStorage.setItem('activeVideo', this.id);
+        
+        // Your existing modal opening code
         const videoPage = document.getElementById('video-page');
         const videoPlayer = videoPage.querySelector('video');
         const videoTitle = document.getElementById('video-page-title');
