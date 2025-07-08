@@ -579,6 +579,7 @@ document.querySelectorAll('.video-container').forEach(container => {
 
         // Click handler (all devices)
         container.addEventListener('click', function() {
+               if (window.innerWidth <= 768) e.preventDefault();
             activeVideoId = containerId;
             const videoPage = document.getElementById('video-page');
             const modalVideo = videoPage.querySelector('video');
