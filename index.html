@@ -574,128 +574,75 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Track active video globally
     let activeVideoId = null;
-    let tapCount = 0;
-    let longPressTimer;
     let isMobile = window.innerWidth <= 768;
 
-    // 1. Enhanced Video Container Setup
+    // 1. Video container setup
     document.querySelectorAll('.video-container').forEach(container => {
         const video = container.querySelector('video');
-        const overlay = container.querySelector('.video-overlay');
+        const overlay = container.querySelector('.video-title-overlay');
         const poster = video.getAttribute('poster');
         const containerId = container.id;
 
         // Desktop Hover Handlers
-        container.addEventListener('mouseenter', () => {
-            if (isMobile) return;
-            video.play().catch(e => console.log('Hover play:', e));
-            overlay.style.opacity = '1';
-        });
+        if (!isMobile) {
+            container.addEventListener('mouseenter', () => {
+                video.play().catch(e => console.log('Hover play:', e));
+                overlay.style.opacity = '1';
+            });
 
-        container.addEventListener('mouseleave', () => {
-            if (isMobile) return;
-            video.pause();
-            video.currentTime = 0;
-            container.classList.remove('active');
-            overlay.style.opacity = '0';
-            video.setAttribute('poster', poster);
-            video.load();
-        });
+            container.addEventListener('mouseleave', () => {
+                video.pause();
+                video.currentTime = 0;
+                overlay.style.opacity = '0';
+                video.setAttribute('poster', poster);
+                video.load();
+            });
+        }
 
         // Click handler (all devices)
         container.addEventListener('click', function(e) {
-            if (isMobile && tapCount < 2) return;
-            e.preventDefault();
-            activeVideoId = containerId;
+            // On mobile, we want to handle play/pause on single tap
+            // and only open modal on double tap
+            if (isMobile) {
+                e.preventDefault();
+                return;
+            }
+            
             openVideoModal(this);
         });
 
         // Mobile Touch Handlers
-        container.addEventListener('touchstart', (e) => {
-            if (!isMobile) return;
-            if (container.classList.contains('active')) return;
+        if (isMobile) {
+            let tapCount = 0;
+            let tapTimer = null;
             
-            tapCount++;
-            setTimeout(() => { tapCount = 0 }, 300);
-            
-            longPressTimer = setTimeout(() => {
-                container.classList.add('active');
-                overlay.style.opacity = '1';
-            }, 320);
-        }, { passive: true });
-        
-        container.addEventListener('touchend', (e) => {
-            if (!isMobile) return;
-            clearTimeout(longPressTimer);
-            
-            if (container.classList.contains('active')) {
-                return;
-            }
-            
-            if (tapCount === 2) {
-                openVideoModal(container);
-                tapCount = 0;
-            } else {
-                video.paused ? video.play() : video.pause();
-            }
-        }, { passive: true });
-    });
-
-    // 2. Back Button Handler
-    document.querySelectorAll('.back-button').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const modal = this.closest('.video-page');
-            const video = modal.querySelector('video');
-            
-            // Reset modal
-            if (video) {
-                video.pause();
-                video.currentTime = 0;
-                video.removeAttribute('controls');
-            }
-            modal.style.display = 'none';
-            
-            // Restore original video
-            if (activeVideoId) {
-                const originalVideo = document.getElementById(activeVideoId);
-                if (originalVideo) {
-                    originalVideo.classList.remove('active');
-                    const videoEl = originalVideo.querySelector('video');
-                    const overlay = originalVideo.querySelector('.video-overlay');
-                    videoEl.setAttribute('poster', videoEl.getAttribute('poster'));
-                    videoEl.load();
-                    overlay.style.opacity = '0';
-                    
-                    // Force redraw if needed
-                    if (isMobile) {
-                        originalVideo.style.display = 'none';
-                        void originalVideo.offsetHeight;
-                        originalVideo.style.display = 'block';
-                    }
+            container.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                tapCount++;
+                
+                if (tapCount === 1) {
+                    tapTimer = setTimeout(() => {
+                        // Single tap - play/pause
+                        if (video.paused) {
+                            video.play().catch(e => console.log('Play error:', e));
+                        } else {
+                            video.pause();
+                        }
+                        tapCount = 0;
+                    }, 300);
+                } else if (tapCount === 2) {
+                    // Double tap - open modal
+                    clearTimeout(tapTimer);
+                    openVideoModal(container);
+                    tapCount = 0;
                 }
-            }
-        });
+            }, { passive: false });
+        }
     });
 
-    // 3. Modal Handlers (About/Contact)
-    document.querySelectorAll('[data-modal]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const modalId = this.dataset.modal;
-            
-            document.querySelectorAll('.video-page').forEach(modal => {
-                const video = modal.querySelector('video');
-                if (video) video.pause();
-                modal.style.display = 'none';
-            });
-            
-            document.getElementById(modalId).style.display = 'block';
-        });
-    });
-
-    // Helper Function: Open Video Modal
+    // Function to open video modal
     function openVideoModal(container) {
+        activeVideoId = container.id;
         const videoPage = document.getElementById('video-page');
         const modalVideo = videoPage.querySelector('video');
         
@@ -718,19 +665,54 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Handle window resize to reset interactions
-    window.addEventListener('resize', function() {
-        isMobile = window.innerWidth <= 768;
-        if (!isMobile) {
-            document.querySelectorAll('.video-container.active').forEach(container => {
-                container.classList.remove('active');
-                const video = container.querySelector('video');
-                const overlay = container.querySelector('.video-overlay');
+    // 2. Back button handler
+    document.querySelectorAll('.back-button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const modal = this.closest('.video-page');
+            const video = modal.querySelector('video');
+            
+            // Reset modal
+            if (video) {
                 video.pause();
                 video.currentTime = 0;
-                overlay.style.opacity = '0';
+                video.removeAttribute('controls');
+            }
+            modal.style.display = 'none';
+            
+            // Restore original video
+            if (activeVideoId) {
+                const originalVideo = document.getElementById(activeVideoId);
+                if (originalVideo) {
+                    const videoEl = originalVideo.querySelector('video');
+                    videoEl.pause();
+                    videoEl.currentTime = 0;
+                    videoEl.setAttribute('poster', videoEl.getAttribute('poster'));
+                    videoEl.load();
+                }
+            }
+        });
+    });
+
+    // 3. Modal handlers (About/Contact)
+    document.querySelectorAll('[data-modal]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const modalId = this.dataset.modal;
+            
+            document.querySelectorAll('.video-page').forEach(modal => {
+                const video = modal.querySelector('video');
+                if (video) video.pause();
+                modal.style.display = 'none';
             });
-        }
+            
+            document.getElementById(modalId).style.display = 'block';
+        });
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        isMobile = window.innerWidth <= 768;
     });
 });
 </script>
