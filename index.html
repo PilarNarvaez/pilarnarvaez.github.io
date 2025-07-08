@@ -4,22 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pilar Narvaez Portfolio</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-        }
-        
-        body {
-            background-color: white;
-            color: #333;
-            line-height: 1.6;
-            padding: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+    
+    /* Modified body styles - combines both sets */
+    html, body {
+        height: 100%;
+    }
+    
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background-color: white;
+        color: #333;
+        line-height: 1.6;
+        padding: 40px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    /* New wrapper */
+    .content-wrapper {
+        flex: 1; /* Pushes footer down */
+    }
         
         .portfolio-title {
             font-size: 18px;
