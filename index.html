@@ -531,55 +531,30 @@ document.addEventListener('DOMContentLoaded', function() {
     let activeVideoId = null;
 
     // 1. Video container setup
-document.querySelectorAll('.video-container').forEach(container => {
-    const video = container.querySelector('video');
-    const overlay = container.querySelector('.video-title-overlay');
-    const poster = video.getAttribute('poster');
-    
-    // Desktop hover effects
-    if (window.innerWidth > 768) {
-        container.addEventListener('mouseenter', () => {
-            video.play().catch(e => console.log('Autoplay prevented:', e));
-        });
-        
-        container.addEventListener('mouseleave', () => {
-            video.pause();
-            video.currentTime = 0;
-            video.setAttribute('poster', poster);
-            video.load();
-        });
-    }
-    // Mobile touch effects
-    else {
-        let tapTimer;
-        
-        container.addEventListener('touchstart', () => {
-            tapTimer = setTimeout(() => {
-                // Long press - show controls
-                video.controls = true;
-                video.play().catch(e => console.log('Play error:', e));
-            }, 300);
-            
-            // Immediate visual feedback
-            video.style.opacity = '0.8';
-        });
-        
-        container.addEventListener('touchend', () => {
-            clearTimeout(tapTimer);
-            video.style.opacity = '1';
-            
-            // Short tap - play/pause toggle
-            if (video.paused) {
-                video.play().catch(e => console.log('Play error:', e));
-            } else {
+    document.querySelectorAll('.video-container').forEach(container => {
+        const video = container.querySelector('video');
+        const overlay = container.querySelector('.video-title-overlay');
+        const poster = video.getAttribute('poster');
+        const containerId = container.id;
+
+        // Hover handlers (desktop only)
+        if (window.innerWidth > 768) {
+            container.addEventListener('mouseenter', () => {
+                video.play().catch(e => console.log('Hover play:', e));
+                overlay.style.opacity = 1;
+            });
+
+            container.addEventListener('mouseleave', () => {
                 video.pause();
-            }
-        });
-    }
+                video.currentTime = 0;
+                overlay.style.opacity = 0;
+                video.setAttribute('poster', poster);
+                video.load();
+            });
+        }
 
         // Click handler (all devices)
         container.addEventListener('click', function() {
-               if (window.innerWidth <= 768) e.preventDefault();
             activeVideoId = containerId;
             const videoPage = document.getElementById('video-page');
             const modalVideo = videoPage.querySelector('video');
