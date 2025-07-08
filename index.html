@@ -482,39 +482,43 @@ Some scenes are flooded with light—an intentional reference to Fire Walk With 
             };
 
         // 1. Video hover/click functionality
-        document.querySelectorAll('.video-container').forEach(container => {
-            const video = container.querySelector('video');
-            const overlay = container.querySelector('.video-title-overlay');
+  document.querySelectorAll('.video-container').forEach(container => {
+    const video = container.querySelector('video');
+    const overlay = container.querySelector('.video-title-overlay');
+    
+    // Store poster attribute
+    const poster = video.getAttribute('poster');
             
-            // Play on hover
-            container.addEventListener('mouseenter', function() {
-                video.play().catch(e => console.log('Autoplay prevented:', e));
-                overlay.style.opacity = 1;
-            });
+         // Play on hover
+    container.addEventListener('mouseenter', function() {
+        video.play().catch(e => console.log('Autoplay prevented:', e));
+        overlay.style.opacity = 1;
+    });
             
-            // Pause on mouse leave
-            container.addEventListener('mouseleave', function() {
-                video.pause();
-                video.currentTime = 0;
-                overlay.style.opacity = 0;
-            });
-            
-            // Click to open modal
-            container.addEventListener('click', function() {
-                const videoPage = document.getElementById('video-page');
-                const videoPlayer = videoPage.querySelector('video');
-                const videoTitle = document.getElementById('video-page-title');
-                const videoDesc = document.getElementById('video-page-description');
-                
-                videoPlayer.src = this.dataset.videoSrc;
-                videoTitle.textContent = this.dataset.title;
-                videoDesc.textContent = videoDescriptions[this.id] || this.dataset.description;
-                
-                videoPage.style.display = 'block';
-                videoPlayer.play().catch(e => console.log('Modal play failed:', e));
-            });
-        });
-
+         // Pause and reset on mouse leave
+    container.addEventListener('mouseleave', function() {
+        video.pause();
+        video.currentTime = 0;
+        overlay.style.opacity = 0;
+        // Force show poster again
+        video.setAttribute('poster', poster);
+        video.load();
+    });
+           // Click to open modal
+    container.addEventListener('click', function() {
+        const videoPage = document.getElementById('video-page');
+        const videoPlayer = videoPage.querySelector('video');
+        const videoTitle = document.getElementById('video-page-title');
+        const videoDesc = document.getElementById('video-page-description');
+        
+        videoPlayer.src = this.dataset.videoSrc;
+        videoTitle.textContent = this.dataset.title;
+        videoDesc.textContent = videoDescriptions[this.id] || this.dataset.description;
+        
+        videoPage.style.display = 'block';
+        videoPlayer.play().catch(e => console.log('Modal play failed:', e));
+    });
+});
         // 2. Unified modal handler for About and Contact
         document.querySelectorAll('[data-modal]').forEach(link => {
             link.addEventListener('click', function(e) {
