@@ -128,29 +128,51 @@ a:hover {
             object-fit: cover;
         }
         
-.video-title-overlay {
+/* Video Overlay - Enhanced */
+.video-overlay {
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
-    right: 0;
-    height: 24px;
-    background: rgba(70, 70, 70, 0.85); /* 85% opaque gray bar */
-    color: rgba(240, 240, 240, 0.9); /* 90% opaque text */
-    font-size: 12px;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.3s;
+    width: 100%;
+    height: 100%;
+    background: rgba(231, 76, 60, 0.78); /* Your red at 78% opacity */
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.16, 0.83, 0.44, 1);
+    z-index: 2;
+    pointer-events: none;
 }
-        
-.video-container:hover .video-title-overlay {
-    opacity: 0.9;
-    background: rgba(0,0,0,0.5);
+
+.video-overlay span {
+    font-size: 18px; /* Matches your nav items */
+    font-weight: 500; /* Medium weight like About/Contact */
+    color: white;
+    padding: 0 30px;
+    text-align: center;
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+    text-transform: uppercase; /* Optional: matches WeCanMake style */
+}
+
+/* Active States */
+.video-container:hover .video-overlay,
+.video-container.active .video-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Mobile Tap Feedback */
+@media (max-width: 768px) {
+    .video-overlay span {
+        font-size: 16px; /* Slightly smaller on mobile */
+        padding: 0 20px;
+    }
+    
+    .video-container.active .video-overlay {
+        background: rgba(231, 76, 60, 0.85); /* More opaque when locked */
+    }
 }
         
         /* Video Page Modal */
