@@ -132,20 +132,22 @@ a:hover {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%; /* Maintains full video width */
-    padding: 4px 0; /* Reduced vertical padding */
-    background: rgba(0,0,0,0.3);
-    color: #e0e0e0; /* Light gray text */
-    font-size: 12px; /* Matching footer */
+    right: 0;
+    height: 24px; /* Slightly taller for better centering */
+    background: rgba(60, 60, 60, 0.7); /* Greyish background */
+    color: #f0f0f0; /* Off-white text */
+    font-size: 12px;
+    text-align: center;
     opacity: 0;
     transition: opacity 0.3s;
-    text-align: center;
-    /* New compact bar properties */
-    height: 24px; /* Fixed height */
-    line-height: 24px; /* Vertically center text */
     overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0;
+    margin: 0;
+    display: flex; /* New: enables perfect centering */
+    align-items: center; /* Vertical center */
+    justify-content: center; /* Horizontal center */
 }
         
 .video-container:hover .video-title-overlay {
