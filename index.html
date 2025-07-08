@@ -504,95 +504,94 @@ a:hover {
         <div class="footer-right"><a href="http://uk.linkedin.com/in/pilarnarvaez">LinkedIn</a></div>
     </footer>
 
-   <script>
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     // Video descriptions
     const videoDescriptions = {
         'showreel': 'A selection of my last video edit and Motion graphics works.',
-        'tercer-campaign': 'Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics.',
-        'menopause-campaign': `Minúsculas Producciones collaborated with me on a social media video for Spain's Women's Institute...`,
-        'pepsi-recycle': 'Video created for Wireless and Reading Festival, adaptation from the Think Different campaign.',
-        'expedia-social': 'Adaptation and localisation of Expedia (VRBO) campaign for social media.',
-        'fire-walk-with-me': `I was deeply saddened by David Lynch's passing, so I recreated Twin Peaks' iconic opening...`
+        'tercer-campaign': 'Video generated with Runway AI from pre-existing photos...',
+        // Keep your existing descriptions...
     };
 
-    // 1. Setup video containers
+    // Track active video globally
+    let activeVideoId = null;
+
+    // 1. Video container setup
     document.querySelectorAll('.video-container').forEach(container => {
         const video = container.querySelector('video');
         const overlay = container.querySelector('.video-title-overlay');
         const poster = video.getAttribute('poster');
+        const containerId = container.id;
 
-        // Hover to play
-        container.addEventListener('mouseenter', () => {
-            video.play().catch(e => console.log('Hover play prevented:', e));
-            overlay.style.opacity = 1;
-        });
+        // Hover handlers (desktop only)
+        if (window.innerWidth > 768) {
+            container.addEventListener('mouseenter', () => {
+                video.play().catch(e => console.log('Hover play:', e));
+                overlay.style.opacity = 1;
+            });
 
-        // Reset on mouse leave
-        container.addEventListener('mouseleave', () => {
-            video.pause();
-            video.currentTime = 0;
-            overlay.style.opacity = 0;
-            video.setAttribute('poster', poster);
-            video.load();
-        });
+            container.addEventListener('mouseleave', () => {
+                video.pause();
+                video.currentTime = 0;
+                overlay.style.opacity = 0;
+                video.setAttribute('poster', poster);
+                video.load();
+            });
+        }
 
-        // Click to open modal
+        // Click handler (all devices)
         container.addEventListener('click', function() {
+            activeVideoId = containerId;
             const videoPage = document.getElementById('video-page');
             const modalVideo = videoPage.querySelector('video');
-            const videoTitle = document.getElementById('video-page-title');
-            const videoDesc = document.getElementById('video-page-description');
-            
-            // Store active video ID for mobile restoration
-            sessionStorage.setItem('activeVideo', this.id);
             
             // Set modal content
             modalVideo.src = this.dataset.videoSrc;
-            videoTitle.textContent = this.dataset.title;
-            videoDesc.textContent = videoDescriptions[this.id] || this.dataset.description;
+            document.getElementById('video-page-title').textContent = this.dataset.title;
+            document.getElementById('video-page-description').textContent = 
+                videoDescriptions[containerId] || this.dataset.description;
             
             // Show and play
             videoPage.style.display = 'block';
             modalVideo.load();
-            modalVideo.play().catch(e => {
-                console.log('Modal autoplay failed, showing controls:', e);
-                modalVideo.controls = true;
-            });
+            const playPromise = modalVideo.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(e => {
+                    console.log('Showing controls due to autoplay restrictions:', e);
+                    modalVideo.controls = true;
+                });
+            }
         });
     });
 
-    // 2. Back button functionality
+    // 2. Back button handler
     document.querySelectorAll('.back-button').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
             const modal = this.closest('.video-page');
             const video = modal.querySelector('video');
             
-            // Reset modal video
+            // Reset modal
             if (video) {
                 video.pause();
                 video.currentTime = 0;
                 video.removeAttribute('controls');
             }
-            
-            // Close modal
             modal.style.display = 'none';
             
-            // Mobile-specific restoration
-            if (window.innerWidth <= 768) {
-                const activeVideoId = sessionStorage.getItem('activeVideo');
-                if (activeVideoId) {
-                    const originalVideo = document.getElementById(activeVideoId);
-                    if (originalVideo) {
-                        const videoEl = originalVideo.querySelector('video');
-                        // Force reload of poster image
-                        videoEl.setAttribute('poster', videoEl.getAttribute('poster'));
-                        videoEl.load();
-                        
-                        // Trigger reflow to ensure display
+            // Restore original video
+            if (activeVideoId) {
+                const originalVideo = document.getElementById(activeVideoId);
+                if (originalVideo) {
+                    const videoEl = originalVideo.querySelector('video');
+                    videoEl.setAttribute('poster', videoEl.getAttribute('poster'));
+                    videoEl.load();
+                    
+                    // Force redraw only if needed (helps with desktop hover states)
+                    if (window.innerWidth <= 768) {
                         originalVideo.style.display = 'none';
-                        void originalVideo.offsetHeight; // eslint-disable-line no-void
+                        void originalVideo.offsetHeight;
                         originalVideo.style.display = 'block';
                     }
                 }
@@ -600,23 +599,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 3. Other modal handlers (About/Contact)
+    // 3. Modal handlers (About/Contact) - keep your existing
     document.querySelectorAll('[data-modal]').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const modalId = this.dataset.modal;
             
-            // Close any open modals first
             document.querySelectorAll('.video-page').forEach(modal => {
                 const video = modal.querySelector('video');
-                if (video) {
-                    video.pause();
-                    video.currentTime = 0;
-                }
+                if (video) video.pause();
                 modal.style.display = 'none';
             });
             
-            // Open requested modal
             document.getElementById(modalId).style.display = 'block';
         });
     });
