@@ -128,24 +128,24 @@ a:hover {
             object-fit: cover;
         }
         
-   .video-title-overlay {
+.video-title-overlay {
     position: absolute;
     bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: auto;
-    max-width: 90%;
-    padding: 6px 12px;
+    left: 0;
+    width: 100%; /* Maintains full video width */
+    padding: 4px 0; /* Reduced vertical padding */
     background: rgba(0,0,0,0.3);
-    color: #e0e0e0; /* Light gray instead of white */
-    font-size: 12px; /* Same as footer */
+    color: #e0e0e0; /* Light gray text */
+    font-size: 12px; /* Matching footer */
     opacity: 0;
-    transition: opacity 0.3s, width 0.2s ease;
-    border-radius: 4px 4px 0 0;
+    transition: opacity 0.3s;
     text-align: center;
-    white-space: nowrap;
+    /* New compact bar properties */
+    height: 24px; /* Fixed height */
+    line-height: 24px; /* Vertically center text */
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
         
 .video-container:hover .video-title-overlay {
