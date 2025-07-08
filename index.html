@@ -140,7 +140,7 @@ a:hover {
     color: #e0e0e0; /* Light gray instead of white */
     font-size: 12px; /* Same as footer */
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity 0.3s, width 0.2s ease;
     border-radius: 4px 4px 0 0;
     text-align: center;
     white-space: nowrap;
@@ -148,9 +148,10 @@ a:hover {
     text-overflow: ellipsis;
 }
         
-        .video-container:hover .video-title-overlay {
-            opacity: 1;
-        }
+.video-container:hover .video-title-overlay {
+    opacity: 0.9;
+    background: rgba(0,0,0,0.5);
+}
         
         /* Video Page Modal */
         .video-page {
