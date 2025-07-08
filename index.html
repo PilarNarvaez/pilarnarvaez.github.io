@@ -174,7 +174,39 @@ a:hover {
             font-size: 14px;
             line-height: 1.5;
         }
-        
+
+/* ===== ADD CONTACT MODAL STYLES HERE ===== */
+.contact-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.contact-spacer {
+    flex: 1; /* First third of modal */
+}
+
+.contact-email-wrapper {
+    flex: 1; /* Second third of modal */
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding-right: 40px;
+}
+
+.contact-email {
+    font-size: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none !important;
+}
+
+.email-icon {
+    font-size: 24px;
+    margin-left: 10px;
+}
+/* ===== END CONTACT MODAL STYLES ===== */
         .back-button {
     position: fixed; /* Changed from absolute to fixed */
             top: 20px;
