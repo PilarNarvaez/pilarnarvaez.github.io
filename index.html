@@ -583,21 +583,36 @@ Some scenes are flooded with light—an intentional reference to Fire Walk With 
             });
         });
 
-        // 3. Back button functionality
-        document.querySelectorAll('.back-button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const modal = this.closest('.video-page');
-                const video = modal.querySelector('video');
-                
-                if (video) {
-                    video.pause();
-                    video.currentTime = 0;
+   // 3. Back button functionality
+document.querySelectorAll('.back-button').forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const modal = this.closest('.video-page');
+        const video = modal.querySelector('video');
+        
+        if (video) {
+            video.pause();
+            video.currentTime = 0;
+        }
+        
+        // Close modal
+        modal.style.display = 'none';
+        
+        // SPECIAL FIX FOR MOBILE: Restore the clicked video's poster
+        if (window.innerWidth <= 768) { // Only for mobile
+            const activeVideoId = sessionStorage.getItem('activeVideo');
+            if (activeVideoId) {
+                const originalVideo = document.getElementById(activeVideoId);
+                if (originalVideo) {
+                    const videoEl = originalVideo.querySelector('video');
+                    const poster = videoEl.getAttribute('poster');
+                    videoEl.setAttribute('poster', poster);
+                    videoEl.load();
                 }
-                modal.style.display = 'none';
-            });
-        });
+            }
+        }
     });
+});
 </script>
 </body>
 </html>
