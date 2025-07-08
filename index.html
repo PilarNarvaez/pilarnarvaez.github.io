@@ -62,21 +62,25 @@
             margin-bottom: 10px;
         }
         
-        .project-list li.emphasis a {
-            font-size: 16px;
-            font-weight: 500;
-        }
+.project-list li.emphasis a,
+.mobile-nav-header a {
+    font-size: 16px;
+    font-weight: 500; /* Changed from separate rules to match titles */
+}
         
         .project-list a {
             color: #333;
             text-decoration: none; /* Base state: no underline */
             font-size: 14px;
         }
-         /* Hover states for ALL links */
-.project-list a:hover,
-.mobile-nav-header a:hover,
-a[href^="mailto:"]:hover {
-    text-decoration: underline; /* Only appears on hover */
+/* NEW UNIVERSAL HOVER RULE */
+a:hover {
+    text-decoration: underline;
+}
+
+/* Footer link exception */
+.footer a:hover {
+    text-decoration: none;
 }
         
         /* Video Grid */
@@ -464,15 +468,21 @@ Some scenes are flooded with light—an intentional reference to Fire Walk With 
     }); // <-- Closes video-container forEach
 
     // 2. Fixed About link functionality (NEW)
-    document.querySelectorAll('[href="#about"]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            // Hide video modal if open
-            document.getElementById('video-page').style.display = 'none';
-            // Show about modal
-            document.getElementById('about-page').style.display = 'block';
-        });
-    }); // <-- Closes about-link forEach
+document.querySelectorAll('[href="#about"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        // First close video modal if open
+        const videoModal = document.getElementById('video-page');
+        if (videoModal.style.display === 'block') {
+            const video = videoModal.querySelector('video');
+            video.pause();
+            video.currentTime = 0;
+            videoModal.style.display = 'none';
+        }
+        // Then open about modal
+        document.getElementById('about-page').style.display = 'block';
+    });
+}); <-- Closes about-link forEach
 
     // 3. Back button (existing - modified slightly)
     document.querySelector('.back-button').addEventListener('click', function(e) {
