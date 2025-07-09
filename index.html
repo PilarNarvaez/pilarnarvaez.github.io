@@ -250,6 +250,8 @@ body {
     box-shadow: none !important;
     background: white;
     position: absolute; /* Changed from static to fixed */
+    transition: opacity 0.3s ease;
+    opacity: 0;
     bottom: 0; /* Stick to bottom */
     left: 0;
     right: 0;
@@ -257,6 +259,7 @@ body {
 }
     .footer.visible {
     position: fixed;
+    opacity: 1;
     bottom: 0;
     animation: fadeIn 0.3s ease;
 }
