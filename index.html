@@ -276,7 +276,7 @@
     
     /* Show mobile navigation */
     .mobile-nav-header {
-        display: flex;
+        display: flex !important; /* Override any other rules */
         flex-direction: column;
         gap: 12px;
         margin-bottom: 30px;
@@ -323,15 +323,6 @@
     }
 }
 
-@media (min-width: 769px) {
-    .mobile-text-column {
-        display: none;
-    }
-    
-    .text-column {
-        display: block;
-    }
-}
     </style>
 </head>
 <body>
