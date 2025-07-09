@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pilar Narvaez Portfolio</title>
     <style>
     * {
@@ -268,8 +268,13 @@
 
 @media (max-width: 768px) {
     body {
-        padding: 30px 30px 0 30px; /* Consolidated padding */
-        overflow: hidden;
+        padding: 30px 30px 0 30px;
+        height: 100%;
+        overflow-y: auto; /* Enable main scrolling */
+        -webkit-overflow-scrolling: touch;
+        position: relative;
+        -webkit-scrollbar {
+        display: none;
     }
       .portfolio-title {
         text-align: left;
@@ -277,13 +282,11 @@
         margin: 0;
         font-size: 18px; /* Match your desktop size */
         width: 100%;
-        overflow-x: hidden;
     }
         /* Remove scrollbar but keep scrolling */
     html {
-        overflow-y: auto; /* Ensures scrolling still works */
-        -ms-overflow-style: none; /* IE/Edge */
-        scrollbar-width: none; /* Firefox */
+        height: 100%;
+        overflow: hidden; /* Prevent double scrollbars */
     }
     
     html::-webkit-scrollbar {
@@ -311,6 +314,12 @@
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
         height: calc(100vh - 180px); /* Adjust 180px to match your header+footer height */
+        position: relative;
+        z-index: 1;
+        -ms-overflow-style: none; /* IE/Edge */
+        scrollbar-width: none; /* Firefox */
+        -webkit-scrollbar {
+        display: none;
     }
     /* Hide desktop navigation */
     .text-column {
