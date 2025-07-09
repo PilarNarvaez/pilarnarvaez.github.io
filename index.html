@@ -28,6 +28,7 @@ body {
     position: relative;
     border: none !important;
     width: 100%; /* Add this */
+    padding-bottom: 60px; /* Add this - should match footer height */
 }
     
 .content-wrapper {
@@ -244,29 +245,30 @@ body {
     grid-template-columns: 1fr 1fr 1fr;
     font-size: 12px;
     color: #999;
-    padding: 15px 40px; /* Match body padding */
-    margin-top: auto;
+    padding: 15px 40px;
     background: white;
-    border-top: none !important; /* Force remove any border */
-    position: static; /* Remove any positioning */
-    left: auto;
-    right: auto;
-    margin-left: 0;
-    margin-right: 0;
+    position: fixed; /* Changed from static to fixed */
+    bottom: 0; /* Stick to bottom */
+    left: 0;
+    right: 0;
+    z-index: 10; /* Ensure it stays above other content */
+    border-top: 1px solid #eee; /* Optional subtle border */
 }
 
 .footer-left {
     text-align: left;
+    align-self: center; /* Vertical alignment */
 }
 
 .footer-center {
     text-align: center;
+    align-self: center;
 }
 
 .footer-right {
     text-align: right;
+    align-self: center;
 }
-
 .footer a {
     color: #999;
     text-decoration: none;
@@ -283,7 +285,7 @@ body {
         grid-template-columns: 1fr;
         gap: 8px;
         text-align: center;
-        padding: 15px 30px; /* Match mobile body padding */
+        padding: 15px 20px; /* Match mobile body padding */
     }
     
     .footer-left,
@@ -291,6 +293,9 @@ body {
     .footer-right {
         text-align: center;
     }
+    body {
+        padding-bottom: 100px; /* More space on mobile */
+            }
 }
 
 /* Mobile styles (up to 768px) */
