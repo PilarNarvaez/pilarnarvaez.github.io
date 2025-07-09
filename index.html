@@ -51,6 +51,7 @@
     top: 40px;
     height: fit-content;
     padding-right: 0; /* Remove previous padding */
+    display: block; /* Always show on desktop */
 }
         
     .project-list {
@@ -272,37 +273,30 @@
         font-size: 18px; /* Match your desktop size */
         width: 100%;
     }
-    .main-content {
-        display: block;
-        padding: 0; /* Let video-columns handle its own padding */
-    }
     
-    /* Hide desktop navigation */
-    .text-column {
-        display: none;
-    }
-    
-    /* Show mobile navigation at top */
+      /* Mobile Navigation Header */
     .mobile-nav-header {
-        display: flex !important;
+        display: flex !important; /* Show on mobile */
         flex-direction: column;
         gap: 12px;
-        margin: 20px 0;
-        padding: 0 20px;
+        padding: 0 0 20px 0; /* Left-aligned with title */
+        margin: -10px 0 20px 0; /* Tighter spacing */
     }
-        /* Style mobile nav links */
+    
     .mobile-nav-header a {
         font-size: 16px;
         font-weight: 500;
         color: #333;
         text-decoration: none;
-            padding-left: 30px;
-        text-align: left;
-        margin-top: -10px;
-        margin-bottom: 20px;
-        display: flex !important;
-        flex-direction: column;
-        gap: 12px;
+        /* Remove individual padding-left - handled by container */
+    }
+        .main-content {
+        display: block;
+        padding: 0; /* Let video-columns handle its own padding */
+    }
+    /* Hide desktop navigation */
+    .text-column {
+        display: none;
     }
     /* Video grid adjustments */
     .video-columns {
@@ -369,12 +363,13 @@
 </head>
 <body>
     <div class="portfolio-title">Pilar Narvaez Portfolio</div>
-        <!-- MOBILE NAV HEADER -->
-    <div class="mobile-nav-header">
-        <a href="#" data-modal="about-page">About</a>
-        <a href="#" data-modal="contact-page">Contact</a>
-    </div>
-
+    
+<!-- Mobile navigation (shown only on mobile) -->
+<div class="mobile-nav-header">
+    <a href="#" data-modal="about-page">About</a>
+    <a href="#" data-modal="contact-page">Contact</a>
+</div>
+    
 <div class="main-content">
     <!-- ONLY ONE text-column div (left column) -->
     <div class="text-column">
