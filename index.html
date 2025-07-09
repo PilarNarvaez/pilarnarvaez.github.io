@@ -19,8 +19,6 @@
     }
     
     body {
-        display: flex;
-        flex-direction: column;
         min-height: 100vh;
         background-color: white;
         color: #333;
@@ -241,11 +239,12 @@
     grid-template-columns: 1fr 1fr 1fr;
     font-size: 12px;
     color: #999;
-    padding: 15px 40px;
+    padding: 30px 40px; /* Slightly increased vertical padding */
     background: white;
-    opacity: 1;
+    margin-top: 60px; /* Creates natural space above footer */
 }
 
+/* Keep your existing alignment classes */
 .footer-left { text-align: left; align-self: center; }
 .footer-center { text-align: center; align-self: center; }
 .footer-right { text-align: right; align-self: center; }
@@ -299,18 +298,20 @@
         opacity: 0.9;
     }
     
-    .footer {
-        grid-template-columns: 1fr;
-        gap: 8px;
-        padding: 12px 20px;
-        text-align: center;
-    }
-    
-    .footer-left,
-    .footer-center,
-    .footer-right {
-        text-align: center;
-    }
+  .footer {
+    padding: 20px; /* Reduced padding on mobile */
+    margin-top: 40px; /* Less space needed on mobile */
+    grid-template-columns: 1fr; /* Stack footer items vertically */
+    gap: 10px;
+    text-align: center; /* Center-align all text on mobile */
+  }
+  
+  /* Reset individual alignments for mobile */
+  .footer-left, 
+  .footer-center, 
+  .footer-right {
+    text-align: center;
+  }
     
     body {
         overflow-x: hidden;
