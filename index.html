@@ -819,62 +819,33 @@ document.addEventListener('DOMContentLoaded', function() {
         isMobile = window.innerWidth <= 768;
     });
 
-    // Footer visibility control
- const footer = document.querySelector('.footer');
-    let lastScrollPosition = 0;
-    let isScrolling;
+    // SIMPLIFIED FOOTER VISIBILITY CONTROL
+    const footer = document.querySelector('.footer');
     
-    function updateFooterVisibility() {
-        const scrollPosition = window.scrollY;
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.body.scrollHeight;
-        
-        // Desktop behavior - always visible
-        if (!isMobile) {
-            if (!footer.classList.contains('visible')) {
-                footer.classList.add('visible');
-            }
-            return;
-        }
-        
-        // Mobile behavior - show when:
-        // 1. Near bottom (100px from end), or
-        // 2. Scrolling down past header (100px)
-        const nearBottom = scrollPosition + windowHeight >= documentHeight - 100;
-        const scrollingDown = scrollPosition > lastScrollPosition && scrollPosition > 100;
-        const shouldShow = nearBottom || scrollingDown;
-        
-        // Optimize DOM manipulation
-        if (shouldShow) {
-            footer.classList.add('visible');
-        } else {
-            // Only hide if not near bottom (to prevent flickering at page bottom)
-            if (!nearBottom) {
-                footer.classList.remove('visible');
-            }
-        }
-        
-        lastScrollPosition = scrollPosition <= 0 ? 0 : scrollPosition; // Prevent negative values
-    }
-
-    // Throttled scroll handler
-    window.addEventListener('scroll', () => {
-        window.clearTimeout(isScrolling);
-        isScrolling = setTimeout(() => {
-            updateFooterVisibility();
-        }, 50);
-    }, { passive: true });
-
-    // Initialize footer visibility
-    window.addEventListener('load', updateFooterVisibility);
-    updateFooterVisibility(); // Initial check
+    // Force footer to be visible with multiple methods
+    footer.style.opacity = '1';
+    footer.style.transform = 'none';
+    footer.style.bottom = '0';
+    footer.classList.add('visible');
     
-    // Update mobile detection on resize
+    // Debug logging
+    console.log('Footer initialization complete', {
+        element: footer,
+        computedStyle: window.getComputedStyle(footer),
+        isMobile: isMobile
+    });
+
+    // Basic mobile detection maintenance
     window.addEventListener('resize', () => {
         isMobile = window.innerWidth <= 768;
-        updateFooterVisibility();
     });
-</script>
 
+    // Ensure footer stays at bottom
+    function maintainFooter() {
+        footer.style.bottom = '0';
+    }
+    window.addEventListener('resize', maintainFooter);
+    maintainFooter();
+</script>
 </body>
 </html>
