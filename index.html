@@ -260,50 +260,55 @@
 }
 
 @media (max-width: 768px) {
-    .portfolio-title {
-        padding: 30px 30px 0 30px;
+    body {
+        padding: 30px 30px 0 30px; /* Consolidated padding */
     }
     
     .main-content {
         display: block;
-        padding: 0 30px;
+        padding: 0; /* Let video-columns handle its own padding */
     }
     
+    /* Hide desktop navigation */
     .text-column {
         display: none;
     }
     
-    .mobile-text-column {
-        display: block;
+    /* Show mobile navigation */
+    .mobile-nav-header {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
         margin-bottom: 30px;
     }
     
+    /* Video grid adjustments */
     .video-columns {
         grid-template-columns: 1fr;
         gap: 15px;
-        padding: 0 30px;
-        margin: 0;
+        padding: 0;
+        margin: 30px 0 0 0;
     }
     
     .video-container {
         width: 100%;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
     
     .video-container video {
-        object-fit: contain;
+        object-fit: contain; /* Shows full video without cropping */
     }
     
     .video-container video[poster] {
-        opacity: 0.9;
+        opacity: 0.9; /* Important - keep this! */
     }
     
   .footer {
-    padding: 20px; /* Reduced padding on mobile */
-    margin-top: 40px; /* Less space needed on mobile */
-    grid-template-columns: 1fr; /* Stack footer items vertically */
-    gap: 10px;
-    text-align: center; /* Center-align all text on mobile */
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 20px 0;
+        text-align: center;
+        margin-top: 30px;
   }
   
   /* Reset individual alignments for mobile */
