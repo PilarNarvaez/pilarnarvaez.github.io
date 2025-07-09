@@ -61,8 +61,7 @@
         margin-bottom: 10px;
     }
         
-    .project-list li.emphasis a,
-    .mobile-nav-header a {
+    .project-list li.emphasis a {
         font-size: 16px;
         font-weight: 500;
     }
@@ -128,14 +127,13 @@
         object-fit: cover;
     }
         
-    /* RED OVERLAY STYLE */
     .video-overlay {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(231, 76, 60, 0.85); /* Red with 85% opacity */
+        background: rgba(231, 76, 60, 0.85);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -237,7 +235,6 @@
         box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
         
-/* Base Footer Styles */
 .footer {
     width: 100%;
     display: grid;
@@ -267,33 +264,11 @@
     color: #e74c3c;
 }
 
-/* Mobile Footer */
 @media (max-width: 768px) {
     .portfolio-title {
         padding: 30px 30px 0 30px;
     }
     
-    .footer {
-        grid-template-columns: 1fr;
-        gap: 8px;
-        padding: 12px 20px;
-        text-align: center;
-    }
-    
-    .footer-left,
-    .footer-center,
-    .footer-right {
-        text-align: center;
-    }
-    
-    body {
-        padding-bottom: 80px; /* Space for footer */
-        overflow-x: hidden;
-    }
-}
-
-/* Mobile styles (up to 768px) */
-@media (max-width: 768px) {
     .main-content {
         display: block;
         padding: 0 30px;
@@ -301,6 +276,11 @@
     
     .text-column {
         display: none;
+    }
+    
+    .mobile-text-column {
+        display: block;
+        margin-bottom: 30px;
     }
     
     .video-columns {
@@ -323,54 +303,11 @@
         opacity: 0.9;
     }
     
-    .mobile-nav-header {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        margin-bottom: 30px;
-        padding: 0 30px;
-    }
-    
-    .mobile-nav-header a {
-        color: #333;
-        text-decoration: none;
-        font-size: 16px;
-        font-weight: 500;
-    }
-    
-    .mobile-project-list {
-        display: none;
-        margin-top: 30px;
-        padding: 0 30px;
-    }
-    
-    .video-page {
-        padding: 20px;
-    }
-    
-    .video-overlay {
-        font-size: 14px;
-        padding: 0 15px;
-        opacity: 1 !important;
-        background: rgba(231, 76, 60, 0.9);
-    }
-    
-    .video-overlay span {
-        font-size: 12px;
-        padding: 0 15px;
-    }
-    
-    .video-container.active .video-overlay {
-        background: rgba(231, 76, 60, 0.9);
-    }
-    
-    /* Footer mobile adjustments */
     .footer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        grid-template-columns: 1fr;
         gap: 8px;
-        padding: 12px 0;
+        padding: 12px 20px;
+        text-align: center;
     }
     
     .footer-left,
@@ -378,12 +315,15 @@
     .footer-right {
         text-align: center;
     }
+    
+    body {
+        padding-bottom: 80px;
+        overflow-x: hidden;
+    }
 }
 
-/* Desktop styles (769px and up) */
 @media (min-width: 769px) {
-    .mobile-nav-header,
-    .mobile-project-list {
+    .mobile-text-column {
         display: none;
     }
     
@@ -395,13 +335,27 @@
 </head>
 <body>
     <div class="portfolio-title">Pilar Narvaez Portfolio</div>
-    
-    <div class="mobile-nav-header">
-        <a href="#" data-modal="about-page">About</a>
-        <a href="#" data-modal="contact-page">Contact</a>
-    </div>
 
     <div class="main-content">
+        <div class="mobile-text-column">
+            <ul class="project-list">
+                <li class="emphasis"><a href="#" data-modal="about-page">About</a></li>
+                <li class="emphasis"><a href="#" data-modal="contact-page">Contact</a></li>
+                <li class="spacer">&nbsp;</li>
+                <li><a href="#showreel">Showreel</a></li>
+                <li><a href="#tercer-campaign">Tercer Campaign</a></li>
+                <li><a href="#menopause-campaign">Menopause Campaign</a></li>
+                <li><a href="#pepsi-recycle">Pepsi Recycle to Win</a></li>
+                <li><a href="#expedia-social">Expedia Social</a></li>
+                <li><a href="#fire-walk-with-me">Fire Walk With Me</a></li>
+                <li><a href="#supercar-blondie">Supercar Blondie Facebook</a></li>
+                <li><a href="#i-am-groot">I Am Groot Twitter</a></li>
+                <li><a href="#just-eat">Just Eat Adaptations</a></li>
+                <li><a href="#social-media-videos">Social Media Videos</a></li>
+                <li><a href="#kings-league">Kings League Twitch</a></li>
+            </ul>
+        </div>
+
         <div class="text-column">
             <ul class="project-list">
                 <li class="emphasis"><a href="#" data-modal="about-page">About</a></li>
@@ -422,163 +376,150 @@
         </div>
 
        <div class="video-columns">
-    <!-- Showreel -->
-    <div id="showreel" class="video-container" 
-         data-video-src="https://pilarnarvaez.github.io/videos/Showreel.mp4"
-         data-title="Showreel"
-         data-description="A selection of my last video edit and Motion graphics works">
-        <video poster="https://pilarnarvaez.github.io/images/showreel-poster.jpg" muted loop playsinline>
-            <source src="https://pilarnarvaez.github.io/videos/Showreel.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-            <span>Showreel</span>
-        </div>
-    </div>
+            <!-- Showreel -->
+            <div id="showreel" class="video-container" 
+                 data-video-src="https://pilarnarvaez.github.io/videos/Showreel.mp4"
+                 data-title="Showreel"
+                 data-description="A selection of my last video edit and Motion graphics works">
+                <video poster="https://pilarnarvaez.github.io/images/showreel-poster.jpg" muted loop playsinline>
+                    <source src="https://pilarnarvaez.github.io/videos/Showreel.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">
+                    <span>Showreel</span>
+                </div>
+            </div>
 
-    <!-- Tercer Campaign -->
-    <div id="tercer-campaign" class="video-container" 
-         data-video-src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4"
-         data-title="Tercer Campaign"
-         data-description="Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics">
-        <video poster="https://pilarnarvaez.github.io/images/tercer-poster.jpg" muted loop playsinline>
-            <source src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-            <span>Tercer Campaign</span>
-        </div>
-    </div>
+            <!-- Tercer Campaign -->
+            <div id="tercer-campaign" class="video-container" 
+                 data-video-src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4"
+                 data-title="Tercer Campaign"
+                 data-description="Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics">
+                <video poster="https://pilarnarvaez.github.io/images/tercer-poster.jpg" muted loop playsinline>
+                    <source src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">
+                    <span>Tercer Campaign</span>
+                </div>
+            </div>
 
-    <!-- Menopause Campaign -->
-    <div id="menopause-campaign" class="video-container" 
-         data-video-src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4"
-         data-title="Menopause Awareness Day"
-         data-description="Social media video for the Women's Institute in Spain, commemorating World Menopause Day">
-        <video poster="https://pilarnarvaez.github.io/images/menopause-poster.jpg" muted loop playsinline>
-            <source src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-            <span>Menopause Awareness Day</span>
+            <!-- Menopause Campaign -->
+            <div id="menopause-campaign" class="video-container" 
+                 data-video-src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4"
+                 data-title="Menopause Awareness Day"
+                 data-description="Social media video for the Women's Institute in Spain, commemorating World Menopause Day">
+                <video poster="https://pilarnarvaez.github.io/images/menopause-poster.jpg" muted loop playsinline>
+                    <source src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">
+                    <span>Menopause Awareness Day</span>
+                </div>
+            </div>
+            
+            <!-- Pepsi Recycle to Win -->
+            <div id="pepsi-recycle" class="video-container"
+                 data-video-src="https://pilarnarvaez.github.io/videos/Pepsi-Recycle-to-Win-Reading-Festival.mp4"
+                 data-title="Pepsi Recycle to Win"
+                 data-description="Video created for Wireless and Reading Festival, adaptation from the Think Different campaign">
+                <video poster="https://pilarnarvaez.github.io/images/pepsi-poster.jpg" muted loop playsinline>
+                    <source src="https://pilarnarvaez.github.io/videos/Pepsi-Recycle-to-Win-Reading-Festival.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">
+                    <span>Pepsi Recycle to Win</span>
+                </div>
+            </div>
+            
+            <!-- Expedia Social -->
+            <div id="expedia-social" class="video-container"
+                 data-video-src="https://pilarnarvaez.github.io/videos/Expedia-social.mp4"
+                 data-title="Expedia Social"
+                 data-description="Adaptation and localisation of Expedia (VRBO) campaign for social media">
+                <video poster="https://pilarnarvaez.github.io/images/expedia-poster.jpg" muted loop playsinline>
+                    <source src="https://pilarnarvaez.github.io/videos/Expedia-social.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">
+                    <span>Expedia Social</span>
+                </div>
+            </div>
+            
+            <!-- Fire Walk With Me -->
+            <div id="fire-walk-with-me" class="video-container"
+                 data-video-src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4"
+                 data-title="Fire Walk With Me"
+                 data-description="Experimental video project inspired by Twin Peaks">
+                <video poster="https://pilarnarvaez.github.io/images/fire-poster.jpg" muted loop playsinline>
+                    <source src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">
+                    <span>Fire Walk With Me</span>
+                </div>
+            </div>
+            
+            <!-- Supercar Blondie Facebook -->
+            <div id="supercar-blondie" class="video-container"
+                 data-video-src="https://pilarnarvaez.github.io/videos/Supercar-Blondie.mp4"
+                 data-title="Supercar Blondie Facebook"
+                 data-description="Social media content for Supercar Blondie's Facebook page">
+                <video poster="https://pilarnarvaez.github.io/images/supercar-poster.jpg" muted loop playsinline>
+                    <source src="https://pilarnarvaez.github.io/videos/Supercar-Blondie.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">
+                    <span>Supercar Blondie Facebook</span>
+                </div>
+            </div>
+            
+            <!-- I Am Groot Twitter -->
+            <div id="i-am-groot" class="video-container"
+                 data-video-src="https://pilarnarvaez.github.io/videos/I-Am-Groot.mp4"
+                 data-title="I Am Groot Twitter"
+                 data-description="Twitter video series for Marvel's I Am Groot">
+                <video poster="https://pilarnarvaez.github.io/images/groot-poster.jpg" muted loop playsinline>
+                    <source src="https://pilarnarvaez.github.io/videos/I-Am-Groot.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">
+                    <span>I Am Groot Twitter</span>
+                </div>
+            </div>
+            
+            <!-- Just Eat Adaptations -->
+            <div id="just-eat" class="video-container"
+                 data-video-src="https://pilarnarvaez.github.io/videos/Just-Eat.mp4"
+                 data-title="Just Eat Adaptations"
+                 data-description="Localized adaptations for Just Eat's international markets">
+                <video poster="https://pilarnarvaez.github.io/images/justeat-poster.jpg" muted loop playsinline>
+                    <source src="https://pilarnarvaez.github.io/videos/Just-Eat.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">
+                    <span>Just Eat Adaptations</span>
+                </div>
+            </div>
+            
+            <!-- Social Media Videos -->
+            <div id="social-media-videos" class="video-container"
+                 data-video-src="https://pilarnarvaez.github.io/videos/Social-Media-Videos.mp4"
+                 data-title="Social Media Videos"
+                 data-description="Collection of various social media video content">
+                <video poster="https://pilarnarvaez.github.io/images/social-poster.jpg" muted loop playsinline>
+                    <source src="https://pilarnarvaez.github.io/videos/Social-Media-Videos.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">
+                    <span>Social Media Videos</span>
+                </div>
+            </div>
+            
+            <!-- Kings League Twitch -->
+            <div id="kings-league" class="video-container"
+                 data-video-src="https://pilarnarvaez.github.io/videos/Kings-League-Twitch.mp4"
+                 data-title="Kings League Twitch"
+                 data-description="Content created for Kings League on Twitch">
+                <video poster="https://pilarnarvaez.github.io/images/kingsleague-poster.jpg" muted loop playsinline>
+                    <source src="https://pilarnarvaez.github.io/videos/Kings-League-Twitch.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">
+                    <span>Kings League Twitch</span>
+                </div>
+            </div>
         </div>
     </div>
-    
-    <!-- Pepsi Recycle to Win -->
-    <div id="pepsi-recycle" class="video-container"
-         data-video-src="https://pilarnarvaez.github.io/videos/Pepsi-Recycle-to-Win-Reading-Festival.mp4"
-         data-title="Pepsi Recycle to Win"
-         data-description="Video created for Wireless and Reading Festival, adaptation from the Think Different campaign">
-        <video poster="https://pilarnarvaez.github.io/images/pepsi-poster.jpg" muted loop playsinline>
-            <source src="https://pilarnarvaez.github.io/videos/Pepsi-Recycle-to-Win-Reading-Festival.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-            <span>Pepsi Recycle to Win</span>
-        </div>
-    </div>
-    
-    <!-- Expedia Social -->
-    <div id="expedia-social" class="video-container"
-         data-video-src="https://pilarnarvaez.github.io/videos/Expedia-social.mp4"
-         data-title="Expedia Social"
-         data-description="Adaptation and localisation of Expedia (VRBO) campaign for social media">
-        <video poster="https://pilarnarvaez.github.io/images/expedia-poster.jpg" muted loop playsinline>
-            <source src="https://pilarnarvaez.github.io/videos/Expedia-social.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-            <span>Expedia Social</span>
-        </div>
-    </div>
-    
-    <!-- Fire Walk With Me -->
-    <div id="fire-walk-with-me" class="video-container"
-         data-video-src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4"
-         data-title="Fire Walk With Me"
-         data-description="Experimental video project inspired by Twin Peaks">
-        <video poster="https://pilarnarvaez.github.io/images/fire-poster.jpg" muted loop playsinline>
-            <source src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-            <span>Fire Walk With Me</span>
-        </div>
-    </div>
-    
-    <!-- Supercar Blondie Facebook -->
-    <div id="supercar-blondie" class="video-container"
-         data-video-src="https://pilarnarvaez.github.io/videos/Supercar-Blondie.mp4"
-         data-title="Supercar Blondie Facebook"
-         data-description="Social media content for Supercar Blondie's Facebook page">
-        <video poster="https://pilarnarvaez.github.io/images/supercar-poster.jpg" muted loop playsinline>
-            <source src="https://pilarnarvaez.github.io/videos/Supercar-Blondie.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-            <span>Supercar Blondie Facebook</span>
-        </div>
-    </div>
-    
-    <!-- I Am Groot Twitter -->
-    <div id="i-am-groot" class="video-container"
-         data-video-src="https://pilarnarvaez.github.io/videos/I-Am-Groot.mp4"
-         data-title="I Am Groot Twitter"
-         data-description="Twitter video series for Marvel's I Am Groot">
-        <video poster="https://pilarnarvaez.github.io/images/groot-poster.jpg" muted loop playsinline>
-            <source src="https://pilarnarvaez.github.io/videos/I-Am-Groot.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-            <span>I Am Groot Twitter</span>
-        </div>
-    </div>
-    
-    <!-- Just Eat Adaptations -->
-    <div id="just-eat" class="video-container"
-         data-video-src="https://pilarnarvaez.github.io/videos/Just-Eat.mp4"
-         data-title="Just Eat Adaptations"
-         data-description="Localized adaptations for Just Eat's international markets">
-        <video poster="https://pilarnarvaez.github.io/images/justeat-poster.jpg" muted loop playsinline>
-            <source src="https://pilarnarvaez.github.io/videos/Just-Eat.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-            <span>Just Eat Adaptations</span>
-        </div>
-    </div>
-    
-    <!-- Social Media Videos -->
-    <div id="social-media-videos" class="video-container"
-         data-video-src="https://pilarnarvaez.github.io/videos/Social-Media-Videos.mp4"
-         data-title="Social Media Videos"
-         data-description="Collection of various social media video content">
-        <video poster="https://pilarnarvaez.github.io/images/social-poster.jpg" muted loop playsinline>
-            <source src="https://pilarnarvaez.github.io/videos/Social-Media-Videos.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-            <span>Social Media Videos</span>
-        </div>
-    </div>
-    
-    <!-- Kings League Twitch -->
-    <div id="kings-league" class="video-container"
-         data-video-src="https://pilarnarvaez.github.io/videos/Kings-League-Twitch.mp4"
-         data-title="Kings League Twitch"
-         data-description="Content created for Kings League on Twitch">
-        <video poster="https://pilarnarvaez.github.io/images/kingsleague-poster.jpg" muted loop playsinline>
-            <source src="https://pilarnarvaez.github.io/videos/Kings-League-Twitch.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-            <span>Kings League Twitch</span>
-        </div>
-    </div>
-</div>
-        
-    <ul class="mobile-project-list">
-        <li><a href="#showreel">Showreel</a></li>
-        <li><a href="#tercer-campaign">Tercer Campaign</a></li>
-        <li><a href="#menopause-campaign">Menopause Campaign</a></li>
-        <li><a href="#pepsi-recycle">Pepsi Recycle to Win</a></li>
-        <li><a href="#expedia-social">Expedia Social</a></li>
-        <li><a href="#fire-walk-with-me">Fire Walk With Me</a></li>
-        <li><a href="#supercar-blondie">Supercar Blondie Facebook</a></li>
-        <li><a href="#i-am-groot">I Am Groot Twitter</a></li>
-        <li><a href="#just-eat">Just Eat Adaptations</a></li>
-        <li><a href="#social-media-videos">Social Media Videos</a></li>
-        <li><a href="#kings-league">Kings League Twitch</a></li>
-    </ul>
 
     <div id="video-page" class="video-page">
         <div class="video-page-content">
@@ -630,10 +571,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const videoDescriptions = {
         'showreel': 'A selection of my last video edit and Motion graphics works.',
         'tercer-campaign': 'Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics.',
-        'menopause-campaign': 'Minúsculas Producciones collaborated with me on a social media video for Spain\'s Women\'s Institute, marking World Menopause Day (October 18, 2025). The goal was to spotlight menopause as a global women\'s health issue while encouraging broader societal awareness. To avoid clichés, I drew inspiration from female artists—Carmen Herrera (Cuban abstract painter) and Barbara Stauffacher Solomon (US graphic designer)—whose bold, minimalist styles shaped the video\'s aesthetic. In Illustrator, I adapted their geometric motifs and color palettes, animating them with clean, dynamic abstraction. For the social media format, visuals took priority over text. The final piece features two brief messages ("It is not in her head / Symptoms are real") and a closing title, unified by a grainy film-reel backdrop. The soundtrack (pending confirmation) leans playful, echoing the retro-cartoon vibe. (Music placeholder: Bensound.com / License: PRF3J70PUMA2EYO6).',
+        'menopause-campaign': 'Social media video for the Women\'s Institute in Spain, commemorating World Menopause Day',
         'pepsi-recycle': 'Video created for Wireless and Reading Festival, adaptation from the Think Different campaign.',
         'expedia-social': 'Adaptation and localisation of Expedia (VRBO) campaign for social media.',
-        'fire-walk-with-me': 'I was deeply saddened by David Lynch\'s passing, so I recreated Twin Peaks\' iconic opening as a tribute to his work. I used Xiu Xiu\'s excellent Badalamenti cover, originally commissioned by the Queensland Gallery of Modern Art for their 2015 exhibition, David Lynch: Between Two Worlds. Some scenes are flooded with light—an intentional reference to Fire Walk With Me—using Video Copilot\'s Saber plug-in for a luminous glow. I aimed for an abstract, experimental feel, inspired by László Moholy-Nagy\'s Light Space Modulator.',
+        'fire-walk-with-me': 'Experimental video project inspired by Twin Peaks',
         'supercar-blondie': 'Social media content for Supercar Blondie\'s Facebook page',
         'i-am-groot': 'Twitter video series for Marvel\'s I Am Groot',
         'just-eat': 'Localized adaptations for Just Eat\'s international markets',
@@ -644,29 +585,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let activeVideoId = null;
     let isMobile = window.innerWidth <= 768;
     let pressTimer = null;
-
-    // Mobile navigation toggle
-    const mobileNavHeader = document.querySelector('.mobile-nav-header');
-    const mobileProjectList = document.querySelector('.mobile-project-list');
-
-    if (isMobile) {
-        // Show project list when About/Contact is clicked
-        document.querySelectorAll('[data-modal]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const modalId = this.getAttribute('data-modal');
-                document.getElementById(modalId).style.display = 'block';
-            });
-        });
-    }
-        
-    // Show About/Contact header when back button is clicked
-    document.querySelectorAll('.back-button').forEach(button => {
-        button.addEventListener('click', function(e) {
-            mobileNavHeader.style.display = 'flex';
-            mobileProjectList.style.display = 'none';
-        });
-    });
 
     // Video container interactions
     document.querySelectorAll('.video-container').forEach(container => {
@@ -691,8 +609,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         container.addEventListener('click', function(e) {
-            if (isMobile && e.target.tagName === 'A') {
+            if (e.target.tagName === 'A') {
                 e.preventDefault();
+                return;
             }
             openVideoModal(this);
         });
@@ -708,6 +627,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             container.addEventListener('touchend', function(e) {
                 clearTimeout(pressTimer);
+                if (!this.classList.contains('active')) {
+                    openVideoModal(this);
+                }
+                this.classList.remove('active');
             }, { passive: true });
 
             container.addEventListener('touchmove', function(e) {
