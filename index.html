@@ -242,7 +242,6 @@ body {
     }
         
 /* Base Footer Styles */
-
 .footer {
     width: 100%;
     display: grid;
@@ -255,34 +254,13 @@ body {
     bottom: 0;
     left: 0;
     z-index: 100;
-    opacity: 1; /* Start as visible by default */
-    border-top: 1px solid #eee; /* Add visual separation */
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-}
-
-.footer.visible {
     opacity: 1;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+.footer-left { text-align: left; align-self: center; }
+.footer-center { text-align: center; align-self: center; }
+.footer-right { text-align: right; align-self: center; }
 
-.footer-left {
-    text-align: left;
-    align-self: center; /* Vertical alignment */
-}
-
-.footer-center {
-    text-align: center;
-    align-self: center;
-}
-
-.footer-right {
-    text-align: right;
-    align-self: center;
-}
 .footer a {
     color: #999;
     text-decoration: none;
@@ -299,10 +277,6 @@ body {
         grid-template-columns: 1fr;
         gap: 8px;
         padding: 12px 20px;
-        position: fixed;
-        left: 0;
-        width: 100%;
-        transition: all 0.3s ease;
         text-align: center;
     }
     
@@ -310,7 +284,6 @@ body {
     .footer-center,
     .footer-right {
         text-align: center;
-        width: 100%;
     }
     
     body {
