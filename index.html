@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pilar Narvaez Portfolio</title>
-     <style>
+    <style>
     * {
         margin: 0;
         padding: 0;
@@ -12,7 +12,6 @@
         font-family: 'Helvetica Neue', Arial, sans-serif;
     }
     
-    /* Modified body styles - combines both sets */
     html, body {
         height: 100%;
     }
@@ -29,337 +28,334 @@
         margin: 0 auto;
     }
     
-    /* New wrapper */
     .content-wrapper {
-        flex: 1; /* Pushes footer down */
+        flex: 1;
     }
         
-        .portfolio-title {
-            font-size: 18px;
-            font-weight: 500;
-            margin-bottom: 30px;
-        }
-        
-        /* Main Content Grid */
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 3fr;
-            gap: 30px;
-        }
-        
-        /* Left Column - Text */
-        .text-column {
-            padding-right: 20px;
-        }
-        
-        .project-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .project-list li {
-            margin-bottom: 10px;
-        }
-        
-.project-list li.emphasis a,
-.mobile-nav-header a {
-    font-size: 16px;
-    font-weight: 500; /* Changed from separate rules to match titles */
-}
-        
-        .project-list a {
-            color: #333;
-            text-decoration: none; /* Base state: no underline */
-            font-size: 14px;
-        }
-         }
-
-/* Contact Email Link */
-a.contact-email, 
-a.contact-email:link, 
-a.contact-email:visited {
-    color: #333 !important;
-    text-decoration: none !important;
-    font-size: 16px;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    transition: color 0.2s ease;
-}
-
-a.contact-email:hover {
-    color: #e74c3c !important;
-    text-decoration: underline !important;
-}
-/* NEW UNIVERSAL HOVER RULE */
-a:hover {
-    text-decoration: underline;
-}
-
-/* Footer link exception */
-.footer a:hover {
-    text-decoration: none;
-}
-        
-        /* Video Grid */
-        .video-columns {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px; /* Reduced gap for tighter spacing */
-            width: 100%;
-        }
-        /* NEW SMOOTH TRANSITION RULES */ 
-         /* Video Container */
-        .video-container {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16/9;
-            overflow: hidden;
-        }
-       .video-container video {
-    transition: opacity 0.3s ease;
-}
-.video-container video[poster] {
-    opacity: 1;
-} 
-         /* Video Element */
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-/* Video Overlay - Enhanced */
-.video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(231, 76, 60, 0.78); /* Your red at 78% opacity */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.4s cubic-bezier(0.16, 0.83, 0.44, 1);
-    z-index: 2;
-    pointer-events: none;
-}
-
-.video-overlay span {
-    font-size: 18px; /* Matches your nav items */
-    font-weight: 500; /* Medium weight like About/Contact */
-    color: white;
-    padding: 0 30px;
-    text-align: center;
-    line-height: 1.4;
-    letter-spacing: 0.5px;
-    text-transform: uppercase; /* Optional: matches WeCanMake style */
-}
-
-/* Active States */
-.video-container:hover .video-overlay,
-.video-container.active .video-overlay {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-/* Mobile Tap Feedback */
-@media (max-width: 768px) {
-    .video-overlay span {
-        font-size: 16px; /* Slightly smaller on mobile */
-        padding: 0 20px;
+    .portfolio-title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 30px;
     }
-    
-    .video-container.active .video-overlay {
-        background: rgba(231, 76, 60, 0.85); /* More opaque when locked */
-    }
-}
         
-        /* Video Page Modal */
-        .video-page {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            z-index: 100;
-            padding: 40px;
-        }
-        
-        .video-page-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .video-page-player {
-            width: 100%;
-            aspect-ratio: 16/9;
-            background: #000;
-            margin: 40px auto 30px;
-        }
-        
-        .video-page-title {
-            font-size: 18px;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-        
-        .video-page-description {
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-/* ===== ADD CONTACT MODAL STYLES HERE ===== */
-/* ===== CONTACT EMAIL - FINAL VERSION ===== */
-#contact-page a.contact-email,
-#contact-page a.contact-email:link,
-#contact-page a.contact-email:visited,
-#contact-page a.contact-email:hover {
-    color: #333 !important;
-    text-decoration: none !important;
-    font-size: 16px;
-    font-family: 'Helvetica Neue', Arial, sans-serif !important;
-    transition: color 0.2s ease;
-    display: inline-block;
-}
-
-#contact-page a.contact-email:hover {
-    color: #e74c3c !important;
-    text-decoration: underline !important;
-}
-/* ===== END CONTACT EMAIL ===== */
-
-/* ===== END CONTACT MODAL STYLES ===== */
-.back-button {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    background: rgba(255,255,255,0.8);
-    backdrop-filter: blur(10px);
-    border-radius: 8px;
-    border: none;
-    color: #333;
-    font-size: 20px;
-    cursor: pointer;
-    z-index: 101;
-    transition: all 0.3s ease;
-        /* ADD THESE NEW PROPERTIES HERE */
-    user-select: none; /* Prevents text selection */
-    -webkit-tap-highlight-color: transparent; /* Removes mobile tap highlight */
-}
-
-.back-button:hover {
-    background: rgba(255,255,255,0.95);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-        /* Footer */
-        .footer {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            width: 100%;
-            font-size: 12px;
-            color: #999;
-            padding-top: 20px;
-            margin-top: auto; /* Ensures footer stays at bottom */
-        }
-        
-        .footer-left { text-align: left; }
-        .footer-center { text-align: center; }
-        .footer-right { text-align: right; }
-        
-        .footer a {
-            color: #999;
-            text-decoration: none;
-        }
-         
-        
-/* Mobile Styles */
-@media (max-width: 768px) {
-    body {
-        padding: 30px;
-    }
-    
     .main-content {
-        display: block;
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        gap: 30px;
     }
-    
-    /* Hide left text column only in mobile */
+        
     .text-column {
-        display: none;
+        padding-right: 20px;
     }
-    
-    .video-columns {
-        grid-template-columns: 1fr;
-        gap: 20px;
+        
+    .project-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
     }
-    
-    /* Video Overlay Mobile Adaptations */
-    .video-title-overlay {
-        opacity: 1 !important; /* Force show on mobile */
-        height: 22px; /* Slightly smaller */
-        font-size: 11px; /* Smaller text */
-        background: rgba(70, 70, 70, 0.9); /* More opaque for readability */
+        
+    .project-list li {
+        margin-bottom: 10px;
     }
-    
-    .video-container video[poster] {
-        opacity: 0.9; /* Slightly fade thumbnails */
-    }
-    
-    /* Style mobile header links to match desktop */
-    .mobile-nav-header {
-        display: flex;
-        gap: 20px;
-        margin-bottom: 50px;
-    }
-    
+        
+    .project-list li.emphasis a,
     .mobile-nav-header a {
-        color: #333;
-        text-decoration: none;
         font-size: 16px;
         font-weight: 500;
     }
-    
-    /* Hide the duplicate mobile project list */
-    .mobile-project-list {
-        display: none;
+        
+    .project-list a {
+        color: #333;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    a.contact-email, 
+    a.contact-email:link, 
+    a.contact-email:visited {
+        color: #333 !important;
+        text-decoration: none !important;
+        font-size: 16px;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        transition: color 0.2s ease;
+    }
+
+    a.contact-email:hover {
+        color: #e74c3c !important;
+        text-decoration: underline !important;
     }
     
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .footer a:hover {
+        text-decoration: none;
+    }
+        
+    .video-columns {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        width: 100%;
+    }
+    
+    .video-container {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16/9;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    
+    .video-container video {
+        transition: opacity 0.3s ease;
+    }
+    
+    .video-container video[poster] {
+        opacity: 1;
+    } 
+    
+    video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+        
+    /* RED OVERLAY STYLE */
+    .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(231, 76, 60, 0.85); /* Red with 85% opacity */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .video-overlay span {
+        font-size: 18px;
+        font-weight: 500;
+        color: white;
+        text-align: center;
+        padding: 0 20px;
+        width: 100%;
+    }
+
+    .video-container:hover .video-overlay,
+    .video-container.active .video-overlay {
+        opacity: 1;
+        pointer-events: none;
+    }
+
+    .video-title-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 24px;
+        background: rgba(70, 70, 70, 0.85);
+        color: rgba(240, 240, 240, 0.9);
+        font-size: 12px;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+        
+    .video-container:hover .video-title-overlay {
+        opacity: 0.9;
+        background: rgba(0,0,0,0.5);
+    }
+        
     .video-page {
-        padding: 20px;
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        z-index: 100;
+        padding: 40px;
     }
-}
+        
+    .video-page-content {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+    }
+        
+    .video-page-player {
+        width: 100%;
+        aspect-ratio: 16/9;
+        background: #000;
+        margin: 40px auto 30px;
+    }
+        
+    .video-page-title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+        
+    .video-page-description {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    #contact-page a.contact-email,
+    #contact-page a.contact-email:link,
+    #contact-page a.contact-email:visited,
+    #contact-page a.contact-email:hover {
+        color: #333 !important;
+        text-decoration: none !important;
+        font-size: 16px;
+        font-family: 'Helvetica Neue', Arial, sans-serif !important;
+        transition: color 0.2s ease;
+        display: inline-block;
+    }
+
+    #contact-page a.contact-email:hover {
+        color: #e74c3c !important;
+        text-decoration: underline !important;
+    }
+
+    .back-button {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        background: rgba(255,255,255,0.8);
+        backdrop-filter: blur(10px);
+        border-radius: 8px;
+        border: none;
+        color: #333;
+        font-size: 20px;
+        cursor: pointer;
+        z-index: 101;
+        transition: all 0.3s ease;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .back-button:hover {
+        background: rgba(255,255,255,0.95);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+        
+    .footer {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        width: 100%;
+        font-size: 12px;
+        color: #999;
+        padding-top: 20px;
+        margin-top: auto;
+    }
+        
+    .footer-left { text-align: left; }
+    .footer-center { text-align: center; }
+    .footer-right { text-align: right; }
+        
+    .footer a {
+        color: #999;
+        text-decoration: none;
+    }
+         
+    @media (max-width: 768px) {
+        body {
+            padding: 30px;
+        }
+        
+        .main-content {
+            display: block;
+        }
+        
+        .text-column {
+            display: none;
+        }
+        
+        .video-columns {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .video-title-overlay {
+            opacity: 1 !important;
+            height: 22px;
+            font-size: 11px;
+            background: rgba(70, 70, 70, 0.9);
+        }
+        
+        .video-container video[poster] {
+            opacity: 0.9;
+        }
+        
+        .mobile-nav-header {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        
+        .mobile-nav-header a {
+            color: #333;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .mobile-project-list {
+            display: none;
+        }
+        
+        .video-page {
+            padding: 20px;
+        }
+        
+        .video-overlay span {
+            font-size: 16px;
+            padding: 0 20px;
+        }
+        
+        .video-container.active .video-overlay {
+            background: rgba(231, 76, 60, 0.9);
+        }
+    }
     
-    /* Desktop Styles - Exactly as you had it */
     @media (min-width: 769px) {
         .mobile-nav-header,
         .mobile-project-list {
             display: none;
         }
     }
-           </style>
+    </style>
 </head>
 <body>
-    <!-- Title -->
     <div class="portfolio-title">Pilar Narvaez Portfolio</div>
     
-    <!-- Mobile Navigation Header -->
     <div class="mobile-nav-header">
-   <a href="#" data-modal="about-page">About</a>
-    <a href="#" data-modal="contact-page">Contact</a>
-</div>
+        <a href="#" data-modal="about-page">About</a>
+        <a href="#" data-modal="contact-page">Contact</a>
+    </div>
 
-    <!-- Main Content -->
     <div class="main-content">
-        <!-- Left Column - Text -->
         <div class="text-column">
             <ul class="project-list">
-                 <li class="emphasis"><a href="#" data-modal="about-page">About</a></li>
-        <li class="emphasis"><a href="#" data-modal="contact-page">Contact</a></li>
+                <li class="emphasis"><a href="#" data-modal="about-page">About</a></li>
+                <li class="emphasis"><a href="#" data-modal="contact-page">Contact</a></li>
                 <li class="spacer">&nbsp;</li>
                 <li><a href="#showreel">Showreel</a></li>
                 <li><a href="#tercer-campaign">Tercer Campaign</a></li>
@@ -375,7 +371,6 @@ a:hover {
             </ul>
         </div>
 
-        <!-- Right Column - Videos -->
         <div class="video-columns">
             <!-- Showreel -->
             <div id="showreel" class="video-container" 
@@ -384,11 +379,12 @@ a:hover {
                  data-description="A selection of my last video edit and Motion graphics works">
                 <video poster="https://pilarnarvaez.github.io/images/showreel-poster.jpg" muted loop playsinline>
                     <source src="https://pilarnarvaez.github.io/videos/Showreel.mp4" type="video/mp4">
+                </video>
                 <div class="video-overlay">
-        <span>Showreel</span>
-    </div>
-    <div class="video-title-overlay">Showreel</div>
-</div>
+                    <span>Showreel</span>
+                </div>
+                <div class="video-title-overlay">Showreel</div>
+            </div>
 
             <!-- Tercer Campaign -->
             <div id="tercer-campaign" class="video-container" 
@@ -397,11 +393,13 @@ a:hover {
                  data-description="Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics">
                 <video poster="https://pilarnarvaez.github.io/images/tercer-poster.jpg" muted loop playsinline>
                     <source src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4" type="video/mp4">
+                </video>
                 <div class="video-overlay">
-        <span>Tercer Campaign</span>
-    </div>
-    <div class="video-title-overlay">Showreel</div>
-</div>
+                    <span>Tercer Campaign</span>
+                </div>
+                <div class="video-title-overlay">Tercer Campaign</div>
+            </div>
+
             <!-- Menopause Campaign -->
             <div id="menopause-campaign" class="video-container" 
                  data-video-src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4"
@@ -409,11 +407,12 @@ a:hover {
                  data-description="Social media video for the Women's Institute in Spain, commemorating World Menopause Day">
                 <video poster="https://pilarnarvaez.github.io/images/menopause-poster.jpg" muted loop playsinline>
                     <source src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4" type="video/mp4">
-          <div class="video-overlay">
-        <span>Menopause Awareness Day</span>
-    </div>
-    <div class="video-title-overlay">Showreel</div>
-</div>
+                </video>
+                <div class="video-overlay">
+                    <span>Menopause Awareness Day</span>
+                </div>
+                <div class="video-title-overlay">Menopause Awareness Day</div>
+            </div>
             
             <!-- Pepsi Recycle to Win -->
             <div id="pepsi-recycle" class="video-container"
@@ -422,11 +421,12 @@ a:hover {
                  data-description="Video created for Wireless and Reading Festival, adaptation from the Think Different campaign">
                 <video poster="https://pilarnarvaez.github.io/images/pepsi-poster.jpg" muted loop playsinline>
                     <source src="https://pilarnarvaez.github.io/videos/Pepsi-Recycle-to-Win-Reading-Festival.mp4" type="video/mp4">
-         <div class="video-overlay">
-        <span>Pepsi Recycle to Win</span>
-    </div>
-    <div class="video-title-overlay">Showreel</div>
-</div>
+                </video>
+                <div class="video-overlay">
+                    <span>Pepsi Recycle to Win</span>
+                </div>
+                <div class="video-title-overlay">Pepsi Recycle to Win</div>
+            </div>
             
             <!-- Expedia Social -->
             <div id="expedia-social" class="video-container"
@@ -435,11 +435,12 @@ a:hover {
                  data-description="Adaptation and localisation of Expedia (VRBO) campaign for social media">
                 <video poster="https://pilarnarvaez.github.io/images/expedia-poster.jpg" muted loop playsinline>
                     <source src="https://pilarnarvaez.github.io/videos/Expedia-social.mp4" type="video/mp4">
-       <div class="video-overlay">
-        <span>Expedia Social</span>
-    </div>
-    <div class="video-title-overlay">Showreel</div>
-</div>
+                </video>
+                <div class="video-overlay">
+                    <span>Expedia Social</span>
+                </div>
+                <div class="video-title-overlay">Expedia Social</div>
+            </div>
             
             <!-- Fire Walk With Me -->
             <div id="fire-walk-with-me" class="video-container"
@@ -448,11 +449,12 @@ a:hover {
                  data-description="Experimental video project inspired by Twin Peaks">
                 <video poster="https://pilarnarvaez.github.io/images/fire-poster.jpg" muted loop playsinline>
                     <source src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4" type="video/mp4">
-           <div class="video-overlay">
-        <span>Fire Walk With Me</span>
-    </div>
-    <div class="video-title-overlay">Showreel</div>
-</div>
+                </video>
+                <div class="video-overlay">
+                    <span>Fire Walk With Me</span>
+                </div>
+                <div class="video-title-overlay">Fire Walk With Me</div>
+            </div>
             
             <!-- Supercar Blondie Facebook -->
             <div id="supercar-blondie" class="video-container"
@@ -461,11 +463,12 @@ a:hover {
                  data-description="Social media content for Supercar Blondie's Facebook page">
                 <video poster="https://pilarnarvaez.github.io/images/supercar-poster.jpg" muted loop playsinline>
                     <source src="https://pilarnarvaez.github.io/videos/Supercar-Blondie.mp4" type="video/mp4">
-              <div class="video-overlay">
-        <span>Supercar Blondie Facebook</span>
-    </div>
-    <div class="video-title-overlay">Showreel</div>
-</div>
+                </video>
+                <div class="video-overlay">
+                    <span>Supercar Blondie Facebook</span>
+                </div>
+                <div class="video-title-overlay">Supercar Blondie Facebook</div>
+            </div>
             
             <!-- I Am Groot Twitter -->
             <div id="i-am-groot" class="video-container"
@@ -474,11 +477,12 @@ a:hover {
                  data-description="Twitter video series for Marvel's I Am Groot">
                 <video poster="https://pilarnarvaez.github.io/images/groot-poster.jpg" muted loop playsinline>
                     <source src="https://pilarnarvaez.github.io/videos/I-Am-Groot.mp4" type="video/mp4">
-    <div class="video-overlay">
-        <span>I Am Groot Twitter</span>
-    </div>
-    <div class="video-title-overlay">Showreel</div>
-</div>
+                </video>
+                <div class="video-overlay">
+                    <span>I Am Groot Twitter</span>
+                </div>
+                <div class="video-title-overlay">I Am Groot Twitter</div>
+            </div>
             
             <!-- Just Eat Adaptations -->
             <div id="just-eat" class="video-container"
@@ -487,15 +491,43 @@ a:hover {
                  data-description="Localized adaptations for Just Eat's international markets">
                 <video poster="https://pilarnarvaez.github.io/images/justeat-poster.jpg" muted loop playsinline>
                     <source src="https://pilarnarvaez.github.io/videos/Just-Eat.mp4" type="video/mp4">
-   <div class="video-overlay">
-        <span>Just Eat Adaptations</span>
-    </div>
-    <div class="video-title-overlay">Showreel</div>
-</div>
+                </video>
+                <div class="video-overlay">
+                    <span>Just Eat Adaptations</span>
+                </div>
+                <div class="video-title-overlay">Just Eat Adaptations</div>
+            </div>
+            
+            <!-- Social Media Videos -->
+            <div id="social-media-videos" class="video-container"
+                 data-video-src="https://pilarnarvaez.github.io/videos/Social-Media-Videos.mp4"
+                 data-title="Social Media Videos"
+                 data-description="Collection of various social media video content">
+                <video poster="https://pilarnarvaez.github.io/images/social-poster.jpg" muted loop playsinline>
+                    <source src="https://pilarnarvaez.github.io/videos/Social-Media-Videos.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">
+                    <span>Social Media Videos</span>
+                </div>
+                <div class="video-title-overlay">Social Media Videos</div>
+            </div>
+            
+            <!-- Kings League Twitch -->
+            <div id="kings-league" class="video-container"
+                 data-video-src="https://pilarnarvaez.github.io/videos/Kings-League-Twitch.mp4"
+                 data-title="Kings League Twitch"
+                 data-description="Content created for Kings League on Twitch">
+                <video poster="https://pilarnarvaez.github.io/images/kingsleague-poster.jpg" muted loop playsinline>
+                    <source src="https://pilarnarvaez.github.io/videos/Kings-League-Twitch.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">
+                    <span>Kings League Twitch</span>
+                </div>
+                <div class="video-title-overlay">Kings League Twitch</div>
+            </div>
         </div>
     </div>
         
-    <!-- Mobile Project List -->
     <ul class="mobile-project-list">
         <li><a href="#showreel">Showreel</a></li>
         <li><a href="#tercer-campaign">Tercer Campaign</a></li>
@@ -510,10 +542,9 @@ a:hover {
         <li><a href="#kings-league">Kings League Twitch</a></li>
     </ul>
 
-    <!-- Video Page Modal -->
     <div id="video-page" class="video-page">
         <div class="video-page-content">
-            <button class="back-button">&lt;&lt;</button> <!-- Removed "Back" text -->
+            <button class="back-button">&lt;&lt;</button>
             <div class="video-page-player">
                 <video controls autoplay style="width:100%;height:100%;object-fit:contain;">
                     <source src="" type="video/mp4">
@@ -522,199 +553,181 @@ a:hover {
             <h1 class="video-page-title" id="video-page-title"></h1>
             <p class="video-page-description" id="video-page-description"></p>
         </div>
-    </div>     
-<!-- ^^^ THIS IS WHERE VIDEO MODAL ENDS ^^^ -->
-<!-- About Modal -->
-<div id="about-page" class="video-page">
-    <div class="video-page-content">
-        <button class="back-button">&lt;&lt;</button>
-        <h1 class="video-page-title">About</h1>
-        <p class="video-page-description">
-            I’m a video editor and motion graphics artist with experience in localizing advertising, TV, and film campaigns, creating social media content, and producing brand campaigns and television promos.<br><br>
-            
-            I work primarily with Adobe Creative Suite (Premiere, After Effects) and Avid Media Composer. As a bilingual (Spanish/English) professional, I can work with multilingual content, including French.<br><br>
-            
-            Known for being a fast learner, hard worker, and detail-oriented, I’m dedicated to delivering high-quality results and thriving in creative, fast-paced environments. Let’s create something amazing together!
-        </p>
     </div>
-</div>
-<!-- Contact Modal - Simple Version -->
-<div id="contact-page" class="video-page">
-    <div class="video-page-content">
-        <button class="back-button">&lt;&lt;</button>
-        <h1 class="video-page-title">Contact</h1>
-    <p class="video-page-description">
-    <a href="mailto:pilar.narvaez@gmail.com" class="contact-email">
-        pilar.narvaez@gmail.com
-    </a>
-</p>
+    
+    <div id="about-page" class="video-page">
+        <div class="video-page-content">
+            <button class="back-button">&lt;&lt;</button>
+            <h1 class="video-page-title">About</h1>
+            <p class="video-page-description">
+                I'm a video editor and motion graphics artist with experience in localizing advertising, TV, and film campaigns, creating social media content, and producing brand campaigns and television promos.<br><br>
+                
+                I work primarily with Adobe Creative Suite (Premiere, After Effects) and Avid Media Composer. As a bilingual (Spanish/English) professional, I can work with multilingual content, including French.<br><br>
+                
+                Known for being a fast learner, hard worker, and detail-oriented, I'm dedicated to delivering high-quality results and thriving in creative, fast-paced environments. Let's create something amazing together!
+            </p>
+        </div>
     </div>
-</div>
-    <!-- Footer - Your existing footer stays here -->
+    
+    <div id="contact-page" class="video-page">
+        <div class="video-page-content">
+            <button class="back-button">&lt;&lt;</button>
+            <h1 class="video-page-title">Contact</h1>
+            <p class="video-page-description">
+                <a href="mailto:pilar.narvaez@gmail.com" class="contact-email">
+                    pilar.narvaez@gmail.com
+                </a>
+            </p>
+        </div>
+    </div>
+    
     <footer class="footer">
         <div class="footer-left">Pilar Narvaez Portfolio</div>
         <div class="footer-center">Motion Graphics / Video Edit</div>
         <div class="footer-right"><a href="http://uk.linkedin.com/in/pilarnarvaez">LinkedIn</a></div>
     </footer>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Video descriptions
-    const videoDescriptions = {
-        'showreel': 'A selection of my last video edit and Motion graphics works.',
-        'tercer-campaign': 'Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics',
-        'menopause-campaign': 'Social media video for the Women\'s Institute in Spain, commemorating World Menopause Day',
-        'pepsi-recycle': 'Video created for Wireless and Reading Festival, adaptation from the Think Different campaign',
-        'expedia-social': 'Adaptation and localisation of Expedia (VRBO) campaign for social media',
-        'fire-walk-with-me': 'Experimental video project inspired by Twin Peaks',
-        'supercar-blondie': 'Social media content for Supercar Blondie\'s Facebook page',
-        'i-am-groot': 'Twitter video series for Marvel\'s I Am Groot',
-        'just-eat': 'Localized adaptations for Just Eat\'s international markets'
-    };
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const videoDescriptions = {
+            'showreel': 'A selection of my last video edit and Motion graphics works.',
+            'tercer-campaign': 'Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics',
+            'menopause-campaign': 'Social media video for the Women\'s Institute in Spain, commemorating World Menopause Day',
+            'pepsi-recycle': 'Video created for Wireless and Reading Festival, adaptation from the Think Different campaign',
+            'expedia-social': 'Adaptation and localisation of Expedia (VRBO) campaign for social media',
+            'fire-walk-with-me': 'Experimental video project inspired by Twin Peaks',
+            'supercar-blondie': 'Social media content for Supercar Blondie\'s Facebook page',
+            'i-am-groot': 'Twitter video series for Marvel\'s I Am Groot',
+            'just-eat': 'Localized adaptations for Just Eat\'s international markets',
+            'social-media-videos': 'Collection of various social media video content',
+            'kings-league': 'Content created for Kings League on Twitch'
+        };
 
-    // Track active video globally
-    let activeVideoId = null;
-    let isMobile = window.innerWidth <= 768;
+        let activeVideoId = null;
+        let isMobile = window.innerWidth <= 768;
+        let pressTimer = null;
 
-    // 1. Video container setup
-    document.querySelectorAll('.video-container').forEach(container => {
-        const video = container.querySelector('video');
-        const overlay = container.querySelector('.video-title-overlay');
-        const poster = video.getAttribute('poster');
-        const containerId = container.id;
+        document.querySelectorAll('.video-container').forEach(container => {
+            const video = container.querySelector('video');
+            const overlay = container.querySelector('.video-overlay');
+            const poster = video.getAttribute('poster');
+            const containerId = container.id;
 
-        // Desktop Hover Handlers
-        if (!isMobile) {
-            container.addEventListener('mouseenter', () => {
-                video.play().catch(e => console.log('Hover play:', e));
-                overlay.style.opacity = '1';
+            // Desktop Hover Handlers - play on hover
+            if (!isMobile) {
+                container.addEventListener('mouseenter', () => {
+                    video.play().catch(e => console.log('Hover play:', e));
+                    overlay.style.opacity = '1';
+                });
+
+                container.addEventListener('mouseleave', () => {
+                    video.pause();
+                    video.currentTime = 0;
+                    overlay.style.opacity = '0';
+                    video.setAttribute('poster', poster);
+                    video.load();
+                });
+            }
+
+            // Click handler
+            container.addEventListener('click', function(e) {
+                if (isMobile) {
+                    if (!container.classList.contains('active')) {
+                        openVideoModal(this);
+                    }
+                    container.classList.remove('active');
+                    clearTimeout(pressTimer);
+                } else {
+                    openVideoModal(this);
+                }
             });
 
-            container.addEventListener('mouseleave', () => {
-                video.pause();
-                video.currentTime = 0;
-                overlay.style.opacity = '0';
-                video.setAttribute('poster', poster);
-                video.load();
-            });
-        }
-
-        // Click handler (all devices)
-        container.addEventListener('click', function(e) {
-            // On mobile, we want to handle play/pause on single tap
-            // and only open modal on double tap
+            // Mobile Touch Handlers
             if (isMobile) {
-                e.preventDefault();
-                return;
-            }
-            
-            openVideoModal(this);
-        });
-
-        // Mobile Touch Handlers
-        if (isMobile) {
-            let tapCount = 0;
-            let tapTimer = null;
-            
-            container.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                tapCount++;
-                
-                if (tapCount === 1) {
-                    tapTimer = setTimeout(() => {
-                        // Single tap - play/pause
-                        if (video.paused) {
-                            video.play().catch(e => console.log('Play error:', e));
-                        } else {
-                            video.pause();
-                        }
-                        tapCount = 0;
+                container.addEventListener('touchstart', function(e) {
+                    pressTimer = setTimeout(() => {
+                        this.classList.add('active');
+                        video.pause();
                     }, 300);
-                } else if (tapCount === 2) {
-                    // Double tap - open modal
-                    clearTimeout(tapTimer);
-                    openVideoModal(container);
-                    tapCount = 0;
-                }
-            }, { passive: false });
-        }
-    });
+                }, { passive: true });
 
-    // Function to open video modal
-    function openVideoModal(container) {
-        activeVideoId = container.id;
-        const videoPage = document.getElementById('video-page');
-        const modalVideo = videoPage.querySelector('video');
-        
-        // Set modal content
-        modalVideo.src = container.dataset.videoSrc;
-        document.getElementById('video-page-title').textContent = container.dataset.title;
-        document.getElementById('video-page-description').textContent = 
-            videoDescriptions[container.id] || container.dataset.description;
-        
-        // Show and play
-        videoPage.style.display = 'block';
-        modalVideo.load();
-        const playPromise = modalVideo.play();
-        
-        if (playPromise !== undefined) {
-            playPromise.catch(e => {
-                console.log('Showing controls due to autoplay restrictions:', e);
-                modalVideo.controls = true;
-            });
-        }
-    }
+                container.addEventListener('touchend', function(e) {
+                    clearTimeout(pressTimer);
+                }, { passive: true });
 
-    // 2. Back button handler
-    document.querySelectorAll('.back-button').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const modal = this.closest('.video-page');
-            const video = modal.querySelector('video');
-            
-            // Reset modal
-            if (video) {
-                video.pause();
-                video.currentTime = 0;
-                video.removeAttribute('controls');
-            }
-            modal.style.display = 'none';
-            
-            // Restore original video
-            if (activeVideoId) {
-                const originalVideo = document.getElementById(activeVideoId);
-                if (originalVideo) {
-                    const videoEl = originalVideo.querySelector('video');
-                    videoEl.pause();
-                    videoEl.currentTime = 0;
-                    videoEl.setAttribute('poster', videoEl.getAttribute('poster'));
-                    videoEl.load();
-                }
+                container.addEventListener('touchmove', function(e) {
+                    clearTimeout(pressTimer);
+                    this.classList.remove('active');
+                }, { passive: true });
             }
         });
-    });
 
-    // 3. Modal handlers (About/Contact)
-    document.querySelectorAll('[data-modal]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const modalId = this.dataset.modal;
+        function openVideoModal(container) {
+            activeVideoId = container.id;
+            const videoPage = document.getElementById('video-page');
+            const modalVideo = videoPage.querySelector('video');
             
-            document.querySelectorAll('.video-page').forEach(modal => {
+            modalVideo.src = container.dataset.videoSrc;
+            document.getElementById('video-page-title').textContent = container.dataset.title;
+            document.getElementById('video-page-description').textContent = 
+                videoDescriptions[container.id] || container.dataset.description;
+            
+            videoPage.style.display = 'block';
+            modalVideo.load();
+            const playPromise = modalVideo.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(e => {
+                    modalVideo.controls = true;
+                });
+            }
+        }
+
+        document.querySelectorAll('.back-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const modal = this.closest('.video-page');
                 const video = modal.querySelector('video');
-                if (video) video.pause();
+                
+                if (video) {
+                    video.pause();
+                    video.currentTime = 0;
+                    video.removeAttribute('controls');
+                }
                 modal.style.display = 'none';
+                
+                if (activeVideoId) {
+                    const originalVideo = document.getElementById(activeVideoId);
+                    if (originalVideo) {
+                        const videoEl = originalVideo.querySelector('video');
+                        videoEl.pause();
+                        videoEl.currentTime = 0;
+                        videoEl.setAttribute('poster', videoEl.getAttribute('poster'));
+                        videoEl.load();
+                    }
+                }
             });
-            
-            document.getElementById(modalId).style.display = 'block';
+        });
+
+        document.querySelectorAll('[data-modal]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const modalId = this.dataset.modal;
+                
+                document.querySelectorAll('.video-page').forEach(modal => {
+                    const video = modal.querySelector('video');
+                    if (video) video.pause();
+                    modal.style.display = 'none';
+                });
+                
+                document.getElementById(modalId).style.display = 'block';
+            });
+        });
+
+        window.addEventListener('resize', function() {
+            isMobile = window.innerWidth <= 768;
         });
     });
-
-    // Handle window resize
-    window.addEventListener('resize', function() {
-        isMobile = window.innerWidth <= 768;
-    });
-});
-</script>
+    </script>
 </body>
 </html>
