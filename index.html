@@ -663,7 +663,7 @@ body {
     <div class="footer-right"><a href="http://uk.linkedin.com/in/pilarnarvaez">LinkedIn</a></div>
 </footer>
 
-    <script>
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     const videoDescriptions = {
         'showreel': 'A selection of my last video edit and Motion graphics works.',
@@ -683,7 +683,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let isMobile = window.innerWidth <= 768;
     let pressTimer = null;
 
-    // Mobile navigation toggle - ADD THIS SECTION
+    // Mobile navigation toggle
     const mobileNavHeader = document.querySelector('.mobile-nav-header');
     const mobileProjectList = document.querySelector('.mobile-project-list');
 
@@ -691,8 +691,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show project list when About/Contact is clicked
         document.querySelectorAll('[data-modal]').forEach(link => {
             link.addEventListener('click', function(e) {
+                e.preventDefault();
                 mobileNavHeader.style.display = 'none';
                 mobileProjectList.style.display = 'block';
+                window.scrollTo(0, 0);
             });
         });
         
@@ -704,141 +706,149 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-    // END OF ADDED SECTION
-document.querySelectorAll('.video-container').forEach(container => {
-    const video = container.querySelector('video');
-    const overlay = container.querySelector('.video-overlay');
-    const poster = video.getAttribute('poster');
 
-    // Desktop Hover Handlers
-    if (!isMobile) {
-        container.addEventListener('mouseenter', () => {
-            video.play().catch(e => console.log('Hover play:', e));
-            overlay.style.opacity = '1';
-        });
+    // Video container interactions
+    document.querySelectorAll('.video-container').forEach(container => {
+        const video = container.querySelector('video');
+        const overlay = container.querySelector('.video-overlay');
+        const poster = video.getAttribute('poster');
 
-        container.addEventListener('mouseleave', () => {
-            video.pause();
-            video.currentTime = 0;
-            overlay.style.opacity = '0';
-            video.setAttribute('poster', poster);
-            video.load();
-        });
-    }
+        // Desktop Hover Handlers
+        if (!isMobile) {
+            container.addEventListener('mouseenter', () => {
+                video.play().catch(e => console.log('Hover play:', e));
+                overlay.style.opacity = '1';
+            });
 
-    // Click/Touch handler
-    container.addEventListener('click', function(e) {
-        // Prevent default only if it's a touch device
-        if (isMobile && e.target.tagName === 'A') {
-            e.preventDefault();
+            container.addEventListener('mouseleave', () => {
+                video.pause();
+                video.currentTime = 0;
+                overlay.style.opacity = '0';
+                video.setAttribute('poster', poster);
+                video.load();
+            });
         }
-        openVideoModal(this);
+
+        // Click/Touch handler
+        container.addEventListener('click', function(e) {
+            if (isMobile && e.target.tagName === 'A') {
+                e.preventDefault();
+            }
+            openVideoModal(this);
+        });
+
+        // Mobile Touch Handlers
+        if (isMobile) {
+            container.addEventListener('touchstart', function(e) {
+                pressTimer = setTimeout(() => {
+                    this.classList.add('active');
+                    video.pause();
+                }, 300);
+            }, { passive: true });
+
+            container.addEventListener('touchend', function(e) {
+                clearTimeout(pressTimer);
+            }, { passive: true });
+
+            container.addEventListener('touchmove', function(e) {
+                clearTimeout(pressTimer);
+                this.classList.remove('active');
+            }, { passive: true });
+        }
     });
 
-    // Mobile Touch Handlers
-    if (isMobile) {
-        container.addEventListener('touchstart', function(e) {
-            pressTimer = setTimeout(() => {
-                this.classList.add('active');
-                video.pause();
-            }, 300);
-        }, { passive: true });
-
-        container.addEventListener('touchend', function(e) {
-            clearTimeout(pressTimer);
-        }, { passive: true });
-
-        container.addEventListener('touchmove', function(e) {
-            clearTimeout(pressTimer);
-            this.classList.remove('active');
-        }, { passive: true });
-    }
-});
-
-function openVideoModal(container) {
-    activeVideoId = container.id;
-    const videoPage = document.getElementById('video-page');
-    const modalVideo = videoPage.querySelector('video');
-    
-    modalVideo.src = container.dataset.videoSrc;
-    document.getElementById('video-page-title').textContent = container.dataset.title;
-    document.getElementById('video-page-description').textContent = 
-        videoDescriptions[container.id] || container.dataset.description;
-    
-    videoPage.style.display = 'block';
-    modalVideo.load();
-    
-    // Try to autoplay, fallback to controls if needed
-    const playPromise = modalVideo.play();
-    if (playPromise !== undefined) {
-        playPromise.catch(e => {
-            modalVideo.controls = true;
-        });
-    }
-}
-
-        document.querySelectorAll('.back-button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const modal = this.closest('.video-page');
-                const video = modal.querySelector('video');
-                
-                if (video) {
-                    video.pause();
-                    video.currentTime = 0;
-                    video.removeAttribute('controls');
-                }
-                modal.style.display = 'none';
-                
-                if (activeVideoId) {
-                    const originalVideo = document.getElementById(activeVideoId);
-                    if (originalVideo) {
-                        const videoEl = originalVideo.querySelector('video');
-                        videoEl.pause();
-                        videoEl.currentTime = 0;
-                        videoEl.setAttribute('poster', videoEl.getAttribute('poster'));
-                        videoEl.load();
-                    }
-                }
+    function openVideoModal(container) {
+        activeVideoId = container.id;
+        const videoPage = document.getElementById('video-page');
+        const modalVideo = videoPage.querySelector('video');
+        
+        modalVideo.src = container.dataset.videoSrc;
+        document.getElementById('video-page-title').textContent = container.dataset.title;
+        document.getElementById('video-page-description').textContent = 
+            videoDescriptions[container.id] || container.dataset.description;
+        
+        videoPage.style.display = 'block';
+        modalVideo.load();
+        
+        const playPromise = modalVideo.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(e => {
+                modalVideo.controls = true;
             });
-        });
+        }
+    }
 
-        document.querySelectorAll('[data-modal]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const modalId = this.dataset.modal;
-                
-                document.querySelectorAll('.video-page').forEach(modal => {
-                    const video = modal.querySelector('video');
-                    if (video) video.pause();
-                    modal.style.display = 'none';
-                });
-                
-                document.getElementById(modalId).style.display = 'block';
-            });
-        });
-     window.addEventListener('resize', function() {
-            isMobile = window.innerWidth <= 768;
-        });
-
-        // Footer visibility handler (inside DOMContentLoaded)
-    window.addEventListener('scroll', function() {
-    const footer = document.querySelector('.footer');
-    const scrollPosition = window.innerHeight + window.scrollY;
-    const documentHeight = document.body.offsetHeight;
+    // Modal back buttons
+    document.querySelectorAll('.back-button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const modal = this.closest('.video-page');
+            const video = modal.querySelector('video');
             
-    // Show footer when near bottom (100px threshold)
-    if (scrollPosition >= documentHeight - 100) {
-        footer.classList.add('visible');
-    } else {
-        footer.classList.remove('visible');
-    }
-});
+            if (video) {
+                video.pause();
+                video.currentTime = 0;
+                video.removeAttribute('controls');
+            }
+            modal.style.display = 'none';
+            
+            if (activeVideoId) {
+                const originalVideo = document.getElementById(activeVideoId);
+                if (originalVideo) {
+                    const videoEl = originalVideo.querySelector('video');
+                    videoEl.pause();
+                    videoEl.currentTime = 0;
+                    videoEl.setAttribute('poster', videoEl.getAttribute('poster'));
+                    videoEl.load();
+                }
+            }
+        });
+    });
 
-// Initialize footer
-document.addEventListener('DOMContentLoaded', function() {
+    // Modal links
+    document.querySelectorAll('[data-modal]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const modalId = this.dataset.modal;
+            
+            document.querySelectorAll('.video-page').forEach(modal => {
+                const video = modal.querySelector('video');
+                if (video) video.pause();
+                modal.style.display = 'none';
+            });
+            
+            document.getElementById(modalId).style.display = 'block';
+        });
+    });
+
+    // Responsive check
+    window.addEventListener('resize', function() {
+        isMobile = window.innerWidth <= 768;
+    });
+
+    // Footer visibility control
     const footer = document.querySelector('.footer');
+    let lastScrollPosition = 0;
+    
+    function updateFooterVisibility() {
+        const scrollPosition = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.body.scrollHeight;
+        
+        // Show footer when either:
+        // 1. Within 100px of bottom, or
+        // 2. Scrolling down past header
+        const shouldShow = (scrollPosition + windowHeight >= documentHeight - 100) || 
+                         (scrollPosition > lastScrollPosition && scrollPosition > 100);
+        
+        footer.classList.toggle('visible', shouldShow);
+        lastScrollPosition = scrollPosition;
+    }
+
+    // Initialize footer
     footer.style.opacity = '0';
+    window.addEventListener('scroll', updateFooterVisibility);
+    updateFooterVisibility(); // Check on initial load
 });
 </script>
 
