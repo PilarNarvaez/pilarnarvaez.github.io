@@ -567,7 +567,28 @@
         let activeVideoId = null;
         let isMobile = window.innerWidth <= 768;
         let pressTimer = null;
+// Mobile navigation toggle
+const mobileNavHeader = document.querySelector('.mobile-nav-header');
+const mobileProjectList = document.querySelector('.mobile-project-list');
 
+if (isMobile) {
+    // Show project list when About/Contact is clicked
+    document.querySelectorAll('[data-modal]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            mobileNavHeader.style.display = 'none';
+            mobileProjectList.style.display = 'block';
+        });
+    });
+    
+    // Show About/Contact header when back button is clicked
+    document.querySelectorAll('.back-button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            mobileNavHeader.style.display = 'flex';
+            mobileProjectList.style.display = 'none';
+        });
+    });
+}
+// END OF ADDED CODE
         document.querySelectorAll('.video-container').forEach(container => {
             const video = container.querySelector('video');
             const overlay = container.querySelector('.video-overlay');
