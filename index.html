@@ -153,31 +153,6 @@
         opacity: 1;
         pointer-events: none;
     }
-
-    .video-title-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 24px;
-        background: rgba(70, 70, 70, 0.85);
-        color: rgba(240, 240, 240, 0.9);
-        font-size: 12px;
-        text-align: center;
-        opacity: 0;
-        transition: opacity 0.3s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-        
-    .video-container:hover .video-title-overlay {
-        opacity: 0.9;
-        background: rgba(0,0,0,0.5);
-    }
         
     .video-page {
         display: none;
@@ -292,13 +267,7 @@
             grid-template-columns: 1fr;
             gap: 20px;
         }
-        
-        .video-title-overlay {
-            opacity: 1 !important;
-            height: 22px;
-            font-size: 11px;
-            background: rgba(70, 70, 70, 0.9);
-        }
+
         
         .video-container video[poster] {
             opacity: 0.9;
@@ -325,10 +294,16 @@
             padding: 20px;
         }
         
-        .video-overlay span {
-            font-size: 10px;
-            padding: 0 20px;
-        }
+    .video-overlay {
+        /* Ensure overlay is visible and properly styled on mobile */
+        opacity: 1 !important;
+        background: rgba(231, 76, 60, 0.9);
+    }
+    .video-overlay span {
+        font-size: 12px; /* Slightly larger for mobile readability */
+        padding: 0 15px;
+    }
+}
         
         .video-container.active .video-overlay {
             background: rgba(231, 76, 60, 0.9);
@@ -382,8 +357,7 @@
                 </video>
                 <div class="video-overlay">
                     <span>Showreel</span>
-                </div>
-                <div class="video-title-overlay">Showreel</div>
+     </div>
             </div>
 
             <!-- Tercer Campaign -->
@@ -396,10 +370,8 @@
                 </video>
                 <div class="video-overlay">
                     <span>Tercer Campaign</span>
-                </div>
-                <div class="video-title-overlay">Tercer Campaign</div>
             </div>
-
+ </div>
             <!-- Menopause Campaign -->
             <div id="menopause-campaign" class="video-container" 
                  data-video-src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4"
@@ -410,9 +382,8 @@
                 </video>
                 <div class="video-overlay">
                     <span>Menopause Awareness Day</span>
-                </div>
-                <div class="video-title-overlay">Menopause Awareness Day</div>
             </div>
+                 </div>
             
             <!-- Pepsi Recycle to Win -->
             <div id="pepsi-recycle" class="video-container"
@@ -424,9 +395,8 @@
                 </video>
                 <div class="video-overlay">
                     <span>Pepsi Recycle to Win</span>
-                </div>
-                <div class="video-title-overlay">Pepsi Recycle to Win</div>
             </div>
+                 </div>
             
             <!-- Expedia Social -->
             <div id="expedia-social" class="video-container"
@@ -438,9 +408,8 @@
                 </video>
                 <div class="video-overlay">
                     <span>Expedia Social</span>
-                </div>
-                <div class="video-title-overlay">Expedia Social</div>
             </div>
+                 </div>
             
             <!-- Fire Walk With Me -->
             <div id="fire-walk-with-me" class="video-container"
@@ -452,9 +421,8 @@
                 </video>
                 <div class="video-overlay">
                     <span>Fire Walk With Me</span>
-                </div>
-                <div class="video-title-overlay">Fire Walk With Me</div>
             </div>
+                 </div>
             
             <!-- Supercar Blondie Facebook -->
             <div id="supercar-blondie" class="video-container"
@@ -466,9 +434,8 @@
                 </video>
                 <div class="video-overlay">
                     <span>Supercar Blondie Facebook</span>
-                </div>
-                <div class="video-title-overlay">Supercar Blondie Facebook</div>
             </div>
+                 </div>
             
             <!-- I Am Groot Twitter -->
             <div id="i-am-groot" class="video-container"
@@ -480,9 +447,8 @@
                 </video>
                 <div class="video-overlay">
                     <span>I Am Groot Twitter</span>
-                </div>
-                <div class="video-title-overlay">I Am Groot Twitter</div>
             </div>
+                 </div>
             
             <!-- Just Eat Adaptations -->
             <div id="just-eat" class="video-container"
@@ -494,9 +460,8 @@
                 </video>
                 <div class="video-overlay">
                     <span>Just Eat Adaptations</span>
-                </div>
-                <div class="video-title-overlay">Just Eat Adaptations</div>
             </div>
+                 </div>
             
             <!-- Social Media Videos -->
             <div id="social-media-videos" class="video-container"
@@ -508,9 +473,8 @@
                 </video>
                 <div class="video-overlay">
                     <span>Social Media Videos</span>
-                </div>
-                <div class="video-title-overlay">Social Media Videos</div>
             </div>
+                 </div>
             
             <!-- Kings League Twitch -->
             <div id="kings-league" class="video-container"
@@ -522,8 +486,6 @@
                 </video>
                 <div class="video-overlay">
                     <span>Kings League Twitch</span>
-                </div>
-                <div class="video-title-overlay">Kings League Twitch</div>
             </div>
         </div>
     </div>
