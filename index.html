@@ -43,10 +43,14 @@
         max-width: 1400px;
         margin: 0 auto;
         width: 100%;
+        min-height: calc(100vh - 150px); /* ADD THIS LINE */
     }
         
     .text-column {
         padding-right: 20px;
+        position: sticky;
+        top: 40px;
+        height: fit-content;
     }
         
     .project-list {
@@ -98,9 +102,7 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 10px;
         width: 100%;
-        padding: 0 40px;
-        max-width: 1400px;
-        margin: 0 auto;
+        align-content: start;
     }
     
     .video-container {
@@ -329,9 +331,6 @@
     <div class="portfolio-title">Pilar Narvaez Portfolio</div>
 
     <div class="main-content">
-.main-content {
-    min-height: calc(100vh - 150px); /* Prevents footer overlap */
-}
 
         <div class="text-column">
             <ul class="project-list">
