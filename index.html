@@ -30,7 +30,7 @@ body {
     position: relative;
     border: none !important;
     width: 100%; /* Add this */
-    padding-bottom: 60px; /* Add this - should match footer height */
+    padding-bottom: 80px; /* Add this - should match footer height */
 }
     
 .content-wrapper {
@@ -255,7 +255,8 @@ body {
     position: fixed;
     bottom: -100px; /* Start hidden */
     left: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: all 0.3s ease;
+    transform: translateY(100px);
     z-index: 100;
     opacity: 0;
 }
