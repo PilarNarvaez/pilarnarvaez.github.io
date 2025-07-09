@@ -253,16 +253,14 @@ body {
     padding: 15px 40px;
     background: white;
     position: fixed;
-    bottom: -100px; /* Start hidden */
+    bottom: 0;
     left: 0;
-    transition: all 0.3s ease;
-    transform: translateY(100px);
     z-index: 100;
     opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .footer.visible {
-    transform: translateY(-100px); /* Slide up */
     opacity: 1;
 }
 
@@ -302,17 +300,10 @@ body {
         gap: 8px;
         padding: 12px 20px;
         position: fixed;
-        bottom: -100px; /* Start hidden below viewport */
         left: 0;
         width: 100%;
-        opacity: 0;
         transition: all 0.3s ease;
         text-align: center;
-    }
-    
-    .footer.visible {
-        bottom: 0; /* Slide up into view */
-        opacity: 1;
     }
     
     .footer-left,
@@ -828,29 +819,60 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Footer visibility control
-    const footer = document.querySelector('.footer');
+ const footer = document.querySelector('.footer');
     let lastScrollPosition = 0;
+    let isScrolling;
     
     function updateFooterVisibility() {
         const scrollPosition = window.scrollY;
         const windowHeight = window.innerHeight;
         const documentHeight = document.body.scrollHeight;
         
-        // Show footer when either:
-        // 1. Within 100px of bottom, or
-        // 2. Scrolling down past header
-        const shouldShow = (scrollPosition + windowHeight >= documentHeight - 100) || 
-                         (scrollPosition > lastScrollPosition && scrollPosition > 100);
+        // Desktop behavior - always visible
+        if (!isMobile) {
+            if (!footer.classList.contains('visible')) {
+                footer.classList.add('visible');
+            }
+            return;
+        }
         
-        footer.classList.toggle('visible', shouldShow);
-        lastScrollPosition = scrollPosition;
+        // Mobile behavior - show when:
+        // 1. Near bottom (100px from end), or
+        // 2. Scrolling down past header (100px)
+        const nearBottom = scrollPosition + windowHeight >= documentHeight - 100;
+        const scrollingDown = scrollPosition > lastScrollPosition && scrollPosition > 100;
+        const shouldShow = nearBottom || scrollingDown;
+        
+        // Optimize DOM manipulation
+        if (shouldShow) {
+            footer.classList.add('visible');
+        } else {
+            // Only hide if not near bottom (to prevent flickering at page bottom)
+            if (!nearBottom) {
+                footer.classList.remove('visible');
+            }
+        }
+        
+        lastScrollPosition = scrollPosition <= 0 ? 0 : scrollPosition; // Prevent negative values
     }
 
-    // Initialize footer
-    footer.style.opacity = '0';
-    window.addEventListener('scroll', updateFooterVisibility);
-    updateFooterVisibility(); // Check on initial load
-});
+    // Throttled scroll handler
+    window.addEventListener('scroll', () => {
+        window.clearTimeout(isScrolling);
+        isScrolling = setTimeout(() => {
+            updateFooterVisibility();
+        }, 50);
+    }, { passive: true });
+
+    // Initialize footer visibility
+    window.addEventListener('load', updateFooterVisibility);
+    updateFooterVisibility(); // Initial check
+    
+    // Update mobile detection on resize
+    window.addEventListener('resize', () => {
+        isMobile = window.innerWidth <= 768;
+        updateFooterVisibility();
+    });
 </script>
 
 </body>
