@@ -23,16 +23,20 @@ body {
     background-color: white;
     color: #333;
     line-height: 1.6;
-    padding: 40px;
-    max-width: 1400px;
-    margin: 0 auto;
+    padding: 0; /* Remove padding from body */
+    margin: 0;
     position: relative;
-    border: none !important; /* Add this line to prevent any borders */
+    border: none !important;
+    width: 100%; /* Add this */
 }
     
-    .content-wrapper {
-        flex: 1;
-    }
+.content-wrapper {
+    flex: 1;
+    padding: 40px; /* Move padding here from body */
+    max-width: 1400px; /* Move max-width here from body */
+    margin: 0 auto;
+    width: 100%;
+}
         
     .portfolio-title {
         font-size: 18px;
@@ -378,6 +382,7 @@ body {
     </style>
 </head>
 <body>
+     <div class="content-wrapper">
     <div class="portfolio-title">Pilar Narvaez Portfolio</div>
     
     <div class="mobile-nav-header">
@@ -602,6 +607,7 @@ body {
             </p>
         </div>
     </div>
+</div> <!-- THIS IS WHERE THE CONTENT-WRAPPER CLOSES -->
     
 <footer class="footer">
     <div class="footer-left">Pilar Narvaez Portfolio</div>
