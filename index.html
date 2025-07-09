@@ -657,11 +657,11 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('[data-modal]').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
-                mobileNavHeader.style.display = 'none';
-                mobileProjectList.style.display = 'block';
-                window.scrollTo(0, 0);
+                const modalId = this.getAttribute('data-modal');
+                document.getElementById(modalId).style.display = 'block';
             });
         });
+    }
         
         // Show About/Contact header when back button is clicked
         document.querySelectorAll('.back-button').forEach(button => {
@@ -694,13 +694,13 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Click/Touch handler
-        container.addEventListener('click', function(e) {
+    container.addEventListener('click', function(e) {
             if (isMobile && e.target.tagName === 'A') {
                 e.preventDefault();
             }
             openVideoModal(this);
         });
+
 
         // Mobile Touch Handlers
         if (isMobile) {
@@ -743,7 +743,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Modal back buttons
+    // Modal back buttons - simplified
     document.querySelectorAll('.back-button').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
@@ -753,35 +753,16 @@ document.addEventListener('DOMContentLoaded', function() {
             if (video) {
                 video.pause();
                 video.currentTime = 0;
-                video.removeAttribute('controls');
             }
             modal.style.display = 'none';
-            
-            if (activeVideoId) {
-                const originalVideo = document.getElementById(activeVideoId);
-                if (originalVideo) {
-                    const videoEl = originalVideo.querySelector('video');
-                    videoEl.pause();
-                    videoEl.currentTime = 0;
-                    videoEl.setAttribute('poster', videoEl.getAttribute('poster'));
-                    videoEl.load();
-                }
-            }
         });
     });
 
-    // Modal links
+    // Modal links - fixed version
     document.querySelectorAll('[data-modal]').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            const modalId = this.dataset.modal;
-            
-            document.querySelectorAll('.video-page').forEach(modal => {
-                const video = modal.querySelector('video');
-                if (video) video.pause();
-                modal.style.display = 'none';
-            });
-            
+            const modalId = this.getAttribute('data-modal');
             document.getElementById(modalId).style.display = 'block';
         });
     });
@@ -791,40 +772,18 @@ document.addEventListener('DOMContentLoaded', function() {
         isMobile = window.innerWidth <= 768;
     });
 
-     // SIMPLIFIED FOOTER VISIBILITY CONTROL
+    // SIMPLIFIED FOOTER CONTROL
     const footer = document.querySelector('.footer');
-    
-    // Force footer to be visible with multiple methods
     footer.style.opacity = '1';
-    footer.style.bottom = '0';
     
-    // Debug logging
-    console.log('Footer initialization complete', {
-        element: footer,
-        computedStyle: window.getComputedStyle(footer),
-        isMobile: isMobile
-    });
-
-    // Basic mobile detection maintenance
-    window.addEventListener('resize', () => {
-        isMobile = window.innerWidth <= 768;
-        maintainFooter();
-    });
-
-    // Ensure footer stays at bottom
-    function maintainFooter() {
-        footer.style.bottom = '0';
-        if (isMobile) {
-            document.body.style.paddingBottom = '80px';
-        } else {
-            document.body.style.paddingBottom = '0';
-        }
+    // Ensure proper spacing
+    function adjustFooterSpacing() {
+        document.body.style.paddingBottom = isMobile ? '80px' : '0';
     }
     
-    // Initialize
-    maintainFooter();
-    window.addEventListener('load', maintainFooter);
-}); // This closes the DOMContentLoaded event listener
+    window.addEventListener('resize', adjustFooterSpacing);
+    adjustFooterSpacing();
+});
 </script>
 </body>
 </html>
