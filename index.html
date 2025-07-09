@@ -14,44 +14,37 @@
     
     html, body {
         height: 100%;
-        overflow-x: hidden; /* Add this line to prevent horizontal scrolling */
-        width: 100%; /* Add this to ensure full width */
+        overflow-x: hidden;
+        width: 100%;
     }
     
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: white;
-    color: #333;
-    line-height: 1.6;
-    padding: 0; /* Remove padding from body */
-    margin: 0;
-    position: relative;
-    border: none !important;
-    width: 100%; /* Add this */
-}
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background-color: white;
+        color: #333;
+        line-height: 1.6;
+        padding: 0;
+        margin: 0;
+        position: relative;
+    }
     
-.content-wrapper {
-        flex: 1;
-        width: 100%;
-        max-width: 100%;
-        overflow-x: hidden; /* Extra protection */
-        padding: 40px;
-        max-width: 1400px;
-        margin: 0 auto;
-}
-        
     .portfolio-title {
         font-size: 18px;
         font-weight: 500;
         margin-bottom: 30px;
+        padding: 40px 40px 0 40px;
     }
         
     .main-content {
         display: grid;
         grid-template-columns: 1fr 3fr;
         gap: 30px;
+        padding: 0 40px;
+        max-width: 1400px;
+        margin: 0 auto;
+        width: 100%;
     }
         
     .text-column {
@@ -108,6 +101,9 @@ body {
         grid-template-columns: repeat(3, 1fr);
         gap: 10px;
         width: 100%;
+        padding: 0 40px;
+        max-width: 1400px;
+        margin: 0 auto;
     }
     
     .video-container {
@@ -273,6 +269,10 @@ body {
 
 /* Mobile Footer */
 @media (max-width: 768px) {
+    .portfolio-title {
+        padding: 30px 30px 0 30px;
+    }
+    
     .footer {
         grid-template-columns: 1fr;
         gap: 8px;
@@ -287,31 +287,27 @@ body {
     }
     
     body {
-        padding-bottom: 100px; /* Space for footer */
-        overflow-x: hidden; /* Prevent horizontal scroll */
+        padding-bottom: 80px; /* Space for footer */
+        overflow-x: hidden;
     }
 }
 
 /* Mobile styles (up to 768px) */
 @media (max-width: 768px) {
-    body {
-        padding: 30px;
-    }
-    
     .main-content {
         display: block;
+        padding: 0 30px;
     }
     
     .text-column {
         display: none;
     }
     
-  .video-columns {
+    .video-columns {
         grid-template-columns: 1fr;
         gap: 15px;
-        width: 100vw;
-        margin-left: -30px; /* Counteract body padding */
-        padding: 0 30px; /* Maintain some side spacing */
+        padding: 0 30px;
+        margin: 0;
     }
     
     .video-container {
@@ -320,18 +316,19 @@ body {
     }
     
     .video-container video {
-        object-fit: contain; /* Show full video without cropping */
+        object-fit: contain;
     }
+    
     .video-container video[poster] {
         opacity: 0.9;
-        
     }
     
     .mobile-nav-header {
         display: flex;
-        flex-direction: column; /* Stack links vertically */
+        flex-direction: column;
         gap: 12px;
         margin-bottom: 30px;
+        padding: 0 30px;
     }
     
     .mobile-nav-header a {
@@ -344,6 +341,7 @@ body {
     .mobile-project-list {
         display: none;
         margin-top: 30px;
+        padding: 0 30px;
     }
     
     .video-page {
@@ -351,7 +349,7 @@ body {
     }
     
     .video-overlay {
-        font-size: 14px; /* Increased from 12px for readability */
+        font-size: 14px;
         padding: 0 15px;
         opacity: 1 !important;
         background: rgba(231, 76, 60, 0.9);
@@ -396,7 +394,6 @@ body {
     </style>
 </head>
 <body>
-     <div class="content-wrapper">
     <div class="portfolio-title">Pilar Narvaez Portfolio</div>
     
     <div class="mobile-nav-header">
@@ -663,14 +660,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
         
-        // Show About/Contact header when back button is clicked
-        document.querySelectorAll('.back-button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                mobileNavHeader.style.display = 'flex';
-                mobileProjectList.style.display = 'none';
-            });
+    // Show About/Contact header when back button is clicked
+    document.querySelectorAll('.back-button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            mobileNavHeader.style.display = 'flex';
+            mobileProjectList.style.display = 'none';
         });
-    }
+    });
 
     // Video container interactions
     document.querySelectorAll('.video-container').forEach(container => {
@@ -694,13 +690,12 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-    container.addEventListener('click', function(e) {
+        container.addEventListener('click', function(e) {
             if (isMobile && e.target.tagName === 'A') {
                 e.preventDefault();
             }
             openVideoModal(this);
         });
-
 
         // Mobile Touch Handlers
         if (isMobile) {
@@ -743,7 +738,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Modal back buttons - simplified
+    // Modal back buttons
     document.querySelectorAll('.back-button').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
@@ -758,7 +753,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Modal links - fixed version
+    // Modal links
     document.querySelectorAll('[data-modal]').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -772,7 +767,7 @@ document.addEventListener('DOMContentLoaded', function() {
         isMobile = window.innerWidth <= 768;
     });
 
-    // SIMPLIFIED FOOTER CONTROL
+    // Footer control
     const footer = document.querySelector('.footer');
     footer.style.opacity = '1';
     
