@@ -35,23 +35,23 @@
         padding: 40px 40px 0 40px;
     }
         
-    .main-content {
-        display: grid;
-        grid-template-columns: 1fr 3fr;
-        gap: 30px;
-        padding: 0 40px;
-        max-width: 1400px;
-        margin: 0 auto;
-        width: 100%;
-        min-height: calc(100vh - 150px); /* ADD THIS LINE */
+.main-content {
+    display: grid;
+    grid-template-columns: 250px 1fr; /* Fixed left column, flexible right */
+    gap: 40px;
+    padding: 0 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    min-height: calc(100vh - 150px);
     }
         
-    .text-column {
-        padding-right: 20px;
-        position: sticky;
-        top: 40px;
-        height: fit-content;
-    }
+.text-column {
+    position: sticky;
+    top: 40px;
+    height: fit-content;
+    padding-right: 0; /* Remove previous padding */
+}
         
     .project-list {
         list-style: none;
@@ -97,12 +97,12 @@
         text-decoration: none;
     }
         
-    .video-columns {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-        width: 100%;
-        align-content: start;
+.video-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    width: 100%;
+    align-content: start;
     }
     
     .video-container {
@@ -330,26 +330,26 @@
 <body>
     <div class="portfolio-title">Pilar Narvaez Portfolio</div>
 
-    <div class="main-content">
-
-        <div class="text-column">
-            <ul class="project-list">
-                <li class="emphasis"><a href="#" data-modal="about-page">About</a></li>
-                <li class="emphasis"><a href="#" data-modal="contact-page">Contact</a></li>
-                <li class="spacer">&nbsp;</li>
-                <li><a href="#showreel">Showreel</a></li>
-                <li><a href="#tercer-campaign">Tercer Campaign</a></li>
-                <li><a href="#menopause-campaign">Menopause Campaign</a></li>
-                <li><a href="#pepsi-recycle">Pepsi Recycle to Win</a></li>
-                <li><a href="#expedia-social">Expedia Social</a></li>
-                <li><a href="#fire-walk-with-me">Fire Walk With Me</a></li>
-                <li><a href="#supercar-blondie">Supercar Blondie Facebook</a></li>
-                <li><a href="#i-am-groot">I Am Groot Twitter</a></li>
-                <li><a href="#just-eat">Just Eat Adaptations</a></li>
-                <li><a href="#social-media-videos">Social Media Videos</a></li>
-                <li><a href="#kings-league">Kings League Twitch</a></li>
-            </ul>
-        </div>
+<div class="main-content">
+    <!-- ONLY ONE text-column div (left column) -->
+    <div class="text-column">
+        <ul class="project-list">
+            <li class="emphasis"><a href="#" data-modal="about-page">About</a></li>
+            <li class="emphasis"><a href="#" data-modal="contact-page">Contact</a></li>
+            <li class="spacer">&nbsp;</li>
+            <li><a href="#showreel">Showreel</a></li>
+            <li><a href="#tercer-campaign">Tercer Campaign</a></li>
+            <li><a href="#menopause-campaign">Menopause Campaign</a></li>
+            <li><a href="#pepsi-recycle">Pepsi Recycle to Win</a></li>
+            <li><a href="#expedia-social">Expedia Social</a></li>
+            <li><a href="#fire-walk-with-me">Fire Walk With Me</a></li>
+            <li><a href="#supercar-blondie">Supercar Blondie Facebook</a></li>
+            <li><a href="#i-am-groot">I Am Groot Twitter</a></li>
+            <li><a href="#just-eat">Just Eat Adaptations</a></li>
+            <li><a href="#social-media-videos">Social Media Videos</a></li>
+            <li><a href="#kings-league">Kings League Twitch</a></li>
+        </ul>
+    </div>
 
        <div class="video-columns">
             <!-- Showreel -->
