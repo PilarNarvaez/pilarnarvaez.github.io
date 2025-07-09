@@ -239,6 +239,7 @@ body {
     }
         
 /* Base Footer Styles */
+
 .footer {
     width: 100%;
     display: grid;
@@ -246,22 +247,18 @@ body {
     font-size: 12px;
     color: #999;
     padding: 15px 40px;
-    border: none !important;
-    box-shadow: none !important;
     background: white;
-    position: absolute; /* Changed from static to fixed */
-    transition: opacity 0.3s ease;
-    opacity: 0;
-    bottom: 0; /* Stick to bottom */
-    left: 0;
-    right: 0;
-    z-index: 10; /* Ensure it stays above other content */
-}
-    .footer.visible {
+    /* Positioning styles */
     position: fixed;
-    opacity: 1;
-    bottom: 0;
-    animation: fadeIn 0.3s ease;
+    bottom: -100px; /* Start hidden below viewport */
+    left: 0;
+    transition: all 0.3s ease;
+    z-index: 10;
+    opacity: 0; /* Start fully transparent */
+}
+.footer.visible {
+    bottom: 0; /* Slide up into view */
+    opacity: 1; /* Fully visible */
 }
 
 @keyframes fadeIn {
@@ -298,13 +295,15 @@ body {
     .footer {
         grid-template-columns: 1fr;
         gap: 8px;
-        text-align: center;
-        padding: 15px 20px; /* Match mobile body padding */
-        border: none !important; /* Add this to mobile version too */
+        padding: 12px 20px;
+        /* Keep the same positioning as desktop */
+        position: fixed;
+        bottom: -100px;
     }
-      .footer.visible {
-        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-    }  
+    
+    .footer.visible {
+        bottom: 0;
+    }
     .footer-left,
     .footer-center,
     .footer-right {
@@ -810,22 +809,24 @@ function openVideoModal(container) {
         });
 
         // Footer visibility handler (inside DOMContentLoaded)
-        window.addEventListener('scroll', function() {
-            const footer = document.querySelector('.footer');
-            const scrollPosition = window.innerHeight + window.scrollY;
-            const documentHeight = document.body.offsetHeight;
+    window.addEventListener('scroll', function() {
+    const footer = document.querySelector('.footer');
+    const scrollPosition = window.innerHeight + window.scrollY;
+    const documentHeight = document.body.offsetHeight;
             
-            if (scrollPosition >= documentHeight - 100) {
-                footer.classList.add('visible');
-            } else {
-                footer.classList.remove('visible');
-            }
-        });
+    // Show footer when near bottom (100px threshold)
+    if (scrollPosition >= documentHeight - 100) {
+        footer.classList.add('visible');
+    } else {
+        footer.classList.remove('visible');
+    }
+});
 
-        // Initialize footer (must be inside DOMContentLoaded)
-        document.querySelector('.footer').style.opacity = '0';
-
-    }); // This closes the DOMContentLoaded event
+// Initialize footer
+document.addEventListener('DOMContentLoaded', function() {
+    const footer = document.querySelector('.footer');
+    footer.style.opacity = '0';
+});
 </script>
 
 </body>
