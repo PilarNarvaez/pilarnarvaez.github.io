@@ -249,11 +249,21 @@ body {
     border: none !important;
     box-shadow: none !important;
     background: white;
-    position: fixed; /* Changed from static to fixed */
+    position: absolute; /* Changed from static to fixed */
     bottom: 0; /* Stick to bottom */
     left: 0;
     right: 0;
     z-index: 10; /* Ensure it stays above other content */
+}
+    .footer.visible {
+    position: fixed;
+    bottom: 0;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .footer-left {
@@ -790,11 +800,28 @@ function openVideoModal(container) {
                 document.getElementById(modalId).style.display = 'block';
             });
         });
-
-        window.addEventListener('resize', function() {
+     window.addEventListener('resize', function() {
             isMobile = window.innerWidth <= 768;
         });
-    });
-    </script>
+
+        // Footer visibility handler (inside DOMContentLoaded)
+        window.addEventListener('scroll', function() {
+            const footer = document.querySelector('.footer');
+            const scrollPosition = window.innerHeight + window.scrollY;
+            const documentHeight = document.body.offsetHeight;
+            
+            if (scrollPosition >= documentHeight - 100) {
+                footer.classList.add('visible');
+            } else {
+                footer.classList.remove('visible');
+            }
+        });
+
+        // Initialize footer (must be inside DOMContentLoaded)
+        document.querySelector('.footer').style.opacity = '0';
+
+    }); // This closes the DOMContentLoaded event
+</script>
+
 </body>
 </html>
