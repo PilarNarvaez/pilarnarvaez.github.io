@@ -306,19 +306,19 @@ body {
         display: none;
     }
     
-    .video-columns {
+  .video-columns {
         grid-template-columns: 1fr;
         gap: 15px;
-        width: 100vw; /* Full viewport width */
-        margin-left: -20px; /* Counteract body padding */
-        padding: 0 20px; /* Maintain some side spacing */
+        width: 100vw;
+        margin-left: -30px; /* Counteract body padding */
+        padding: 0 30px; /* Maintain some side spacing */
     }
+    
     .video-container {
         width: 100%;
-        border-radius: 0; /* Remove rounded corners for full-width */
-        margin-bottom: 10px; /* Space between stacked videos */
+        margin-bottom: 10px;
     }
-
+    
     .video-container video {
         object-fit: contain; /* Show full video without cropping */
     }
@@ -791,14 +791,12 @@ document.addEventListener('DOMContentLoaded', function() {
         isMobile = window.innerWidth <= 768;
     });
 
-    // SIMPLIFIED FOOTER VISIBILITY CONTROL
+     // SIMPLIFIED FOOTER VISIBILITY CONTROL
     const footer = document.querySelector('.footer');
     
     // Force footer to be visible with multiple methods
     footer.style.opacity = '1';
-    footer.style.transform = 'none';
     footer.style.bottom = '0';
-    footer.classList.add('visible');
     
     // Debug logging
     console.log('Footer initialization complete', {
@@ -810,14 +808,23 @@ document.addEventListener('DOMContentLoaded', function() {
     // Basic mobile detection maintenance
     window.addEventListener('resize', () => {
         isMobile = window.innerWidth <= 768;
+        maintainFooter();
     });
 
     // Ensure footer stays at bottom
     function maintainFooter() {
         footer.style.bottom = '0';
+        if (isMobile) {
+            document.body.style.paddingBottom = '80px';
+        } else {
+            document.body.style.paddingBottom = '0';
+        }
     }
-    window.addEventListener('resize', maintainFooter);
+    
+    // Initialize
     maintainFooter();
+    window.addEventListener('load', maintainFooter);
+}); // This closes the DOMContentLoaded event listener
 </script>
 </body>
 </html>
