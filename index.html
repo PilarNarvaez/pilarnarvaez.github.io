@@ -272,8 +272,18 @@
         margin: 0;
         font-size: 18px; /* Match your desktop size */
         width: 100%;
+        overflow-x: hidden;
+    }
+        /* Remove scrollbar but keep scrolling */
+    html {
+        overflow-y: auto; /* Ensures scrolling still works */
+        -ms-overflow-style: none; /* IE/Edge */
+        scrollbar-width: none; /* Firefox */
     }
     
+    html::-webkit-scrollbar {
+        display: none; /* Chrome/Safari/Opera */
+    }
       /* Mobile Navigation Header */
     .mobile-nav-header {
         display: flex !important; /* Show on mobile */
