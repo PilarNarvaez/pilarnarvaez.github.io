@@ -231,13 +231,28 @@
         box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
         
-/* Base Footer Styles (applies to all screens) */
+/* Base Footer Styles */
 .footer {
     width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     font-size: 12px;
     color: #999;
-    padding: 10px 0;
-    margin-top: auto; /* Pushes footer to bottom */
+    padding: 15px 0;
+    margin-top: 40px;
+    border-top: 1px solid #eee;
+}
+
+.footer-left {
+    text-align: left;
+}
+
+.footer-center {
+    text-align: center;
+}
+
+.footer-right {
+    text-align: right;
 }
 
 .footer a {
@@ -250,24 +265,18 @@
     color: #e74c3c;
 }
 
-/* Desktop Footer (769px and up) */
-@media (min-width: 769px) {
+/* Mobile Footer Adjustments */
+@media (max-width: 768px) {
     .footer {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        align-items: center;
-    }
-    
-    .footer-left {
-        text-align: left;
-    }
-    
-    .footer-center {
+        grid-template-columns: 1fr;
+        gap: 8px;
         text-align: center;
     }
     
+    .footer-left,
+    .footer-center,
     .footer-right {
-        text-align: right;
+        text-align: center;
     }
 }
 
