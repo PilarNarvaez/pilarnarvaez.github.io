@@ -269,6 +269,7 @@
 @media (max-width: 768px) {
     body {
         padding: 30px 30px 0 30px; /* Consolidated padding */
+        overflow: hidden;
     }
       .portfolio-title {
         text-align: left;
@@ -307,6 +308,9 @@
         .main-content {
         display: block;
         padding: 0; /* Let video-columns handle its own padding */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        height: calc(100vh - 180px); /* Adjust 180px to match your header+footer height */
     }
     /* Hide desktop navigation */
     .text-column {
