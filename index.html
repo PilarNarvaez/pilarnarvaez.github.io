@@ -549,46 +549,47 @@
     </footer>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const videoDescriptions = {
-            'showreel': 'A selection of my last video edit and Motion graphics works.',
-            'tercer-campaign': 'Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics.',
-            'menopause-campaign': 'Minúsculas Producciones collaborated with me on a social media video for Spain's Women's Institute, marking World Menopause Day (October 18, 2025). The goal was to spotlight menopause as a global women's health issue while encouraging broader societal awareness. To avoid clichés, I drew inspiration from female artists—Carmen Herrera (Cuban abstract painter) and Barbara Stauffacher Solomon (US graphic designer)—whose bold, minimalist styles shaped the video's aesthetic. In Illustrator, I adapted their geometric motifs and color palettes, animating them with clean, dynamic abstraction. For the social media format, visuals took priority over text. The final piece features two brief messages ("It is not in her head / Symptoms are real") and a closing title, unified by a grainy film-reel backdrop. The soundtrack (pending confirmation) leans playful, echoing the retro-cartoon vibe. (Music placeholder: Bensound.com / License: PRF3J70PUMA2EYO6).',
-            'pepsi-recycle': 'Video created for Wireless and Reading Festival, adaptation from the Think Different campaign.',
-            'expedia-social': 'Adaptation and localisation of Expedia (VRBO) campaign for social media.',
-            'fire-walk-with-me': 'I was deeply saddened by David Lynch's passing, so I recreated Twin Peaks' iconic opening as a tribute to his work. I used Xiu Xiu's excellent Badalamenti cover, originally commissioned by the Queensland Gallery of Modern Art for their 2015 exhibition, David Lynch: Between Two Worlds. Some scenes are flooded with light—an intentional reference to Fire Walk With Me—using Video Copilot's Saber plug-in for a luminous glow. I aimed for an abstract, experimental feel, inspired by László Moholy-Nagy's Light Space Modulator.',
-            'supercar-blondie': 'Social media content for Supercar Blondie\'s Facebook page',
-            'i-am-groot': 'Twitter video series for Marvel\'s I Am Groot',
-            'just-eat': 'Localized adaptations for Just Eat\'s international markets',
-            'social-media-videos': 'Collection of various social media video content',
-            'kings-league': 'Content created for Kings League on Twitch'
-        };
+document.addEventListener('DOMContentLoaded', function() {
+    const videoDescriptions = {
+        'showreel': 'A selection of my last video edit and Motion graphics works.',
+        'tercer-campaign': 'Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics.',
+        'menopause-campaign': 'Minúsculas Producciones collaborated with me on a social media video for Spain\'s Women\'s Institute, marking World Menopause Day (October 18, 2025). The goal was to spotlight menopause as a global women\'s health issue while encouraging broader societal awareness. To avoid clichés, I drew inspiration from female artists—Carmen Herrera (Cuban abstract painter) and Barbara Stauffacher Solomon (US graphic designer)—whose bold, minimalist styles shaped the video\'s aesthetic. In Illustrator, I adapted their geometric motifs and color palettes, animating them with clean, dynamic abstraction. For the social media format, visuals took priority over text. The final piece features two brief messages ("It is not in her head / Symptoms are real") and a closing title, unified by a grainy film-reel backdrop. The soundtrack (pending confirmation) leans playful, echoing the retro-cartoon vibe. (Music placeholder: Bensound.com / License: PRF3J70PUMA2EYO6).',
+        'pepsi-recycle': 'Video created for Wireless and Reading Festival, adaptation from the Think Different campaign.',
+        'expedia-social': 'Adaptation and localisation of Expedia (VRBO) campaign for social media.',
+        'fire-walk-with-me': 'I was deeply saddened by David Lynch\'s passing, so I recreated Twin Peaks\' iconic opening as a tribute to his work. I used Xiu Xiu\'s excellent Badalamenti cover, originally commissioned by the Queensland Gallery of Modern Art for their 2015 exhibition, David Lynch: Between Two Worlds. Some scenes are flooded with light—an intentional reference to Fire Walk With Me—using Video Copilot\'s Saber plug-in for a luminous glow. I aimed for an abstract, experimental feel, inspired by László Moholy-Nagy\'s Light Space Modulator.',
+        'supercar-blondie': 'Social media content for Supercar Blondie\'s Facebook page',
+        'i-am-groot': 'Twitter video series for Marvel\'s I Am Groot',
+        'just-eat': 'Localized adaptations for Just Eat\'s international markets',
+        'social-media-videos': 'Collection of various social media video content',
+        'kings-league': 'Content created for Kings League on Twitch'
+    };
 
-        let activeVideoId = null;
-        let isMobile = window.innerWidth <= 768;
-        let pressTimer = null;
-// Mobile navigation toggle
-const mobileNavHeader = document.querySelector('.mobile-nav-header');
-const mobileProjectList = document.querySelector('.mobile-project-list');
+    let activeVideoId = null;
+    let isMobile = window.innerWidth <= 768;
+    let pressTimer = null;
 
-if (isMobile) {
-    // Show project list when About/Contact is clicked
-    document.querySelectorAll('[data-modal]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            mobileNavHeader.style.display = 'none';
-            mobileProjectList.style.display = 'block';
+    // Mobile navigation toggle - ADD THIS SECTION
+    const mobileNavHeader = document.querySelector('.mobile-nav-header');
+    const mobileProjectList = document.querySelector('.mobile-project-list');
+
+    if (isMobile) {
+        // Show project list when About/Contact is clicked
+        document.querySelectorAll('[data-modal]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                mobileNavHeader.style.display = 'none';
+                mobileProjectList.style.display = 'block';
+            });
         });
-    });
-    
-    // Show About/Contact header when back button is clicked
-    document.querySelectorAll('.back-button').forEach(button => {
-        button.addEventListener('click', function(e) {
-            mobileNavHeader.style.display = 'flex';
-            mobileProjectList.style.display = 'none';
+        
+        // Show About/Contact header when back button is clicked
+        document.querySelectorAll('.back-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                mobileNavHeader.style.display = 'flex';
+                mobileProjectList.style.display = 'none';
+            });
         });
-    });
-}
-// END OF ADDED CODE
+    }
+    // END OF ADDED SECTION
         document.querySelectorAll('.video-container').forEach(container => {
             const video = container.querySelector('video');
             const overlay = container.querySelector('.video-overlay');
