@@ -232,18 +232,29 @@
     }
         
     .footer {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        width: 100%;
-        font-size: 12px;
-        color: #999;
-        padding-top: 20px;
-        margin-top: auto;
-    }
-        
-    .footer-left { text-align: left; }
-    .footer-center { text-align: center; }
-    .footer-right { text-align: right; }
+.footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    font-size: 12px;
+    color: #999;
+    padding-top: 20px;
+    margin-top: auto;
+    gap: 10px; /* Add some gap between columns */
+}
+
+.footer-left { 
+    text-align: left;
+    grid-column: 1;
+}
+.footer-center { 
+    text-align: center;
+    grid-column: 2;
+}
+.footer-right { 
+    text-align: right;
+    grid-column: 3;
+}
         
     .footer a {
         color: #999;
@@ -590,81 +601,77 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     // END OF ADDED SECTION
-        document.querySelectorAll('.video-container').forEach(container => {
-            const video = container.querySelector('video');
-            const overlay = container.querySelector('.video-overlay');
-            const poster = video.getAttribute('poster');
-            const containerId = container.id;
+document.querySelectorAll('.video-container').forEach(container => {
+    const video = container.querySelector('video');
+    const overlay = container.querySelector('.video-overlay');
+    const poster = video.getAttribute('poster');
 
-            // Desktop Hover Handlers - play on hover
-            if (!isMobile) {
-                container.addEventListener('mouseenter', () => {
-                    video.play().catch(e => console.log('Hover play:', e));
-                    overlay.style.opacity = '1';
-                });
-
-                container.addEventListener('mouseleave', () => {
-                    video.pause();
-                    video.currentTime = 0;
-                    overlay.style.opacity = '0';
-                    video.setAttribute('poster', poster);
-                    video.load();
-                });
-            }
-
-            // Click handler
-            container.addEventListener('click', function(e) {
-                if (isMobile) {
-                    if (!container.classList.contains('active')) {
-                        openVideoModal(this);
-                    }
-                    container.classList.remove('active');
-                    clearTimeout(pressTimer);
-                } else {
-                    openVideoModal(this);
-                }
-            });
-
-            // Mobile Touch Handlers
-            if (isMobile) {
-                container.addEventListener('touchstart', function(e) {
-                    pressTimer = setTimeout(() => {
-                        this.classList.add('active');
-                        video.pause();
-                    }, 300);
-                }, { passive: true });
-
-                container.addEventListener('touchend', function(e) {
-                    clearTimeout(pressTimer);
-                }, { passive: true });
-
-                container.addEventListener('touchmove', function(e) {
-                    clearTimeout(pressTimer);
-                    this.classList.remove('active');
-                }, { passive: true });
-            }
+    // Desktop Hover Handlers
+    if (!isMobile) {
+        container.addEventListener('mouseenter', () => {
+            video.play().catch(e => console.log('Hover play:', e));
+            overlay.style.opacity = '1';
         });
 
-        function openVideoModal(container) {
-            activeVideoId = container.id;
-            const videoPage = document.getElementById('video-page');
-            const modalVideo = videoPage.querySelector('video');
-            
-            modalVideo.src = container.dataset.videoSrc;
-            document.getElementById('video-page-title').textContent = container.dataset.title;
-            document.getElementById('video-page-description').textContent = 
-                videoDescriptions[container.id] || container.dataset.description;
-            
-            videoPage.style.display = 'block';
-            modalVideo.load();
-            const playPromise = modalVideo.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.catch(e => {
-                    modalVideo.controls = true;
-                });
-            }
+        container.addEventListener('mouseleave', () => {
+            video.pause();
+            video.currentTime = 0;
+            overlay.style.opacity = '0';
+            video.setAttribute('poster', poster);
+            video.load();
+        });
+    }
+
+    // Click/Touch handler
+    container.addEventListener('click', function(e) {
+        // Prevent default only if it's a touch device
+        if (isMobile && e.target.tagName === 'A') {
+            e.preventDefault();
         }
+        openVideoModal(this);
+    });
+
+    // Mobile Touch Handlers
+    if (isMobile) {
+        container.addEventListener('touchstart', function(e) {
+            pressTimer = setTimeout(() => {
+                this.classList.add('active');
+                video.pause();
+            }, 300);
+        }, { passive: true });
+
+        container.addEventListener('touchend', function(e) {
+            clearTimeout(pressTimer);
+        }, { passive: true });
+
+        container.addEventListener('touchmove', function(e) {
+            clearTimeout(pressTimer);
+            this.classList.remove('active');
+        }, { passive: true });
+    }
+});
+
+function openVideoModal(container) {
+    activeVideoId = container.id;
+    const videoPage = document.getElementById('video-page');
+    const modalVideo = videoPage.querySelector('video');
+    
+    modalVideo.src = container.dataset.videoSrc;
+    document.getElementById('video-page-title').textContent = container.dataset.title;
+    document.getElementById('video-page-description').textContent = 
+        videoDescriptions[container.id] || container.dataset.description;
+    
+    videoPage.style.display = 'block';
+    modalVideo.load();
+    
+    // Try to autoplay, fallback to controls if needed
+    const playPromise = modalVideo.play();
+    if (playPromise !== undefined) {
+        playPromise.catch(e => {
+            modalVideo.controls = true;
+        });
+    }
+}
 
         document.querySelectorAll('.back-button').forEach(button => {
             button.addEventListener('click', function(e) {
