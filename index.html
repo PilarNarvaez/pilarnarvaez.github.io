@@ -635,10 +635,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    function openVideoModal(container) {
+function openVideoModal(container) {
+    try {
         activeVideoId = container.id;
         const videoPage = document.getElementById('video-page');
         const modalVideo = videoPage.querySelector('video');
+        
+        if (!modalVideo) {
+            console.error('Video player element not found');
+            return;
+        }
         
         modalVideo.src = container.dataset.videoSrc;
         document.getElementById('video-page-title').textContent = container.dataset.title;
@@ -654,36 +660,43 @@ document.addEventListener('DOMContentLoaded', function() {
                 modalVideo.controls = true;
             });
         }
+    } catch (error) {
+        console.error('Error opening video modal:', error);
     }
+}
 
-    // Modal back buttons
-    document.querySelectorAll('.back-button').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const modal = this.closest('.video-page');
-            const video = modal.querySelector('video');
-            
-            if (video) {
-                video.pause();
-                video.currentTime = 0;
-            }
-            modal.style.display = 'none';
-        });
+// Modal back buttons
+document.querySelectorAll('.back-button').forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const modal = this.closest('.video-page');
+        const video = modal.querySelector('video');
+        
+        if (video) {
+            video.pause();
+            video.currentTime = 0;
+        }
+        modal.style.display = 'none';
     });
+});
 
-    // Modal links
-    document.querySelectorAll('[data-modal]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const modalId = this.getAttribute('data-modal');
-            document.getElementById(modalId).style.display = 'block';
-        });
+// Modal links
+document.querySelectorAll('[data-modal]').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const modalId = this.getAttribute('data-modal');
+        document.getElementById(modalId).style.display = 'block';
     });
+});
 
-    // Responsive check
-    window.addEventListener('resize', function() {
+// Responsive check with debouncing
+let resizeTimer;
+window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
         isMobile = window.innerWidth <= 768;
-    });
+    }, 250);
+});
 }); // This closes the DOMContentLoaded event listener
 </script>
 </body>
