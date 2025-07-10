@@ -783,6 +783,8 @@ if (isMobile) {
         pressTimer = setTimeout(() => {
             this.classList.add('active');
             video.pause();
+                        // Force overlay to be visible on long press
+            this.querySelector('.video-overlay').style.opacity = '1';
         }, 300);
     }, { passive: true });
 
