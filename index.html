@@ -322,25 +322,24 @@ video::-moz-media-controls {
     position: fixed;
     top: 20px;
     right: 20px; 
-    width: 40px;
-    height: 40px;
-    
-    /* Visual changes ONLY */
-    background: rgba(255,255,255,0.9) !important; /* Pure white with slight transparency */
-    border: none !important; /* Remove all borders */
-    box-shadow: none !important; /* Remove shadows if any */
-    
-    /* Keep existing text/icon styles */
-    color: #333;
+    width: auto; /* Changed from fixed width */
+    height: auto; /* Changed from fixed height */
+    padding: 5px 10px;
+    background: transparent !important; /* Removed grey background */
+    border: none !important;
+    box-shadow: none !important;
+    color: #333 !important; /* Black color */
     font-size: 20px;
-    border-radius: 8px;
     cursor: pointer;
     z-index: 101;
+    text-decoration: none !important;
 }
 
-    .back-button:hover {
-        background: rgba(255,255,255,0.95);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+.back-button:hover {
+    color: #e74c3c !important; /* Red on hover */
+    background: transparent !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
     }
         
 .footer {
