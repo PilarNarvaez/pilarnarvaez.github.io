@@ -380,13 +380,14 @@
     
     #video-page video[controls] {
         cursor: default; /* Reset when controls appear */
+        object-fit: contain !important;
     }
     
     .video-page-description {
         margin-top: 20px;
     }
     .video-container video {
-        object-fit: contain; /* Shows full video without cropping */
+        object-fit: contain !important; /* Shows full video without cropping */
         width: 100%;
         height: auto;
     }
