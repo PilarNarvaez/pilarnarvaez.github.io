@@ -140,7 +140,10 @@
     border: none;
     box-shadow: none;
 }
-    
+    /* Add this new rule */
+video::-webkit-media-controls-enclosure {
+    display: none !important;
+}
 .video-container video[poster] {
     opacity: 1;
 } 
@@ -778,10 +781,17 @@ document.addEventListener('DOMContentLoaded', function() {
     let isMobile = window.innerWidth <= 768;
     let pressTimer = null;
     document.querySelectorAll('video').forEach(video => {
-        video.style.backgroundColor = 'black'; // Force black background
-        video.style.margin = '0';
-        video.style.lineHeight = '0';
-        video.style.setProperty('background-color', 'black', 'important');
+    video.style.cssText = `
+        background-color: #000 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        line-height: 0 !important;
+        display: block !important;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+    `;
+    video.setAttribute('preload', 'metadata');
+});
     });
     // Video container interactions
     document.querySelectorAll('.video-container').forEach(container => {
