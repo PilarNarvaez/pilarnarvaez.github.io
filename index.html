@@ -146,7 +146,6 @@
     justify-content: center;
     opacity: 1; /* Keep overlay always at full opacity */
     transition: background 0.3s ease; /* Transition the background instead */
-    mix-blend-mode: multiply; /* Better blending with video */
     z-index: 1;
     pointer-events: none;
 }
@@ -158,6 +157,7 @@
     text-align: center;
     padding: 0 20px;
     width: 100%;
+    mix-blend-mode: screen; /* Better than multiply for text */
 }
 
 .video-container:hover .video-overlay,
@@ -195,11 +195,11 @@
 .video-page-player {
     width: 100%;
     max-width: 800px;
-    background: transparent;
     position: relative;
     overflow: hidden;
-    margin-bottom: 0; /* Changed from 20px to fix grey bar */
-    line-height: 0; /* Fixes spacing issues */
+    margin-bottom: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio (change to 177.78% for 9:16) */
+    background: transparent;
 }
 
 .video-page-player video {
@@ -210,10 +210,11 @@
     height: 100%;
     object-fit: contain;
     background: transparent !important;
-    outline: none; /* Removes focus border */
-    display: block; /* Remove extra space below video */
+    display: block;
     margin: 0;
     padding: 0;
+    line-height: 0;
+    outline: none;
 }
 
 /* Aspect ratio classes */
@@ -817,6 +818,9 @@ function openVideoModal(container) {
         modalVideo.style.width = '100%';
         modalVideo.style.height = '100%';
         modalVideo.style.display = 'block';
+        modalVideo.style.margin = '0';
+        modalVideo.style.padding = '0';
+        modalVideo.style.lineHeight = '0';
         
         // Detect video format (keep existing ratio detection)
         const ratio = container.dataset.ratio || '16:9';
