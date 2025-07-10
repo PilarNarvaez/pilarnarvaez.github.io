@@ -275,6 +275,7 @@
         -webkit-overflow-scrolling: touch;
         position: relative;
         overflow-x: hidden; /* Prevent horizontal scroll */
+        padding-bottom: 60px; /* Creates space below footer */
     }
       .portfolio-title {
         text-align: left;
@@ -311,6 +312,7 @@
         /* Scrollbar hiding for all browsers */
         -ms-overflow-style: none;  /* IE/Edge */
         scrollbar-width: none;     /* Firefox */
+        padding-bottom: 40px; /* Extra space at bottom of content */
     }
 
     /* Webkit scrollbar hiding (separate rule) */
@@ -367,7 +369,10 @@
         gap: 8px;
         padding: 20px 0;
         text-align: center;
-        margin-top: 30px;
+        margin-top: 40px;
+        padding-bottom: 20px; /* Extra footer padding */
+        position: relative;
+        background: white;
   }
   
   /* Reset individual alignments for mobile */
@@ -716,6 +721,7 @@ document.querySelectorAll('.back-button').forEach(button => {
             video.currentTime = 0;
         }
         modal.style.display = 'none';
+        window.scrollTo({top: 0, behavior: 'smooth'});
     });
 });
 
