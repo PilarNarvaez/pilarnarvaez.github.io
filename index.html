@@ -183,10 +183,13 @@
     }
         
     .video-page-player {
-        width: 100%;
-        aspect-ratio: 16/9;
-        background: #000;
-        margin: 40px auto 30px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto; /* Solo margen horizontal */
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16/9;
     }
         
     .video-page-title {
