@@ -269,13 +269,11 @@
 
 @media (max-width: 768px) {
     body {
-        padding: 30px 30px 0 30px;
-        height: 100%;
+        padding: 30px 30px 60px 30px;
         overflow-y: auto; /* Enable main scrolling */
         -webkit-overflow-scrolling: touch;
         position: relative;
         overflow-x: hidden; /* Prevent horizontal scroll */
-        padding-bottom: 60px; /* Creates space below footer */
     }
       .portfolio-title {
         text-align: left;
@@ -303,16 +301,15 @@
     }
     .main-content {
         display: block;
-        padding: 0;
-        overflow-y: auto;
+        padding: 0 0 40px 0; /* Bottom padding only */
+        overflow-y: visible;
         -webkit-overflow-scrolling: touch;
-        height: calc(100vh - 180px); /* Adjust this value as needed */
+        min-height: 0;
         position: relative;
         z-index: 1;
         /* Scrollbar hiding for all browsers */
         -ms-overflow-style: none;  /* IE/Edge */
         scrollbar-width: none;     /* Firefox */
-        padding-bottom: 40px; /* Extra space at bottom of content */
     }
 
     /* Webkit scrollbar hiding (separate rule) */
@@ -334,16 +331,17 @@
     
     .video-container {
          width: 100%; /* Use percentage instead of vw */
-        margin-left: 0; /* Remove negative margins */
-        margin-right: 0;
+        margin: 0; /* Remove negative margins */
+        padding: 0;
+        max-width: 100%;
         height: auto;
         /* Add these to ensure proper containment */
-        max-width: 100%;
-        padding: 0;
     }
     
     .video-container video {
         object-fit: contain; /* Shows full video without cropping */
+        width: 100%;
+        height: auto;
     }
       video {
         object-fit: cover; /* Fill containers completely */
@@ -370,7 +368,6 @@
         padding: 20px 0;
         text-align: center;
         margin-top: 40px;
-        padding-bottom: 20px; /* Extra footer padding */
         position: relative;
         background: white;
   }
