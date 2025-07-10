@@ -274,8 +274,7 @@
         overflow-y: auto; /* Enable main scrolling */
         -webkit-overflow-scrolling: touch;
         position: relative;
-        -webkit-scrollbar {
-        display: none;
+        overflow-x: hidden; /* Prevent horizontal scroll */
     }
       .portfolio-title {
         text-align: left;
@@ -284,15 +283,7 @@
         font-size: 18px; /* Match your desktop size */
         width: 100%;
     }
-        /* Remove scrollbar but keep scrolling */
-    html {
-        height: 100%;
-        overflow: hidden; /* Prevent double scrollbars */
-    }
-    
-    html::-webkit-scrollbar {
-        display: none; /* Chrome/Safari/Opera */
-    }
+
       /* Mobile Navigation Header */
     .mobile-nav-header {
         display: flex !important; /* Show on mobile */
@@ -385,11 +376,6 @@
   .footer-right {
     text-align: center;
   }
-    
-    body {
-        overflow-x: hidden;
-    }
-}
 
     </style>
 </head>
