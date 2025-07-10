@@ -350,21 +350,76 @@
         margin: 0;
     }
     
+@media (max-width: 768px) {
+    /* Video Grid Layout */
+    .video-columns {
+        grid-template-columns: 1fr;
+        width: 100%;
+        gap: 15px;
+        padding: 0;
+        margin: 0;
+    }
+    
+    /* Video Container Base */
     .video-container {
-         width: 100%; /* Use percentage instead of vw */
-        margin: 0; /* Remove negative margins */
+        width: 100%;
+        margin: 0;
         padding: 0;
         max-width: 100%;
         height: auto;
-        /* Add these to ensure proper containment */
-    }
-    .video-container.vertical {
-    aspect-ratio: 9/16;
-}
-      .video-page-player {
-        margin-bottom: 20px;
+        position: relative;
     }
     
+    /* Vertical Video Format */
+    .video-container.vertical {
+        aspect-ratio: 9/16;
+    }
+    
+    /* Main Grid Videos */
+    .video-container video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        background: transparent;
+    }
+    
+    /* Modal Video Player */
+    .video-page-player {
+        width: 100%;
+        background: transparent;
+        margin-bottom: 20px;
+        aspect-ratio: 16/9;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Modal Video Element */
+    #video-page video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background: transparent !important;
+        cursor: pointer;
+    }
+    
+    #video-page video[controls] {
+        cursor: default;
+    }
+    
+    /* Special Case Video */
+    #fire-walk-with-me.video-container {
+        aspect-ratio: 16/9;
+    }
+    
+    #fire-walk-with-me video {
+        object-fit: cover;
+    }
+    
+    /* Text Spacing */
     .video-page-title {
         padding-top: 15px;
         margin-bottom: 10px;
@@ -374,41 +429,12 @@
     .video-page-description {
         margin-top: 15px;
     }
-        #video-page video {
-        cursor: pointer; /* Show it's clickable */
-    }
     
-    #video-page video[controls] {
-        cursor: default; /* Reset when controls appear */
-        object-fit: contain !important;
-    }
-    
-    .video-page-description {
-        margin-top: 20px;
-    }
-    .video-container video {
-        object-fit: contain !important; /* Shows full video without cropping */
-        width: 100%;
-        height: auto;
-    }
-      video {
-        object-fit: cover; /* Fill containers completely */
-    }
-        /* Target only the specific video container */
-    #fire-walk-with-me.video-container {
-        width: 100%;
-        aspect-ratio: 16/9; /* Force same ratio as others */
-    }
-    
-    /* Ensure its video fills the container */
-    #fire-walk-with-me video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+    /* Poster Image */
     .video-container video[poster] {
-        opacity: 0.9; /* Important - keep this! */
+        opacity: 0.9;
     }
+}
     
   .footer {
         grid-template-columns: 1fr;
