@@ -377,6 +377,9 @@
         position: static !important;
         object-fit: cover !important;
         height: 100% !important;
+        width: 100% !important;  /* Add this */
+        height: auto !important; /* Change from 100% to auto */
+        display: block;         /* Removes extra space below video */
     }
 }
     /* Video Container Base */
@@ -393,7 +396,14 @@
     .video-container.vertical {
         aspect-ratio: 9/16;
     }
-    
+     .video-overlay {
+        opacity: 0.3; /* Slightly visible on mobile for better UX */
+        background: rgba(231, 76, 60, 0.3);
+    }
+    .video-container.active .video-overlay {
+        opacity: 0.85;
+        background: rgba(231, 76, 60, 0.85);
+    }   
     /* Main Grid Videos */
     .video-container video {
         width: 100%;
