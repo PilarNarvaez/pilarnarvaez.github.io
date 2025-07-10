@@ -776,21 +776,27 @@ if (isMobile) {
 
 function openVideoModal(container) {
     try {
+        // Reset all video containers first
+        document.querySelectorAll('.video-container video').forEach(v => {
+            v.style.position = 'static';
+            v.style.objectFit = 'cover';
+        });
+        
         activeVideoId = container.id;
         const videoPage = document.getElementById('video-page');
         const modalVideo = videoPage.querySelector('video');
         const player = videoPage.querySelector('.video-page-player');
         
-        if (!modalVideo) {
-            console.error('Video player element not found');
-            return;
-        }
-                // ===== NEW CODE START =====
-        // Detect video format (default to 16:9 if not specified)
-        const ratio = container.dataset.ratio || '16:9'; // Add data-ratio="9:16" to vertical videos
-        player.className = 'video-page-player video-ratio-' + ratio.replace(':', '-');
-        // ===== NEW CODE END =====
+        // Set modal video styles
+        modalVideo.style.position = 'absolute';
+        modalVideo.style.objectFit = 'contain';
+        modalVideo.style.background = 'transparent';
         
+        // Detect video format (keep existing ratio detection)
+        const ratio = container.dataset.ratio || '16:9';
+        player.className = 'video-page-player video-ratio-' + ratio.replace(':', '-');
+        
+        // Set video source and content
         modalVideo.src = container.dataset.videoSrc;
         document.getElementById('video-page-title').textContent = container.dataset.title;
         document.getElementById('video-page-description').textContent = 
@@ -799,7 +805,7 @@ function openVideoModal(container) {
         videoPage.style.display = 'block';
         modalVideo.load();
         
-        // MOBILE-SPECIFIC BEHAVIOR (NEW)
+        // Mobile behavior
         if (isMobile) {
             modalVideo.muted = true;
             modalVideo.controls = false;
@@ -812,7 +818,7 @@ function openVideoModal(container) {
                 e.stopPropagation();
             };
         } 
-        // DESKTOP BEHAVIOR (ORIGINAL)
+        // Desktop behavior
         else {
             const playPromise = modalVideo.play();
             if (playPromise !== undefined) {
