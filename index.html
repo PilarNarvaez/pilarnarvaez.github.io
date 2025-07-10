@@ -29,7 +29,6 @@
         margin: 0;
         position: relative;
     }
- /* ===== ADD THESE LINES ===== */
 /* Hide mobile nav on desktop */
 .mobile-nav-header {
     display: none;
@@ -111,7 +110,11 @@
     width: 100%;
     align-content: start;
 }
-    
+video {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}    
 .video-container {
     position: relative;
     width: 100%;
@@ -151,7 +154,7 @@ video::-moz-media-controls {
 .video-container video[poster] {
     opacity: 1;
 } 
-    
+
 .video-overlay {
     position: absolute;
     top: 0;
@@ -233,6 +236,9 @@ video::-moz-media-controls {
     height: 100%;
     object-fit: contain;
     background: transparent !important;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     display: block;
     margin: 0;
     padding: 0;
@@ -241,7 +247,12 @@ video::-moz-media-controls {
     transform: translateZ(0);
     -webkit-mask-image: -webkit-radial-gradient(white, black); /* iOS fix */
 }
-
+/* Enhanced iOS Fix - Add after your existing -webkit-mask-image */
+@supports (-webkit-touch-callout: none) {
+    .video-page-player video {
+        -webkit-transform: translateZ(0);
+        mask-image: -webkit-radial-gradient(white, black);
+    }
 /* Aspect ratio classes */
 .video-ratio-16-9 { 
     aspect-ratio: 16/9; /* Horizontal */ 
@@ -455,6 +466,8 @@ video::-moz-media-controls {
         -webkit-transform: translateZ(0); /* Force GPU layer */
         -webkit-mask-image: -webkit-radial-gradient(white, black); /* Fix iOS rendering */
         transform: translateZ(0);
+                -webkit-perspective: 1000;
+        perspective: 1000;
     }
     
     /* Modal Video Player */
@@ -800,7 +813,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Apply video styling
     document.querySelectorAll('video').forEach(video => {
         video.style.cssText = `
-            background-color: #000 !important;
+            background: transparent !important;
+            object-fit: ${video.closest('.video-page-player') ? 'contain' : 'cover'};
             margin: 0 !important;
             padding: 0 !important;
             line-height: 0 !important;
