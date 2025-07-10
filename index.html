@@ -396,8 +396,10 @@ video::-webkit-media-controls-enclosure {
         margin: 0;
     }
         .video-page-player video {
-        background: transparent !important;
+        background: #000 !important;
         object-fit: contain !important;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
     }
     
     .video-columns .video-container video {
@@ -441,6 +443,7 @@ video::-webkit-media-controls-enclosure {
         display: block;
         background: transparent;
         -webkit-transform: translateZ(0); /* Force GPU layer */
+        -webkit-mask-image: -webkit-radial-gradient(white, black); /* Fix iOS rendering */
         transform: translateZ(0);
     }
     
