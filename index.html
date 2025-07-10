@@ -340,6 +340,17 @@
     .video-container.vertical {
     aspect-ratio: 9/16;
 }
+        #video-page video {
+        cursor: pointer; /* Show it's clickable */
+    }
+    
+    #video-page video[controls] {
+        cursor: default; /* Reset when controls appear */
+    }
+    
+    .video-page-description {
+        margin-top: 20px;
+    }
     .video-container video {
         object-fit: contain; /* Shows full video without cropping */
         width: 100%;
@@ -655,27 +666,28 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Mobile Touch Handlers
-        if (isMobile) {
-            container.addEventListener('touchstart', function(e) {
-                pressTimer = setTimeout(() => {
-                    this.classList.add('active');
-                    video.pause();
-                }, 300);
-            }, { passive: true });
+if (isMobile) {
+    container.addEventListener('touchstart', function(e) {
+        pressTimer = setTimeout(() => {
+            this.classList.add('active');
+            video.pause();
+        }, 300);
+    }, { passive: true });
 
-            container.addEventListener('touchend', function(e) {
-                clearTimeout(pressTimer);
-                if (!this.classList.contains('active')) {
-                    openVideoModal(this);
-                }
-                this.classList.remove('active');
-            }, { passive: true });
-
-            container.addEventListener('touchmove', function(e) {
-                clearTimeout(pressTimer);
-                this.classList.remove('active');
-            }, { passive: true });
+    container.addEventListener('touchend', function(e) {
+        clearTimeout(pressTimer);
+        if (!this.classList.contains('active')) {
+            // Modified to use our updated openVideoModal
+            openVideoModal(this);
         }
+        this.classList.remove('active');
+    }, { passive: true });
+
+    container.addEventListener('touchmove', function(e) {
+        clearTimeout(pressTimer);
+        this.classList.remove('active');
+    }, { passive: true });
+}
     });
 
 function openVideoModal(container) {
