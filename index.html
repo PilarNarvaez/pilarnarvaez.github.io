@@ -158,8 +158,8 @@ video::-webkit-media-controls-enclosure {
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 1; /* Keep overlay always at full opacity */
-    transition: background 0.3s ease; /* Transition the background instead */
+    opacity: 0; /* Start hidden */
+    transition: opacity 0.3s ease, background 0.3s ease; /* Add opacity transition */
     z-index: 1;
     pointer-events: none;
 }
@@ -174,8 +174,12 @@ video::-webkit-media-controls-enclosure {
     mix-blend-mode: screen; /* Better than multiply for text */
 }
 
-.video-container:hover .video-overlay,
+.video-container:hover .video-overlay {
+    opacity: 1;
+    background: rgba(231, 76, 60, 0.85);
+}
 .video-container.active .video-overlay {
+    opacity: 1;
     background: rgba(231, 76, 60, 0.85); /* Red appears on hover/active */
     pointer-events: none; /* As per your original setup */
 }
