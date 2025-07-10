@@ -366,7 +366,17 @@
         padding: 0;
         margin: 0;
     }
+        .video-page-player video {
+        background: transparent !important;
+        object-fit: contain !important;
+    }
     
+    .video-columns .video-container video {
+        position: static !important;
+        object-fit: cover !important;
+        height: 100% !important;
+    }
+}
     /* Video Container Base */
     .video-container {
         width: 100%;
