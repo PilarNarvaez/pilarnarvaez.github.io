@@ -697,11 +697,27 @@ function openVideoModal(container) {
         videoPage.style.display = 'block';
         modalVideo.load();
         
-        const playPromise = modalVideo.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(e => {
-                modalVideo.controls = true;
-            });
+        // MOBILE-SPECIFIC BEHAVIOR (NEW)
+        if (isMobile) {
+            modalVideo.muted = true;
+            modalVideo.controls = false;
+            modalVideo.removeAttribute('autoplay');
+            
+            modalVideo.onclick = function(e) {
+                this.muted = false;
+                this.controls = true;
+                this.play().catch(e => console.log('Play failed:', e));
+                e.stopPropagation();
+            };
+        } 
+        // DESKTOP BEHAVIOR (ORIGINAL)
+        else {
+            const playPromise = modalVideo.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(e => {
+                    modalVideo.controls = true;
+                });
+            }
         }
     } catch (error) {
         console.error('Error opening video modal:', error);
