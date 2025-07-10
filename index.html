@@ -49,6 +49,7 @@
     margin: 0 auto;
     width: 100%;
     min-height: calc(100vh - 150px);
+    text-align: left; /* Ensure all content is left-aligned */
     }
         
 .text-column {
@@ -57,6 +58,7 @@
     height: fit-content;
     padding-right: 0; /* Remove previous padding */
     display: block; /* Always show on desktop */
+    text-align: left; /* Explicit left alignment */
 }
         
     .project-list {
@@ -268,7 +270,6 @@ video::-moz-media-controls {
     font-size: 16px;
     font-weight: 500;
     margin: 20px 0 20px 0; /* Top Right Bottom Left */ /* Added top margin instead of padding */
-    border-top: 1px solid #eee; /* Optional subtle divider */
 }
     
 .video-page-description {
@@ -331,10 +332,6 @@ video::-moz-media-controls {
     text-align: left; /* Left align all footer content */
 }
 
-/* Keep your existing alignment classes */
-.footer-left { text-align: left; align-self: center; }
-.footer-center { text-align: center; align-self: center; }
-.footer-right { text-align: right; align-self: center; }
 
 .footer a {
     color: #999;
@@ -512,7 +509,6 @@ video::-moz-media-controls {
     .video-page-title {
         padding-top: 15px;
         margin-bottom: 10px;
-        border-top: 1px solid rgba(0,0,0,0.1);
     }
     
     .video-page-description {
