@@ -117,10 +117,17 @@
     aspect-ratio: 16/9;
     overflow: hidden;
     cursor: pointer;
+    isolation: isolate; /* Creates new stacking context */
 }
     
 .video-container video {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: opacity 0.3s ease;
+    z-index: 0; /* Correct placement for video layering */
+    display: block; /* Remove extra space */
 }
     
 .video-container video[poster] {
@@ -139,7 +146,8 @@
     justify-content: center;
     opacity: 1; /* Keep overlay always at full opacity */
     transition: background 0.3s ease; /* Transition the background instead */
-    z-index: 2;
+    mix-blend-mode: multiply; /* Better blending with video */
+    z-index: 1;
     pointer-events: none;
 }
 
@@ -155,11 +163,9 @@
 .video-container:hover .video-overlay,
 .video-container.active .video-overlay {
     background: rgba(231, 76, 60, 0.85); /* Red appears on hover/active */
-    /* Keep your existing properties below */
-    opacity: 1; /* Maintain full opacity (now only affects text) */
     pointer-events: none; /* As per your original setup */
 }
-    
+ /* Modal styles */   
 .video-page {
     display: none;
     position: fixed;
@@ -185,14 +191,15 @@
     height: auto !important;
     object-fit: cover !important;
 }
-
+/* Modal player styles */
 .video-page-player {
     width: 100%;
     max-width: 800px;
     background: transparent;
     position: relative;
     overflow: hidden;
-    margin-bottom: 20px; /* Adds space below the video */
+    margin-bottom: 0; /* Changed from 20px to fix grey bar */
+    line-height: 0; /* Fixes spacing issues */
 }
 
 .video-page-player video {
@@ -203,6 +210,10 @@
     height: 100%;
     object-fit: contain;
     background: transparent !important;
+    outline: none; /* Removes focus border */
+    display: block; /* Remove extra space below video */
+    margin: 0;
+    padding: 0;
 }
 
 /* Aspect ratio classes */
@@ -219,8 +230,7 @@
 .video-page-title {
     font-size: 16px;
     font-weight: 500;
-    margin: 0 0 15px 0; /* Top Right Bottom Left */
-    padding-top: 20px; /* Extra space above title */
+    margin: 20px 0 15px 0; /* Top Right Bottom Left */ /* Added top margin instead of padding */
     border-top: 1px solid #eee; /* Optional subtle divider */
 }
     
@@ -398,7 +408,7 @@
     }
      .video-overlay {
         opacity: 0.3; /* Slightly visible on mobile for better UX */
-        background: rgba(231, 76, 60, 0.3);
+        background: rgba(231, 76, 60, 0.6);
     }
     .video-container.active .video-overlay {
         opacity: 0.85;
@@ -409,6 +419,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: center; /* Better mobile cropping */
         display: block;
         background: transparent;
     }
@@ -417,7 +428,7 @@
     .video-page-player {
         width: 100%;
         background: transparent;
-        margin-bottom: 20px;
+        margin-bottom: 0px;
         aspect-ratio: 16/9;
         position: relative;
         overflow: hidden;
@@ -803,6 +814,9 @@ function openVideoModal(container) {
         modalVideo.style.position = 'absolute';
         modalVideo.style.objectFit = 'contain';
         modalVideo.style.background = 'transparent';
+        modalVideo.style.width = '100%';
+        modalVideo.style.height = '100%';
+        modalVideo.style.display = 'block';
         
         // Detect video format (keep existing ratio detection)
         const ratio = container.dataset.ratio || '16:9';
