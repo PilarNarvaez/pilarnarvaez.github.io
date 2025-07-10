@@ -776,7 +776,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'menopause-campaign': 'Minúsculas Producciones and I created a social media video for Spain\'s Women\'s Institute for World Menopause Day.\n\nInspired by female artists Carmen Herrera and Barbara Stauffacher Solomon, I designed bold, minimalist graphics in Illustrator, animating them with abstract, dynamic compositions. The video prioritizes visuals over text, featuring two key messages and a vintage film-reel effect.\n\nMusic: Bensound, license code PRF3J70PUMA2EYO6.\n\n(English version shown.)',
         'pepsi-recycle': 'Video created for Wireless and Reading Festival, adaptation from the Think Different campaign.',
         'expedia-social': 'Adaptation and localisation of Expedia (VRBO) campaign for social media.',
-        'fire-walk-with-me': 'I recreated Twin Peaks’ iconic opening as a tribute to his work. Some scenes are flooded with light—an intentional reference to Fire Walk With Me—using Video Copilot’s Saber plug-in to achieve a luminous glow. The goal was to create an abstract, experimental feel, inspired by László Moholy-Nagy’s Light Space Modulator. The music is a cover by Xiu Xiu.',
+        'fire-walk-with-me': 'I recreated Twin Peaks\' iconic opening as a tribute to his work. Some scenes are flooded with light—an intentional reference to Fire Walk With Me—using Video Copilot\'s Saber plug-in to achieve a luminous glow. The goal was to create an abstract, experimental feel, inspired by László Moholy-Nagy\'s Light Space Modulator. The music is a cover by Xiu Xiu.',
         'supercar-blondie': 'Social media content for Supercar Blondie\'s Facebook page.',
         'i-am-groot': 'Twitter video series for Marvel\'s I Am Groot.',
         'just-eat': 'Localized adaptations for Just Eat\'s international markets.',
@@ -787,26 +787,28 @@ document.addEventListener('DOMContentLoaded', function() {
     let activeVideoId = null;
     let isMobile = window.innerWidth <= 768;
     let pressTimer = null;
+    
+    // Apply video styling
     document.querySelectorAll('video').forEach(video => {
-    video.style.cssText = `
-        background-color: #000 !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        line-height: 0 !important;
-        display: block !important;
-        transform: translateZ(0);
-        -webkit-transform: translateZ(0);
-    `;
-    video.setAttribute('preload', 'metadata');
-});
+        video.style.cssText = `
+            background-color: #000 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            line-height: 0 !important;
+            display: block !important;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        `;
+        video.setAttribute('preload', 'metadata');
     });
-    // Video container interactions
+
+    // Set up video container interactions
     document.querySelectorAll('.video-container').forEach(container => {
         const video = container.querySelector('video');
         const overlay = container.querySelector('.video-overlay');
         const poster = video.getAttribute('poster');
 
-        // Desktop Hover Handlers
+        // Desktop hover effects
         if (!isMobile) {
             container.addEventListener('mouseenter', () => {
                 video.play().catch(e => console.log('Hover play:', e));
@@ -822,140 +824,105 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
+        // Click handler for both desktop/mobile
         container.addEventListener('click', function(e) {
-            if (e.target.tagName === 'A') {
-                e.preventDefault();
-                return;
-            }
+            if (e.target.tagName === 'A') return;
+            e.preventDefault();
             openVideoModal(this);
         });
 
-        // Mobile Touch Handlers
-if (isMobile) {
-    container.addEventListener('touchstart', function(e) {
-        pressTimer = setTimeout(() => {
-            this.classList.add('active');
-            video.pause();
-                        // Force overlay to be visible on long press
-            this.querySelector('.video-overlay').style.opacity = '1';
-        }, 300);
-    }, { passive: true });
-
-    container.addEventListener('touchend', function(e) {
-        clearTimeout(pressTimer);
-        if (!this.classList.contains('active')) {
-            // Modified to use our updated openVideoModal
-            openVideoModal(this);
-        }
-        this.classList.remove('active');
-    }, { passive: true });
-
-    container.addEventListener('touchmove', function(e) {
-        clearTimeout(pressTimer);
-        this.classList.remove('active');
-    }, { passive: true });
-}
-    });
-
-function openVideoModal(container) {
-    try {
-        // Reset all video containers first
-        document.querySelectorAll('.video-container video').forEach(v => {
-            v.style.position = 'static';
-            v.style.objectFit = 'cover';
-        });
-        
-        activeVideoId = container.id;
-        const videoPage = document.getElementById('video-page');
-        const modalVideo = videoPage.querySelector('video');
-        const player = videoPage.querySelector('.video-page-player');
-        
-        // Set modal video styles
-        modalVideo.style.position = 'absolute';
-        modalVideo.style.objectFit = 'contain';
-        modalVideo.style.background = 'transparent';
-        modalVideo.style.width = '100%';
-        modalVideo.style.height = '100%';
-        modalVideo.style.display = 'block';
-        modalVideo.style.margin = '0';
-        modalVideo.style.padding = '0';
-        modalVideo.style.lineHeight = '0';
-        
-        // Detect video format (keep existing ratio detection)
-        const ratio = container.dataset.ratio || '16:9';
-        player.className = 'video-page-player video-ratio-' + ratio.replace(':', '-');
-        
-        // Set video source and content
-        modalVideo.src = container.dataset.videoSrc;
-        document.getElementById('video-page-title').textContent = container.dataset.title;
-        document.getElementById('video-page-description').textContent = 
-            videoDescriptions[container.id] || container.dataset.description;
-        
-        videoPage.style.display = 'block';
-        modalVideo.load();
-        
-        // Mobile behavior
+        // Mobile touch handlers
         if (isMobile) {
-            modalVideo.muted = true;
-            modalVideo.controls = false;
-            modalVideo.removeAttribute('autoplay');
+            container.addEventListener('touchstart', function(e) {
+                pressTimer = setTimeout(() => {
+                    this.classList.add('active');
+                    video.pause();
+                    overlay.style.opacity = '1';
+                }, 300);
+            }, { passive: true });
+
+            container.addEventListener('touchend', function(e) {
+                clearTimeout(pressTimer);
+                if (!this.classList.contains('active')) {
+                    openVideoModal(this);
+                }
+                this.classList.remove('active');
+            }, { passive: true });
+
+            container.addEventListener('touchmove', function(e) {
+                clearTimeout(pressTimer);
+                this.classList.remove('active');
+            }, { passive: true });
+        }
+    });
+
+    // Video modal function
+    function openVideoModal(container) {
+        try {
+            activeVideoId = container.id;
+            const videoPage = document.getElementById('video-page');
+            const modalVideo = videoPage.querySelector('video');
             
-            modalVideo.onclick = function(e) {
-                this.muted = false;
-                this.controls = true;
-                this.play().catch(e => console.log('Play failed:', e));
-                e.stopPropagation();
-            };
-        } 
-        // Desktop behavior
-        else {
-            const playPromise = modalVideo.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(e => {
-                    modalVideo.controls = true;
-                });
+            // Set video source and metadata
+            modalVideo.src = container.dataset.videoSrc;
+            document.getElementById('video-page-title').textContent = container.dataset.title;
+            document.getElementById('video-page-description').textContent = 
+                videoDescriptions[container.id] || container.dataset.description;
+            
+            videoPage.style.display = 'block';
+            modalVideo.load();
+            
+            // Mobile-specific behavior
+            if (isMobile) {
+                modalVideo.muted = true;
+                modalVideo.controls = false;
+                modalVideo.onclick = function(e) {
+                    this.muted = false;
+                    this.controls = true;
+                    this.play().catch(e => console.log('Play failed:', e));
+                    e.stopPropagation();
+                };
+            } else {
+                // Desktop autoplay
+                modalVideo.play().catch(e => modalVideo.controls = true);
             }
+        } catch (error) {
+            console.error('Error opening video modal:', error);
         }
-    } catch (error) {
-        console.error('Error opening video modal:', error);
     }
-}
 
-// Modal back buttons
-document.querySelectorAll('.back-button').forEach(button => {
-    button.addEventListener('click', function(e) {
-        e.preventDefault();
-        const modal = this.closest('.video-page');
-        const video = modal.querySelector('video');
-        
-        if (video) {
-            video.pause();
-            video.currentTime = 0;
-        }
-        modal.style.display = 'none';
-        window.scrollTo({top: 0, behavior: 'smooth'});
+    // Back button functionality
+    document.querySelectorAll('.back-button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const modal = this.closest('.video-page');
+            const video = modal.querySelector('video');
+            
+            if (video) {
+                video.pause();
+                video.currentTime = 0;
+            }
+            modal.style.display = 'none';
+        });
     });
-});
 
-// Modal links
-document.querySelectorAll('[data-modal]').forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const modalId = this.getAttribute('data-modal');
-        document.getElementById(modalId).style.display = 'block';
+    // Modal navigation links
+    document.querySelectorAll('[data-modal]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(this.getAttribute('data-modal')).style.display = 'block';
+        });
     });
-});
 
-// Responsive check with debouncing
-let resizeTimer;
+    // Responsive handling
     window.addEventListener('resize', function() {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
+        clearTimeout(this.resizeTimer);
+        this.resizeTimer = setTimeout(() => {
             isMobile = window.innerWidth <= 768;
         }, 250);
     });
 
-}); // ONLY THIS should close DOMContentLoaded
+}); // End of DOMContentLoaded
 </script>
 </body>
 </html>
