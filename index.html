@@ -130,9 +130,15 @@
     transition: opacity 0.3s ease;
     z-index: 0; /* Correct placement for video layering */
     display: block; /* Remove extra space */
-    background: black !important; /* Force black background */
     line-height: 0; /* Add this to prevent space below video */
     margin: 0;
+    background: #000 !important;
+    transform: translateZ(0); /* Force GPU rendering */
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    outline: none;
+    border: none;
+    box-shadow: none;
 }
     
 .video-container video[poster] {
