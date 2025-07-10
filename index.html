@@ -14,7 +14,13 @@
         box-sizing: border-box;
         font-family: 'Helvetica Neue', Arial, sans-serif;
     }
-    
+        /* === ADD THIS RIGHT HERE === */
+    /* Force-remove borders on common offenders */
+    hr, .video-page-title, .footer, .text-column {
+        border: 0 !important;
+        background: white !important; /* Ensures no grey bleed */
+    }
+    /* === END OF ADDED CODE === */
     html, body {
         height: 100%;
         overflow-x: hidden;
