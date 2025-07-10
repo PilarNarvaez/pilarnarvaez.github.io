@@ -36,8 +36,8 @@
     .portfolio-title {
         font-size: 18px;
         font-weight: 500;
-        margin-bottom: 30px;
-        padding: 40px 40px 0 40px;
+        margin-bottom: 35px;
+        padding: 40px 40px 15 40px;
     }
         
 .main-content {
@@ -267,7 +267,7 @@ video::-moz-media-controls {
 .video-page-title {
     font-size: 16px;
     font-weight: 500;
-    margin: 20px 0 15px 0; /* Top Right Bottom Left */ /* Added top margin instead of padding */
+    margin: 20px 0 20px 0; /* Top Right Bottom Left */ /* Added top margin instead of padding */
     border-top: 1px solid #eee; /* Optional subtle divider */
 }
     
@@ -295,23 +295,24 @@ video::-moz-media-controls {
     }
 
     .back-button {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        width: 40px;
-        height: 40px;
-        background: rgba(255,255,255,0.8);
-        backdrop-filter: blur(10px);
-        border-radius: 8px;
-        border: none;
-        color: #333;
-        font-size: 20px;
-        cursor: pointer;
-        z-index: 101;
-        transition: all 0.3s ease;
-        user-select: none;
-        -webkit-tap-highlight-color: transparent;
-    }
+    position: fixed;
+    top: 20px;
+    right: 20px; 
+    width: 40px;
+    height: 40px;
+    
+    /* Visual changes ONLY */
+    background: rgba(255,255,255,0.9) !important; /* Pure white with slight transparency */
+    border: none !important; /* Remove all borders */
+    box-shadow: none !important; /* Remove shadows if any */
+    
+    /* Keep existing text/icon styles */
+    color: #333;
+    font-size: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 101;
+}
 
     .back-button:hover {
         background: rgba(255,255,255,0.95);
@@ -346,12 +347,13 @@ video::-moz-media-controls {
 
 @media (max-width: 768px) {
     body {
-        background: white !important;
+        background: #000 !important;
         padding: 30px 30px 60px 30px;
         overflow-y: auto; /* Enable main scrolling */
         -webkit-overflow-scrolling: touch;
         position: relative;
         overflow-x: hidden; /* Prevent horizontal scroll */
+        -webkit-mask-image: none !important; /* Remove if causing issues */
     }
       .portfolio-title {
         text-align: left;
@@ -537,7 +539,7 @@ video::-moz-media-controls {
         width: 36px;
         height: 36px;
         font-size: 18px;
-        background: rgba(255,255,255,0.9);
+        background: rgba(255,255,255,0.95);
         box-shadow: none;
         z-index: 1000; /* Ensure it stays above video */
     }
