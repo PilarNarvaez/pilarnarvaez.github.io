@@ -132,6 +132,7 @@
     display: block; /* Remove extra space */
     background: black !important; /* Force black background */
     line-height: 0; /* Add this to prevent space below video */
+    margin: 0;
 }
     
 .video-container video[poster] {
@@ -430,6 +431,8 @@
         object-position: center; /* Better mobile cropping */
         display: block;
         background: transparent;
+        -webkit-transform: translateZ(0); /* Force GPU layer */
+        transform: translateZ(0);
     }
     
     /* Modal Video Player */
@@ -770,6 +773,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let pressTimer = null;
     document.querySelectorAll('video').forEach(video => {
         video.style.backgroundColor = 'black'; // Force black background
+        video.style.margin = '0';
+        video.style.lineHeight = '0';
+        video.style.setProperty('background-color', 'black', 'important');
     });
     // Video container interactions
     document.querySelectorAll('.video-container').forEach(container => {
