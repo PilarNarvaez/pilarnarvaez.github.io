@@ -44,15 +44,17 @@
     .portfolio-title {
         font-size: 18px;
         font-weight: 500;
-        margin-bottom: 35px;
-        padding: 40px 40px 15px 40px;
-            border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
+        margin: 40px 0 35px 40px; /* Top | Right | Bottom | Left */
+        padding: 0; /* No extra padding (only margin for spacing) */
+        text-align: left;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
     }
         
 .main-content {
     display: grid;
+    background: white !important; /* No grey anywhere */
     grid-template-columns: 250px 1fr; /* Fixed left column, flexible right */
     gap: 40px;
     padding: 0 40px;
@@ -287,6 +289,7 @@ video::-moz-media-controls {
     font-size: 16px;
     font-weight: 500;
     margin: 20px 0 20px 0; /* Top Right Bottom Left */ /* Added top margin instead of padding */
+     padding: 0; /* No extra padding */
         border: none !important;
     outline: none !important;
     box-shadow: none !important;
@@ -347,7 +350,7 @@ video::-moz-media-controls {
     font-size: 12px;
     color: #999;
     padding: 30px 40px; /* Slightly increased vertical padding */
-    background: white;
+    background: white !important; /* No grey anywhere */
     margin-top: 60px; /* Creates natural space above footer */
     text-align: left; /* Left align all footer content */
         border: none !important;
@@ -368,7 +371,7 @@ video::-moz-media-controls {
 
 @media (max-width: 768px) {
     body {
-        background: #000 !important;
+        background: white !important; /* No grey anywhere */
         padding: 30px 30px 60px 30px;
         overflow-y: auto; /* Enable main scrolling */
         -webkit-overflow-scrolling: touch;
@@ -405,6 +408,7 @@ video::-moz-media-controls {
     }
     .main-content {
         display: block;
+        background: white !important; /* No grey anywhere */
         padding: 0 0 40px 0; /* Bottom padding only */
         overflow-y: visible;
         -webkit-overflow-scrolling: touch;
@@ -563,6 +567,7 @@ video::-moz-media-controls {
           border: none !important;
     outline: none !important;
     box-shadow: none !important;
+        background: white !important; /* No grey anywhere */
     }
     
     .back-button {
@@ -585,7 +590,7 @@ video::-moz-media-controls {
         text-align: center;
         margin-top: 40px;
         position: relative;
-        background: white;
+        background: white !important; /* No grey anywhere */
           border: none !important;
     outline: none !important;
     box-shadow: none !important;
