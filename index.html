@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+.video-page-player {<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -183,6 +183,7 @@
     background: transparent;
     position: relative;
     overflow: hidden;
+    margin-bottom: 30px; /* Adds space below the video */
 }
 
 .video-page-player video {
@@ -209,12 +210,15 @@
 .video-page-title {
     font-size: 16px;
     font-weight: 500;
-    margin-bottom: 10px;
+    margin: 0 0 15px 0; /* Top Right Bottom Left */
+    padding-top: 20px; /* Extra space above title */
+    border-top: 1px solid #eee; /* Optional subtle divider */
 }
     
 .video-page-description {
     font-size: 14px;
     line-height: 1.5;
+    margin: 0 0 20px 0; /* Consistent bottom margin */
 }
 
     #contact-page a.contact-email,
@@ -357,6 +361,19 @@
     .video-container.vertical {
     aspect-ratio: 9/16;
 }
+      .video-page-player {
+        margin-bottom: 20px;
+    }
+    
+    .video-page-title {
+        padding-top: 15px;
+        margin-bottom: 10px;
+        border-top: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .video-page-description {
+        margin-top: 15px;
+    }
         #video-page video {
         cursor: pointer; /* Show it's clickable */
     }
