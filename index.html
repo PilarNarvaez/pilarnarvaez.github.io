@@ -109,99 +109,113 @@
     gap: 15px;
     width: 100%;
     align-content: start;
-    }
+}
     
-    .video-container {
-        position: relative;
-        width: 100%;
-        aspect-ratio: 16/9;
-        overflow: hidden;
-        cursor: pointer;
-    }
+.video-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    cursor: pointer;
+}
     
-    .video-container video {
-        transition: opacity 0.3s ease;
-    }
+.video-container video {
+    transition: opacity 0.3s ease;
+}
     
-    .video-container video[poster] {
-        opacity: 1;
-    } 
+.video-container video[poster] {
+    opacity: 1;
+} 
     
-    video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-        
-    .video-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(231, 76, 60, 0.85);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        z-index: 2;
-        pointer-events: none;
-    }
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(231, 76, 60, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+    pointer-events: none;
+}
 
-    .video-overlay span {
-        font-size: 14px; 
-        font-weight: 500;
-        color: white;
-        text-align: center;
-        padding: 0 20px;
-        width: 100%;
-    }
+.video-overlay span {
+    font-size: 14px; 
+    font-weight: 500;
+    color: white;
+    text-align: center;
+    padding: 0 20px;
+    width: 100%;
+}
 
-    .video-container:hover .video-overlay,
-    .video-container.active .video-overlay {
-        opacity: 1;
-        pointer-events: none;
-    }
-        
-    .video-page {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: white;
-        z-index: 100;
-        padding: 40px;
-    }
-        
-    .video-page-content {
-        max-width: 800px;
-        margin: 0 auto;
-        position: relative;
-    }
-        
-    .video-page-player {
+.video-container:hover .video-overlay,
+.video-container.active .video-overlay {
+    opacity: 1;
+    pointer-events: none;
+}
+    
+.video-page {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 100;
+    padding: 40px;
+}
+    
+.video-page-content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    padding: 40px 0 30px;
+} /* THIS CLOSING BRACE WAS MISSING */
+
+.video-page-player {
     width: 100%;
     max-width: 800px;
-    margin: 0 auto; /* Solo margen horizontal */
     background: transparent;
     position: relative;
     overflow: hidden;
-    aspect-ratio: 16/9;
-    }
-        
-    .video-page-title {
-        font-size: 16px;
-        font-weight: 500;
-        margin-bottom: 10px;
-    }
-        
-    .video-page-description {
-        font-size: 14px;
-        line-height: 1.5;
-    }
+}
+
+.video-page-player video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #000;
+}
+
+/* Aspect ratio classes */
+.video-ratio-16-9 { 
+    aspect-ratio: 16/9; /* Horizontal */ 
+}
+.video-ratio-9-16 { 
+    aspect-ratio: 9/16; /* Vertical */ 
+}
+.video-ratio-1-1 { 
+    aspect-ratio: 1/1;  /* Square */ 
+}
+
+.video-page-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+    
+.video-page-description {
+    font-size: 14px;
+    line-height: 1.5;
+}
 
     #contact-page a.contact-email,
     #contact-page a.contact-email:link,
@@ -704,11 +718,17 @@ function openVideoModal(container) {
         activeVideoId = container.id;
         const videoPage = document.getElementById('video-page');
         const modalVideo = videoPage.querySelector('video');
+        const player = videoPage.querySelector('.video-page-player');
         
         if (!modalVideo) {
             console.error('Video player element not found');
             return;
         }
+                // ===== NEW CODE START =====
+        // Detect video format (default to 16:9 if not specified)
+        const ratio = container.dataset.ratio || '16:9'; // Add data-ratio="9:16" to vertical videos
+        player.className = 'video-page-player video-ratio-' + ratio.replace(':', '-');
+        // ===== NEW CODE END =====
         
         modalVideo.src = container.dataset.videoSrc;
         document.getElementById('video-page-title').textContent = container.dataset.title;
