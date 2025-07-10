@@ -631,7 +631,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'expedia-social': 'Adaptation and localisation of Expedia (VRBO) campaign for social media.',
         'fire-walk-with-me': 'I recreated Twin Peaks’ iconic opening as a tribute to his work. Some scenes are flooded with light—an intentional reference to Fire Walk With Me—using Video Copilot’s Saber plug-in to achieve a luminous glow. The goal was to create an abstract, experimental feel, inspired by László Moholy-Nagy’s Light Space Modulator. The music is a cover by Xiu Xiu.',
         'supercar-blondie': 'Social media content for Supercar Blondie\'s Facebook page.',
-        'i-am-groot': 'Twitter video series for Marvel\'s I Am Groot'.,
+        'i-am-groot': 'Twitter video series for Marvel\'s I Am Groot.',
         'just-eat': 'Localized adaptations for Just Eat\'s international markets.',
         'social-media-videos': 'Collection of various social media video content.',
         'kings-league': 'Content created for Kings League on Twitch.'
@@ -769,14 +769,14 @@ document.querySelectorAll('[data-modal]').forEach(link => {
 
 // Responsive check with debouncing
 let resizeTimer;
-window.addEventListener('resize', function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-        isMobile = window.innerWidth <= 768;
-    }, 250);
-});
-}
-}); // This closes the DOMContentLoaded event listener
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            isMobile = window.innerWidth <= 768;
+        }, 250);
+    });
+
+}); // ONLY THIS should close DOMContentLoaded
 </script>
 </body>
 </html>
