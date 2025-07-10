@@ -175,7 +175,14 @@
     margin: 0 auto;
     position: relative;
     padding: 40px 0 30px;
-} /* THIS CLOSING BRACE WAS MISSING */
+} 
+        
+/* Protect grid videos from modal styles */
+.video-columns .video-container video {
+    position: static !important;
+    height: auto !important;
+    object-fit: cover !important;
+}
 
 .video-page-player {
     width: 100%;
@@ -183,7 +190,7 @@
     background: transparent;
     position: relative;
     overflow: hidden;
-    margin-bottom: 30px; /* Adds space below the video */
+    margin-bottom: 20px; /* Adds space below the video */
 }
 
 .video-page-player video {
@@ -193,7 +200,7 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    background: #000;
+    background: transparent !important;
 }
 
 /* Aspect ratio classes */
