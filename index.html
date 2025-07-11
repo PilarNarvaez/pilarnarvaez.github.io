@@ -343,19 +343,16 @@ video::-moz-media-controls {
     }
         
 .footer {
-    width: calc(100% - 80px); /* Account for padding */
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     font-size: 12px;
-    justify-content: start; /* Force left alignment */
     color: #999;
     padding: 30px 40px;
     background: white !important;
     margin-top: 60px;
-    max-width: 1400px; /* Match main-content width */
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left; /* Force left alignment */
+    margin-left: 0; /* Force left edge alignment */
+    max-width: none; /* Remove any max-width constraint */
         border: none !important;
     outline: none !important;
     box-shadow: none !important;
@@ -576,18 +573,19 @@ video::-moz-media-controls {
     
 .back-button {
     position: fixed;
-    top: 40px; /* More spacing from top */
-    right: 40px; /* More spacing from right */
-    padding: 0;
+    top: 40px;
+    right: 40px;
+    color: #999 !important; /* Grey default */
     background: transparent !important;
+    font-size: 24px;
+    z-index: 101;
+    transition: color 0.2s ease;
+    /* Removal of all decorative styles */
     border: none !important;
     box-shadow: none !important;
-    color: #999 !important;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 101;
     text-decoration: none !important;
-    transition: color 0.2s ease;
+    padding: 0;
+    margin: 0;
 }
     /* END OF NEW STYLES */
 }
