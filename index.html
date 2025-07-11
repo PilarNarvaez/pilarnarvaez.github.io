@@ -341,9 +341,9 @@ video::-moz-media-controls {
     display: grid;
     justify-content: start;
     gap: 40px;
-    font-size: 12px;
+    font-size: 10px;
     color: #999;
-    padding: 30px 40px;
+    padding: 30px 0;
     background: white !important;
     margin: 60px 0 0 40px;
     max-width: none;
@@ -353,7 +353,7 @@ video::-moz-media-controls {
 }
 
 .footer a {
-    color: #999;
+    color: #999 !important; /* Added !important to ensure color applies */
     text-decoration: none;
     transition: color 0.2s ease;
 }
