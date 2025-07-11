@@ -351,7 +351,7 @@ video::-moz-media-controls {
     box-shadow: none !important;
 }
 .footer div {
-    margin-bottom: 10px; /* Space between rows */
+    margin-bottom: 8px; /* Space between rows */
     display: block;
     text-align: left !important; /* Ensure left alignment */
 }
@@ -366,7 +366,15 @@ video::-moz-media-controls {
     color: #e74c3c !important;
     text-decoration: none !important;
 }
-
+      /* ▼ Video Grid Mobile Styles ▼ */
+@media (max-width: 768px) {
+    .video-columns {
+        grid-template-columns: 1fr;
+        width: 100%;
+        gap: 15px;
+        padding: 0;
+        margin: 0;
+    } 
 
     body {
         background: white !important; /* No grey anywhere */
@@ -437,14 +445,6 @@ video::-moz-media-controls {
         gap: 15px;
         align-content: start;
         padding: 0 
-        margin: 0;
-    }
-    
-    .video-columns {
-        grid-template-columns: 1fr;
-        width: 100%;
-        gap: 15px;
-        padding: 0;
         margin: 0;
     }
         .video-page-player video {
