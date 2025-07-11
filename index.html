@@ -320,40 +320,38 @@ video::-moz-media-controls {
 
     .back-button {
     position: fixed;
-    top: 20px;
-    right: 20px; 
-    width: auto; /* Changed from fixed width */
-    height: auto; /* Changed from fixed height */
-    padding: 5px 10px;
-    background: transparent !important; /* Removed grey background */
+    top: 40px;
+    right: 40px;
+    color: #999 !important; /* Grey default */
+    background: transparent !important;
+    font-size: 24px;
+    z-index: 101;
+    transition: color 0.2s ease;
+    /* Remove all decorative styles */
     border: none !important;
     box-shadow: none !important;
-    color: #333 !important; /* Black color */
-    font-size: 20px;
-    cursor: pointer;
-    z-index: 101;
     text-decoration: none !important;
+    padding: 0;
+    margin: 0;
 }
 
 .back-button:hover {
     color: #e74c3c !important; /* Red on hover */
-    background: transparent !important;
-    box-shadow: none !important;
-    text-decoration: none !important;
     }
         
 .footer {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: auto auto auto; /* Natural width columns */
+    justify-content: start; /* Force left alignment */
+    gap: 40px; /* Space between columns */
     font-size: 12px;
     color: #999;
     padding: 30px 40px;
     background: white !important;
-    margin-top: 60px;
-    margin-left: 0; /* Force left edge alignment */
-    max-width: none; /* Remove any max-width constraint */
-        border: none !important;
+    margin: 60px 0 0 40px; /* Left margin matches portfolio title */
+    max-width: none;
+    border: none !important;
     outline: none !important;
     box-shadow: none !important;
 }
