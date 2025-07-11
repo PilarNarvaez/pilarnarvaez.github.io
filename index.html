@@ -343,10 +343,11 @@ video::-moz-media-controls {
     }
         
 .footer {
-    width: 100%;
+    width: calc(100% - 80px); /* Account for padding */
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     font-size: 12px;
+    justify-content: start; /* Force left alignment */
     color: #999;
     padding: 30px 40px;
     background: white !important;
