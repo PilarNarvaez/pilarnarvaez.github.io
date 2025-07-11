@@ -336,31 +336,31 @@ video::-moz-media-controls {
     color: #e74c3c !important; /* Red on hover */
     }
         
+/* Desktop Footer */
 .footer {
-    width: 100%;
+    width: calc(100% - 80px); /* Account for left/right padding */
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto; /* Explicit columns for desktop */
     justify-content: start;
     gap: 40px;
-    font-size: 10px; /* Changed from 12px to 10px */
+    font-size: 10px;
     color: #999;
-    padding: 30px 0; /* Changed from 30px 40px to remove right padding */
+    padding: 30px 0;
+    margin: 60px 40px 0 40px; /* Top Right Bottom Left */
     background: white !important;
-    margin: 60px 0 0 40px; /* Left margin matches portfolio title */
-    max-width: none;
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
 }
 
 .footer a {
-    color: #999 !important; /* Added !important to ensure color applies */
-    text-decoration: none;
+    color: #999 !important;
+    text-decoration: none !important;
     transition: color 0.2s ease;
 }
 
 .footer a:hover {
-    color: #e74c3c !important; /* Red on hover */
+    color: #e74c3c !important;
     text-decoration: none !important;
 }
 
