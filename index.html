@@ -82,11 +82,11 @@
     left: 40px;
     top: 150px; /* Matches portfolio title */
     width: 210px;
-    height: calc(100vh - 190px); /* Viewport - (title + footer) */
+    height: calc(100vh - 150px); /* Viewport - (title + footer) */
     overflow-y: auto;
-    padding-right: 25px; /* Prevents text clipping */
-    margin-left: -2px; /* Your perfect alignment fix */
+    padding: 0 25px 0 42px; /* Increased left padding instead of negative margin */
     z-index: 2;
+    scrollbar-width: thin; /* Cleaner scrollbar */
 }
 
 .project-list {
@@ -155,15 +155,15 @@
 .video-columns {
     /* Essential grid layout */
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 equal responsive columns */
+    /* Optimal column rule for your case */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 15px;
     /* Spacing adjustments */
     margin-left: 250px; /* Replace grid-column/padding-left with this */
-    padding-right: 40px; /* Maintain right padding */
+    padding: 0 40px;
     /* Layout control */
-    width: 100%;
+    width: calc(100% - 250px);
     align-content: start; /* Aligns grid to top */
-    margin-bottom: 0;
 }
 video {
     -webkit-appearance: none;
@@ -379,14 +379,15 @@ video::-moz-media-controls {
         
 /* Desktop Footer */
 .footer {
-   position: fixed;
+   position: static; 
+    width: 210px;
+    margin: 60px 0 0 40px; /* Original spacing (top: 60px, left: 40px) */
+     padding: 20px 0;
     bottom: 0;
     left: 40px;
-    width: 210px;
     font-size: 14px;
     font-weight: normal;
     color: #333;
-    padding: 20px 0;
     background: white;
     z-index: 3; /* Above other content */
 }
