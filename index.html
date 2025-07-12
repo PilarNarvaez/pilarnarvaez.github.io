@@ -30,14 +30,22 @@
         background: white !important;
     }
     body {
+        display: flex;
+        flex-direction: column;
         min-height: 100vh;
         background-color: white;
         color: #333;
         line-height: 1.6;
-        padding: 0;
-        margin: 0;
-        position: relative;
+        padding: 40px;
+        max-width: 1400px;
+        margin: 0 auto;
     }
+    
+    /* New wrapper */
+    .content-wrapper {
+        flex: 1; /* Pushes footer down */
+    }
+    
 /* Hide mobile nav on desktop */
 .mobile-nav-header {
     display: none;
@@ -45,84 +53,37 @@
     .portfolio-title {
         font-size: 18px;
         font-weight: 500;
-        margin: 40px 0 35px 40px; /* Top | Right | Bottom | Left */
-        padding: 0; /* No extra padding (only margin for spacing) */
-        text-align: left;
+        margin-bottom: 30px;
     }
       
   /* Main Grid Container */      
 .main-content {
     display: grid;
-    grid-template-columns: 250px 1fr 1fr 1fr; /* Keep this 4-column structure */
-    gap: 40px 15px; /* Maintain your gap sizes */
-    padding: 0 40px;
-    padding-left: 290px; /* Add this */
-    padding-bottom: 120px; /* Space for fixed footer */
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
-    min-height: calc(100vh - 150px);
-    background: white !important;
-    position: relative; /* Add this for proper stacking */
+    grid-template-columns: 1fr 3fr;
+    gap: 30px;
 }
       
    /* Left Column - Desktop */     
-      .left-column-wrapper {
-    position: fixed;
-    left: 40px;
-    width: 210px;
-    top: 150px;
-    bottom: 100px; /* Stops above footer */
-    z-index: 2;
-    overflow: hidden;
-}
-/* Left Column - Fixed position matching title */
 .text-column {
-    position: fixed;
-    left: 40px;
-    top: 150px; /* Matches portfolio-title margin-top */
-    width: 210px;
-    height: calc(100vh - 190px); /* Viewport - (title + footer) */
-    overflow-y: auto; /* Enables scrolling */
-    padding-right: 30px; /* Prevents text clipping */
-    z-index: 2;
+    padding-right: 20px;
 }
 
 .project-list {
     list-style: none;
     padding: 0;
-    margin: 0 0 0 -2px;    /* -2px left margin for perfect alignment */
+    margin: 0;
 }
 
 .project-list li {
-    margin-bottom: 8px; /* Default spacing */
+    margin-bottom: 10px;
 }
 
-/* About & Contact Links */
-.project-list li.emphasis {
-    margin-bottom: 4px; /* Tighter spacing */
+.project-list li.emphasis a,
+.mobile-nav-header a {
+    font-size: 16px;
+    font-weight: 500;
 }
-
-.project-list li.emphasis a {
-    font-size: 14px;
-    font-weight: normal;
-    display: block;
-    transition: color 0.2s ease;
-}
-
-/* Desktop - Red color only for left column About/Contact */
-.text-column .project-list li.emphasis a {
-    color: #e74c3c !important;
-}
-
-/* Hover states - only for left column About/Contact */
-.text-column .project-list li.emphasis a:hover,
-.text-column .project-list li.emphasis a:focus,
-.text-column .project-list li.emphasis a:active {
-    color: #333 !important;
-    text-decoration: none !important;
-}
-
+      
 /* Base link styles */
 .project-list a {
     color: #333;
@@ -158,10 +119,10 @@
     grid-template-columns: repeat(3, minmax(300px, 1fr));
     gap: 15px;
     /* Spacing adjustments */
-    margin-left: 250px; /* Replace grid-column/padding-left with this */
-    padding: 0 40px;
+    margin-left: 0; /* Remove the left margin */
+    padding: 0;
     /* Layout control */
-    width: calc(100% - 250px);
+    width: 100%;
     align-content: start; /* Aligns grid to top */
 }
 video {
@@ -879,7 +840,7 @@ Music: Bensound, license code PRF3J70PUMA2EYO6.
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const videoDescriptions = {
-        'showreel': 'A selection of my last video edit and motion graphics works.',
+        'showreel': 'A selection of my last works - video editing and motion graphics.',
         'tercer-campaign': 'Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics.',
         'menopause-campaign': 'Minúsculas Producciones and I created a social media video for Spain\'s Women\'s Institute for World Menopause Day.\n\nInspired by female artists Carmen Herrera and Barbara Stauffacher Solomon, I designed bold, minimalist graphics in Illustrator, animating them with abstract, dynamic compositions. The video prioritizes visuals over text, featuring two key messages and a vintage film-reel effect.\n\nMusic: Bensound, license code PRF3J70PUMA2EYO6.\n\n(English version shown.)',
         'pepsi-recycle': 'Video created for Wireless and Reading Festival, adaptation from the Think Different campaign.',
