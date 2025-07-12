@@ -90,7 +90,17 @@
     .project-list li.emphasis a {
         font-size: 16px;
         font-weight: 500;
+        /* transition for smooth hover effect */
+        transition: color 0.2s ease;
     }
+      
+/* HOVER STYLES*/
+.project-list li.emphasis a:hover,
+.project-list li.emphasis a:focus,
+.project-list li.emphasis a:active {
+    color: #e74c3c !important; /* red color */
+    text-decoration: none !important; /* No underline */
+}
         
     .project-list a {
         color: #333;
