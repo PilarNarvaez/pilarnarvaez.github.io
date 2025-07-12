@@ -367,36 +367,8 @@ video::-moz-media-controls {
     text-decoration: none !important; /* Still no underline */
 }
 
-/* Mobile Footer */
 @media (max-width: 768px) {
-    .footer {
-        width: 100% !important;
-        margin: 40px 0 0 0 !important;
-        padding: 0 !important;
-        text-align: center !important;
-    }
-    
-    .footer div {
-        text-align: center !important;
-        margin-bottom: 8px;
-    }
-    
-    .footer a {
-        text-align: center !important;
-    }
-}
-
-      
-      /* ▼ Video Grid Mobile Styles ▼ */
-@media (max-width: 768px) {
-    .video-columns {
-        grid-template-columns: 1fr;
-        width: 100%;
-        gap: 15px;
-        padding: 0;
-        margin: 0;
-    } 
-
+ /* Body & Layout */
     body {
         background: white !important; /* No grey anywhere */
         padding: 30px 30px 60px 30px;
@@ -406,17 +378,18 @@ video::-moz-media-controls {
         overflow-x: hidden; /* Prevent horizontal scroll */
         -webkit-mask-image: none !important; /* Remove if causing issues */
     }
+        /* Portfolio Title */
       .portfolio-title {
         text-align: left;
         padding: 0 0 20px 0; /* Top Right Bottom Left */
         margin: 0;
         font-size: 18px; /* Match your desktop size */
         width: 100%;
-              border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
     }
-
+    /* Mobile Navigation */
       /* Mobile Navigation Header */
     .mobile-nav-header {
         display: flex !important; /* Show on mobile */
@@ -433,6 +406,7 @@ video::-moz-media-controls {
         text-decoration: none;
         /* Remove individual padding-left - handled by container */
     }
+     /* Main Content */
     .main-content {
         display: block;
         background: white !important; /* No grey anywhere */
@@ -447,9 +421,29 @@ video::-moz-media-controls {
         scrollbar-width: none;     /* Firefox */
     }
 
-    /* Webkit scrollbar hiding (separate rule) */
-    .main-content::-webkit-scrollbar {
-        display: none;
+   /* Video Grid - MOBILE (1 column) */
+    .video-columns {
+        grid-template-columns: 1fr;
+        width: 100%;
+        gap: 15px;
+        padding: 0;
+        margin: 0;
+    } 
+        /* Mobile Footer */
+    .footer {
+        width: 100% !important;
+        margin: 40px 0 0 0 !important;
+        padding: 0 !important;
+        text-align: center !important;
+    }
+    
+    .footer div {
+        text-align: center !important;
+        margin-bottom: 8px;
+    }
+    
+    .footer a {
+        text-align: center !important;
     }
     /* Hide desktop navigation */
     .text-column {
@@ -458,33 +452,9 @@ video::-moz-media-controls {
     outline: none !important;
     box-shadow: none !important;
     }
-    /* Video Grid - 3 Columns */
-    .video-columns {
-        display: grid;
-         grid-template-columns: repeat(3, 1fr); /* 3 columns */
-        width: 100%;
-        gap: 15px;
-        align-content: start;
-        padding: 0 
-        margin: 0;
     }
-        .video-page-player video {
-        background: #000 !important;
-        object-fit: contain !important;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-    }
-    
-    .video-columns .video-container video {
-        position: static !important;
-        object-fit: cover !important;
-        height: 100% !important;
-        width: 100% !important;  /* Add this */
-        height: auto !important; /* Change from 100% to auto */
-        display: block;         /* Removes extra space below video */
-    }
-}
-    /* Video Container Base */
+      
+/* ===== GLOBAL STYLES (apply to all devices) ===== */
     .video-container {
         position: relative;
         width: 100%;
