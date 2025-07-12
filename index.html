@@ -47,36 +47,26 @@
         margin: 40px 0 35px 40px; /* Top | Right | Bottom | Left */
         padding: 0; /* No extra padding (only margin for spacing) */
         text-align: left;
-        border: none !important;
-        outline: none !important;
-        box-shadow: none !important;
     }
-        
+      
+  /* Main Grid Container */      
 .main-content {
     display: grid;
-    background: white !important; /* No grey anywhere */
     grid-template-columns: 250px 1fr; /* Fixed left column, flexible right */
     gap: 40px;
     padding: 0 40px;
     max-width: 1400px;
     margin: 0 auto;
-    width: 100%;
+    width: 100%; /* Changed from calc(100% - 80px) */
     min-height: calc(100vh - 150px);
-    text-align: left; /* Ensure all content is left-aligned */
+    background: white !important; /* No grey anywhere */
     }
+      
    /* Left Column - Desktop */     
 .text-column {
-    
-    margin-left: 40px; /* Matches your title */
-    width: 210px; /* 250px total - 40px margin */
-    height: fit-content;
-    display: block; /* Always show on desktop */
-    text-align: left; /* Explicit left alignment */
-    top: auto; /* Reset sticky positioning */
+    width: 210px; /* 250px - 40px padding */
+    margin-left: 0px; /* Matches your title */
     padding: 0;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
 }
 
 .project-list {
@@ -362,17 +352,12 @@ video::-moz-media-controls {
         
 /* Desktop Footer */
 .footer {
-    width: 250px; /* Matches left column width */
+    width: 210px; /* Matches left column width */
     margin: 60px 0 0 40px; /* Matches portfolio-title margin */
+    padding: 0;
     font-size: 14px;
     font-weight: normal;
     color: #333;
-    padding: 0;
-    background: white !important;
-    text-align: left; /* Force left alignment */
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
 }
 .footer div {
     margin-bottom: 8px; /* Space between rows */
