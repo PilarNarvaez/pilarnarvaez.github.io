@@ -64,13 +64,13 @@
       
    /* Left Column - Desktop */     
 .text-column {
-    position: absolute; /* Changed from fixed to work within grid */
-    left: 40px;
-    top: 0;
-    width: 210px; /* 250px total - 40px gap */
+    grid-column: 1;
+    width: 210px; /* 250px - 40px padding */
+    position: sticky;
+    top: 150px; /* Aligns with portfolio title */
+    align-self: start;
     height: calc(100vh - 190px); /* Viewport minus title/footer */
-    overflow-y: auto; /* Scroll if content exceeds height */
-    padding-right: 20px; /* Prevent text clipping */
+    overflow-y: auto; /* Scrollable if content is long */
 }
 
 .project-list {
@@ -136,6 +136,7 @@
 
 /* Video Grid */
 .video-columns {
+    grid-column: 2 / span 3;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr)); /* Flexible columns */
     gap: 15px;
