@@ -93,6 +93,13 @@
         /* transition for smooth hover effect */
         transition: color 0.2s ease;
     }
+      /* Desktop navigation - About & Contact links */
+.text-column .project-list li.emphasis a {
+    font-size: 16px;
+    font-weight: normal; /* Changed from 500 */
+    transition: color 0.2s ease;
+}
+
       
 /* HOVER STYLES*/
 .project-list li.emphasis a:hover,
@@ -352,6 +359,7 @@ video::-moz-media-controls {
     width: 250px; /* Matches left column width */
     margin: 60px 0 0 40px; /* Matches portfolio-title margin */
     font-size: 14px;
+    font-weight: normal;
     color: #333;
     padding: 0;
     background: white !important;
@@ -362,11 +370,13 @@ video::-moz-media-controls {
 }
 .footer div {
     margin-bottom: 8px; /* Space between rows */
+    font-weight: normal;
     display: block;
     text-align: left !important; /* Ensure left alignment */
 }
 .footer a {
     color: #333 !important;
+    font-weight: normal;
     text-decoration: none !important; /* No underline */
     transition: color 0.2s ease;
     text-align: left !important;
@@ -374,6 +384,7 @@ video::-moz-media-controls {
 
 .footer a:hover {
     color: #e74c3c !important; /* Turns red on hover */
+    font-weight: normal;
     text-decoration: none !important; /* Still no underline */
 }
 
@@ -394,6 +405,7 @@ video::-moz-media-controls {
         padding: 0 0 20px 0; /* Top Right Bottom Left */
         margin: 0;
         font-size: 18px; /* Match your desktop size */
+        font-weight: 500; /* Or 'bold' if you prefer */
         width: 100%;
         border: none !important;
         outline: none !important;
@@ -411,11 +423,12 @@ video::-moz-media-controls {
     
     .mobile-nav-header a {
         font-size: 16px;
-        font-weight: 500;
+        font-weight: normal; !important; 
         color: #333;
         text-decoration: none;
         /* Remove individual padding-left - handled by container */
     }
+    
      /* Main Content */
     .main-content {
         display: block;
