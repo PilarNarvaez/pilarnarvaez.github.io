@@ -60,13 +60,18 @@
     width: 100%;
     min-height: calc(100vh - 150px);
     background: white !important;
+    position: relative; /* New: Needed for absolute children */
 }
       
    /* Left Column - Desktop */     
 .text-column {
-    width: 210px; /* Fixed width */
-    margin-top: -35px; /* Align with first video row */
-    padding: 0;
+    position: absolute; /* Changed from fixed to work within grid */
+    left: 40px;
+    top: 0;
+    width: 210px; /* 250px total - 40px gap */
+    height: calc(100vh - 190px); /* Viewport minus title/footer */
+    overflow-y: auto; /* Scroll if content exceeds height */
+    padding-right: 20px; /* Prevent text clipping */
 }
 
 .project-list {
