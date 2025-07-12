@@ -76,47 +76,48 @@
     outline: none !important;
     box-shadow: none !important;
 }
-        
-    .project-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-        
-    .project-list li {
-        margin-bottom: 10px;
-    }
-        
-    .project-list li.emphasis a {
-        font-size: 16px;
-        font-weight: normal !important; /* Explicitly not bold */
-        /* transition for smooth hover effect */
-        transition: color 0.2s ease;
-    }
-      /* Desktop navigation - About & Contact links */
-.text-column .project-list li.emphasis a {
-    font-size: 16px;
-    font-weight: normal;
-    color: #e74c3c !important; /* Red by default */
-    transition: color 0.2s ease;
-    margin-bottom: 4px; /* Reduced spacing */
-    display: block; /* Ensures consistent spacing */
+
+.project-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-      
-/* HOVER STYLES*/
-.project-list li.emphasis a:hover,
-.project-list li.emphasis a:focus,
-.project-list li.emphasis a:active {
-    color: #e74c3c !important; /* red color */
-    text-decoration: none !important; /* No underline */
+.project-list li {
+    margin-bottom: 8px; /* Default spacing */
 }
-        
-    .project-list a {
-        color: #333;
-        text-decoration: none;
-        font-size: 14px;
-    }
+
+/* About & Contact Links */
+.project-list li.emphasis {
+    margin-bottom: 4px; /* Tighter spacing */
+}
+
+.project-list li.emphasis a {
+    font-size: 14px;
+    font-weight: normal;
+    display: block;
+    transition: color 0.2s ease;
+}
+
+/* Desktop - Red color only for left column About/Contact */
+.text-column .project-list li.emphasis a {
+    color: #e74c3c !important;
+}
+
+/* Hover states - only for left column About/Contact */
+.text-column .project-list li.emphasis a:hover,
+.text-column .project-list li.emphasis a:focus,
+.text-column .project-list li.emphasis a:active {
+    color: #333 !important;
+    text-decoration: none !important;
+}
+
+/* Base link styles */
+.project-list a {
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+}
 
     a.contact-email, 
     a.contact-email:link, 
