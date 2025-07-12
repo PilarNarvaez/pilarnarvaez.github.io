@@ -60,20 +60,13 @@
     width: 100%;
     min-height: calc(100vh - 150px);
     background: white !important;
-    }
+}
       
    /* Left Column - Desktop */     
 .text-column {
-    position: fixed; /* This will keep it fixed in place */
     width: 210px; /* Fixed width */
-    left: 40px; /* Matches the main content padding */
-    top: 150px; /* Below the portfolio title */
-    margin: 0;
+    margin-top: -35px; /* Align with first video row */
     padding: 0;
-    height: calc(100vh - 190px); /* Full height minus title and footer space */
-    overflow-y: auto; /* Enable scrolling if content is too long */
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    z-index: 1; /* Ensure it stays above other content */
 }
 
 .project-list {
@@ -137,10 +130,10 @@
     text-decoration: none; /* No underline in navigation */
 }
 
-        
+/* Video Grid */
 .video-columns {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* Flexible columns */
     gap: 15px;
     width: 100%;
     align-content: start;
@@ -359,11 +352,8 @@ video::-moz-media-controls {
         
 /* Desktop Footer */
 .footer {
-    position: fixed;
-    bottom: 40px;
-    left: 40px;
-    width: 210px;
-    margin: 0;
+   width: 210px;
+    margin: 60px 0 0 40px;
     padding: 0;
     font-size: 14px;
     font-weight: normal;
