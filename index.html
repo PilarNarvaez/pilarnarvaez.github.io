@@ -64,13 +64,13 @@
       
    /* Left Column - Desktop */     
 .text-column {
-    grid-column: 1;
-    width: 210px; /* 250px - 40px padding */
     position: sticky;
-    top: 150px; /* Aligns with portfolio title */
-    align-self: start;
+    top: 150px; /* Matches portfolio title margin */
+    width: 210px; /* 250px - 40px padding */
     height: calc(100vh - 190px); /* Viewport minus title/footer */
-    overflow-y: auto; /* Scrollable if content is long */
+    overflow-y: auto;
+    padding-right: 20px; /* Prevents text clipping */
+    margin-left: -2px; /* Fixes alignment with title */
 }
 
 .project-list {
