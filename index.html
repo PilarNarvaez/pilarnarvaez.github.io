@@ -26,6 +26,7 @@
         overflow-x: hidden;
         width: 100%;
         scroll-behavior: smooth;
+        padding-bottom: 100px; /* Space for fixed footer */
         background: white !important;
     }
     body {
@@ -75,17 +76,17 @@
     z-index: 2;
     overflow: hidden;
 }
+/* Left Column - Fixed horizontally, scrolls vertically */
 .text-column {
-    position: sticky;
-    top: 150px; /* Aligns with title */
+    position: fixed;
     left: 40px;
-    width: 210px; /* 250px - 40px gap */
-   height: 100%; /* Add this */
+    top: 150px; /* Matches portfolio title */
+    width: 210px;
+    height: calc(100vh - 190px); /* Viewport - (title + footer) */
     overflow-y: auto;
     padding-right: 25px; /* Prevents text clipping */
-    margin-left: -2px; /* Fixes alignment */
-    z-index: 2; /* Ensures it stays above videos */
-    align-self: start; /* Prevents vertical stretching */
+    margin-left: -2px; /* Your perfect alignment fix */
+    z-index: 2;
 }
 
 .project-list {
@@ -149,16 +150,20 @@
     text-decoration: none; /* No underline in navigation */
 }
 
-/* Video Grid */
+/* Video Grid - Responsive 3 columns */
+
 .video-columns {
-    grid-column: 2 / span 3;
+    /* Essential grid layout */
     display: grid;
-    padding-left: 40px; /* Compensates for fixed column */
-    grid-template-columns: repeat(3, minmax(0, 1fr)); /* Flexible columns */
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 equal responsive columns */
     gap: 15px;
+    /* Spacing adjustments */
+    margin-left: 250px; /* Replace grid-column/padding-left with this */
+    padding-right: 40px; /* Maintain right padding */
+    /* Layout control */
     width: 100%;
-    margin-bottom: 0px; /* Extra space at bottom */
-    align-content: start;
+    align-content: start; /* Aligns grid to top */
+    margin-bottom: 0;
 }
 video {
     -webkit-appearance: none;
@@ -464,16 +469,23 @@ video::-moz-media-controls {
      /* Main Content */
     .main-content {
         display: block;
+        margin-left: 250px; /* Push content right */
         background: white !important; /* No grey anywhere */
-        padding: 0 0 40px 0; /* Bottom padding only */
-        overflow-y: visible;
-        -webkit-overflow-scrolling: touch;
-        min-height: 0;
+        padding: 0 40px 100px; /* Added bottom padding for footer */
+        min-height: calc(100vh - 150px);
         position: relative;
         z-index: 1;
+        /* Improved scrolling */
+        overflow-y: auto; /* Changed from 'visible' */
+        -webkit-overflow-scrolling: touch;
         /* Scrollbar hiding for all browsers */
         -ms-overflow-style: none;  /* IE/Edge */
         scrollbar-width: none;     /* Firefox */
+    }
+
+    /* Hide scrollbar (keep this if you want hidden scrollbars) */
+.main-content::-webkit-scrollbar {
+    display: none;
     }
     /* MOBILE BACK BUTTON */
     .back-button:hover,
@@ -652,8 +664,6 @@ video::-moz-media-controls {
     
 <div class="main-content">
     <!-- ONLY ONE text-column div (left column) -->
-        <div class="left-column-wrapper">
-        <!-- YOUR EXISTING TEXT-COLUMN DIV (NO CHANGES NEEDED INSIDE) -->
     <div class="text-column">
         <ul class="project-list">
             <li class="emphasis"><a href="#" data-modal="about-page">About</a></li>
@@ -672,7 +682,6 @@ video::-moz-media-controls {
             <li><a href="#kings-league">Kings League Twitch</a></li>
         </ul>
     </div>
- </div>
        <div class="video-columns">
             <!-- Showreel -->
             <div id="showreel" class="video-container" 
