@@ -64,15 +64,17 @@
     min-height: calc(100vh - 150px);
     text-align: left; /* Ensure all content is left-aligned */
     }
-        
+   /* Left Column - Desktop */     
 .text-column {
-    position: sticky;
-    top: 40px;
+    
+    margin-left: 40px; /* Matches your title */
+    width: 210px; /* 250px total - 40px margin */
     height: fit-content;
-    padding-right: 0; /* Remove previous padding */
     display: block; /* Always show on desktop */
     text-align: left; /* Explicit left alignment */
-        border: none !important;
+    top: auto; /* Reset sticky positioning */
+    padding: 0;
+    border: none !important;
     outline: none !important;
     box-shadow: none !important;
 }
@@ -80,7 +82,7 @@
 .project-list {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0 0 0 -2px;    /* -2px left margin for perfect alignment */
 }
 
 .project-list li {
@@ -403,14 +405,13 @@ video::-moz-media-controls {
         overflow-x: hidden; /* Prevent horizontal scroll */
         -webkit-mask-image: none !important; /* Remove if causing issues */
     }
-        /* Portfolio Title */
+        /* Portfolio Title - Desktop */
       .portfolio-title {
         text-align: left;
         padding: 0 0 20px 0; /* Top Right Bottom Left */
         margin: 0;
         font-size: 18px; /* Match your desktop size */
         font-weight: 500 !important;
-        font-weight: 500; /* Or 'bold' if you prefer */
         width: 100%;
         border: none !important;
         outline: none !important;
