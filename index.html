@@ -422,19 +422,27 @@ video::-moz-media-controls {
         display: flex !important; /* Show on mobile */
         font-size: 16px;
         flex-direction: column;
-        gap: 12px;
+        gap: 6px;
         font-weight: normal;
         text-decoration: none;
         padding: 0 0 20px 0; /* Left-aligned with title */
         margin: -10px 0 20px 0; /* Tighter spacing */
     }
-    
+     /* Mobile About/Contact links - Red by default */
     .mobile-nav-header a {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: normal; !important; 
-        color: #333;
+        color: #e74c3c !important;
         text-decoration: none;
         /* Remove individual padding-left - handled by container */
+        transition: color 0.2s ease;
+    }
+        /* Mobile hover states - Black on interaction */
+    .mobile-nav-header a:hover,
+    .mobile-nav-header a:focus,
+    .mobile-nav-header a:active {
+        color: #333 !important;
+        text-decoration: none !important;
     }
     
      /* Main Content */
