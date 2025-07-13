@@ -45,6 +45,7 @@
         font-size: 18px;
         font-weight: 500;
         margin: 0; /* Remove default margins */
+        margin-right: 20px; /* Space after title */
         white-space: nowrap; /* Prevent line breaks */
         padding: 0; /* No extra padding (only margin for spacing) */
         text-align: left;
@@ -56,7 +57,7 @@
 .title-bar {
     display: flex;
     flex-wrap: wrap;
-    align-items: center; /* Changed from baseline to center */
+    align-items: baseline; /* Align text baselines */
     margin: 40px 0 35px 40px;
     gap: 20px;
 }
@@ -64,6 +65,7 @@
 .title-links {
     display: flex;
     gap: 20px;
+    margin-right: 20px; /* Space after links */
 }
 
 .title-links a {
@@ -81,6 +83,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px; /* Same as title-links gap */
+    align-items: center;
     width: 100%;
     margin-top: 15px; /* Space below main title */
     row-gap: 7px !important; /* ~1/3 of original 20px (20/3≈6.67) */
