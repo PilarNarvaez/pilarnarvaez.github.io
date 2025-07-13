@@ -41,9 +41,14 @@
 .mobile-nav-header {
     display: none;
 }   
+      .header-container {
+    margin: 40px 0 30px 40px;
+    width: calc(100% - 80px);
+}
     .portfolio-title {
         font-size: 18px;
         font-weight: 500;
+        margin-bottom: 20px;
         margin: 0; /* Remove default margins */
         margin-right: 20px; /* Space after title */
         white-space: nowrap; /* Prevent line breaks */
@@ -53,6 +58,35 @@
         outline: none !important;
         box-shadow: none !important;
     }
+      .nav-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.nav-row a {
+    font-size: 14px;
+    color: #e74c3c;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+}
+
+.nav-row a:hover {
+    color: #333;
+}
+
+/* Project title links specific style */
+.nav-row a[href^="#"]:not([data-modal]) {
+    color: #333;
+}
+
+.nav-row a[href^="#"]:not([data-modal]):hover {
+    color: #e74c3c;
+}
     /* Title bar styling */
 .title-bar {
     display: flex;
@@ -156,6 +190,7 @@
 .video-columns {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    margin-top: 30px;
     gap: 15px;
     width: 100%;
     padding: 0 40px;
@@ -659,12 +694,12 @@ video::-moz-media-controls {
 <body>
 
 <div class="header-container">
-    <div class="portfolio-title">Pilar Narvaez Portfolio</div>
-    <div class="nav-row">
+    <h1 class="portfolio-title">Pilar Narvaez Portfolio</h1>
+    <nav class="main-nav">
         <a href="#" data-modal="about-page">About</a>
         <a href="#" data-modal="contact-page">Contact</a>
-        <a href="#showreel">Showreel</a> 
-        <a href="#tercer-campaign">Tercer Campaign</a>  
+        <a href="#showreel">Showreel</a>
+        <a href="#tercer-campaign">Tercer Campaign</a>
         <a href="#menopause-campaign">Menopause Campaign</a>
         <a href="#pepsi-recycle">Pepsi Recycle to Win</a>
         <a href="#expedia-social">Expedia Social</a>
@@ -674,7 +709,7 @@ video::-moz-media-controls {
         <a href="#just-eat">Just Eat Adaptations</a>
         <a href="#social-media-videos">Social Media Videos</a>
         <a href="#kings-league">Kings League Twitch</a>
-    </div>
+    </nav>
 </div>
     
 <!-- Mobile navigation (shown only on mobile) -->
