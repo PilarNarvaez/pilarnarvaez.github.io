@@ -90,7 +90,7 @@
 .text-column {
     position: relative;
     top: -12px; /* Pixel-perfect adjustment */
-    margin-top: -8px; /* Fine-tune to match video grid top */
+    margin-top: -5px; /* Fine-tune to match video grid top */
     margin-left: 40px; /* Matches your title */
     width: 210px; /* 250px total - 40px margin */
     height: fit-content;
@@ -378,13 +378,14 @@ video::-moz-media-controls {
     font-size: 14px;
     font-weight: normal;
     color: #333;
+    padding-right: 40px; /* Prevent overflow */
     padding: 0;
     background: white !important;
     text-align: left; /* Force left alignment */
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
-    max-width: calc(100% - 40px); 
+    max-width: calc(100% - 80px); 
 }
 .footer div {
     margin-bottom: 8px; /* Space between rows */
