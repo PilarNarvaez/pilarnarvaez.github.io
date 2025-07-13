@@ -51,7 +51,29 @@
         outline: none !important;
         box-shadow: none !important;
     }
-        
+    /* Title bar styling */
+.title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 0 35px 40px; /* Match original title margin */
+}
+
+.title-links {
+    display: flex;
+    gap: 20px;
+}
+
+.title-links a {
+    font-size: 14px;
+    color: #e74c3c !important; /* Red color */
+    text-decoration: none !important;
+    transition: color 0.2s ease;
+}
+
+.title-links a:hover {
+    color: #333 !important; /* Black on hover */
+}
 .main-content {
     display: grid;
     background: white !important; /* No grey anywhere */
