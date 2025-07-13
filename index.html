@@ -856,7 +856,81 @@ document.addEventListener('DOMContentLoaded', function() {
     let isMobile = window.innerWidth <= 768;
     let pressTimer = null;
 
-    // Apply video styling
+    // Consolidated modal function (handles both video and info modals)
+    function openModal(modalId, container = null) {
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
+        
+        modal.style.display = 'block';
+        
+        // Special handling for video modal
+        if (modalId === 'video-page' && container) {
+            const modalVideo = modal.querySelector('video');
+            modalVideo.src = container.dataset.videoSrc;
+            document.getElementById('video-page-title').textContent = container.dataset.title;
+            document.getElementById('video-page-description').textContent = 
+                videoDescriptions[container.id] || container.dataset.description;
+            
+            modalVideo.load();
+            
+            if (isMobile) {
+                modalVideo.muted = true;
+                modalVideo.controls = false;
+                modalVideo.onclick = function(e) {
+                    this.muted = false;
+                    this.controls = true;
+                    this.play().catch(e => console.log('Play failed:', e));
+                    e.stopPropagation();
+                };
+            } else {
+                modalVideo.play().catch(e => modalVideo.controls = true);
+            }
+        }
+    }
+
+    function highlightVideo(videoId) {
+        document.querySelectorAll('.video-container').forEach(v => {
+            v.classList.remove('active-click');
+            const overlay = v.querySelector('.video-overlay');
+            if (overlay) overlay.style.opacity = '0';
+        });
+        
+        const videoContainer = document.getElementById(videoId);
+        if (videoContainer) {
+            videoContainer.classList.add('active-click');
+            const overlay = videoContainer.querySelector('.video-overlay');
+            if (overlay) overlay.style.opacity = '1';
+            
+            setTimeout(() => {
+                videoContainer.classList.remove('active-click');
+                if (overlay) overlay.style.opacity = '0';
+            }, 3000);
+        }
+    }
+
+    // Modal link handlers
+    document.querySelectorAll('[data-modal]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal(this.getAttribute('data-modal'));
+        });
+    });
+
+    // Project title click handlers
+    document.querySelector('.main-nav').addEventListener('click', function(e) {
+        if (e.target.tagName === 'A' && e.target.getAttribute('href')?.startsWith('#')) {
+            e.preventDefault();
+            const videoId = e.target.getAttribute('href').substring(1);
+            highlightVideo(videoId);
+            
+            const videoElement = document.getElementById(videoId);
+            if (videoElement) {
+                videoElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+    });
+
+    // Video styling
     document.querySelectorAll('video').forEach(video => {
         video.style.cssText = `
             background: transparent !important;
@@ -877,7 +951,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const overlay = container.querySelector('.video-overlay');
         const poster = video.getAttribute('poster');
 
-        // Desktop hover effects
         if (!isMobile) {
             container.addEventListener('mouseenter', () => {
                 video.play().catch(e => console.log('Hover play:', e));
@@ -893,14 +966,12 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Click handler for both desktop/mobile
         container.addEventListener('click', function(e) {
             if (e.target.tagName === 'A') return;
             e.preventDefault();
-            openVideoModal(this);
+            openModal('video-page', this); // Updated to use openModal()
         });
 
-        // Mobile touch handlers
         if (isMobile) {
             container.addEventListener('touchstart', function(e) {
                 pressTimer = setTimeout(() => {
@@ -913,7 +984,7 @@ document.addEventListener('DOMContentLoaded', function() {
             container.addEventListener('touchend', function(e) {
                 clearTimeout(pressTimer);
                 if (!this.classList.contains('active')) {
-                    openVideoModal(this);
+                    openModal('video-page', this); // Updated
                 }
                 this.classList.remove('active');
             }, { passive: true });
@@ -924,69 +995,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }, { passive: true });
         }
     });
-
-    // Project title click handlers
-    document.querySelectorAll('.project-titles a[href^="#"]').forEach(titleLink => {
-        titleLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Reset all videos first
-            document.querySelectorAll('.video-container').forEach(v => {
-                v.classList.remove('active-click');
-                v.querySelector('.video-overlay').style.opacity = '0';
-            });
-            
-            // Highlight target video
-            const videoId = this.getAttribute('href').substring(1);
-            const videoContainer = document.getElementById(videoId);
-            
-            if (videoContainer) {
-                videoContainer.classList.add('active-click');
-                videoContainer.querySelector('.video-overlay').style.opacity = '1';
-                
-                // Auto-reset after 3 seconds
-                setTimeout(() => {
-                    videoContainer.classList.remove('active-click');
-                    videoContainer.querySelector('.video-overlay').style.opacity = '0';
-                }, 3000);
-            }
-        });
-    });
-
-    // Video modal function
-    function openVideoModal(container) {
-        try {
-            activeVideoId = container.id;
-            const videoPage = document.getElementById('video-page');
-            const modalVideo = videoPage.querySelector('video');
-            
-            // Set video source and metadata
-            modalVideo.src = container.dataset.videoSrc;
-            document.getElementById('video-page-title').textContent = container.dataset.title;
-            document.getElementById('video-page-description').textContent = 
-                videoDescriptions[container.id] || container.dataset.description;
-            
-            videoPage.style.display = 'block';
-            modalVideo.load();
-            
-            // Mobile-specific behavior
-            if (isMobile) {
-                modalVideo.muted = true;
-                modalVideo.controls = false;
-                modalVideo.onclick = function(e) {
-                    this.muted = false;
-                    this.controls = true;
-                    this.play().catch(e => console.log('Play failed:', e));
-                    e.stopPropagation();
-                };
-            } else {
-                // Desktop autoplay
-                modalVideo.play().catch(e => modalVideo.controls = true);
-            }
-        } catch (error) {
-            console.error('Error opening video modal:', error);
-        }
-    }
 
     // Back button functionality
     document.querySelectorAll('.back-button').forEach(button => {
@@ -1003,24 +1011,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Modal navigation links
-    document.querySelectorAll('[data-modal]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById(this.getAttribute('data-modal')).style.display = 'block';
-        });
-    });
-
     // Responsive handling
+    function handleResponsive() {
+        isMobile = window.innerWidth <= 768;
+        const mobileNav = document.querySelector('.mobile-nav-header');
+        const mainNav = document.querySelector('.main-nav');
+        
+        if (isMobile) {
+            mobileNav.style.display = 'flex';
+            mainNav.style.display = 'none';
+        } else {
+            mobileNav.style.display = 'none';
+            mainNav.style.display = 'flex';
+        }
+    }
+
     window.addEventListener('resize', function() {
         clearTimeout(this.resizeTimer);
-        this.resizeTimer = setTimeout(() => {
-            isMobile = window.innerWidth <= 768;
-        }, 250);
+        this.resizeTimer = setTimeout(handleResponsive, 250);
     });
-});
 
-}); // End of DOMContentLoaded
+    // Initial setup
+    handleResponsive();
+}); // Properly closed DOMContentLoaded
 </script>
 </body>
 </html>
