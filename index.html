@@ -40,13 +40,14 @@
         }
 /* Hide mobile nav on desktop */
 
-@media (min-width: 769px) {
-    .mobile-nav-header {
+@media (max-width: 768px) 
+    .main-nav {
         display: none !important;
     }
-    .main-nav {
+    .mobile-nav-header {
         display: flex !important;
-    }  
+    }
+
         /* Header and Navigation */
         .header-container {
             margin: 40px 0 30px 40px;
