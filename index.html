@@ -38,7 +38,7 @@
             margin: 0;
             position: relative;
         }
-/* Hide mobile nav on desktop */
+/* Responsive styles - keep these together */
 
 @media (max-width: 768px) {
     .main-nav {
@@ -57,7 +57,10 @@
         display: flex !important;
     }
 }
-
+.main-nav {
+    row-gap: 10px !important; /* Reduced from 20px */
+    margin-bottom: 5px; /* Optional: reduces space below nav */
+}
         /* Header and Navigation */
         .header-container {
             margin: 40px 0 30px 40px;
