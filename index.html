@@ -171,7 +171,7 @@ video {
     isolation: isolate; /* Creates new stacking context */
     background: transparent;
 }
-    
+
 .video-container video {
     position: relative;
     width: 100%;
@@ -235,7 +235,7 @@ video::-moz-media-controls {
 .video-container.active .video-overlay {
     opacity: 1;
     background: rgba(231, 76, 60, 0.85); /* Red appears on hover/active */
-    pointer-events: none; /* As per your original setup */
+    pointer-events: none; 
 }
  /* Modal styles */   
 .video-page {
@@ -892,6 +892,29 @@ document.addEventListener('DOMContentLoaded', function() {
     let isMobile = window.innerWidth <= 768;
     let pressTimer = null;
     
+ // Video control functions
+    function highlightVideo(container, shouldPlay = false) {
+    const video = container.querySelector('video');
+    const overlay = container.querySelector('.video-overlay');
+    
+    container.classList.add('active');
+    overlay.style.opacity = '1';
+    
+    if (shouldPlay) {
+        video.play().catch(e => console.log('Auto-play failed:', e));
+    }
+}
+
+function resetVideo(container) {
+    const video = container.querySelector('video');
+    const poster = video.getAttribute('poster');
+    
+    container.classList.remove('active');
+    video.pause();
+    video.currentTime = 0;
+    video.setAttribute('poster', poster);
+    video.load();
+}
     // Apply video styling
     document.querySelectorAll('video').forEach(video => {
         video.style.cssText = `
@@ -907,7 +930,7 @@ document.addEventListener('DOMContentLoaded', function() {
         video.setAttribute('preload', 'metadata');
     });
 
-    // Set up video container interactions
+    // Video container interactions
     document.querySelectorAll('.video-container').forEach(container => {
         const video = container.querySelector('video');
         const overlay = container.querySelector('.video-overlay');
