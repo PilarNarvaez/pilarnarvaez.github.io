@@ -445,6 +445,7 @@ video::-moz-media-controls {
     .mobile-nav-header a:first-child {
         margin-bottom: 2px; /* Minimal space after About */
     }
+   
     .mobile-nav-header a {
         font-size: 16px;
         font-weight: normal; 
@@ -460,7 +461,12 @@ video::-moz-media-controls {
         color: #333 !important;
         text-decoration: none !important;
     }
-    
+        /* Hide desktop-specific elements */
+    .title-links,
+    .text-column,
+    .project-titles {
+        display: none !important;
+    }
      /* Main Content */
     .main-content {
         display: block;
