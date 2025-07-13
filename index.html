@@ -64,39 +64,62 @@
     min-height: calc(100vh - 150px);
     text-align: left; /* Ensure all content is left-aligned */
     }
-        
+   /* Left Column - Desktop */     
 .text-column {
-    position: sticky;
-    top: 40px;
+    
+    margin-left: 40px; /* Matches your title */
+    width: 210px; /* 250px total - 40px margin */
     height: fit-content;
-    padding-right: 0; /* Remove previous padding */
     display: block; /* Always show on desktop */
     text-align: left; /* Explicit left alignment */
-        border: none !important;
+    top: auto; /* Reset sticky positioning */
+    padding: 0;
+    border: none !important;
     outline: none !important;
     box-shadow: none !important;
 }
-        
-    .project-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-        
-    .project-list li {
-        margin-bottom: 10px;
-    }
-        
-    .project-list li.emphasis a {
-        font-size: 16px;
-        font-weight: 500;
-    }
-        
-    .project-list a {
-        color: #333;
-        text-decoration: none;
-        font-size: 14px;
-    }
+
+.project-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0 -2px;    /* -2px left margin for perfect alignment */
+}
+
+.project-list li {
+    margin-bottom: 8px; /* Default spacing */
+}
+
+/* About & Contact Links */
+.project-list li.emphasis {
+    margin-bottom: 4px; /* Tighter spacing */
+}
+
+.project-list li.emphasis a {
+    font-size: 14px;
+    font-weight: normal;
+    display: block;
+    transition: color 0.2s ease;
+}
+
+/* Desktop - Red color only for left column About/Contact */
+.text-column .project-list li.emphasis a {
+    color: #e74c3c !important;
+}
+
+/* Hover states - only for left column About/Contact */
+.text-column .project-list li.emphasis a:hover,
+.text-column .project-list li.emphasis a:focus,
+.text-column .project-list li.emphasis a:active {
+    color: #333 !important;
+    text-decoration: none !important;
+}
+
+/* Base link styles */
+.project-list a {
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+}
 
     a.contact-email, 
     a.contact-email:link, 
@@ -110,16 +133,13 @@
 
     a.contact-email:hover {
         color: #e74c3c !important;
-        text-decoration: underline !important;
+         text-decoration: none !important; /* No underline */
     }
     
-    a:hover {
-        text-decoration: underline;
-    }
+.project-list a:hover {
+    text-decoration: none; /* No underline in navigation */
+}
 
-    .footer a:hover {
-        text-decoration: none;
-    }
         
 .video-columns {
     display: grid;
@@ -274,6 +294,7 @@ video::-moz-media-controls {
         -webkit-transform: translateZ(0);
         mask-image: -webkit-radial-gradient(white, black);
     }
+} 
 /* Aspect ratio classes */
 .video-ratio-16-9 { 
     aspect-ratio: 16/9; /* Horizontal */ 
@@ -318,59 +339,63 @@ video::-moz-media-controls {
         text-decoration: underline !important;
     }
 
-    .back-button {
+.back-button {
     position: fixed;
-    top: 20px;
-    right: 20px; 
-    width: 40px;
-    height: 40px;
-    
-    /* Visual changes ONLY */
-    background: rgba(255,255,255,0.9) !important; /* Pure white with slight transparency */
-    border: none !important; /* Remove all borders */
-    box-shadow: none !important; /* Remove shadows if any */
-    
-    /* Keep existing text/icon styles */
-    color: #333;
-    font-size: 20px;
-    border-radius: 8px;
-    cursor: pointer;
+    top: 40px;
+    right: 40px;
+    color: #999 !important;
+    background: transparent !important;
+    font-size: 24px;
     z-index: 101;
+    transition: color 0.2s ease;
+    border: none !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
 }
 
-    .back-button:hover {
-        background: rgba(255,255,255,0.95);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
+.back-button:hover {
+    color: #e74c3c !important;
+}
         
+/* Desktop Footer */
 .footer {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    font-size: 12px;
-    color: #999;
-    padding: 30px 40px; /* Slightly increased vertical padding */
-    background: white !important; /* No grey anywhere */
-    margin-top: 60px; /* Creates natural space above footer */
-    text-align: left; /* Left align all footer content */
-        border: none !important;
+    width: 250px; /* Matches left column width */
+    margin: 60px 0 0 40px; /* Matches portfolio-title margin */
+    font-size: 14px;
+    font-weight: normal;
+    color: #333;
+    padding: 0;
+    background: white !important;
+    text-align: left; /* Force left alignment */
+    border: none !important;
     outline: none !important;
     box-shadow: none !important;
 }
-
-
+.footer div {
+    margin-bottom: 8px; /* Space between rows */
+    font-weight: normal;
+    display: block;
+    text-align: left !important; /* Ensure left alignment */
+}
 .footer a {
-    color: #999;
-    text-decoration: none;
+    color: #333 !important;
+    font-weight: normal;
+    text-decoration: none !important; /* No underline */
     transition: color 0.2s ease;
+    text-align: left !important;
 }
 
 .footer a:hover {
-    color: #e74c3c;
+    color: #e74c3c !important; /* Turns red on hover */
+    font-weight: normal;
     text-decoration: none !important; /* Still no underline */
 }
 
 @media (max-width: 768px) {
+ /* Body & Layout */
     body {
         background: white !important; /* No grey anywhere */
         padding: 30px 30px 60px 30px;
@@ -380,33 +405,52 @@ video::-moz-media-controls {
         overflow-x: hidden; /* Prevent horizontal scroll */
         -webkit-mask-image: none !important; /* Remove if causing issues */
     }
+        /* Portfolio Title - Desktop */
       .portfolio-title {
         text-align: left;
         padding: 0 0 20px 0; /* Top Right Bottom Left */
         margin: 0;
         font-size: 18px; /* Match your desktop size */
+        font-weight: 500 !important;
         width: 100%;
-              border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
     }
-
+    /* Mobile Navigation */
       /* Mobile Navigation Header */
     .mobile-nav-header {
         display: flex !important; /* Show on mobile */
+        font-size: 16px;
         flex-direction: column;
-        gap: 12px;
-        padding: 0 0 20px 0; /* Left-aligned with title */
-        margin: -10px 0 20px 0; /* Tighter spacing */
+        gap: 6px;
+        font-weight: normal;
+        text-decoration: none;
+        padding: 0 0 15px 0; /* Left-aligned with title */
+        margin: -10px 0 15px 0; /* Tighter spacing */
     }
-    
+     /* Mobile About/Contact links - Red by default */
+        /* Target ONLY the About and Contact links */
+    .mobile-nav-header a:first-child {
+        margin-bottom: 2px; /* Minimal space after About */
+    }
     .mobile-nav-header a {
         font-size: 16px;
-        font-weight: 500;
-        color: #333;
+        font-weight: normal; 
+        color: #e74c3c !important;
         text-decoration: none;
         /* Remove individual padding-left - handled by container */
+        transition: color 0.2s ease;
     }
+        /* Mobile hover states - Black on interaction */
+    .mobile-nav-header a:hover,
+    .mobile-nav-header a:focus,
+    .mobile-nav-header a:active {
+        color: #333 !important;
+        text-decoration: none !important;
+    }
+    
+     /* Main Content */
     .main-content {
         display: block;
         background: white !important; /* No grey anywhere */
@@ -420,10 +464,37 @@ video::-moz-media-controls {
         -ms-overflow-style: none;  /* IE/Edge */
         scrollbar-width: none;     /* Firefox */
     }
+    /* MOBILE BACK BUTTON */
+    .back-button:hover,
+    .back-button:focus,
+    .back-button:active {
+        color: #e74c3c !important;
+        text-decoration: none !important;
+    }
 
-    /* Webkit scrollbar hiding (separate rule) */
-    .main-content::-webkit-scrollbar {
-        display: none;
+   /* Video Grid - MOBILE (1 column) */
+    .video-columns {
+        grid-template-columns: 1fr;
+        width: 100%;
+        gap: 15px;
+        padding: 0;
+        margin: 0;
+    } 
+        /* Mobile Footer */
+    .footer {
+        width: 100% !important;
+        margin: 40px 0 0 0 !important;
+        padding: 0 !important;
+        text-align: center !important;
+    }
+    
+    .footer div {
+        text-align: center !important;
+        margin-bottom: 8px;
+    }
+    
+    .footer a {
+        text-align: center !important;
     }
     /* Hide desktop navigation */
     .text-column {
@@ -432,48 +503,17 @@ video::-moz-media-controls {
     outline: none !important;
     box-shadow: none !important;
     }
-    /* Video grid adjustments */
-    .video-columns {
-        grid-template-columns: 1fr;
-        width: 100%;
-        gap: 15px;
-        padding: 0 
-        margin: 0;
     }
-    
-@media (max-width: 768px) {
-    /* Video Grid Layout */
-    .video-columns {
-        grid-template-columns: 1fr;
-        width: 100%;
-        gap: 15px;
-        padding: 0;
-        margin: 0;
-    }
-        .video-page-player video {
-        background: #000 !important;
-        object-fit: contain !important;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-    }
-    
-    .video-columns .video-container video {
-        position: static !important;
-        object-fit: cover !important;
-        height: 100% !important;
-        width: 100% !important;  /* Add this */
-        height: auto !important; /* Change from 100% to auto */
-        display: block;         /* Removes extra space below video */
-    }
-}
-    /* Video Container Base */
+      
+/* ===== GLOBAL STYLES (apply to all devices) ===== */
     .video-container {
+        position: relative;
         width: 100%;
         margin: 0;
         padding: 0;
         max-width: 100%;
         height: auto;
-        position: relative;
+        cursor: pointer;
         background: black !important;
     }
     
@@ -571,38 +611,22 @@ video::-moz-media-controls {
         background: white !important; /* No grey anywhere */
     }
     
-    .back-button {
-        top: 25px;
-        right: 20px;
-        width: 36px;
-        height: 36px;
-        font-size: 18px;
-        background: rgba(255,255,255,0.95);
-        box-shadow: none;
-        z-index: 1000; /* Ensure it stays above video */
-    }
-    /* END OF NEW STYLES */
-}
-    
-  .footer {
-        grid-template-columns: 1fr;
-        gap: 8px;
-        padding: 20px 0;
-        text-align: center;
-        margin-top: 40px;
-        position: relative;
-        background: white !important; /* No grey anywhere */
-          border: none !important;
-    outline: none !important;
+.back-button {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    color: #999 !important; /* Grey default */
+    background: transparent !important;
+    font-size: 24px;
+    z-index: 101;
+    transition: color 0.2s ease;
+    /* Removal of all decorative styles */
+    border: none !important;
     box-shadow: none !important;
-  }
-  
-  /* Reset individual alignments for mobile */
-  .footer-left, 
-  .footer-center, 
-  .footer-right {
-    text-align: center;
-  }
+    text-decoration: none !important;
+    padding: 0;
+    margin: 0;
+}
 
     </style>
 </head>
@@ -826,7 +850,7 @@ Music: Bensound, license code PRF3J70PUMA2EYO6.
             </p>
         </div>
     </div>
-    
+
 <footer class="footer">
     <div class="footer-left">Pilar Narvaez Portfolio</div>
     <div class="footer-center">Motion Graphics / Video Edit</div>
