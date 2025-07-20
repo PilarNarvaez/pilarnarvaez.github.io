@@ -718,7 +718,7 @@ Music: Bensound, license code PRF3J70PUMA2EYO6.
             <div id="fire-walk-with-me" class="video-container"
                  data-video-src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4"
                  data-title="Fire Walk With Me"
-                 data-description="I recreated Twin Peaks’ iconic opening as a tribute to his work. Some scenes are flooded with light—an intentional reference to Fire Walk With Me—using Video Copilot’s Saber plug-in to achieve a luminous glow. The goal was to create an abstract, experimental feel, inspired by László Moholy-Nagy’s Light Space Modulator. The music is a cover by Xiu Xiu.">
+                 data-description="I recreated Twin Peaks’ iconic opening as a tribute to his work. Some scenes are flooded with light, an intentional reference to Fire Walk With Me, using Video Copilot’s Saber plug-in to achieve a luminous glow. The goal was to create an abstract, experimental feel, inspired by László Moholy-Nagy’s Light Space Modulator. The music is a cover by Xiu Xiu.">
                 <video poster="https://pilarnarvaez.github.io/images/fire-poster.jpg" muted loop playsinline>
                     <source src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4" type="video/mp4">
                 </video>
@@ -754,17 +754,46 @@ Music: Bensound, license code PRF3J70PUMA2EYO6.
             </div>
             
             <!-- Just Eat Adaptations -->
-            <div id="just-eat" class="video-container"
-                 data-video-src="https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-Slovakia.mp4"
-                 data-title="Just Eat Adaptations"
-                 data-description="Localized adaptations for Just Eat’s international markets: Endframe adaptation for Slovakia and campaign for Australia (IU mobile, endframe).">
-                <video poster="https://pilarnarvaez.github.io/images/just-eat-poster.jpg" muted loop playsinline>
-                    <source src="https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-Slovakia.mp4" type="video/mp4">
+<div id="just-eat-expanded" class="video-page">
+    <div class="video-page-content">
+        <button class="back-button">&lt;&lt;</button>
+        
+        <!-- Original 16:9 Video -->
+        <div class="video-page-player">
+            <video controls autoplay>
+                <source src="https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-Slovakia.mp4" type="video/mp4">
+            </video>
+            <p class="video-caption">Slovakia Adaptation (16:9)</p>
+        </div>
+
+        <!-- New 16:9 Video -->
+        <div class="video-page-player">
+            <video controls>
+                <source src="https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-169.mp4" type="video/mp4">
+            </video>
+            <p class="video-caption">Australia Adaptation (16:9)</p>
+        </div>
+
+        <!-- Vertical Videos (9:16) -->
+        <div class="vertical-videos-container">
+            <div class="video-page-player vertical">
+                <video controls>
+                    <source src="https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-916.mp4" type="video/mp4">
                 </video>
-                <div class="video-overlay">
-                    <span>Just Eat Adaptations</span>
-                </div>
+                <p class="video-caption">Australia Vertical (9:16)</p>
             </div>
+            <div class="video-page-player vertical">
+                <video controls>
+                    <source src="https://pilarnarvaez.github.io/videos/Just-Eat-Extra2.mp4" type="video/mp4">
+                </video>
+                <p class="video-caption">Bonus Content</p>
+            </div>
+        </div>
+
+        <h1 class="video-page-title">Just Eat Adaptations</h1>
+        <p class="video-page-description">"Localized adaptations for Just Eat’s international markets: Endframe adaptation for Slovakia and campaign for Australia (IU mobile, endframe).">
+    </div>
+</div>
             
             <!-- Social Media Videos -->
             <div id="social-media-videos" class="video-container"
@@ -791,7 +820,8 @@ Music: Bensound, license code PRF3J70PUMA2EYO6.
                     <span>Kings League Twitch</span>
                 </div>
             </div>
-
+  </div><!-- Close video-columns -->
+    
     <div id="video-page" class="video-page">
         <div class="video-page-content">
             <button class="back-button">&lt;&lt;</button>
