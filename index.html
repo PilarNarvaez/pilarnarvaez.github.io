@@ -604,7 +604,8 @@ video::-moz-media-controls {
     color: #999 !important; /* Grey default */
     background: transparent !important;
     font-size: 24px;
-    z-index: 101;
+    z-index: 1000 !important; /* FIXED: Increased z-index */
+    
     transition: color 0.2s ease;
     /* Removal of all decorative styles */
     border: none !important;
