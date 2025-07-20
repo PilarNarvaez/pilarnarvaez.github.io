@@ -613,7 +613,22 @@ video::-moz-media-controls {
     padding: 0;
     margin: 0;
 }
+        /* Vertical video player (for expanded modal) */
+        .video-page-player.vertical {
+            aspect-ratio: 9/16;
+            max-width: 300px;
+            margin: 20px auto;
+            background: black !important;
+        }
 
+        /* Video captions */
+        .video-caption {
+            font-size: 12px;
+            color: #666;
+            margin: 8px 0 20px;
+            text-align: center;
+        }
+        /* ===== END OF ADDITIONS ===== */
     </style>
 </head>
 <body>
@@ -882,10 +897,29 @@ document.addEventListener('DOMContentLoaded', function() {
     let isMobile = window.innerWidth <= 768;
     let pressTimer = null;
 
-    // Consolidated modal function (handles both video and info modals)
-    function openModal(modalId, container = null) {
-        const modal = document.getElementById(modalId);
-        if (!modal) return;
+function openModal(modalId, container = null) {
+    // ===== NEW JUST EAT HANDLING =====
+    if (container && container.id === "just-eat") {
+        const expandedModal = document.getElementById("just-eat-expanded");
+        if (!expandedModal) return;
+        
+        expandedModal.style.display = 'block';
+        
+        // Set videos
+        const videos = expandedModal.querySelectorAll('video');
+        videos[0].src = container.dataset.videoSrc; // Original
+        videos[1].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-169.mp4"; // Horizontal
+        videos[2].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-916.mp4"; // Vertical
+        
+        // Set metadata
+        document.getElementById('video-page-title').textContent = container.dataset.title;
+        document.getElementById('video-page-description').textContent = container.dataset.description;
+        
+        // Load all
+        videos.forEach(v => v.load());
+        return; // Exit early
+    }
+    // ===== END OF NEW CODE =====
         
         modal.style.display = 'block';
         
