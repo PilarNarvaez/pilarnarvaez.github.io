@@ -629,6 +629,9 @@ video::-moz-media-controls {
             margin: 8px 0 20px;
             text-align: center;
         }
+
+
+        
         /* ===== END OF ADDITIONS ===== */
     </style>
 </head>
@@ -1061,19 +1064,19 @@ if (container && container.id === "just-eat") {
     });
 
     // Back button functionality
-   document.querySelectorAll('.back-button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelectorAll('.video-page').forEach(modal => {
-                    modal.style.display = 'none';
-                    const videos = modal.querySelectorAll('video');
-                    videos.forEach(v => {
-                        v.pause();
-                        v.currentTime = 0;
-                    });
-                });
+document.querySelectorAll('.back-button').forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelectorAll('.video-page').forEach(modal => {
+            modal.style.display = 'none';
+            const videos = modal.querySelectorAll('video');
+            videos.forEach(v => {
+                v.pause();
+                v.currentTime = 0;
             });
         });
+    });
+});
 
     // Responsive handling
     function handleResponsive() {
