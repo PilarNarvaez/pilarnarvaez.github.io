@@ -530,18 +530,29 @@ video::-moz-media-controls {
         perspective: 1000;
     }
     
-    /* Modal Video Player */
+    /* Modal Video Player - UPDATED WITH MERGED STYLES */
     .video-page-player {
         width: 100%;
-        background: transparent;
-        margin-bottom: 0px;
-        aspect-ratio: 16/9;
+        background: black !important; /* Changed from transparent for better visibility */
+        margin-bottom: 30px; /* Changed from 0px for consistent spacing */
         position: relative;
         overflow: hidden;
     }
-    
-    /* Modal Video Element */
-    #video-page video {
+
+    /* Horizontal videos (default 16:9) */
+    .video-page-player:not(.vertical) {
+        aspect-ratio: 16/9;
+    }
+
+    /* Vertical videos */
+    .video-page-player.vertical {
+        aspect-ratio: 9/16;
+        max-width: 300px;
+        margin: 0 auto 30px; /* Better centering than 20px auto */
+    }
+
+    /* Modal Video Element - UPDATED */
+    .video-page-player video {
         position: absolute;
         top: 0;
         left: 0;
@@ -549,14 +560,23 @@ video::-moz-media-controls {
         height: 100%;
         object-fit: contain;
         background: transparent !important;
-        cursor: pointer;
+        display: block; /* Ensures proper layout */
     }
-    
+
+    /* Video captions - ENHANCED */
+    .video-caption {
+        font-size: 12px;
+        color: #666;
+        margin: 8px 0 20px;
+        text-align: center;
+        display: block; /* Ensures it appears below video */
+    }
+
+    /* [Keep all your existing special cases below] */
     #video-page video[controls] {
         cursor: default;
     }
     
-    /* Special Case Video */
     #fire-walk-with-me.video-container {
         aspect-ratio: 16/9;
     }
@@ -565,36 +585,36 @@ video::-moz-media-controls {
         object-fit: cover;
     }
     
-    /* Text Spacing */
+    /* [Rest of your existing styles remain unchanged] */
     .video-page-title {
         margin-top: 15px;
         margin-bottom: 10px;
-            border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
     }
     
     .video-page-description {
         margin-top: 15px;
     }
     
-    /* Poster Image */
     .video-container video[poster] {
         opacity: 0.9;
         background: transparent !important;
     }
-        /* ADD THESE NEW STYLES RIGHT HERE - BEFORE THE FOOTER */
+
+    /* [Keep your existing .video-page and .video-page-content styles] */
     .video-page {
         padding: 20px;
         background: white !important;
     }
     
     .video-page-content {
-        padding: 70px 0 30px !important; /* Top | Sides | Bottom */
-          border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-        background: white !important; /* No grey anywhere */
+        padding: 70px 0 30px !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        background: white !important;
     }
     
 .back-button {
@@ -614,25 +634,6 @@ video::-moz-media-controls {
     padding: 0;
     margin: 0;
 }
-        /* Vertical video player (for expanded modal) */
-        .video-page-player.vertical {
-            aspect-ratio: 9/16;
-            max-width: 300px;
-            margin: 20px auto;
-            background: black !important;
-        }
-
-        /* Video captions */
-        .video-caption {
-            font-size: 12px;
-            color: #666;
-            margin: 8px 0 20px;
-            text-align: center;
-        }
-
-
-        
-        /* ===== END OF ADDITIONS ===== */
     </style>
 </head>
 <body>
