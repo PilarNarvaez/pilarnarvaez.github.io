@@ -895,28 +895,35 @@ document.addEventListener('DOMContentLoaded', function() {
     let pressTimer = null;
 
 function openModal(modalId, container = null) {
-    // ===== NEW JUST EAT HANDLING =====
-    if (container && container.id === "just-eat") {
-        const expandedModal = document.getElementById("just-eat-expanded");
-        if (!expandedModal) return;
-        
-        expandedModal.style.display = 'block';
-        
-        // Set videos
-        const videos = expandedModal.querySelectorAll('video');
-        videos[0].src = container.dataset.videoSrc; // Original
-        videos[1].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-169.mp4"; // Horizontal
-        videos[2].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-916.mp4"; // Vertical
-        
-        // Set metadata
-        document.getElementById('video-page-title').textContent = container.dataset.title;
-        document.getElementById('video-page-description').textContent = container.dataset.description;
-        
-        // Load all
-        videos.forEach(v => v.load());
-        return; // Exit early
-    }
-    // ===== END OF NEW CODE =====
+  
+// ===== IMPROVED JUST EAT HANDLING =====
+if (container && container.id === "just-eat") {
+    // Close any open modals first
+    document.querySelectorAll('.video-page').forEach(m => m.style.display = 'none');
+    
+    const expandedModal = document.getElementById("just-eat-expanded");
+    if (!expandedModal) return;
+    
+    expandedModal.style.display = 'block';
+    
+    // Set videos
+    const videos = expandedModal.querySelectorAll('video');
+    videos[0].src = container.dataset.videoSrc; // Original (Slovakia)
+    videos[1].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-169.mp4"; // AU 16:9
+    videos[2].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-916.mp4"; // AU 9:16
+    
+    // Set metadata - NOW TARGETS ELEMENTS INSIDE THE MODAL
+    expandedModal.querySelector('.video-page-title').textContent = container.dataset.title;
+    expandedModal.querySelector('.video-page-description').textContent = container.dataset.description;
+    
+    // Load and autoplay (desktop only)
+    videos.forEach(v => {
+        v.load();
+        if (!isMobile) v.play().catch(e => v.controls = true);
+    });
+    return;
+}
+// ===== END OF IMPROVED CODE =====
         
         modal.style.display = 'block';
         
