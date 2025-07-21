@@ -915,54 +915,18 @@ document.addEventListener('DOMContentLoaded', function() {
     let isMobile = window.innerWidth <= 768;
     let pressTimer = null;
 
-    // Improved openModal function
+    // Improved modal handling
     function openModal(modalId, container = null) {
         // Close any open modals first
         document.querySelectorAll('.video-page').forEach(m => {
             m.style.display = 'none';
-            // Reset all videos in modals
-            m.querySelectorAll('video').forEach(v => {
-                v.pause();
-                v.currentTime = 0;
-                v.muted = true;
-                v.controls = false;
-            });
+            resetModalVideos(m);
         });
 
         // Special handling for Just Eat expanded view
         if (container && container.id === "just-eat") {
-            const expandedModal = document.getElementById("just-eat-expanded");
-            if (expandedModal) {
-                expandedModal.style.display = 'block';
-                
-                // Set videos
-                const videos = expandedModal.querySelectorAll('video');
-                videos[0].src = container.dataset.videoSrc;
-                videos[1].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-169.mp4";
-                videos[2].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-916.mp4";
-                
-                // Configure videos
-                videos.forEach(v => {
-                    v.muted = true;
-                    v.controls = false;
-                    v.load();
-                    
-                    v.onclick = function(e) {
-                        this.muted = !this.muted;
-                        this.controls = true;
-                        if (this.paused) {
-                            this.play().catch(e => console.log('Play failed:', e));
-                        }
-                        e.stopPropagation();
-                    };
-                });
-                
-                // Set metadata
-                expandedModal.querySelector('.video-page-title').textContent = container.dataset.title;
-                expandedModal.querySelector('.video-page-description').textContent = container.dataset.description;
-                
-                return;
-            }
+            handleJustEatModal(container);
+            return;
         }
         
         // Handle regular modals
@@ -971,29 +935,75 @@ document.addEventListener('DOMContentLoaded', function() {
         
         modal.style.display = 'block';
         
-        if (container && modalId !== 'about-page' && modalId !== 'contact-page') {
-            const modalVideo = modal.querySelector('video');
-            if (modalVideo) {
-                modalVideo.src = container.dataset.videoSrc;
-                modalVideo.muted = true;
-                modalVideo.controls = false;
-                
-                modalVideo.onclick = function(e) {
-                    this.muted = !this.muted;
-                    this.controls = true;
-                    if (this.paused) {
-                        this.play().catch(e => console.log('Play failed:', e));
-                    }
-                    e.stopPropagation();
-                };
-                
-                modalVideo.load();
-                
-                // Set title and description
-                modal.querySelector('.video-page-title').textContent = container.dataset.title;
-                modal.querySelector('.video-page-description').textContent = container.dataset.description;
-            }
+        if (container && !['about-page', 'contact-page'].includes(modalId)) {
+            setupModalContent(modal, container);
         }
+    }
+
+    function resetModalVideos(modal) {
+        modal.querySelectorAll('video').forEach(v => {
+            v.pause();
+            v.currentTime = 0;
+            v.muted = true;
+            v.controls = false;
+        });
+    }
+
+    function handleJustEatModal(container) {
+        const expandedModal = document.getElementById("just-eat-expanded");
+        if (!expandedModal) return;
+        
+        expandedModal.style.display = 'block';
+        const videos = expandedModal.querySelectorAll('video');
+        
+        // Set video sources
+        videos[0].src = container.dataset.videoSrc;
+        videos[1].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-169.mp4";
+        videos[2].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-916.mp4";
+        
+        // Configure videos
+        videos.forEach(v => {
+            v.muted = true;
+            v.controls = false;
+            v.load();
+            
+            v.onclick = function(e) {
+                this.muted = !this.muted;
+                this.controls = true;
+                if (this.paused) {
+                    this.play().catch(e => console.log('Play failed:', e));
+                }
+                e.stopPropagation();
+            };
+        });
+        
+        // Set metadata
+        expandedModal.querySelector('.video-page-title').textContent = container.dataset.title;
+        expandedModal.querySelector('.video-page-description').textContent = container.dataset.description;
+    }
+
+    function setupModalContent(modal, container) {
+        const modalVideo = modal.querySelector('video');
+        if (!modalVideo) return;
+        
+        modalVideo.src = container.dataset.videoSrc;
+        modalVideo.muted = true;
+        modalVideo.controls = false;
+        
+        modalVideo.onclick = function(e) {
+            this.muted = !this.muted;
+            this.controls = true;
+            if (this.paused) {
+                this.play().catch(e => console.log('Play failed:', e));
+            }
+            e.stopPropagation();
+        };
+        
+        modalVideo.load();
+        
+        // Set title and description
+        modal.querySelector('.video-page-title').textContent = container.dataset.title;
+        modal.querySelector('.video-page-description').textContent = container.dataset.description;
     }
 
     // Highlight video when nav link is clicked
@@ -1014,102 +1024,113 @@ document.addEventListener('DOMContentLoaded', function() {
                 videoContainer.classList.remove('active-click');
                 if (overlay) overlay.style.opacity = '0';
             }, 3000);
+            
+            // Scroll to video
+            videoContainer.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'nearest',
+                inline: 'nearest'
+            });
         }
     }
 
-    // Event listeners
-    document.querySelectorAll('[data-modal]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            openModal(this.getAttribute('data-modal'));
+    // Setup event listeners
+    function setupEventListeners() {
+        // Modal links
+        document.querySelectorAll('[data-modal]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal(this.getAttribute('data-modal'));
+            });
         });
-    });
 
-    document.querySelector('.main-nav').addEventListener('click', function(e) {
-        if (e.target.tagName === 'A' && e.target.getAttribute('href')?.startsWith('#')) {
-            e.preventDefault();
-            const videoId = e.target.getAttribute('href').substring(1);
-            highlightVideo(videoId);
-            document.getElementById(videoId)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-    });
+        // Navigation links
+        document.querySelectorAll('.main-nav a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const videoId = this.getAttribute('href').substring(1);
+                highlightVideo(videoId);
+            });
+        });
 
-    // Video container interactions
-    document.querySelectorAll('.video-container').forEach(container => {
-        const video = container.querySelector('video');
-        const overlay = container.querySelector('.video-overlay');
-        const poster = video.getAttribute('poster');
+        // Video container interactions
+        document.querySelectorAll('.video-container').forEach(container => {
+            const video = container.querySelector('video');
+            const overlay = container.querySelector('.video-overlay');
+            const poster = video.getAttribute('poster');
 
-        if (!isMobile) {
-            container.addEventListener('mouseenter', () => {
-                video.muted = true;
-                video.play().catch(e => console.log('Hover play:', e));
-                overlay.style.opacity = '1';
+            if (!isMobile) {
+                container.addEventListener('mouseenter', () => {
+                    video.muted = true;
+                    video.play().catch(e => console.log('Hover play:', e));
+                    overlay.style.opacity = '1';
+                });
+
+                container.addEventListener('mouseleave', () => {
+                    video.pause();
+                    video.currentTime = 0;
+                    overlay.style.opacity = '0';
+                    video.setAttribute('poster', poster);
+                    video.load();
+                });
+            }
+
+            container.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') return;
+                e.preventDefault();
+                
+                if (this.id === "just-eat") {
+                    openModal(null, this);
+                } else {
+                    const modalAttr = this.getAttribute('data-modal');
+                    openModal(modalAttr || 'video-page', modalAttr ? null : this);
+                }
             });
 
-            container.addEventListener('mouseleave', () => {
-                video.pause();
-                video.currentTime = 0;
-                overlay.style.opacity = '0';
-                video.setAttribute('poster', poster);
-                video.load();
-            });
-        }
-
-        container.addEventListener('click', function(e) {
-            if (e.target.tagName === 'A') return;
-            e.preventDefault();
-            
-            if (this.id === "just-eat") {
-                openModal(null, this);
-            } else {
-                const modalAttr = this.getAttribute('data-modal');
-                openModal(modalAttr || 'video-page', modalAttr ? null : this);
+            if (isMobile) {
+                setupMobileTouchEvents(container, video, overlay);
             }
         });
 
-        if (isMobile) {
-            container.addEventListener('touchstart', function(e) {
-                pressTimer = setTimeout(() => {
-                    this.classList.add('active');
-                    video.pause();
-                    overlay.style.opacity = '1';
-                }, 300);
-            }, { passive: true });
-
-            container.addEventListener('touchend', function(e) {
-                clearTimeout(pressTimer);
-                if (!this.classList.contains('active')) {
-                    if (this.id === "just-eat") {
-                        openModal(null, this);
-                    } else {
-                        const modalAttr = this.getAttribute('data-modal');
-                        openModal(modalAttr || 'video-page', modalAttr ? null : this);
-                    }
-                }
-                this.classList.remove('active');
-            }, { passive: true });
-
-            container.addEventListener('touchmove', function(e) {
-                clearTimeout(pressTimer);
-                this.classList.remove('active');
-            }, { passive: true });
-        }
-    });
-
-    // Back button
-    document.querySelectorAll('.back-button').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelectorAll('.video-page').forEach(modal => {
-                modal.style.display = 'none';
-                modal.querySelectorAll('video').forEach(v => {
-                    v.pause();
-                    v.currentTime = 0;
+        // Back buttons
+        document.querySelectorAll('.back-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.video-page').forEach(modal => {
+                    modal.style.display = 'none';
+                    resetModalVideos(modal);
                 });
             });
         });
-    });
+    }
+
+    function setupMobileTouchEvents(container, video, overlay) {
+        container.addEventListener('touchstart', function(e) {
+            pressTimer = setTimeout(() => {
+                this.classList.add('active');
+                video.pause();
+                overlay.style.opacity = '1';
+            }, 300);
+        }, { passive: true });
+
+        container.addEventListener('touchend', function(e) {
+            clearTimeout(pressTimer);
+            if (!this.classList.contains('active')) {
+                if (this.id === "just-eat") {
+                    openModal(null, this);
+                } else {
+                    const modalAttr = this.getAttribute('data-modal');
+                    openModal(modalAttr || 'video-page', modalAttr ? null : this);
+                }
+            }
+            this.classList.remove('active');
+        }, { passive: true });
+
+        container.addEventListener('touchmove', function(e) {
+            clearTimeout(pressTimer);
+            this.classList.remove('active');
+        }, { passive: true });
+    }
 
     // Responsive handling
     function handleResponsive() {
@@ -1133,7 +1154,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initial setup
     handleResponsive();
-}); // Properly closed DOMContentLoaded
+    setupEventListeners();
+});
 </script>
 </body>
 </html>
