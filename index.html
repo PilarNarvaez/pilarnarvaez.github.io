@@ -324,7 +324,7 @@ video::-moz-media-controls {
     color: #999 !important;
     background: transparent !important;
     font-size: 24px;
-    z-index: 101;
+    z-index: 1000 !important; /* Ensure it's above modals */
     transition: color 0.2s ease;
     border: none !important;
     box-shadow: none !important;
@@ -901,7 +901,6 @@ Music: Bensound, license code PRF3J70PUMA2EYO6.
     <div id="just-eat-expanded" class="video-page">
         <div class="video-page-content">
             <button class="back-button">&lt;&lt;</button>
-            
             <div class="video-page-player">
                 <video controls autoplay>
                     <source src="" type="video/mp4">
