@@ -1185,16 +1185,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Back buttons
-        document.querySelectorAll('.back-button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelectorAll('.video-page').forEach(modal => {
-                    modal.style.display = 'none';
-                    resetModalVideos(modal);
-                });
+document.querySelectorAll('.back-button').forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Close ALL modals (including Just Eat's)
+        document.querySelectorAll('.video-page').forEach(modal => {
+            modal.style.display = 'none';
+            // Pause all videos in modal
+            modal.querySelectorAll('video').forEach(v => {
+                v.pause();
+                v.currentTime = 0;
             });
         });
-    }
+    });
+});
 
     function setupMobileTouchEvents(container, video, overlay) {
         container.addEventListener('touchstart', function(e) {
