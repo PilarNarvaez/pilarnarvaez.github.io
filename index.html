@@ -898,29 +898,59 @@ document.addEventListener('DOMContentLoaded', function() {
     let isMobile = window.innerWidth <= 768;
     let pressTimer = null;
 
-function openModal(modalId, container = null) {
-    // Close any open modals first
-    document.querySelectorAll('.video-page').forEach(m => m.style.display = 'none');
-    
-    // Special handling for Just Eat expanded view
-    if (container && container.id === "just-eat") {
-        const expandedModal = document.getElementById("just-eat-expanded");
-        if (expandedModal) {
-            expandedModal.style.display = 'block';
-            
-            // Set videos and mute them initially
-            const videos = expandedModal.querySelectorAll('video');
-            videos[0].src = container.dataset.videoSrc;
-            videos[1].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-169.mp4";
-            videos[2].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-916.mp4";
-            
-            // Mute all videos initially and add click handlers
-            videos.forEach(v => {
-                v.muted = true;
-                v.controls = false;
-                v.load();
+    function openModal(modalId, container = null) {
+        // Close any open modals first
+        document.querySelectorAll('.video-page').forEach(m => m.style.display = 'none');
+        
+        // Special handling for Just Eat expanded view
+        if (container && container.id === "just-eat") {
+            const expandedModal = document.getElementById("just-eat-expanded");
+            if (expandedModal) {
+                expandedModal.style.display = 'block';
                 
-                v.onclick = function(e) {
+                // Set videos and mute them initially
+                const videos = expandedModal.querySelectorAll('video');
+                videos[0].src = container.dataset.videoSrc;
+                videos[1].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-169.mp4";
+                videos[2].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-916.mp4";
+                
+                // Mute all videos initially and add click handlers
+                videos.forEach(v => {
+                    v.muted = true;
+                    v.controls = false;
+                    v.load();
+                    
+                    v.onclick = function(e) {
+                        this.muted = !this.muted;
+                        this.controls = true;
+                        if (this.paused) {
+                            this.play().catch(e => console.log('Play failed:', e));
+                        }
+                        e.stopPropagation();
+                    };
+                });
+                
+                // Set metadata
+                expandedModal.querySelector('.video-page-title').textContent = container.dataset.title;
+                expandedModal.querySelector('.video-page-description').textContent = container.dataset.description;
+            }
+            return;
+        }
+        
+        // Handle regular video modals
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
+        
+        modal.style.display = 'block';
+        
+        if (container && modalId !== 'about-page' && modalId !== 'contact-page') {
+            const modalVideo = modal.querySelector('video');
+            if (modalVideo) {
+                modalVideo.src = container.dataset.videoSrc;
+                modalVideo.muted = true;
+                modalVideo.controls = false;
+                
+                modalVideo.onclick = function(e) {
                     this.muted = !this.muted;
                     this.controls = true;
                     if (this.paused) {
@@ -928,70 +958,12 @@ function openModal(modalId, container = null) {
                     }
                     e.stopPropagation();
                 };
-            });
-            
-            // Set metadata
-            expandedModal.querySelector('.video-page-title').textContent = container.dataset.title;
-            expandedModal.querySelector('.video-page-description').textContent = container.dataset.description;
-        }
-        return;
-    }
-    
-    // Handle regular video modals
-    const modal = document.getElementById(modalId);
-    if (!modal) return;
-    
-    modal.style.display = 'block';
-    
-    if (container && modalId !== 'about-page' && modalId !== 'contact-page') {
-        const modalVideo = modal.querySelector('video');
-        if (modalVideo) {
-            modalVideo.src = container.dataset.videoSrc;
-            modalVideo.muted = true;
-            modalVideo.controls = false;
-            
-            modalVideo.onclick = function(e) {
-                this.muted = !this.muted;
-                this.controls = true;
-                if (this.paused) {
-                    this.play().catch(e => console.log('Play failed:', e));
-                }
-                e.stopPropagation();
-            };
-            
-            modalVideo.load();
-            
-            // Set title and description
-            modal.querySelector('.video-page-title').textContent = container.dataset.title;
-            modal.querySelector('.video-page-description').textContent = container.dataset.description;
-        }
-    }
-}
-// ===== END OF IMPROVED CODE =====
-        
-        modal.style.display = 'block';
-        
-        // Special handling for video modal
-        if (modalId === 'video-page' && container) {
-            const modalVideo = modal.querySelector('video');
-            modalVideo.src = container.dataset.videoSrc;
-            document.getElementById('video-page-title').textContent = container.dataset.title;
-            document.getElementById('video-page-description').textContent = 
-                videoDescriptions[container.id] || container.dataset.description;
-            
-            modalVideo.load();
-            
-            if (isMobile) {
-                modalVideo.muted = true;
-                modalVideo.controls = false;
-                modalVideo.onclick = function(e) {
-                    this.muted = false;
-                    this.controls = true;
-                    this.play().catch(e => console.log('Play failed:', e));
-                    e.stopPropagation();
-                };
-            } else {
-                modalVideo.play().catch(e => modalVideo.controls = true);
+                
+                modalVideo.load();
+                
+                // Set title and description
+                modal.querySelector('.video-page-title').textContent = container.dataset.title;
+                modal.querySelector('.video-page-description').textContent = container.dataset.description;
             }
         }
     }
@@ -1061,6 +1033,7 @@ function openModal(modalId, container = null) {
 
         if (!isMobile) {
             container.addEventListener('mouseenter', () => {
+                video.muted = true;
                 video.play().catch(e => console.log('Hover play:', e));
                 overlay.style.opacity = '1';
             });
@@ -1077,7 +1050,17 @@ function openModal(modalId, container = null) {
         container.addEventListener('click', function(e) {
             if (e.target.tagName === 'A') return;
             e.preventDefault();
-            openModal('video-page', this); // Updated to use openModal()
+            
+            if (this.id === "just-eat") {
+                openModal(null, this);
+            } else {
+                const modalAttr = this.getAttribute('data-modal');
+                if (modalAttr) {
+                    openModal(modalAttr);
+                } else {
+                    openModal('video-page', this);
+                }
+            }
         });
 
         if (isMobile) {
@@ -1092,7 +1075,16 @@ function openModal(modalId, container = null) {
             container.addEventListener('touchend', function(e) {
                 clearTimeout(pressTimer);
                 if (!this.classList.contains('active')) {
-                    openModal('video-page', this); // Updated
+                    if (this.id === "just-eat") {
+                        openModal(null, this);
+                    } else {
+                        const modalAttr = this.getAttribute('data-modal');
+                        if (modalAttr) {
+                            openModal(modalAttr);
+                        } else {
+                            openModal('video-page', this);
+                        }
+                    }
                 }
                 this.classList.remove('active');
             }, { passive: true });
@@ -1105,19 +1097,21 @@ function openModal(modalId, container = null) {
     });
 
     // Back button functionality
-document.querySelectorAll('.back-button').forEach(button => {
-    button.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelectorAll('.video-page').forEach(modal => {
-            modal.style.display = 'none';
-            const videos = modal.querySelectorAll('video');
-            videos.forEach(v => {
-                v.pause();
-                v.currentTime = 0;
+    document.querySelectorAll('.back-button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('.video-page').forEach(modal => {
+                modal.style.display = 'none';
+                const videos = modal.querySelectorAll('video');
+                videos.forEach(v => {
+                    v.pause();
+                    v.currentTime = 0;
+                    v.muted = true;
+                    v.controls = false;
+                });
             });
         });
     });
-});
 
     // Responsive handling
     function handleResponsive() {
@@ -1126,11 +1120,11 @@ document.querySelectorAll('.back-button').forEach(button => {
         const mainNav = document.querySelector('.main-nav');
         
         if (isMobile) {
-            mobileNav.style.display = 'flex';
-            mainNav.style.display = 'none';
+            if (mobileNav) mobileNav.style.display = 'flex';
+            if (mainNav) mainNav.style.display = 'none';
         } else {
-            mobileNav.style.display = 'none';
-            mainNav.style.display = 'flex';
+            if (mobileNav) mobileNav.style.display = 'none';
+            if (mainNav) mainNav.style.display = 'flex';
         }
     }
 
