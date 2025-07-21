@@ -1007,7 +1007,27 @@ document.addEventListener('DOMContentLoaded', function() {
     let isMobile = window.innerWidth <= 768;
     let pressTimer = null;
 
-    // Improved modal handling
+    // Create video modal if it doesn't exist
+    if (!document.getElementById('video-modal')) {
+        const modal = document.createElement('div');
+        modal.id = 'video-modal';
+        modal.className = 'video-page';
+        modal.innerHTML = `
+            <div class="video-page-content">
+                <button class="back-button">&lt;&lt;</button>
+                <div class="video-page-player">
+                    <video controls autoplay>
+                        <source src="" type="video/mp4">
+                    </video>
+                </div>
+                <h1 class="video-page-title"></h1>
+                <p class="video-page-description"></p>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+
+    // Modal handling
     function openModal(modalId, container = null) {
         // Close any open modals first
         document.querySelectorAll('.video-page').forEach(m => {
@@ -1015,20 +1035,66 @@ document.addEventListener('DOMContentLoaded', function() {
             resetModalVideos(m);
         });
 
-        // Special handling for Just Eat expanded view
+        // Special handling for Just Eat
         if (container && container.id === "just-eat") {
-            handleJustEatModal(container);
-            return;
+            const expandedModal = document.getElementById("just-eat-expanded");
+            if (expandedModal) {
+                expandedModal.style.display = 'block';
+                const videos = expandedModal.querySelectorAll('video');
+                
+                videos[0].src = container.dataset.videoSrc;
+                videos[1].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-169.mp4";
+                videos[2].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-916.mp4";
+                
+                videos.forEach(v => {
+                    v.muted = true;
+                    v.controls = true;
+                    v.load();
+                    
+                    v.addEventListener('play', function() {
+                        videos.forEach(otherV => {
+                            if (otherV !== v) {
+                                otherV.pause();
+                                otherV.currentTime = 0;
+                            }
+                        });
+                        this.muted = false;
+                    });
+                });
+                
+                expandedModal.querySelector('.video-page-title').textContent = container.dataset.title;
+                expandedModal.querySelector('.video-page-description').textContent = container.dataset.description;
+                return;
+            }
         }
         
-        // Handle regular modals
+        // Handle Godard modal
+        if (container && container.id === "godard-collages") {
+            const godardModal = document.getElementById("godard-page");
+            if (godardModal) {
+                godardModal.style.display = 'block';
+                return;
+            }
+        }
+        
+        // Regular modals
         const modal = document.getElementById(modalId);
-        if (!modal) return;
-        
-        modal.style.display = 'block';
-        
-        if (container && !['about-page', 'contact-page'].includes(modalId)) {
-            setupModalContent(modal, container);
+        if (modal) {
+            modal.style.display = 'block';
+            
+            if (container && !['about-page', 'contact-page'].includes(modalId)) {
+                const modalVideo = modal.querySelector('video');
+                if (modalVideo) {
+                    modalVideo.src = container.dataset.videoSrc;
+                    modalVideo.muted = false;
+                    modalVideo.controls = true;
+                    modalVideo.load();
+                    modalVideo.play().catch(e => console.log('Auto-play failed:', e));
+                }
+                
+                modal.querySelector('.video-page-title').textContent = container.dataset.title;
+                modal.querySelector('.video-page-description').textContent = container.dataset.description;
+            }
         }
     }
 
@@ -1041,70 +1107,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function handleJustEatModal(container) {
-        const expandedModal = document.getElementById("just-eat-expanded");
-        if (!expandedModal) return;
-        
-        expandedModal.style.display = 'block';
-        const videos = expandedModal.querySelectorAll('video');
-        
-        // Set video sources
-        videos[0].src = container.dataset.videoSrc;
-        videos[1].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-169.mp4";
-        videos[2].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-916.mp4";
-        
-        // Configure videos - start muted with controls
-        videos.forEach(v => {
-            v.muted = true;
-            v.controls = true;
-            v.load();
-            
-            // When any video is clicked, unmute just that video
-            v.addEventListener('play', function() {
-                // Pause all other videos in this modal
-                videos.forEach(otherV => {
-                    if (otherV !== v) {
-                        otherV.pause();
-                        otherV.currentTime = 0;
-                    }
-                });
-                // Unmute the clicked video
-                this.muted = false;
-            });
-        });
-        
-        // Set metadata
-        expandedModal.querySelector('.video-page-title').textContent = container.dataset.title;
-        expandedModal.querySelector('.video-page-description').textContent = container.dataset.description;
-    }
-
-    function setupModalContent(modal, container) {
-        const modalVideo = modal.querySelector('video');
-        if (!modalVideo) return;
-        
-        modalVideo.src = container.dataset.videoSrc;
-        modalVideo.muted = false; // Regular single videos can have sound
-        modalVideo.controls = true;
-        modalVideo.load();
-        
-        // Play the video when modal opens
-        modalVideo.play().catch(e => console.log('Auto-play failed:', e));
-        
-        // Set title and description
-        modal.querySelector('.video-page-title').textContent = container.dataset.title;
-        modal.querySelector('.video-page-description').textContent = container.dataset.description;
-    }
-
-    // Highlight video when nav link is clicked
+    // Highlight and scroll to video
     function highlightVideo(videoId) {
-        document.querySelectorAll('.video-container').forEach(v => {
-            v.classList.remove('active-click');
-            const overlay = v.querySelector('.video-overlay');
-            if (overlay) overlay.style.opacity = '0';
-        });
-        
         const videoContainer = document.getElementById(videoId);
         if (videoContainer) {
+            document.querySelectorAll('.video-container').forEach(v => {
+                v.classList.remove('active-click');
+                const overlay = v.querySelector('.video-overlay');
+                if (overlay) overlay.style.opacity = '0';
+            });
+            
             videoContainer.classList.add('active-click');
             const overlay = videoContainer.querySelector('.video-overlay');
             if (overlay) overlay.style.opacity = '1';
@@ -1114,11 +1126,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (overlay) overlay.style.opacity = '0';
             }, 3000);
             
-            // Scroll to video
             videoContainer.scrollIntoView({ 
                 behavior: 'smooth', 
-                block: 'nearest',
-                inline: 'nearest'
+                block: 'nearest'
             });
         }
     }
@@ -1133,12 +1143,22 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Navigation links to videos
-        document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
+        // Navigation links
+        document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal]), .mobile-nav-header a[href^="#"]:not([data-modal])').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
-                const videoId = this.getAttribute('href').substring(1);
-                highlightVideo(videoId);
+                const targetId = this.getAttribute('href').substring(1);
+                const target = document.getElementById(targetId);
+                
+                if (target) {
+                    if (target.classList.contains('video-container')) {
+                        // For video containers, trigger click
+                        target.click();
+                    } else {
+                        // For other elements, highlight and scroll
+                        highlightVideo(targetId);
+                    }
+                }
             });
         });
 
@@ -1146,9 +1166,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.video-container').forEach(container => {
             const video = container.querySelector('video');
             const overlay = container.querySelector('.video-overlay');
-            const poster = video.getAttribute('poster');
+            const poster = video?.getAttribute('poster');
 
-            if (!isMobile) {
+            if (!isMobile && video) {
                 container.addEventListener('mouseenter', () => {
                     video.muted = true;
                     video.play().catch(e => console.log('Hover play:', e));
@@ -1170,78 +1190,47 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (this.id === "just-eat") {
                     openModal(null, this);
+                } else if (this.id === "godard-collages") {
+                    openModal('godard-page', this);
                 } else {
-                    // Create a temporary modal ID for regular videos
                     openModal('video-modal', this);
                 }
             });
 
             if (isMobile) {
-                setupMobileTouchEvents(container, video, overlay);
+                container.addEventListener('touchstart', function(e) {
+                    pressTimer = setTimeout(() => {
+                        this.classList.add('active');
+                        if (video) video.pause();
+                        overlay.style.opacity = '1';
+                    }, 300);
+                }, { passive: true });
+
+                container.addEventListener('touchend', function(e) {
+                    clearTimeout(pressTimer);
+                    if (!this.classList.contains('active')) {
+                        this.click();
+                    }
+                    this.classList.remove('active');
+                }, { passive: true });
+
+                container.addEventListener('touchmove', function(e) {
+                    clearTimeout(pressTimer);
+                    this.classList.remove('active');
+                }, { passive: true });
             }
         });
 
         // Back buttons
-document.querySelectorAll('.back-button').forEach(button => {
-    button.addEventListener('click', function(e) {
-        e.preventDefault();
-        // Close ALL modals (including Just Eat's)
-        document.querySelectorAll('.video-page').forEach(modal => {
-            modal.style.display = 'none';
-            // Pause all videos in modal
-            modal.querySelectorAll('video').forEach(v => {
-                v.pause();
-                v.currentTime = 0;
+        document.querySelectorAll('.back-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.video-page').forEach(modal => {
+                    modal.style.display = 'none';
+                    resetModalVideos(modal);
+                });
             });
         });
-    });
-});
-
-    function setupMobileTouchEvents(container, video, overlay) {
-        container.addEventListener('touchstart', function(e) {
-            pressTimer = setTimeout(() => {
-                this.classList.add('active');
-                video.pause();
-                overlay.style.opacity = '1';
-            }, 300);
-        }, { passive: true });
-
-        container.addEventListener('touchend', function(e) {
-            clearTimeout(pressTimer);
-            if (!this.classList.contains('active')) {
-                if (this.id === "just-eat") {
-                    openModal(null, this);
-                } else {
-                    openModal('video-modal', this);
-                }
-            }
-            this.classList.remove('active');
-        }, { passive: true });
-
-        container.addEventListener('touchmove', function(e) {
-            clearTimeout(pressTimer);
-            this.classList.remove('active');
-        }, { passive: true });
-    }
-
-    // Create a hidden modal for regular videos
-    function createVideoModal() {
-        const modal = document.createElement('div');
-        modal.id = 'video-modal';
-        modal.className = 'video-page';
-        modal.innerHTML = `
-            <div class="video-page-content">
-                <button class="back-button">&lt;&lt;</button>
-                <div class="video-page-player">
-                    <video controls autoplay>
-                        <source src="" type="video/mp4">
-                    </video>
-                </div>
-                <h1 class="video-page-title"></h1>
-                <p class="video-page-description"></p>
-            </div>
-        `;
-        document.body.appendChild(modal);
     }
 
     // Responsive handling
@@ -1265,7 +1254,6 @@ document.querySelectorAll('.back-button').forEach(button => {
     });
 
     // Initial setup
-    createVideoModal();
     handleResponsive();
     setupEventListeners();
 });
