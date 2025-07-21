@@ -963,18 +963,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Configure videos
         videos.forEach(v => {
-            v.muted = true;
-            v.controls = false;
+            v.muted = false; // Changed to false to enable sound
+            v.controls = true; // Changed to true to show controls
             v.load();
             
-            v.onclick = function(e) {
-                this.muted = !this.muted;
-                this.controls = true;
-                if (this.paused) {
-                    this.play().catch(e => console.log('Play failed:', e));
-                }
-                e.stopPropagation();
-            };
+            // Play the video when modal opens
+            v.play().catch(e => console.log('Auto-play failed:', e));
         });
         
         // Set metadata
@@ -987,19 +981,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!modalVideo) return;
         
         modalVideo.src = container.dataset.videoSrc;
-        modalVideo.muted = true;
-        modalVideo.controls = false;
-        
-        modalVideo.onclick = function(e) {
-            this.muted = !this.muted;
-            this.controls = true;
-            if (this.paused) {
-                this.play().catch(e => console.log('Play failed:', e));
-            }
-            e.stopPropagation();
-        };
-        
+        modalVideo.muted = false; // Changed to false to enable sound
+        modalVideo.controls = true; // Changed to true to show controls
         modalVideo.load();
+        
+        // Play the video when modal opens
+        modalVideo.play().catch(e => console.log('Auto-play failed:', e));
         
         // Set title and description
         modal.querySelector('.video-page-title').textContent = container.dataset.title;
@@ -1036,7 +1023,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Setup event listeners
     function setupEventListeners() {
-        // Modal links
+        // Modal links (About, Contact)
         document.querySelectorAll('[data-modal]').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1044,8 +1031,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Navigation links
-        document.querySelectorAll('.main-nav a[href^="#"]').forEach(link => {
+        // Navigation links to videos
+        document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const videoId = this.getAttribute('href').substring(1);
@@ -1082,8 +1069,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (this.id === "just-eat") {
                     openModal(null, this);
                 } else {
-                    const modalAttr = this.getAttribute('data-modal');
-                    openModal(modalAttr || 'video-page', modalAttr ? null : this);
+                    // Create a temporary modal ID for regular videos
+                    openModal('video-modal', this);
                 }
             });
 
@@ -1119,8 +1106,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (this.id === "just-eat") {
                     openModal(null, this);
                 } else {
-                    const modalAttr = this.getAttribute('data-modal');
-                    openModal(modalAttr || 'video-page', modalAttr ? null : this);
+                    openModal('video-modal', this);
                 }
             }
             this.classList.remove('active');
@@ -1130,6 +1116,26 @@ document.addEventListener('DOMContentLoaded', function() {
             clearTimeout(pressTimer);
             this.classList.remove('active');
         }, { passive: true });
+    }
+
+    // Create a hidden modal for regular videos
+    function createVideoModal() {
+        const modal = document.createElement('div');
+        modal.id = 'video-modal';
+        modal.className = 'video-page';
+        modal.innerHTML = `
+            <div class="video-page-content">
+                <button class="back-button">&lt;&lt;</button>
+                <div class="video-page-player">
+                    <video controls autoplay>
+                        <source src="" type="video/mp4">
+                    </video>
+                </div>
+                <h1 class="video-page-title"></h1>
+                <p class="video-page-description"></p>
+            </div>
+        `;
+        document.body.appendChild(modal);
     }
 
     // Responsive handling
@@ -1153,6 +1159,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Initial setup
+    createVideoModal();
     handleResponsive();
     setupEventListeners();
 });
