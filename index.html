@@ -986,14 +986,24 @@ document.addEventListener('DOMContentLoaded', function() {
         videos[1].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-169.mp4";
         videos[2].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-916.mp4";
         
-        // Configure videos
+        // Configure videos - start muted with controls
         videos.forEach(v => {
-            v.muted = false; // Changed to false to enable sound
-            v.controls = true; // Changed to true to show controls
+            v.muted = true;
+            v.controls = true;
             v.load();
             
-            // Play the video when modal opens
-            v.play().catch(e => console.log('Auto-play failed:', e));
+            // When any video is clicked, unmute just that video
+            v.addEventListener('play', function() {
+                // Pause all other videos in this modal
+                videos.forEach(otherV => {
+                    if (otherV !== v) {
+                        otherV.pause();
+                        otherV.currentTime = 0;
+                    }
+                });
+                // Unmute the clicked video
+                this.muted = false;
+            });
         });
         
         // Set metadata
@@ -1006,8 +1016,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!modalVideo) return;
         
         modalVideo.src = container.dataset.videoSrc;
-        modalVideo.muted = false; // Changed to false to enable sound
-        modalVideo.controls = true; // Changed to true to show controls
+        modalVideo.muted = false; // Regular single videos can have sound
+        modalVideo.controls = true;
         modalVideo.load();
         
         // Play the video when modal opens
