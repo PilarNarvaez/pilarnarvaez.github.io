@@ -597,6 +597,26 @@ video::-moz-media-controls {
 #just-eat-expanded .video-page-description {
     display: block !important;
 }
+        /* Ensure Just Eat expanded modal displays all elements */
+#just-eat-expanded {
+    display: none; /* Default state - will be shown via JS */
+    overflow-y: auto; /* Allow scrolling if content is tall */
+}
+
+#just-eat-expanded .video-page-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+#just-eat-expanded .video-page-player {
+    margin-bottom: 30px;
+}
+
+#just-eat-expanded .video-page-player.vertical {
+    max-width: 300px;
+    margin: 0 auto 30px;
+}
     /* [Rest of your existing styles remain unchanged] */
     .video-page-title {
         margin-top: 15px;
@@ -892,41 +912,36 @@ Music: Bensound, license code PRF3J70PUMA2EYO6.
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const videoDescriptions = {
-        'showreel': 'A selection of my last video edit and motion graphics works.',
-        'tercer-campaign': 'Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics.',
-        'menopause-campaign': 'Minúsculas Producciones and I created a social media video for Spain\'s Women\'s Institute for World Menopause Day.\n\nInspired by female artists Carmen Herrera and Barbara Stauffacher Solomon, I designed bold, minimalist graphics in Illustrator, animating them with abstract, dynamic compositions. The video prioritizes visuals over text, featuring two key messages and a vintage film-reel effect.\n\nMusic: Bensound, license code PRF3J70PUMA2EYO6.\n\n(English version shown.)',
-        'pepsi-recycle': 'Video created for Wireless and Reading Festival, adaptation from the Think Different campaign.',
-        'expedia-social': 'Adaptation and localisation of Expedia (VRBO) campaign for social media.',
-        'fire-walk-with-me': 'I recreated Twin Peaks\' iconic opening as a tribute to his work. Some scenes are flooded with light—an intentional reference to Fire Walk With Me—using Video Copilot\'s Saber plug-in to achieve a luminous glow. The goal was to create an abstract, experimental feel, inspired by László Moholy-Nagy\'s Light Space Modulator. The music is a cover by Xiu Xiu.',
-        'supercar-blondie': 'Social media content for Supercar Blondie\'s Facebook page.',
-        'i-am-groot': 'Social media campaign introducing Djibril Cissé as the newest player for Los Troncos FC.',
-        'just-eat': 'Localized adaptations for Just Eat’s international markets: Endframe adaptation for Slovakia and campaign for Australia (IU mobile, endframe).',
-        'social-media-videos': 'Collection of various social media video content.',
-        'kings-league': 'Content created for Kings League on Twitch.'
-    };
-
-    let activeVideoId = null;
     let isMobile = window.innerWidth <= 768;
     let pressTimer = null;
 
+    // Improved openModal function
     function openModal(modalId, container = null) {
         // Close any open modals first
-        document.querySelectorAll('.video-page').forEach(m => m.style.display = 'none');
-        
+        document.querySelectorAll('.video-page').forEach(m => {
+            m.style.display = 'none';
+            // Reset all videos in modals
+            m.querySelectorAll('video').forEach(v => {
+                v.pause();
+                v.currentTime = 0;
+                v.muted = true;
+                v.controls = false;
+            });
+        });
+
         // Special handling for Just Eat expanded view
         if (container && container.id === "just-eat") {
             const expandedModal = document.getElementById("just-eat-expanded");
             if (expandedModal) {
                 expandedModal.style.display = 'block';
                 
-                // Set videos and mute them initially
+                // Set videos
                 const videos = expandedModal.querySelectorAll('video');
                 videos[0].src = container.dataset.videoSrc;
                 videos[1].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-169.mp4";
                 videos[2].src = "https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-916.mp4";
                 
-                // Mute all videos initially and add click handlers
+                // Configure videos
                 videos.forEach(v => {
                     v.muted = true;
                     v.controls = false;
@@ -945,11 +960,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Set metadata
                 expandedModal.querySelector('.video-page-title').textContent = container.dataset.title;
                 expandedModal.querySelector('.video-page-description').textContent = container.dataset.description;
+                
+                return;
             }
-            return;
         }
         
-        // Handle regular video modals
+        // Handle regular modals
         const modal = document.getElementById(modalId);
         if (!modal) return;
         
@@ -980,6 +996,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Highlight video when nav link is clicked
     function highlightVideo(videoId) {
         document.querySelectorAll('.video-container').forEach(v => {
             v.classList.remove('active-click');
@@ -1000,7 +1017,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Modal link handlers
+    // Event listeners
     document.querySelectorAll('[data-modal]').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -1008,33 +1025,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Project title click handlers
     document.querySelector('.main-nav').addEventListener('click', function(e) {
         if (e.target.tagName === 'A' && e.target.getAttribute('href')?.startsWith('#')) {
             e.preventDefault();
             const videoId = e.target.getAttribute('href').substring(1);
             highlightVideo(videoId);
-            
-            const videoElement = document.getElementById(videoId);
-            if (videoElement) {
-                videoElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
+            document.getElementById(videoId)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
-    });
-
-    // Video styling
-    document.querySelectorAll('video').forEach(video => {
-        video.style.cssText = `
-            background: transparent !important;
-            object-fit: ${video.closest('.video-page-player') ? 'contain' : 'cover'};
-            margin: 0 !important;
-            padding: 0 !important;
-            line-height: 0 !important;
-            display: block !important;
-            transform: translateZ(0);
-            -webkit-transform: translateZ(0);
-        `;
-        video.setAttribute('preload', 'metadata');
     });
 
     // Video container interactions
@@ -1067,11 +1064,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 openModal(null, this);
             } else {
                 const modalAttr = this.getAttribute('data-modal');
-                if (modalAttr) {
-                    openModal(modalAttr);
-                } else {
-                    openModal('video-page', this);
-                }
+                openModal(modalAttr || 'video-page', modalAttr ? null : this);
             }
         });
 
@@ -1091,11 +1084,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         openModal(null, this);
                     } else {
                         const modalAttr = this.getAttribute('data-modal');
-                        if (modalAttr) {
-                            openModal(modalAttr);
-                        } else {
-                            openModal('video-page', this);
-                        }
+                        openModal(modalAttr || 'video-page', modalAttr ? null : this);
                     }
                 }
                 this.classList.remove('active');
@@ -1108,18 +1097,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Back button functionality
+    // Back button
     document.querySelectorAll('.back-button').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
             document.querySelectorAll('.video-page').forEach(modal => {
                 modal.style.display = 'none';
-                const videos = modal.querySelectorAll('video');
-                videos.forEach(v => {
+                modal.querySelectorAll('video').forEach(v => {
                     v.pause();
                     v.currentTime = 0;
-                    v.muted = true;
-                    v.controls = false;
                 });
             });
         });
