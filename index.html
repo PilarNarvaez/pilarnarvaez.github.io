@@ -1230,13 +1230,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     }, 300);
                 }, { passive: true });
 
-                container.addEventListener('touchend', function(e) {
-                    clearTimeout(pressTimer);
-                    if (!this.classList.contains('active')) {
-                        this.click();
-                    }
-                    this.classList.remove('active');
-                }, { passive: true });
+container.addEventListener('touchend', function(e) {
+    clearTimeout(pressTimer);
+    this.classList.remove('active');
+    if (!this.classList.contains('active')) {
+        this.click();
+    }
+}, { passive: true });
 
                 container.addEventListener('touchmove', function(e) {
                     clearTimeout(pressTimer);
