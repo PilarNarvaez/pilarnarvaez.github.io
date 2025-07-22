@@ -14,13 +14,13 @@
             box-sizing: border-box;
             font-family: 'Helvetica Neue', Arial, sans-serif;
         }
-        /* === ADD THIS RIGHT HERE === */
-    /* Force-remove borders on common offenders */
-    hr, .video-page-title, .footer, .text-column {
-        border: 0 !important;
-        background: white !important; /* Ensures no grey bleed */
-    }
-    /* === END OF ADDED CODE === */
+        
+        /* Force-remove borders on common offenders */
+        hr, .video-page-title, .footer, .text-column {
+            border: 0 !important;
+            background: white !important;
+        }
+        
         html, body {
             height: 100%;
             overflow-x: hidden;
@@ -38,44 +38,45 @@
             margin: 0;
             position: relative;
         }
-/* Responsive styles - keep these together */
 
-@media (max-width: 768px) {
-    .main-nav {
-        display: none !important; /* Hide desktop nav */
-    }
-    .mobile-nav-header {
-        display: flex !important; /* Show mobile nav */
-    }
-}
-/* Mobile Scrolling - Match Main Grid Gap */
-@media (max-width: 768px) {
-    #godard-page .video-page-content {
-        overflow-y: auto;
-        max-height: calc(100vh - 80px);
-        padding-bottom: 60px;
-    }
-    
-    .image-gallery {
-        gap: 15px; /* Matches main grid gap */
-    }
-    
-    .image-gallery img {
-        max-height: 60vh;
-    }
-}
-@media (min-width: 769px) {
-    .mobile-nav-header {
-        display: none !important;
-    }
-    .main-nav {
-        display: flex !important;
-    }
-}
-.main-nav {
-    row-gap: 10px !important; /* Reduced from 20px */
-    margin-bottom: 5px; /* Optional: reduces space below nav */
-}
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none !important;
+            }
+            .mobile-nav-header {
+                display: flex !important;
+            }
+            
+            #godard-page .video-page-content {
+                overflow-y: auto;
+                max-height: calc(100vh - 80px);
+                padding-bottom: 60px;
+            }
+            
+            .image-gallery {
+                gap: 15px;
+            }
+            
+            .image-gallery img {
+                max-height: 60vh;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-nav-header {
+                display: none !important;
+            }
+            .main-nav {
+                display: flex !important;
+            }
+        }
+        
+        .main-nav {
+            row-gap: 10px !important;
+            margin-bottom: 5px;
+        }
+
         /* Header and Navigation */
         .header-container {
             margin: 40px 0 30px 40px;
@@ -122,6 +123,7 @@
         .main-nav a[href^="#"]:not([data-modal]):hover {
             color: #e74c3c !important;
         }        
+
         /* Video grid */
         .video-columns {
             display: grid;
@@ -132,620 +134,572 @@
             padding: 0 40px;
             align-content: start;
         }
-                /* Mobile styles */
+
+        /* Mobile styles */
         .mobile-nav-header {
             display: none;
         }
-video {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}    
-.video-container {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16/9; /* Keep this - it's essential for grid alignment */
-    overflow: hidden;
-    cursor: pointer;
-    isolation: isolate; /* Creates new stacking context */
-    background: transparent;
-}
+        
+        video {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }    
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            cursor: pointer;
+            isolation: isolate;
+            background: transparent;
+        }
 
-.video-container video {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: opacity 0.3s ease;
-    z-index: 0; /* Correct placement for video layering */
-    display: block; /* Remove extra space */
-    line-height: 0; /* Add this to prevent space below video */
-    margin: 0;
-     background: transparent !important;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    transform: translate3d(0,0,0); /* Force GPU rendering */
-    outline: none;
-    border: none;
-    box-shadow: none;
-}
-    /* Add this new rule */
-video::-webkit-media-controls-enclosure {
-    display: none !important;
-}
+        .video-container video {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+            display: block;
+            line-height: 0;
+            margin: 0;
+            background: transparent !important;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translate3d(0,0,0);
+            outline: none;
+            border: none;
+            box-shadow: none;
+        }
+        
+        /* Hide media controls */
+        video::-webkit-media-controls-enclosure {
+            display: none !important;
+        }
+        
         /* For Firefox */
-video::-moz-media-controls {
-    display: none !important;
-}
-.video-container.active-click .video-overlay {
-    opacity: 1 !important;
-    background: rgba(231, 76, 60, 0.85) !important;
-}
-      
-.video-container video[poster] {
-    opacity: 1;
-} 
+        video::-moz-media-controls {
+            display: none !important;
+        }
+        
+        .video-container.active-click .video-overlay {
+            opacity: 1 !important;
+            background: rgba(231, 76, 60, 0.85) !important;
+        }
+          
+        .video-container video[poster] {
+            opacity: 1;
+        } 
 
-.video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(231, 76, 60, 0); /* Start with transparent red */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0; /* Start hidden */
-    transition: opacity 0.3s ease, background 0.3s ease; /* Add opacity transition */
-    z-index: 1;
-    pointer-events: none;
-}
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(231, 76, 60, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease, background 0.3s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
 
-.video-overlay span {
-    font-size: 14px; 
-    font-weight: 500;
-    color: white;
-    text-align: center;
-    padding: 0 20px;
-    width: 100%;
-    mix-blend-mode: screen; /* Better than multiply for text */
-}
+        .video-overlay span {
+            font-size: 14px; 
+            font-weight: 500;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+            width: 100%;
+            mix-blend-mode: screen;
+        }
 
-.video-container:hover .video-overlay {
-    opacity: 1;
-    background: rgba(231, 76, 60, 0.85);
-}
-.video-container.active .video-overlay {
-    opacity: 1;
-    background: rgba(231, 76, 60, 0.85); /* Red appears on hover/active */
-    pointer-events: none; 
-}
+        .video-container:hover .video-overlay {
+            opacity: 1;
+            background: rgba(231, 76, 60, 0.85);
+        }
+        
+        .video-container.active .video-overlay {
+            opacity: 1;
+            background: rgba(231, 76, 60, 0.85);
+            pointer-events: none; 
+        }
+
         /* Godard Collages Grid Item Fix */
-#godard-collages {
-    background: transparent !important; /* Matches video containers */
-    isolation: isolate; /* Creates stacking context like videos */
-}
+        #godard-collages {
+            background: transparent !important;
+            isolation: isolate;
+        }
 
-#godard-collages img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* Shows full image without cropping */
-    display: block;
-   background: transparent !important; /* Remove any image background */
-    mix-blend-mode: normal !important; /* Prevent blending artifacts */
-}
-}
- /* Modal styles */   
-.video-page {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: white;
-    z-index: 1000;
-    overflow-y: auto;
-    padding: 40px;
-    margin: 0;
-}
-    
-.video-page-content {
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-    padding: 40px 0 30px;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-} 
-        
-/* Protect grid videos from modal styles */
-.video-columns .video-container video {
-    position: static !important;
-    height: auto !important;
-    object-fit: cover !important;
-}
-/* Modal player styles */
-.video-page-player {
-    width: 100%;
-    max-width: 800px;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 0;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio (change to 177.78% for 9:16) */
-    background: transparent;
-}
+        #godard-collages img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            background: transparent !important;
+            mix-blend-mode: normal !important;
+        }
 
-.video-page-player video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background: transparent !important;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    display: block;
-    margin: 0;
-    padding: 0;
-    line-height: 0;
-    outline: none;
-    transform: translateZ(0);
-    -webkit-mask-image: -webkit-radial-gradient(white, black); /* iOS fix */
-}
-/* Enhanced iOS Fix - Add after your existing -webkit-mask-image */
-@supports (-webkit-touch-callout: none) {
-    .video-page-player video {
-        -webkit-transform: translateZ(0);
-        mask-image: -webkit-radial-gradient(white, black);
-    }
-} 
-/* Aspect ratio classes */
-.video-ratio-16-9 { 
-    aspect-ratio: 16/9; /* Horizontal */ 
-}
-.video-ratio-9-16 { 
-    aspect-ratio: 9/16; /* Vertical */ 
-}
-.video-ratio-1-1 { 
-    aspect-ratio: 1/1;  /* Square */ 
-}
-
-.video-page-title {
-    font-size: 16px;
-    font-weight: 500;
-    margin: 20px 0 20px 0; /* Top Right Bottom Left */ /* Added top margin instead of padding */
-     padding: 0; /* No extra padding */
-        border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-}
-    
-.video-page-description {
-    font-size: 14px;
-    line-height: 1.5;
-    margin: 0 0 20px 0; /* Consistent bottom margin */
-}
-
-    #contact-page a.contact-email,
-    #contact-page a.contact-email:link,
-    #contact-page a.contact-email:visited,
-    #contact-page a.contact-email:hover {
-        color: #333 !important;
-        text-decoration: none !important;
-        font-size: 16px;
-        font-family: 'Helvetica Neue', Arial, sans-serif !important;
-        transition: color 0.2s ease;
-        display: inline-block;
-    }
-
-    #contact-page a.contact-email:hover {
-        color: #e74c3c !important;
-        text-decoration: underline !important;
-    }
-
-.back-button {
-    position: fixed;
-    top: 40px;
-    right: 40px;
-    color: #999 !important;
-    background: transparent !important;
-    font-size: 24px;
-    z-index: 1000 !important; /* Ensure it's above modals */
-    transition: color 0.2s ease;
-    border: none !important;
-    box-shadow: none !important;
-    text-decoration: none !important;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-}
-
-.back-button:hover {
-    color: #e74c3c !important;
-}
-        
-/* Desktop Footer */
-.footer {
-    margin: 60px 0 0 40px; /* Same left margin as portfolio-title (40px) */
-    padding: 0;
-    width: auto; /* Remove fixed width */
-    max-width: none; /* Remove previous max-width constraint */
-    /* Keep all other existing properties */
-    font-size: 14px;
-    font-weight: normal;
-    color: #333;
-    background: white !important;
-    text-align: left;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-}
-.footer div {
-    margin-bottom: 8px; /* Space between rows */
-    font-weight: normal;
-    display: block;
-    text-align: left !important; /* Ensure left alignment */
-}
-.footer a {
-    color: #333 !important;
-    font-weight: normal;
-    text-decoration: none !important; /* No underline */
-    transition: color 0.2s ease;
-    text-align: left !important;
-}
-
-.footer a:hover {
-    color: #e74c3c !important; /* Turns red on hover */
-    font-weight: normal;
-    text-decoration: none !important; /* Still no underline */
-}
-
-@media (max-width: 768px) {
- /* Body & Layout */
-    body {
-        background: white !important; /* No grey anywhere */
-        padding: 30px 30px 60px 30px;
-        overflow-y: auto; /* Enable main scrolling */
-        -webkit-overflow-scrolling: touch;
-        position: relative;
-        overflow-x: hidden; /* Prevent horizontal scroll */
-        -webkit-mask-image: none !important; /* Remove if causing issues */
-    }
-        /* Portfolio Title - Desktop */
-      .portfolio-title {
-        text-align: left;
-        padding: 0 0 20px 0; /* Top Right Bottom Left */
-        margin: 0
-        font-size: 18px; /* Match your desktop size */
-        font-weight: 500 !important;
-        width: 100%;
-        border: none !important;
-        outline: none !important;
-        box-shadow: none !important;
-    }
-    /* Mobile Navigation */
-      /* Mobile Navigation Header */
-    .mobile-nav-header {
-        display: flex !important; /* Show on mobile */
-        font-size: 16px;
-        flex-direction: column;
-        gap: 6px;
-        font-weight: normal;
-        text-decoration: none;
-        padding: 0 0 15px 0; /* Left-aligned with title */
-        margin: -10px 0 15px 0; /* Tighter spacing */
-    }
-     /* Mobile About/Contact links - Red by default */
-        /* Target ONLY the About and Contact links */
-    .mobile-nav-header a:first-child {
-        margin-bottom: 2px; /* Minimal space after About */
-    }
-   
-    .mobile-nav-header a {
-        font-size: 16px;
-        font-weight: normal; 
-        color: #e74c3c !important;
-        text-decoration: none;
-        /* Remove individual padding-left - handled by container */
-        transition: color 0.2s ease;
-    }
-        /* Mobile hover states - Black on interaction */
-    .mobile-nav-header a:hover,
-    .mobile-nav-header a:focus,
-    .mobile-nav-header a:active {
-        color: #333 !important;
-        text-decoration: none !important;
-    }
-        /* Hide desktop-specific elements */
-    .title-links,
-    .text-column,
-    .project-titles {
-        display: none !important;
-    }
-     /* Main Content */
-    .main-content {
-        display: block;
-        background: white !important; /* No grey anywhere */
-        padding: 0 0 40px 0; /* Bottom padding only */
-        overflow-y: visible;
-        -webkit-overflow-scrolling: touch;
-        min-height: 0;
-        position: relative;
-        z-index: 1;
-        /* Scrollbar hiding for all browsers */
-        -ms-overflow-style: none;  /* IE/Edge */
-        scrollbar-width: none;     /* Firefox */
-    }
-    /* MOBILE BACK BUTTON */
-    .back-button:hover,
-    .back-button:focus,
-    .back-button:active {
-        color: #e74c3c !important;
-        text-decoration: none !important;
-    }
-    @media (max-width: 768px) {
-    .back-button:active {
-        color: #e74c3c !important;
-    }
-
-   /* Video Grid - MOBILE (1 column) */
-    .video-columns {
-        grid-template-columns: 1fr;
-        width: 100%;
-        gap: 15px;
-        padding: 0;
-        margin: 0;
-    } 
-        /* Mobile Footer */
-    .footer {
-        width: 100% !important;
-        margin: 40px 0 0 0 !important;
-        padding: 0 !important;
-        text-align: center !important;
-    }
-    
-    .footer div {
-        text-align: center !important;
-        margin-bottom: 8px;
-    }
-    
-    .footer a {
-        text-align: center !important;
-    }
-    
-    /* Hide desktop navigation */
-    .text-column {
-        display: none;
+        /* Modal styles */   
+        .video-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 40px;
+            margin: 0;
+        }
+            
+        .video-page-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            padding: 40px 0 30px;
             border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-    }
-    }
-      
-/* ===== GLOBAL STYLES (apply to all devices) ===== */
-    .video-container {
-        position: relative;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        max-width: 100%;
-        height: auto;
-        cursor: pointer;
-        background: transparent !important;
-    }
-    
-    /* Vertical Video Format */
-    .video-container.vertical {
-        aspect-ratio: 9/16;
-    }
-     .video-overlay {
-        opacity: 0;
-        background: rgba(231, 76, 60, 0.6);
-    }
-    .video-container.active .video-overlay {
-        opacity: 0.85;
-        background: black !important;
-    }   
-    /* Main Grid Videos */
-    .video-container video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center; /* Better mobile cropping */
-        display: block;
-        background: transparent;
-        -webkit-transform: translateZ(0); /* Force GPU layer */
-        -webkit-mask-image: -webkit-radial-gradient(white, black); /* Fix iOS rendering */
-        transform: translateZ(0);
-                -webkit-perspective: 1000;
-        perspective: 1000;
-    }
-    
-    /* Modal Video Player - UPDATED WITH MERGED STYLES */
-    .video-page-player {
-        width: 100%;
-        background: black !important; /* Changed from transparent for better visibility */
-        margin-bottom: 30px; /* Changed from 0px for consistent spacing */
-        position: relative;
-        overflow: hidden;
-    }
+            outline: none !important;
+            box-shadow: none !important;
+        } 
+                
+        /* Protect grid videos from modal styles */
+        .video-columns .video-container video {
+            position: static !important;
+            height: auto !important;
+            object-fit: cover !important;
+        }
+        
+        /* Modal player styles */
+        .video-page-player {
+            width: 100%;
+            max-width: 800px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 0;
+            padding-bottom: 56.25%;
+            background: transparent;
+        }
 
-    /* Horizontal videos (default 16:9) */
-    .video-page-player:not(.vertical) {
-        aspect-ratio: 16/9;
-    }
+        .video-page-player video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: transparent !important;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            display: block;
+            margin: 0;
+            padding: 0;
+            line-height: 0;
+            outline: none;
+            transform: translateZ(0);
+            -webkit-mask-image: -webkit-radial-gradient(white, black);
+        }
+        
+        /* Enhanced iOS Fix */
+        @supports (-webkit-touch-callout: none) {
+            .video-page-player video {
+                -webkit-transform: translateZ(0);
+                mask-image: -webkit-radial-gradient(white, black);
+            }
+        } 
+        
+        /* Aspect ratio classes */
+        .video-ratio-16-9 { 
+            aspect-ratio: 16/9;
+        }
+        
+        .video-ratio-9-16 { 
+            aspect-ratio: 9/16;
+        }
+        
+        .video-ratio-1-1 { 
+            aspect-ratio: 1/1;
+        }
 
-    /* Vertical videos */
-    .video-page-player.vertical {
-        aspect-ratio: 9/16;
-        max-width: 300px;
-        margin: 0 auto 30px; /* Better centering than 20px auto */
-    }
+        .video-page-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin: 20px 0 20px 0;
+            padding: 0;
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+            
+        .video-page-description {
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 0 0 20px 0;
+        }
 
-    /* Modal Video Element - UPDATED */
-    .video-page-player video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        background: transparent !important;
-        display: block; /* Ensures proper layout */
-    }
+        #contact-page a.contact-email,
+        #contact-page a.contact-email:link,
+        #contact-page a.contact-email:visited,
+        #contact-page a.contact-email:hover {
+            color: #333 !important;
+            text-decoration: none !important;
+            font-size: 16px;
+            font-family: 'Helvetica Neue', Arial, sans-serif !important;
+            transition: color 0.2s ease;
+            display: inline-block;
+        }
 
-    /* Video captions - ENHANCED */
-    .video-caption {
-        font-size: 12px;
-        color: #666;
-        margin: 8px 0 20px;
-        text-align: center;
-        display: block; /* Ensures it appears below video */
-    }
+        #contact-page a.contact-email:hover {
+            color: #e74c3c !important;
+            text-decoration: underline !important;
+        }
 
-    /* [Keep all your existing special cases below] */
-    #video-page video[controls] {
-        cursor: default;
-    }
-    /* Add this to your existing CSS */
-#video-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: white !important;
-    z-index: 100;
-    padding: 40px;
-}
+        .back-button {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            color: #999 !important;
+            background: transparent !important;
+            font-size: 24px;
+            z-index: 1001 !important;
+            transition: color 0.2s ease;
+            border: none !important;
+            box-shadow: none !important;
+            text-decoration: none !important;
+            padding: 0;
+            margin: 0;
+            cursor: pointer;
+        }
 
-#video-modal .video-page-player {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto 30px;
-    aspect-ratio: 16/9;
-}
+        .back-button:hover {
+            color: #e74c3c !important;
+        }
+                
+        /* Desktop Footer */
+        .footer {
+            margin: 60px 0 0 40px;
+            padding: 0;
+            width: auto;
+            max-width: none;
+            font-size: 14px;
+            font-weight: normal;
+            color: #333;
+            background: white !important;
+            text-align: left;
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+        
+        .footer div {
+            margin-bottom: 8px;
+            font-weight: normal;
+            display: block;
+            text-align: left !important;
+        }
+        
+        .footer a {
+            color: #333 !important;
+            font-weight: normal;
+            text-decoration: none !important;
+            transition: color 0.2s ease;
+            text-align: left !important;
+        }
 
-#video-modal .video-page-player video {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background: black !important;
-}
-    #fire-walk-with-me.video-container {
-        aspect-ratio: 16/9;
-    }
-    
-    #fire-walk-with-me video {
-        object-fit: cover;
-    }
-    #just-eat-expanded .video-page-player {
-    margin-bottom: 30px;
-}
+        .footer a:hover {
+            color: #e74c3c !important;
+            font-weight: normal;
+            text-decoration: none !important;
+        }
 
-#just-eat-expanded .video-page-player.vertical {
-    max-width: 300px;
-    margin: 0 auto 30px;
-}
+        @media (max-width: 768px) {
+            /* Body & Layout */
+            body {
+                background: white !important;
+                padding: 30px 30px 60px 30px;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                position: relative;
+                overflow-x: hidden;
+                -webkit-mask-image: none !important;
+            }
+            
+            /* Portfolio Title */
+            .portfolio-title {
+                text-align: left;
+                padding: 0 0 20px 0;
+                margin: 0;
+                font-size: 18px;
+                font-weight: 500 !important;
+                width: 100%;
+                border: none !important;
+                outline: none !important;
+                box-shadow: none !important;
+            }
+            
+            /* Mobile Navigation Header */
+            .mobile-nav-header {
+                display: flex !important;
+                font-size: 16px;
+                flex-direction: column;
+                gap: 6px;
+                font-weight: normal;
+                text-decoration: none;
+                padding: 0 0 15px 0;
+                margin: -10px 0 15px 0;
+            }
+            
+            /* Mobile About/Contact links */
+            .mobile-nav-header a:first-child {
+                margin-bottom: 2px;
+            }
+           
+            .mobile-nav-header a {
+                font-size: 16px;
+                font-weight: normal; 
+                color: #e74c3c !important;
+                text-decoration: none;
+                transition: color 0.2s ease;
+            }
+                
+            /* Mobile hover states */
+            .mobile-nav-header a:hover,
+            .mobile-nav-header a:focus,
+            .mobile-nav-header a:active {
+                color: #333 !important;
+                text-decoration: none !important;
+            }
+                
+            /* Hide desktop-specific elements */
+            .title-links,
+            .text-column,
+            .project-titles {
+                display: none !important;
+            }
+            
+            /* Main Content */
+            .main-content {
+                display: block;
+                background: white !important;
+                padding: 0 0 40px 0;
+                overflow-y: visible;
+                -webkit-overflow-scrolling: touch;
+                min-height: 0;
+                position: relative;
+                z-index: 1;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            
+            /* MOBILE BACK BUTTON */
+            .back-button:hover,
+            .back-button:focus,
+            .back-button:active {
+                color: #e74c3c !important;
+                text-decoration: none !important;
+            }
+            
+            @media (max-width: 768px) {
+                .back-button:active {
+                    color: #e74c3c !important;
+                }
+            }
 
-#just-eat-expanded .video-page-title,
-#just-eat-expanded .video-page-description {
-    display: block !important;
-}
-        /* Ensure Just Eat expanded modal displays all elements */
-#just-eat-expanded {
-    display: none; /* Default state - will be shown via JS */
-    overflow-y: auto; /* Allow scrolling if content is tall */
-}
+           /* Video Grid - MOBILE (1 column) */
+            .video-columns {
+                grid-template-columns: 1fr;
+                width: 100%;
+                gap: 15px;
+                padding: 0;
+                margin: 0;
+            } 
+                
+            /* Mobile Footer */
+            .footer {
+                width: 100% !important;
+                margin: 40px 0 0 0 !important;
+                padding: 0 !important;
+                text-align: center !important;
+            }
+            
+            .footer div {
+                text-align: center !important;
+                margin-bottom: 8px;
+            }
+            
+            .footer a {
+                text-align: center !important;
+            }
+            
+            /* Hide desktop navigation */
+            .text-column {
+                display: none;
+                border: none !important;
+                outline: none !important;
+                box-shadow: none !important;
+            }
+        }
+          
+        /* ===== GLOBAL STYLES ===== */
+        .video-container {
+            position: relative;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+            background: transparent !important;
+        }
+        
+        /* Vertical Video Format */
+        .video-container.vertical {
+            aspect-ratio: 9/16;
+        }
+         
+        .video-overlay {
+            opacity: 0;
+            background: rgba(231, 76, 60, 0.6);
+        }
+        
+        .video-container.active .video-overlay {
+            opacity: 0.85;
+            background: black !important;
+        }   
+        
+        /* Main Grid Videos */
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            background: transparent;
+            -webkit-transform: translateZ(0);
+            -webkit-mask-image: -webkit-radial-gradient(white, black);
+            transform: translateZ(0);
+            -webkit-perspective: 1000;
+            perspective: 1000;
+        }
+        
+        /* Modal Video Player */
+        .video-page-player {
+            width: 100%;
+            background: black !important;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
 
-#just-eat-expanded .video-page-content {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 40px 0;
-}
+        /* Horizontal videos (default 16:9) */
+        .video-page-player:not(.vertical) {
+            aspect-ratio: 16/9;
+        }
 
-#just-eat-expanded .video-page-player {
-    margin-bottom: 30px;
-}
+        /* Vertical videos */
+        .video-page-player.vertical {
+            aspect-ratio: 9/16;
+            max-width: 300px;
+            margin: 0 auto 30px;
+        }
 
-#just-eat-expanded .video-page-player.vertical {
-    max-width: 300px;
-    margin: 0 auto 30px;
-}
-/* Image Gallery Styles - Single Column Version */
-.image-gallery {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Matches your main grid gap */
-    margin-bottom: 30px;
-}
+        /* Modal Video Element */
+        .video-page-player video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: transparent !important;
+            display: block;
+        }
 
-.image-gallery img {
-    width: 100%;
-    max-width: 800px; /* Matches video player width */
-    height: auto;
-    max-height: 70vh;
-    margin: 0 auto;
-    object-fit: contain;
-    display: block;
-    border: none !important;
-    transition: transform 0.3s ease; /* For hover effect */
-}
-    /* [Rest of your existing styles remain unchanged] */
-    .video-page-title {
-        margin-top: 15px;
-        margin-bottom: 10px;
-        border: none !important;
-        outline: none !important;
-        box-shadow: none !important;
-    }
-    
-    .video-page-description {
-        margin-top: 15px;
-    }
-    
-    .video-container video[poster] {
-        opacity: 0.9;
-        background: transparent !important;
-    }
+        /* Video captions */
+        .video-caption {
+            font-size: 12px;
+            color: #666;
+            margin: 8px 0 20px;
+            text-align: center;
+            display: block;
+        }
 
-    /* [Keep your existing .video-page and .video-page-content styles] */
-    .video-page {
-        padding: 20px;
-        background: white !important;
-    }
-    
-    .video-page-content {
-        padding: 70px 0 30px !important;
-        border: none !important;
-        outline: none !important;
-        box-shadow: none !important;
-        background: white !important;
-    }
-    
-.back-button {
-    position: fixed;
-    top: 40px;
-    right: 40px;
-    color: #999 !important; /* Grey default */
-    background: transparent !important;
-    font-size: 24px;
-    z-index: 1000 !important; /* FIXED: Increased z-index */
-    
-    transition: color 0.2s ease;
-    /* Removal of all decorative styles */
-    border: none !important;
-    box-shadow: none !important;
-    text-decoration: none !important;
-    padding: 0;
-    margin: 0;
-}
+        /* Special cases */
+        #video-page video[controls] {
+            cursor: default;
+        }
+        
+        #video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white !important;
+            z-index: 100;
+            padding: 40px;
+        }
+
+        #video-modal .video-page-player {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            aspect-ratio: 16/9;
+        }
+
+        #video-modal .video-page-player video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: black !important;
+        }
+        
+        #fire-walk-with-me.video-container {
+            aspect-ratio: 16/9;
+        }
+        
+        #fire-walk-with-me video {
+            object-fit: cover;
+        }
+        
+        #just-eat-expanded .video-page-player {
+            margin-bottom: 30px;
+        }
+
+        #just-eat-expanded .video-page-player.vertical {
+            max-width: 300px;
+            margin: 0 auto 30px;
+        }
+
+        /* Image Gallery Styles */
+        .image-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .image-gallery img {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            max-height: 70vh;
+            margin: 0 auto;
+            object-fit: contain;
+            display: block;
+            border: none !important;
+            transition: transform 0.3s ease;
+        }
     </style>
 </head>
 <body>
@@ -774,154 +728,156 @@ video::-moz-media-controls {
     <a href="#" data-modal="about-page">About</a>
     <a href="#" data-modal="contact-page">Contact</a>
 </div>
-       <div class="video-columns">
-            <!-- Showreel -->
-            <div id="showreel" class="video-container" 
-                 data-video-src="https://pilarnarvaez.github.io/videos/Showreel.mp4"
-                 data-title="Showreel"
-                 data-description="A selection of my last works - video editing and motion graphics.">
-                <video poster="https://pilarnarvaez.github.io/images/showreel-poster.jpg" muted loop playsinline>
-                    <source src="https://pilarnarvaez.github.io/videos/Showreel.mp4" type="video/mp4">
-                </video>
-                <div class="video-overlay">
-                    <span>Showreel</span>
-                </div>
-            </div>
+       
+<div class="video-columns">
+    <!-- Showreel -->
+    <div id="showreel" class="video-container" 
+         data-video-src="https://pilarnarvaez.github.io/videos/Showreel.mp4"
+         data-title="Showreel"
+         data-description="A selection of my last works - video editing and motion graphics.">
+        <video poster="https://pilarnarvaez.github.io/images/showreel-poster.jpg" muted loop playsinline>
+            <source src="https://pilarnarvaez.github.io/videos/Showreel.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+            <span>Showreel</span>
+        </div>
+    </div>
 
-            <!-- Tercer Campaign -->
-            <div id="tercer-campaign" class="video-container" 
-                 data-video-src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4"
-                 data-title="Tercer Campaign"
-                 data-description="Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics.">
-                <video poster="https://pilarnarvaez.github.io/images/tercer-poster.jpg" muted loop playsinline>
-                    <source src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4" type="video/mp4">
-                </video>
-                <div class="video-overlay">
-                    <span>Tercer Campaign</span>
-                </div>
-            </div>
+    <!-- Tercer Campaign -->
+    <div id="tercer-campaign" class="video-container" 
+         data-video-src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4"
+         data-title="Tercer Campaign"
+         data-description="Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics.">
+        <video poster="https://pilarnarvaez.github.io/images/tercer-poster.jpg" muted loop playsinline>
+            <source src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+            <span>Tercer Campaign</span>
+        </div>
+    </div>
 
-            <!-- Menopause Campaign -->
-            <div id="menopause-campaign" class="video-container" 
-                 data-video-src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4"
-                 data-title="Menopause Awareness Day"
-                 data-description="Minúsculas Producciones and I created a social media video for Spain’s Women’s Institute for World Menopause Day. 
+    <!-- Menopause Campaign -->
+    <div id="menopause-campaign" class="video-container" 
+         data-video-src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4"
+         data-title="Menopause Awareness Day"
+         data-description="Minúsculas Producciones and I created a social media video for Spain's Women's Institute for World Menopause Day. 
 
 Inspired by female artists Carmen Herrera and Barbara Stauffacher Solomon, I designed bold, minimalist graphics in Illustrator, animating them with abstract, dynamic compositions. The video prioritizes visuals over text, featuring two key messages and a vintage film-reel effect.
 
 Music: Bensound, license code PRF3J70PUMA2EYO6.
 
 (English version shown.)">
-                <video poster="https://pilarnarvaez.github.io/images/menopause-poster.jpg" muted loop playsinline>
-                    <source src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4" type="video/mp4">
-                </video>
-                <div class="video-overlay">
-                    <span>Menopause Campaign</span>
-                </div>
-            </div>
-            
-            <!-- Pepsi Recycle to Win -->
-            <div id="pepsi-recycle" class="video-container"
-                 data-video-src="https://pilarnarvaez.github.io/videos/Pepsi-Recycle-to-Win-Reading-Festival.mp4"
-                 data-title="Pepsi Recycle to Win"
-                 data-description="Video created for Wireless and Reading Festival, adaptation from the Think Different campaign.">
-                <video poster="https://pilarnarvaez.github.io/images/pepsi-poster.jpg" muted loop playsinline>
-                    <source src="https://pilarnarvaez.github.io/videos/Pepsi-Recycle-to-Win-Reading-Festival.mp4" type="video/mp4">
-                </video>
-                <div class="video-overlay">
-                    <span>Recycle to Win</span>
-                </div>
-            </div>
-            
-            <!-- Expedia Social -->
-            <div id="expedia-social" class="video-container"
-                 data-video-src="https://pilarnarvaez.github.io/videos/Expedia-social.mp4"
-                 data-title="Expedia Social"
-                 data-description="Adaptation and localisation of Expedia (VRBO) campaign for social media.">
-                <video poster="https://pilarnarvaez.github.io/images/expedia-poster.jpg" muted loop playsinline>
-                    <source src="https://pilarnarvaez.github.io/videos/Expedia-social.mp4" type="video/mp4">
-                </video>
-                <div class="video-overlay">
-                    <span>Expedia Social</span>
-                </div>
-            </div>
-            
-            <!-- Fire Walk With Me -->
-            <div id="fire-walk-with-me" class="video-container"
-                 data-video-src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4"
-                 data-title="Fire Walk With Me"
-                 data-description="I recreated Twin Peaks’ iconic opening as a tribute to his work. Some scenes are flooded with light, an intentional reference to Fire Walk With Me, using Video Copilot’s Saber plug-in to achieve a luminous glow. The goal was to create an abstract, experimental feel, inspired by László Moholy-Nagy’s Light Space Modulator. The music is a cover by Xiu Xiu.">
-                <video poster="https://pilarnarvaez.github.io/images/fire-poster.jpg" muted loop playsinline>
-                    <source src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4" type="video/mp4">
-                </video>
-                <div class="video-overlay">
-                    <span>Lynch Tribute</span>
-                </div>
-            </div>
-            
-            <!-- Supercar Blondie Facebook -->
-            <div id="supercar-blondie-facebook" class="video-container"
-                 data-video-src="https://pilarnarvaez.github.io/videos/Super-Car-Blondie-Facebook.mp4"
-                 data-title="Supercar Blondie Facebook"
-                 data-description="Social media content for Supercar Blondie's Facebook page. Motion graphics and edition.">
-                <video poster="https://pilarnarvaez.github.io/images/super-car-blondie- facebook-poster.jpg" muted loop playsinline>
-                    <source src="https://pilarnarvaez.github.io/videos/Super-Car-Blondie-Facebook.mp4" type="video/mp4">
-                </video>
-                <div class="video-overlay">
-                    <span>Supercar Blondie</span>
-                </div>
-            </div>
-<!-- Just Eat Adaptations (main grid version) -->
-<div id="just-eat" class="video-container" 
-     data-video-src="https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-Slovakia.mp4"
-     data-title="Just Eat Adaptations"
-     data-description="Localized adaptations for Just Eat’s international markets: Endframe adaptation for Slovakia and campaign for Australia (IU mobile, endframe).">
-    <video poster="https://pilarnarvaez.github.io/images/just-eat-poster.jpg" muted loop playsinline>
-        <source src="https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-Slovakia.mp4" type="video/mp4">
-    </video>
-    <div class="video-overlay">
-        <span>Just Eat Adaptations</span>
+        <video poster="https://pilarnarvaez.github.io/images/menopause-poster.jpg" muted loop playsinline>
+            <source src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+            <span>Menopause Campaign</span>
+        </div>
     </div>
-</div>
-            <!-- I Am Groot Twitter -->
-            <div id="groot-twitter" class="video-container"
-                 data-video-src="https://pilarnarvaez.github.io/videos/Groot-Twitter.mp4"
-                 data-title="I Am Groot Twitter"
-                 data-description="Social media campaign introducing Djibril Cissé as the newest player for Los Troncos FC.">
-                <video poster="https://pilarnarvaez.github.io/images/groot-poster.jpg" muted loop playsinline>
-                    <source src="https://pilarnarvaez.github.io/videos/Groot-Twitter.mp4" type="video/mp4">
-                </video>
-                <div class="video-overlay">
-                    <span>Groot Twitter</span>
-                </div>
-            </div>
-            
-         <!-- Godard Collages -->
-<div id="godard-collages" class="video-container"
-     data-modal="godard-page"
-     data-title="Godard: Poster tributes to Histoire(s) du cinéma"
-     data-description="I watched the Jean-Luc Godard documentaries Histoire(s) du cinéma and I loved them. Inspired by them I created these collages as a tribute to his great work using stills captured from the videos.&#10;&#10;There is one collage for each episode and the last collage is done with stills from the JLG and Anne-Marie Miéville documentary Deux fois cinquante ans de cinéma français. In order:&#10;&#10;Godard: Histoire(s) du cinéma 1a Toutes les histoires collage&#10;Godard: Histoire(s) du cinéma 1b Une histoire seule collage&#10;Godard: Histoire(s) du cinéma 2a Seul le cinema collage&#10;Godard: Histoire(s) du cinéma 2b Fatale beauté collage&#10;Godard: Histoire(s) du cinéma 3a La monnaie de l'absolu collage&#10;Godard: Histoire(s) du cinéma 3b Une vague nouvelle&#10;Godard: Histoire(s) du cinéma 4a Le contrôle de l'univers collage&#10;Godard: Histoire(s) du cinéma 4b Les signes parmi nous collage&#10;Jean-Luc Godard & Anne-Marie Miéville: Deux fois cinquante ans de cinéma français collage">
-    <img src="https://pilarnarvaez.github.io/images/godard-collages-poster.jpg" alt="Godard Collages">
-    <div class="video-overlay">
-        <span>Godard Collages</span>
+    
+    <!-- Pepsi Recycle to Win -->
+    <div id="pepsi-recycle" class="video-container"
+         data-video-src="https://pilarnarvaez.github.io/videos/Pepsi-Recycle-to-Win-Reading-Festival.mp4"
+         data-title="Pepsi Recycle to Win"
+         data-description="Video created for Wireless and Reading Festival, adaptation from the Think Different campaign.">
+        <video poster="https://pilarnarvaez.github.io/images/pepsi-poster.jpg" muted loop playsinline>
+            <source src="https://pilarnarvaez.github.io/videos/Pepsi-Recycle-to-Win-Reading-Festival.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+            <span>Recycle to Win</span>
+        </div>
     </div>
-</div>
-            
-            <!-- Kings League Twitch -->
-            <div id="kings-league" class="video-container"
-                 data-video-src="https://pilarnarvaez.github.io/videos/Kings-League-Twitch.mp4"
-                 data-title="Kings League Twitch"
-                 data-description="Content created for Kings League on Twitch.">
-                <video poster="https://pilarnarvaez.github.io/images/kingsleague-poster.jpg" muted loop playsinline>
-                    <source src="https://pilarnarvaez.github.io/videos/Kings-League-Twitch.mp4" type="video/mp4">
-                </video>
-                <div class="video-overlay">
-                    <span>Kings League Twitch</span>
-                </div>
-            </div>
- </div><!-- Close video-columns -->    
+    
+    <!-- Expedia Social -->
+    <div id="expedia-social" class="video-container"
+         data-video-src="https://pilarnarvaez.github.io/videos/Expedia-social.mp4"
+         data-title="Expedia Social"
+         data-description="Adaptation and localisation of Expedia (VRBO) campaign for social media.">
+        <video poster="https://pilarnarvaez.github.io/images/expedia-poster.jpg" muted loop playsinline>
+            <source src="https://pilarnarvaez.github.io/videos/Expedia-social.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+            <span>Expedia Social</span>
+        </div>
+    </div>
+    
+    <!-- Fire Walk With Me -->
+    <div id="fire-walk-with-me" class="video-container"
+         data-video-src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4"
+         data-title="Fire Walk With Me"
+         data-description="I recreated Twin Peaks' iconic opening as a tribute to his work. Some scenes are flooded with light, an intentional reference to Fire Walk With Me, using Video Copilot's Saber plug-in to achieve a luminous glow. The goal was to create an abstract, experimental feel, inspired by László Moholy-Nagy's Light Space Modulator. The music is a cover by Xiu Xiu.">
+        <video poster="https://pilarnarvaez.github.io/images/fire-poster.jpg" muted loop playsinline>
+            <source src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+            <span>Lynch Tribute</span>
+        </div>
+    </div>
+    
+    <!-- Supercar Blondie Facebook -->
+    <div id="supercar-blondie-facebook" class="video-container"
+         data-video-src="https://pilarnarvaez.github.io/videos/Super-Car-Blondie-Facebook.mp4"
+         data-title="Supercar Blondie Facebook"
+         data-description="Social media content for Supercar Blondie's Facebook page. Motion graphics and edition.">
+        <video poster="https://pilarnarvaez.github.io/images/super-car-blondie- facebook-poster.jpg" muted loop playsinline>
+            <source src="https://pilarnarvaez.github.io/videos/Super-Car-Blondie-Facebook.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+            <span>Supercar Blondie</span>
+        </div>
+    </div>
 
-<!-- Outside video-columns -->
+    <!-- Just Eat Adaptations (main grid version) -->
+    <div id="just-eat" class="video-container" 
+         data-video-src="https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-Slovakia.mp4"
+         data-title="Just Eat Adaptations"
+         data-description="Localized adaptations for Just Eat's international markets: Endframe adaptation for Slovakia and campaign for Australia (IU mobile, endframe).">
+        <video poster="https://pilarnarvaez.github.io/images/just-eat-poster.jpg" muted loop playsinline>
+            <source src="https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-Slovakia.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+            <span>Just Eat Adaptations</span>
+        </div>
+    </div>
+    
+    <!-- I Am Groot Twitter -->
+    <div id="groot-twitter" class="video-container"
+         data-video-src="https://pilarnarvaez.github.io/videos/Groot-Twitter.mp4"
+         data-title="I Am Groot Twitter"
+         data-description="Social media campaign introducing Djibril Cissé as the newest player for Los Troncos FC.">
+        <video poster="https://pilarnarvaez.github.io/images/groot-poster.jpg" muted loop playsinline>
+            <source src="https://pilarnarvaez.github.io/videos/Groot-Twitter.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+            <span>Groot Twitter</span>
+        </div>
+    </div>
+    
+    <!-- Godard Collages -->
+    <div id="godard-collages" class="video-container"
+         data-modal="godard-page"
+         data-title="Godard: Poster tributes to Histoire(s) du cinéma"
+         data-description="I watched the Jean-Luc Godard documentaries Histoire(s) du cinéma and I loved them. Inspired by them I created these collages as a tribute to his great work using stills captured from the videos.&#10;&#10;There is one collage for each episode and the last collage is done with stills from the JLG and Anne-Marie Miéville documentary Deux fois cinquante ans de cinéma français. In order:&#10;&#10;Godard: Histoire(s) du cinéma 1a Toutes les histoires collage&#10;Godard: Histoire(s) du cinéma 1b Une histoire seule collage&#10;Godard: Histoire(s) du cinéma 2a Seul le cinema collage&#10;Godard: Histoire(s) du cinéma 2b Fatale beauté collage&#10;Godard: Histoire(s) du cinéma 3a La monnaie de l'absolu collage&#10;Godard: Histoire(s) du cinéma 3b Une vague nouvelle&#10;Godard: Histoire(s) du cinéma 4a Le contrôle de l'univers collage&#10;Godard: Histoire(s) du cinéma 4b Les signes parmi nous collage&#10;Jean-Luc Godard & Anne-Marie Miéville: Deux fois cinquante ans de cinéma français collage">
+        <img src="https://pilarnarvaez.github.io/images/godard-collages-poster.jpg" alt="Godard Collages">
+        <div class="video-overlay">
+            <span>Godard Collages</span>
+        </div>
+    </div>
+    
+    <!-- Kings League Twitch -->
+    <div id="kings-league" class="video-container"
+         data-video-src="https://pilarnarvaez.github.io/videos/Kings-League-Twitch.mp4"
+         data-title="Kings League Twitch"
+         data-description="Content created for Kings League on Twitch.">
+        <video poster="https://pilarnarvaez.github.io/images/kingsleague-poster.jpg" muted loop playsinline>
+            <source src="https://pilarnarvaez.github.io/videos/Kings-League-Twitch.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+            <span>Kings League Twitch</span>
+        </div>
+    </div>
+</div><!-- Close video-columns -->    
+
 <!-- Just Eat Expanded Modal -->
 <div id="just-eat-expanded" class="video-page">
     <div class="video-page-content">
@@ -932,7 +888,6 @@ Music: Bensound, license code PRF3J70PUMA2EYO6.
             <video controls autoplay>
                 <source src="" type="video/mp4">
             </video>
-            <p class="video-caption">Slovakia Adaptation (16:9)</p>
         </div>
         
         <!-- Second Video (Australia) -->
@@ -940,7 +895,6 @@ Music: Bensound, license code PRF3J70PUMA2EYO6.
             <video controls>
                 <source src="https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-169.mp4" type="video/mp4">
             </video>
-            <p class="video-caption">Australia Adaptation (16:9)</p>
         </div>
         
         <!-- Third Video (Mobile) -->
@@ -948,7 +902,6 @@ Music: Bensound, license code PRF3J70PUMA2EYO6.
             <video controls>
                 <source src="https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-916.mp4" type="video/mp4">
             </video>
-            <p class="video-caption">Mobile Version (9:16)</p>
         </div>
         
         <h1 class="video-page-title">Just Eat Adaptations</h1>
@@ -957,6 +910,7 @@ Music: Bensound, license code PRF3J70PUMA2EYO6.
         </p>
     </div>
 </div>
+
 <!-- Godard Collages Modal -->
 <div id="godard-page" class="video-page">
     <div class="video-page-content">
@@ -993,35 +947,34 @@ Music: Bensound, license code PRF3J70PUMA2EYO6.
         </p>
     </div>
 </div>
-        <!-- ======= END GODARD MODAL ======= -->
 
-        <!-- About Page Modal -->
-    <div id="about-page" class="video-page">
-        <div class="video-page-content">
-            <button class="back-button">&lt;&lt;</button>
-            <h1 class="video-page-title">About</h1>
-            <p class="video-page-description">
-                I'm a video editor and motion graphics artist with experience in localizing advertising, TV, and film campaigns, creating social media content, and producing brand campaigns and television promos.<br><br>
-                
-                I work primarily with Adobe Creative Suite (Premiere, After Effects) and Avid Media Composer. As a bilingual (Spanish/English) professional, I can work with multilingual content, including French.<br><br>
-                
-                Known for being a fast learner, hard worker, and detail-oriented, I'm dedicated to delivering high-quality results and thriving in creative, fast-paced environments. Let's create something amazing together!
-            </p>
-        </div>
+<!-- About Page Modal -->
+<div id="about-page" class="video-page">
+    <div class="video-page-content">
+        <button class="back-button">&lt;&lt;</button>
+        <h1 class="video-page-title">About</h1>
+        <p class="video-page-description">
+            I'm a video editor and motion graphics artist with experience in localizing advertising, TV, and film campaigns, creating social media content, and producing brand campaigns and television promos.<br><br>
+            
+            I work primarily with Adobe Creative Suite (Premiere, After Effects) and Avid Media Composer. As a bilingual (Spanish/English) professional, I can work with multilingual content, including French.<br><br>
+            
+            Known for being a fast learner, hard worker, and detail-oriented, I'm dedicated to delivering high-quality results and thriving in creative, fast-paced environments. Let's create something amazing together!
+        </p>
     </div>
+</div>
 
-        <!-- Other Modals (standard video, about, contact) -->
-    <div id="contact-page" class="video-page">
-        <div class="video-page-content">
-            <button class="back-button">&lt;&lt;</button>
-            <h1 class="video-page-title">Contact</h1>
-            <p class="video-page-description">
-                <a href="mailto:pilar.narvaez@gmail.com" class="contact-email">
-                    pilar.narvaez@gmail.com
-                </a>
-            </p>
-        </div>
+<!-- Contact Modal -->
+<div id="contact-page" class="video-page">
+    <div class="video-page-content">
+        <button class="back-button">&lt;&lt;</button>
+        <h1 class="video-page-title">Contact</h1>
+        <p class="video-page-description">
+            <a href="mailto:pilar.narvaez@gmail.com" class="contact-email">
+                pilar.narvaez@gmail.com
+            </a>
+        </p>
     </div>
+</div>
 
 <footer class="footer">
     <div class="footer-left">Pilar Narvaez Portfolio</div>
