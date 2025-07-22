@@ -246,6 +246,9 @@ video::-moz-media-controls {
     height: 100%;
     background: white !important; /* Force white background */
     z-index: 100;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: none;
     padding: 40px;
 }
     
@@ -255,7 +258,7 @@ video::-moz-media-controls {
     position: relative;
     padding: 40px 0 30px;
     background: white !important; /* Double protection */
-      border: none !important;
+    border: none !important;
     outline: none !important;
     box-shadow: none !important;
 } 
@@ -1145,11 +1148,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const overlay = videoContainer.querySelector('.video-overlay');
             if (overlay) overlay.style.opacity = '1';
             
-            setTimeout(() => {
-                videoContainer.classList.remove('active-click');
-                if (overlay) overlay.style.opacity = '0';
-            }, 3000);
-            
             videoContainer.scrollIntoView({ 
                 behavior: 'smooth', 
                 block: 'nearest'
@@ -1168,23 +1166,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Navigation links
-        document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal]), .mobile-nav-header a[href^="#"]:not([data-modal])').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const target = document.getElementById(targetId);
-                
-                if (target) {
-                    if (target.classList.contains('video-container')) {
-                        // For video containers, trigger click
-                        target.click();
-                    } else {
-                        // For other elements, highlight and scroll
-                        highlightVideo(targetId);
-                    }
-                }
-            });
-        });
+document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal]), .mobile-nav-header a[href^="#"]:not([data-modal])').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const target = document.getElementById(targetId);
+        
+        if (target) {
+            if (target.classList.contains('video-container')) {
+                // For video containers, trigger click and highlight
+                highlightVideo(targetId);
+                target.click();
+            } else {
+                // For other elements, just highlight
+                highlightVideo(targetId);
+            }
+        }
+    });
+});
 
         // Video container interactions
         document.querySelectorAll('.video-container').forEach(container => {
