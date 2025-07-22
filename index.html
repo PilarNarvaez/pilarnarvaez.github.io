@@ -208,7 +208,8 @@ video::-moz-media-controls {
 }
         /* Godard Collages Grid Item Fix */
 #godard-collages {
-    background: black; /* Ensures consistent background */
+    background: transparent !important; /* Matches video containers */
+    isolation: isolate; /* Creates stacking context like videos */
 }
 
 #godard-collages img {
@@ -216,6 +217,9 @@ video::-moz-media-controls {
     height: 100%;
     object-fit: contain; /* Shows full image without cropping */
     display: block;
+   background: transparent !important; /* Remove any image background */
+    mix-blend-mode: normal !important; /* Prevent blending artifacts */
+}
 }
  /* Modal styles */   
 .video-page {
@@ -511,7 +515,7 @@ video::-moz-media-controls {
         max-width: 100%;
         height: auto;
         cursor: pointer;
-        background: black !important;
+        background: transparent !important;
     }
     
     /* Vertical Video Format */
