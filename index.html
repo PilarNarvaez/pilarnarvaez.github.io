@@ -653,36 +653,25 @@ video::-moz-media-controls {
     max-width: 300px;
     margin: 0 auto 30px;
 }
-        /* Image Gallery Styles */
+/* Image Gallery Styles - Single Column Version */
 .image-gallery {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Matches your main grid gap */
     margin-bottom: 30px;
 }
 
 .image-gallery img {
     width: 100%;
+    max-width: 800px; /* Matches video player width */
     height: auto;
+    max-height: 70vh;
+    margin: 0 auto;
+    object-fit: contain;
     display: block;
-    border: 1px solid #eee !important;
-    transition: transform 0.3s ease;
+    border: none !important;
+    transition: transform 0.3s ease; /* For hover effect */
 }
-
-.image-gallery img:hover {
-    transform: scale(1.02);
-}
-
-@media (max-width: 768px) {
-    .image-gallery {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 480px) {
-    .image-gallery {
-        grid-template-columns: 1fr;
-    }
 }
     /* [Rest of your existing styles remain unchanged] */
     .video-page-title {
