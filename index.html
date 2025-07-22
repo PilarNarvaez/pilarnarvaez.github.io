@@ -48,7 +48,22 @@
         display: flex !important; /* Show mobile nav */
     }
 }
-
+/* Mobile Scrolling - Match Main Grid Gap */
+@media (max-width: 768px) {
+    #godard-page .video-page-content {
+        overflow-y: auto;
+        max-height: calc(100vh - 80px);
+        padding-bottom: 60px;
+    }
+    
+    .image-gallery {
+        gap: 15px; /* Matches main grid gap */
+    }
+    
+    .image-gallery img {
+        max-height: 60vh;
+    }
+}
 @media (min-width: 769px) {
     .mobile-nav-header {
         display: none !important;
