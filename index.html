@@ -758,8 +758,8 @@ else if (container && (container.id === "lizzo-spot" || container.id === "UOC-co
         // This preserves the HTML from data-description
         desc.innerHTML = container.dataset.description
             .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-             .replace(/&amp;/g, '&');
+            .replace(/&gt;/g, '>')
+            .replace(/&amp;/g, '&');
         
         // Add hover effects to links
         const links = desc.querySelectorAll('a');
