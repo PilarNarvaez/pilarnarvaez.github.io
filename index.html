@@ -920,9 +920,8 @@ English version shown.">
     <div id="lizzo-spot" class="video-container"
          data-video-src="https://pilarnarvaez.github.io/videos/lizzo.mp4"
          data-title="Lizzo Spot"
-         data-description="Spot for Lizzo.
-     Camera Operator: <a href='https://www.mariomartin.net/' target='_blank' rel='noopener noreferrer'>Mario Martin</a><br>
-        <a href='https://www.lizzo.net' target='_blank' rel='noopener noreferrer'>Lizzo Official Site</a><br><br>
+         data-description=""Online spot for Lizzo.<br>Camera Operator: <a href='https://www.mariomartin.net/' target='_blank' rel='noopener noreferrer'>Mario Martin</a><br>
+        <a href='https://www.lizzo.net' target='_blank' rel='noopener noreferrer'>Lizzo Official Site</a>">
         <video poster="https://pilarnarvaez.github.io/images/lizzo-poster.jpg" muted loop playsinline>
             <source src="https://pilarnarvaez.github.io/videos/lizzo.mp4" type="video/mp4">
         </video>
@@ -1101,12 +1100,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     </video>
                 `;
             }
-            
-            const title = modal.querySelector('.video-page-title');
+                 const title = modal.querySelector('.video-page-title');
             if (title) title.textContent = container.dataset.title;
             
             const desc = modal.querySelector('.video-page-description');
-            if (desc) desc.textContent = container.dataset.description;
+            if (desc) desc.innerHTML = container.dataset.description; // Changed from textContent to innerHTML
         }
     }
 
