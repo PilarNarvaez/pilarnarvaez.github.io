@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -660,6 +659,30 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Highlight a video container with red overlay
+    function highlightVideo(videoId) {
+        // Remove highlight from all videos first
+        document.querySelectorAll('.video-container').forEach(v => {
+            v.classList.remove('active-click');
+            const overlay = v.querySelector('.video-overlay');
+            if (overlay) overlay.style.opacity = '0';
+        });
+        
+        // Highlight the target video
+        const targetVideo = document.getElementById(videoId);
+        if (targetVideo) {
+            targetVideo.classList.add('active-click');
+            const overlay = targetVideo.querySelector('.video-overlay');
+            if (overlay) overlay.style.opacity = '1';
+            
+            // Remove highlight after 3 seconds
+            setTimeout(() => {
+                targetVideo.classList.remove('active-click');
+                if (overlay) overlay.style.opacity = '0';
+            }, 3000);
+        }
+    }
+
     // Setup event listeners
     function setupEventListeners() {
         // Modal links (About, Contact)
@@ -670,22 +693,65 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Project navigation links - DESKTOP VERSION (scroll to container)
-        if (window.innerWidth > 768) {
-            document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
+        // Project navigation links
+        document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                
+                // Highlight the video
+                highlightVideo(targetId);
+                
+                // On desktop, scroll to the video
+                if (window.innerWidth > 768) {
                     const target = document.getElementById(targetId);
                     if (target) {
                         target.scrollIntoView({ 
                             behavior: 'smooth', 
-                            block: 'center'
+                            block: 'nearest'
                         });
                     }
-                });
+                }
+                // On mobile, open the modal directly
+                else {
+                    const container = document.getElementById(targetId);
+                    if (container) {
+                        if (targetId === "just-eat") {
+                            openModal('just-eat-expanded', container);
+                        } 
+                        else if (targetId === "godard-collages") {
+                            openModal('godard-page', container);
+                        }
+                        else {
+                            // Create temporary modal for regular videos
+                            const tempModalId = 'video-modal-' + targetId;
+                            let modal = document.getElementById(tempModalId);
+                            
+                            if (!modal) {
+                                modal = document.createElement('div');
+                                modal.id = tempModalId;
+                                modal.className = 'video-page';
+                                modal.innerHTML = `
+                                    <div class="video-page-content">
+                                        <button class="back-button">&lt;&lt;</button>
+                                        <div class="video-page-player">
+                                            <video controls autoplay>
+                                                <source src="${container.dataset.videoSrc}" type="video/mp4">
+                                            </video>
+                                        </div>
+                                        <h1 class="video-page-title">${container.dataset.title}</h1>
+                                        <p class="video-page-description">${container.dataset.description}</p>
+                                    </div>
+                                `;
+                                document.body.appendChild(modal);
+                            }
+                            
+                            openModal(tempModalId, container);
+                        }
+                    }
+                }
             });
-        }
+        });
 
         // Video container clicks (open modal when clicked)
         document.querySelectorAll('.video-container').forEach(container => {
