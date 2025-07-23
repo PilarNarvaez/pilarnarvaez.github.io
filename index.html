@@ -302,7 +302,7 @@
             width: 100%;
         }
         .mobile-nav-header {
-    display: none;
+display: none !important;
 }
         
   /* Hide main navigation completely on mobile */
@@ -353,12 +353,13 @@
     color: #e74c3c !important; /* Same red as your links */
 }
 
-/* For devices with hover capability */
-@media (hover: hover) {
-    .back-button:hover {
-        color: #e74c3c !important;
+    /* For devices with hover capability */
+    @media (hover: hover) {
+        .back-button:hover {
+            color: #e74c3c !important;
+        }
     }
-    }
+}
 /* ===== DESKTOP STYLES (min-width: 769px) ===== */
 @media (min-width: 769px) {
     /* Hide mobile header completely on desktop */
