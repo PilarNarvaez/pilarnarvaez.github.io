@@ -377,7 +377,16 @@ display: none !important;
         display: inline !important;
     }
 }
-    
+     /* ===== ABSOLUTE UNDERLINE REMOVAL ===== */
+    /* Add this as the LAST rule before </style> */
+    .no-underline,
+    .no-underline:hover,
+    .no-underline:focus,
+    .no-underline:active {
+        text-decoration: none !important;
+        background-image: none !important;
+        border-bottom: 0 !important;
+    }   
 </style>
 </head>
 <body>
@@ -751,12 +760,25 @@ else if (container && container.id === "lizzo-spot") {
         // Add hover effects to links
         const links = desc.querySelectorAll('a');
         links.forEach(link => {
+            // Set initial red color
+            link.style.color = '#e74c3c';
+            // Remove underline permanently
+            link.style.textDecoration = 'none';
+            // Add smooth transition
             link.style.transition = 'color 0.2s ease';
+            
+            // 3. Preserve hover/click states
             link.addEventListener('mouseenter', () => {
-                link.style.color = '#333 !important';
+                link.style.color = '#333';
             });
             link.addEventListener('mouseleave', () => {
-                link.style.color = '#e74c3c !important';
+                link.style.color = '#e74c3c';
+            });
+            link.addEventListener('mousedown', () => {
+                link.style.color = '#333';
+            });
+            link.addEventListener('mouseup', () => {
+                link.style.color = '#e74c3c';
             });
         });
         } // closes if(desc)
