@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,6 +45,9 @@
             .main-nav {
                 display: none !important;
             }
+            .mobile-nav-header {
+                display: flex !important;
+            }
                 .video-page {
         padding: 30px 30px 60px; /* Matches your body padding */
     }
@@ -89,16 +93,10 @@
         }
 
         .portfolio-title {
-        text-align: left;
-        padding: 0 0 10px 0; 
-        margin: 0;
-        font-size: 18px;
-        font-weight: 500 !important;
-        width: 100%;
-        border: none !important;
-        outline: none !important;
-        box-shadow: none !important;
-        white-space: nowrap;
+            font-size: 18px;
+            font-weight: 500;
+            margin: 0 0 20px 0;
+            white-space: nowrap;
         }
 
         .main-nav {
@@ -147,7 +145,9 @@
         }
 
         /* Mobile styles */
-
+        .mobile-nav-header {
+            display: none;
+        }
         
         video {
             -webkit-appearance: none;
@@ -295,7 +295,7 @@
             overflow: hidden;
             margin-bottom: 0;
             padding-bottom: 56.25%;
-            background: transparent !important;
+            background: transparent;
         }
 
         .video-page-player video {
@@ -327,24 +327,18 @@
         } 
         
         /* Aspect ratio classes */
-.video-page-player {
-    aspect-ratio: 16/9; /* Default ratio */
-}
+        .video-ratio-16-9 { 
+            aspect-ratio: 16/9;
+        }
+        
+        .video-ratio-9-16 { 
+            aspect-ratio: 9/16;
+        }
+        
+        .video-ratio-1-1 { 
+            aspect-ratio: 1/1;
+        }
 
-.video-page-player.vertical {
-    aspect-ratio: 9/16;
-    max-width: 300px;
-}
-
-.video-page-player.square {
-    aspect-ratio: 1/1;
-    max-width: 500px;
-}
-
-.video-page-player.four-three {
-    aspect-ratio: 4/3;
-    max-width: 600px;
-}
         .video-page-title {
             font-size: 16px;
             font-weight: 500;
@@ -464,10 +458,10 @@
             
             /* Mobile Navigation Header */
             .mobile-nav-header {
-                display: none !important; /* Default state - hidden on desktop */
+                display: flex !important;
                 font-size: 16px;
                 flex-direction: column;
-                gap: 4px;
+                gap: 6px;
                 font-weight: normal;
                 text-decoration: none;
                 padding: 0 0 15px 0;
@@ -693,7 +687,7 @@
         }
         
         #fire-walk-with-me.video-container {
-            aspect-ratio: 4/3;
+            aspect-ratio: 16/9;
         }
         
         #fire-walk-with-me video {
@@ -749,7 +743,7 @@
         <a href="#kings-league">Kings League Twitch</a>
         <a href="#dries-lacroix-ss20">Dries Van Noten Lacroix SS20</a>
         <a href="#westwood-aw21">Vivienne Westwood AW21</a>
-        <a href="#lizzo-spot">Lizzo Spot</a>
+        <a href="#lizzo-spot">Lizo Spot</a>
         <a href="#godard-collages">Godard: Collage Tributes to Histoire(s) du cinéma</a>
 
     </nav>
@@ -836,7 +830,6 @@ English version shown.">
     <div id="fire-walk-with-me" class="video-container"
          data-video-src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4"
          data-title="Fire Walk With Me"
-      data-player-class="four-three" 
          data-description="I recreated Twin Peaks' iconic opening as a tribute to his work. Some scenes are flooded with light, an intentional reference to Fire Walk With Me, using Video Copilot's Saber plug-in to achieve a luminous glow. The goal was to create an abstract, experimental feel, inspired by László Moholy-Nagy's Light Space Modulator. The music is a cover by Xiu Xiu.">
         <video poster="https://pilarnarvaez.github.io/images/fire-poster.jpg" muted loop playsinline>
             <source src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4" type="video/mp4">
@@ -926,10 +919,10 @@ English version shown.">
           <!-- Spot -->
     <div id="lizzo-spot" class="video-container"
          data-video-src="https://pilarnarvaez.github.io/videos/lizzo.mp4"
-         data-title="Lizzo Spot"
-         data-description="Online spot for Lizzo.<br>
-        Camera Operator: <a href='https://www.mariomartin.net/' target='_blank' rel='noopener noreferrer'>Mario Martin</a>.
-        <br><a href='https://www.lizzo.net' target='_blank' rel='noopener noreferrer'>Lizzo Official Site</a>">
+         data-title="Lizzo spot"
+         data-description="Spot for Lizzo.
+     Camera Operator: <a href='https://www.mariomartin.net/' target='_blank' rel='noopener noreferrer'>Mario Martin</a><br>
+        <a href='https://www.lizzo.net' target='_blank' rel='noopener noreferrer'>Lizzo Official Site</a><br><br>
         <video poster="https://pilarnarvaez.github.io/images/lizzo-poster.jpg" muted loop playsinline>
             <source src="https://pilarnarvaez.github.io/videos/lizzo.mp4" type="video/mp4">
         </video>
