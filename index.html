@@ -119,6 +119,7 @@
         object-fit: cover;
   opacity: 0; /* Video hidden by default */
   transition: opacity 0.3s ease;
+         z-index: 1; /* Place above poster */
   background: transparent !important;
     }
 .video-container:hover video {
@@ -128,6 +129,7 @@
 .video-container video[poster] {
   display: block;
   object-fit: cover;
+    z-index: 0;
 }
     /* Video Overlay */
     .video-overlay {
@@ -142,7 +144,7 @@
         justify-content: center;
         opacity: 0;
         transition: opacity 0.3s ease, background 0.3s ease;
-        z-index: 1;
+        z-index: 2;
         pointer-events: none;
     }
 
