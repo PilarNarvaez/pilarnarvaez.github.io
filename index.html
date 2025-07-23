@@ -570,7 +570,7 @@
 <div id="lizzo-spot" class="video-container"
      data-video-src="https://pilarnarvaez.github.io/videos/lizzo.mp4"
      data-title="Lizzo Spot"
-     data-description="Spot created for Lizzo.<br>Camera Operator: Mario Martin. Lizzo Official Site.">
+     data-description="Spot created for Lizzo.&lt;br&gt;Camera Operator: &lt;a href='https://www.mariomartin.net/' target='_blank' style='color:#e74c3c !important'&gt;Mario Martin&lt;/a&gt;. &lt;a href='https://www.lizzo.net' target='_blank' style='color:#e74c3c !important'&gt;Lizzo Official Site&lt;/a&gt;">
     <video poster="https://pilarnarvaez.github.io/images/lizzo-poster.jpg" muted loop playsinline>
         <source src="https://pilarnarvaez.github.io/videos/lizzo.mp4" type="video/mp4">
     </video>
@@ -738,14 +738,26 @@ function openModal(modalId, container = null) {
     else if (container && container.id === "godard-collages") {
         // Godard modal is already set up
     } // closes godard case
-    else if (container && container.id === "lizzo-spot") {
-        const desc = modal.querySelector('.video-page-description');
-        if (desc) {
-            desc.innerHTML = `
-                Spot created for Lizzo.<br>
-                Camera Operator: <a href='https://www.mariomartin.net/' target='_blank' rel='noopener noreferrer'>Mario Martin</a><br>
-                <a href='https://www.lizzo.net' target='_blank' rel='noopener noreferrer'>Lizzo Official Site</a>
-            `;
+
+else if (container && container.id === "lizzo-spot") {
+    const desc = modal.querySelector('.video-page-description');
+    if (desc) {
+        // This preserves the HTML from data-description
+        desc.innerHTML = container.dataset.description
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>');
+        
+        // Add hover effects to links
+        const links = desc.querySelectorAll('a');
+        links.forEach(link => {
+            link.style.transition = 'color 0.2s ease';
+            link.addEventListener('mouseenter', () => {
+                link.style.color = '#333 !important';
+            });
+            link.addEventListener('mouseleave', () => {
+                link.style.color = '#e74c3c !important';
+            });
+        });
         } // closes if(desc)
     } // closes lizzo case
     else if (container) {
