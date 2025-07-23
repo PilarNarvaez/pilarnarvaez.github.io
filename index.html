@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,15 +48,7 @@
             .mobile-nav-header {
                 display: flex !important;
             }
-                .video-page {
-        padding: 30px 30px 60px; /* Matches your body padding */
-    }
-    
-    /* Specifically for JLG modal */
-    #godard-page .video-page-content {
-        padding-left: 30px;
-        padding-right: 30px;
-    }
+            
             #godard-page .video-page-content {
                 overflow-y: auto;
                 max-height: calc(100vh - 80px);
@@ -278,16 +271,6 @@
             outline: none !important;
             box-shadow: none !important;
         } 
-        .video-page-description a {
-    color: #e74c3c !important; /* Same red as your About/Contact links */
-    text-decoration: none !important;
-    font-family: 'Helvetica Neue', Arial, sans-serif !important;
-    transition: color 0.2s ease;
-}
-
-.video-page-description a:hover {
-    color: #333 !important; /* Same black hover color */
-    text-decoration: none !important;
                 
         /* Protect grid videos from modal styles */
         .video-columns .video-container video {
@@ -362,7 +345,6 @@
             font-size: 14px;
             line-height: 1.5;
             margin: 0 0 20px 0;
-            white-space: pre-line; /* line breaks */
         }
 
         #contact-page a.contact-email,
@@ -518,32 +500,20 @@
                 -ms-overflow-style: none;
                 scrollbar-width: none;
             }
-    /* MOBILE BACK BUTTON */
-.back-button {
-    /* Your existing button styles */
-    transition: color 0.1s ease; /* Faster transition for mobile taps */
-}
-
-/* Active state for all devices */
-.back-button:active {
-    color: #e74c3c !important;
-    text-decoration: none !important;
-}
-
-/* Hover state for devices that support it */
-@media (hover: hover) {
-    .back-button:hover {
-        color: #e74c3c !important;
-        text-decoration: none !important;
-    }
-}
-
-/* Focus state for keyboard navigation */
-.back-button:focus {
-    color: #e74c3c !important;
-    text-decoration: none !important;
-    outline: none !important; /* Remove default focus outline */
-}
+            
+            /* MOBILE BACK BUTTON */
+            .back-button:hover,
+            .back-button:focus,
+            .back-button:active {
+                color: #e74c3c !important;
+                text-decoration: none !important;
+            }
+            
+            @media (max-width: 768px) {
+                .back-button:active {
+                    color: #e74c3c !important;
+                }
+            }
 
            /* Video Grid - MOBILE (1 column) */
             .video-columns {
@@ -749,12 +719,8 @@
         <a href="#supercar-blondie-facebook">Supercar Blondie Facebook</a>
         <a href="#groot-twitter">I Am Groot Twitter</a>
         <a href="#just-eat">Just Eat Adaptations</a>
+        <a href="#godard-collages">Godard: Poster tributes to Histoire(s) du cinéma</a>
         <a href="#kings-league">Kings League Twitch</a>
-        <a href="#dries-lacroix-ss20">Dries Van Noten Lacroix SS20</a>
-        <a href="#westwood-aw21">Vivienne Westwood AW21</a>
-        <a href="#lizzo-spot">Lizzo Spot</a>
-        <a href="#godard-collages">Godard: Collage Tributes to Histoire(s) du cinéma</a>
-
     </nav>
 </div>
     
@@ -795,12 +761,10 @@
     <div id="menopause-campaign" class="video-container" 
          data-video-src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4"
          data-title="Menopause Awareness Day"
-         data-description="Minúsculas Producciones and I created a social media video for Spain's Women's Institute for World Menopause Day.
+         data-description="Minúsculas Producciones and I created a social media video for Spain's Women's Institute for World Menopause Day. &#10;&#10;Inspired by female artists Carmen Herrera and Barbara Stauffacher Solomon, I designed bold, minimalist graphics in Illustrator, animating them with abstract, dynamic compositions. The video prioritizes visuals over text, featuring two key messages and a vintage film-reel effect.
+&#10;&#10;Music: Bensound, license code PRF3J70PUMA2EYO6.
 
-Inspired by female artists Carmen Herrera and Barbara Stauffacher Solomon, I designed bold, minimalist graphics in Illustrator, animating them with abstract, dynamic compositions. The video prioritizes visuals over text, featuring two key messages and a vintage film-reel effect.
-
-Music: Bensound, license code PRF3J70PUMA2EYO6.
-English version shown.">
+(English version shown.)">
         <video poster="https://pilarnarvaez.github.io/images/menopause-poster.jpg" muted loop playsinline>
             <source src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4" type="video/mp4">
         </video>
@@ -887,69 +851,29 @@ English version shown.">
         </div>
     </div>
     
-      <!-- Kings League Twitch -->
-    <div id="kings-league" class="video-container"
-         data-video-src="https://pilarnarvaez.github.io/videos/jugador-13.mp4"
-         data-title="Kings League: Jugador número 13"
-         data-description="Video for the Kings League and Movistar. A contest to enjoy one day as a presenter during Los Troncos' match in the Kings League.">
-        <video poster="https://pilarnarvaez.github.io/images/jugador-13-poster.jpg" muted loop playsinline>
-            <source src="https://pilarnarvaez.github.io/videos/jugador-13.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-            <span>Kings League Twitch</span>
-        </div>
-    </div>  
-        
-      <!-- Dries Van Noten Lacroix SS20 -->
-    <div id="dries-lacroix-ss20" class="video-container"
-         data-video-src="https://pilarnarvaez.github.io/videos/Dries-Lacroix.mp4"
-         data-title="Dries Van Noten Lacroix SS20"
-         data-description="Video tribute to Dries Van Noten & Christian Lacroix Spring Summer 2020 collection.">
-        <video poster="https://pilarnarvaez.github.io/images/dries-lacroix-ss20-poster.jpg" muted loop playsinline>
-            <source src="https://pilarnarvaez.github.io/videos/Dries-Lacroix.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-            <span>Dries Lacroix SS20</span>
-        </div>
-    </div>  
-            
-      <!-- Vivienne Westwood AW21 -->
-    <div id="westwood-aw21" class="video-container"
-         data-video-src="https://pilarnarvaez.github.io/videos/westwood-ss21.mp4"
-         data-title="Vivienne Westwood AW21"
-         data-description="Video tribute to Vivienne Westwood Autumn Winter 2021 collection.">
-        <video poster="https://pilarnarvaez.github.io/images/westwood-ss21-poster.jpg" muted loop playsinline>
-            <source src="https://pilarnarvaez.github.io/videos/westwood-ss21.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-            <span>Westwood AW21</span>
-        </div>
-    </div>  
-          <!-- Spot Lizzo -->
-<div id="lizzo-spot" class="video-container"
-     data-video-src="https://pilarnarvaez.github.io/videos/lizzo.mp4"
-     data-title="Lizzo Spot"
-     data-description="Spot created for Lizzo.<br>Camera Operator: <a href='https://www.mariomartin.net/' target='_blank' rel='noopener noreferrer'>Mario Martin</a><br><a href='https://www.lizzo.net' target='_blank' rel='noopener noreferrer'>Lizzo Official Site</a>">
-     data-simple-description="Lizzo Spot">
-    <video poster="https://pilarnarvaez.github.io/images/lizzo-poster.jpg" muted loop playsinline>
-        <source src="https://pilarnarvaez.github.io/videos/lizzo.mp4" type="video/mp4">
-    </video>
-    <div class="video-overlay">
-        <span>Lizzo Spot</span>
-    </div>
-</div>
     <!-- Godard Collages -->
     <div id="godard-collages" class="video-container"
          data-modal="godard-page"
-         data-title="Godard: Collage Tributes to Histoire(s) du cinéma"
-         data-description="I watched Jean-Luc Godard’s documentary series Histoire(s) du cinéma and loved it. Inspired by his work, I created these collages as a tribute, using stills captured from the films.&#10;&#10;Each collage corresponds to one episode, and the final piece is made from stills of Deux fois cinquante ans de cinéma français, a documentary by Jean-Luc Godard and Anne-Marie Miéville. In order:&#10;&#10;Godard: Histoire(s) du cinéma 1a Toutes les histoires collage&#10;Godard: Histoire(s) du cinéma 1b Une histoire seule collage&#10;Godard: Histoire(s) du cinéma 2a Seul le cinema collage&#10;Godard: Histoire(s) du cinéma 2b Fatale beauté collage&#10;Godard: Histoire(s) du cinéma 3a La monnaie de l'absolu collage&#10;Godard: Histoire(s) du cinéma 3b Une vague nouvelle&#10;Godard: Histoire(s) du cinéma 4a Le contrôle de l'univers collage&#10;Godard: Histoire(s) du cinéma 4b Les signes parmi nous collage&#10;Jean-Luc Godard & Anne-Marie Miéville: Deux fois cinquante ans de cinéma français collage">
+         data-title="Godard: Poster tributes to Histoire(s) du cinéma"
+         data-description="I watched the Jean-Luc Godard documentaries Histoire(s) du cinéma and I loved them. Inspired by them I created these collages as a tribute to his great work using stills captured from the videos.&#10;&#10;There is one collage for each episode and the last collage is done with stills from the JLG and Anne-Marie Miéville documentary Deux fois cinquante ans de cinéma français. In order:&#10;&#10;Godard: Histoire(s) du cinéma 1a Toutes les histoires collage&#10;Godard: Histoire(s) du cinéma 1b Une histoire seule collage&#10;Godard: Histoire(s) du cinéma 2a Seul le cinema collage&#10;Godard: Histoire(s) du cinéma 2b Fatale beauté collage&#10;Godard: Histoire(s) du cinéma 3a La monnaie de l'absolu collage&#10;Godard: Histoire(s) du cinéma 3b Une vague nouvelle&#10;Godard: Histoire(s) du cinéma 4a Le contrôle de l'univers collage&#10;Godard: Histoire(s) du cinéma 4b Les signes parmi nous collage&#10;Jean-Luc Godard & Anne-Marie Miéville: Deux fois cinquante ans de cinéma français collage">
         <img src="https://pilarnarvaez.github.io/images/godard-collages-poster.jpg" alt="Godard Collages">
         <div class="video-overlay">
             <span>Godard Collages</span>
         </div>
     </div>
     
-
+    <!-- Kings League Twitch -->
+    <div id="kings-league" class="video-container"
+         data-video-src="https://pilarnarvaez.github.io/videos/Kings-League-Twitch.mp4"
+         data-title="Kings League Twitch"
+         data-description="Content created for Kings League on Twitch.">
+        <video poster="https://pilarnarvaez.github.io/images/kingsleague-poster.jpg" muted loop playsinline>
+            <source src="https://pilarnarvaez.github.io/videos/Kings-League-Twitch.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+            <span>Kings League Twitch</span>
+        </div>
+    </div>
 </div><!-- Close video-columns -->    
 
 <!-- Just Eat Expanded Modal -->
@@ -1057,7 +981,6 @@ English version shown.">
 </footer>
 
 <script>
-<script>
 document.addEventListener('DOMContentLoaded', function() {
     // Close all modals and reset videos
     function closeAllModals() {
@@ -1068,7 +991,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 v.currentTime = 0;
             });
         });
-        document.body.style.overflow = 'auto';
+        document.body.style.overflow = '';
     }
 
     // Open a modal with content
@@ -1081,33 +1004,41 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
 
-        // Special handling for Just Eat expanded view
-        if (modalId === 'just-eat-expanded' && container) {
+        // Special cases for Just Eat and Godard
+        if (container && container.id === "just-eat") {
             const videos = modal.querySelectorAll('video');
             videos[0].src = container.dataset.videoSrc;
             videos.forEach(v => {
+                v.muted = true;
+                v.controls = true;
                 v.load();
-                v.play().catch(e => console.log('Autoplay prevented:', e));
+                v.addEventListener('play', function() {
+                    videos.forEach(otherV => {
+                        if (otherV !== v) otherV.pause();
+                    });
+                    this.muted = false;
+                });
             });
         }
-        // Special handling for Godard collages (already set up)
-        else if (modalId === 'godard-page') {
-            // Nothing extra needed here
+        else if (container && container.id === "godard-collages") {
+            // Godard modal is already set up
         }
-        // Regular video handling
         else if (container) {
-            const video = modal.querySelector('video');
-            if (video) {
-                video.src = container.dataset.videoSrc;
-                video.load();
-                video.play().catch(e => video.controls = true);
+            // For regular video containers
+            const videoPlayer = modal.querySelector('.video-page-player');
+            if (videoPlayer) {
+                videoPlayer.innerHTML = `
+                    <video controls autoplay>
+                        <source src="${container.dataset.videoSrc}" type="video/mp4">
+                    </video>
+                `;
             }
             
             const title = modal.querySelector('.video-page-title');
             if (title) title.textContent = container.dataset.title;
             
             const desc = modal.querySelector('.video-page-description');
-            if (desc) desc.innerHTML = container.dataset.description;
+            if (desc) desc.textContent = container.dataset.description;
         }
     }
 
@@ -1121,22 +1052,24 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Project navigation links - highlight and scroll
-        document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const target = document.getElementById(targetId);
-                
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    target.classList.add('active-click');
-                    setTimeout(() => target.classList.remove('active-click'), 1000);
-                }
+        // Project navigation links - DESKTOP VERSION (scroll to container)
+        if (window.innerWidth > 768) {
+            document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const target = document.getElementById(targetId);
+                    if (target) {
+                        target.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center'
+                        });
+                    }
+                });
             });
-        });
+        }
 
-        // Video container clicks
+        // Video container clicks (open modal when clicked)
         document.querySelectorAll('.video-container').forEach(container => {
             container.addEventListener('click', function(e) {
                 if (e.target.tagName === 'A') return;
@@ -1149,24 +1082,46 @@ document.addEventListener('DOMContentLoaded', function() {
                     openModal('godard-page', this);
                 }
                 else {
-                    openModal('video-page', this);
+                    // Create a temporary modal ID for regular videos
+                    const tempModalId = 'video-modal-' + this.id;
+                    let modal = document.getElementById(tempModalId);
+                    
+                    if (!modal) {
+                        modal = document.createElement('div');
+                        modal.id = tempModalId;
+                        modal.className = 'video-page';
+                        modal.innerHTML = `
+                            <div class="video-page-content">
+                                <button class="back-button">&lt;&lt;</button>
+                                <div class="video-page-player">
+                                    <video controls autoplay>
+                                        <source src="${this.dataset.videoSrc}" type="video/mp4">
+                                    </video>
+                                </div>
+                                <h1 class="video-page-title">${this.dataset.title}</h1>
+                                <p class="video-page-description">${this.dataset.description}</p>
+                            </div>
+                        `;
+                        document.body.appendChild(modal);
+                    }
+                    
+                    openModal(tempModalId, this);
                 }
             });
         });
 
         // Back button
-        document.querySelectorAll('.back-button').forEach(btn => {
-            btn.addEventListener('click', function(e) {
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('back-button')) {
                 e.preventDefault();
                 closeAllModals();
-            });
+            }
         });
     }
 
     // Initialize
     setupEventListeners();
 });
-</script>
 </script>
 </body>
 </html>
