@@ -720,6 +720,15 @@ document.addEventListener('DOMContentLoaded', function() {
         else if (container && container.id === "godard-collages") {
             // Godard modal is already set up
         }
+                else if (container && container.id === "lizzo-spot") {
+        const desc = modal.querySelector('.video-page-description');
+        if (desc) {
+            desc.innerHTML = `
+                Spot created for Lizzo.<br>
+                Camera Operator: <a href='https://www.mariomartin.net/' target='_blank' rel='noopener noreferrer'>Mario Martin</a><br>
+                <a href='https://www.lizzo.net' target='_blank' rel='noopener noreferrer'>Lizzo Official Site</a>
+            `;
+        }
         else if (container) {
             // For regular video containers
             const videoPlayer = modal.querySelector('.video-page-player');
