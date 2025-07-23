@@ -5,703 +5,280 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pilar Narvaez Portfolio</title>
-    <style>
-        * {
-            border: none !important;
-            outline: none !important;
-            box-shadow: none !important;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-        }
-        
-        /* Force-remove borders on common offenders */
-        hr, .video-page-title, .footer, .text-column {
-            border: 0 !important;
-            background: white !important;
-        }
-        
-        html, body {
-            height: 100%;
-            overflow-x: hidden;
-            width: 100%;
-            scroll-behavior: smooth;
-            background: white !important;
-        }
+<style>
+    /* ===== GLOBAL RESETS ===== */
+    * {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
 
+    /* ===== CORE PAGE STYLES ===== */
+    html, body {
+        height: 100%;
+        overflow-x: hidden;
+        width: 100%;
+        scroll-behavior: smooth;
+        background: white !important;
+    }
+
+    body {
+        min-height: 100vh;
+        background-color: white;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    /* ===== HEADER & NAVIGATION ===== */
+    .header-container {
+        margin: 40px 0 30px 40px;
+        width: calc(100% - 80px);
+    }
+
+    .portfolio-title {
+        font-size: 18px;
+        font-weight: 500;
+        margin: 0 0 20px 0;
+        white-space: nowrap;
+    }
+
+    /* Main Navigation - Desktop */
+    .main-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        align-items: center;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        row-gap: 10px;
+        margin-bottom: 5px;
+    }
+
+    .main-nav a {
+        font-size: 14px;
+        text-decoration: none !important;
+        white-space: nowrap;
+        transition: color 0.2s ease;
+    }
+
+    .main-nav a[data-modal] {
+        color: #e74c3c !important;
+    }
+
+    .main-nav a[data-modal]:hover {
+        color: #333 !important;
+    }
+
+    .main-nav a[href^="#"]:not([data-modal]) {
+        color: #333 !important;
+    }
+
+    .main-nav a[href^="#"]:not([data-modal]):hover {
+        color: #e74c3c !important;
+    }
+
+    /* ===== VIDEO GRID ===== */
+    .video-columns {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        margin-top: 30px;
+        gap: 15px;
+        width: 100%;
+        padding: 0 40px;
+    }
+
+    .video-container {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16/9;
+        overflow: hidden;
+        cursor: pointer;
+        isolation: isolate;
+        background: transparent !important;
+    }
+
+    .video-container video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        background: transparent !important;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        transform: translate3d(0,0,0);
+    }
+
+    /* Video Overlay */
+    .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(231, 76, 60, 0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease, background 0.3s ease;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .video-overlay span {
+        font-size: 14px;
+        font-weight: 500;
+        color: white;
+        text-align: center;
+        padding: 0 20px;
+        width: 100%;
+        mix-blend-mode: screen;
+    }
+
+    .video-container:hover .video-overlay,
+    .video-container.active .video-overlay,
+    .video-container.active-click .video-overlay {
+        opacity: 1;
+        background: rgba(231, 76, 60, 0.85) !important;
+    }
+
+    /* ===== MODAL STYLES ===== */
+    .video-page {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white !important;
+        z-index: 1000;
+        overflow-y: auto;
+        padding: 40px;
+    }
+
+    .video-page-content {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        padding: 40px 0 30px;
+    }
+
+    .video-page-player {
+        width: 100%;
+        max-width: 800px;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 30px;
+        aspect-ratio: 16/9;
+        background: black !important;
+    }
+
+    .video-page-player video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .video-page-title {
+        font-size: 16px;
+        font-weight: 500;
+        margin: 20px 0;
+    }
+
+    .video-page-description {
+        font-size: 14px;
+        line-height: 1.5;
+        margin: 0 0 20px 0;
+        white-space: pre-line;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+        margin: 60px 0 0 40px;
+        padding: 0;
+        font-size: 14px;
+        color: #333;
+    }
+
+    .footer a {
+        color: #333 !important;
+        text-decoration: none !important;
+        transition: color 0.2s ease;
+    }
+
+    .footer a:hover {
+        color: #e74c3c !important;
+    }
+
+    /* ===== SPECIAL CASES ===== */
+    #godard-collages {
+        background: transparent !important;
+    }
+
+    #godard-collages img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .image-gallery {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    /* ===== MOBILE STYLES (max-width: 768px) ===== */
+    @media (max-width: 768px) {
         body {
-            min-height: 100vh;
-            background-color: white;
-            color: #333;
-            line-height: 1.6;
-            padding: 0;
-            margin: 0;
-            position: relative;
+            padding: 30px 30px 60px;
         }
 
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            .main-nav {
-                display: none !important;
-            }
-            .mobile-nav-header {
-                display: flex !important;
-            }
-            
-            #godard-page .video-page-content {
-                overflow-y: auto;
-                max-height: calc(100vh - 80px);
-                padding-bottom: 60px;
-            }
-            
-            .image-gallery {
-                gap: 15px;
-            }
-            
-            .image-gallery img {
-                max-height: 60vh;
-            }
-        }
-        
-        @media (min-width: 769px) {
-            .mobile-nav-header {
-                display: none !important;
-            }
-            .main-nav {
-                display: flex !important;
-            }
-        }
-        
-        .main-nav {
-            row-gap: 10px !important;
-            margin-bottom: 5px;
-        }
-
-        /* Header and Navigation */
         .header-container {
-            margin: 40px 0 30px 40px;
-            width: calc(100% - 80px);
-        }
-
-        .portfolio-title {
-            font-size: 18px;
-            font-weight: 500;
-            margin: 0 0 20px 0;
-            white-space: nowrap;
+            margin: 0;
+            width: 100%;
         }
 
         .main-nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            align-items: center;
-            overflow-x: auto;
-            padding-bottom: 10px;
+            display: none !important;
         }
 
-        .main-nav a {
-            font-size: 14px;
-            text-decoration: none !important;
-            white-space: nowrap;
-            transition: color 0.2s ease;
-        }
-
-        /* About/Contact links */
-        .main-nav a[data-modal] {
-            color: #e74c3c !important;
-        }
-
-        .main-nav a[data-modal]:hover {
-            color: #333 !important;
-        }
-
-        /* Project links */
-        .main-nav a[href^="#"]:not([data-modal]) {
-            color: #333 !important;
-        }
-
-        .main-nav a[href^="#"]:not([data-modal]):hover {
-            color: #e74c3c !important;
-        }        
-
-        /* Video grid */
-        .video-columns {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            margin-top: 30px;
-            gap: 15px;
-            width: 100%;
-            padding: 0 40px;
-            align-content: start;
-        }
-
-        /* Mobile styles */
         .mobile-nav-header {
-            display: none;
-        }
-        
-        video {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-        }    
-        
-        .video-container {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16/9;
-            overflow: hidden;
-            cursor: pointer;
-            isolation: isolate;
-            background: transparent;
-        }
-
-        .video-container video {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: opacity 0.3s ease;
-            z-index: 0;
-            display: block;
-            line-height: 0;
-            margin: 0;
-            background: transparent !important;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            transform: translate3d(0,0,0);
-            outline: none;
-            border: none;
-            box-shadow: none;
-        }
-        
-        /* Hide media controls */
-        video::-webkit-media-controls-enclosure {
-            display: none !important;
-        }
-        
-        /* For Firefox */
-        video::-moz-media-controls {
-            display: none !important;
-        }
-        
-        .video-container.active-click .video-overlay {
-            opacity: 1 !important;
-            background: rgba(231, 76, 60, 0.85) !important;
-        }
-          
-        .video-container video[poster] {
-            opacity: 1;
-        } 
-
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(231, 76, 60, 0);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease, background 0.3s ease;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .video-overlay span {
-            font-size: 14px; 
-            font-weight: 500;
-            color: white;
-            text-align: center;
-            padding: 0 20px;
-            width: 100%;
-            mix-blend-mode: screen;
-        }
-
-        .video-container:hover .video-overlay {
-            opacity: 1;
-            background: rgba(231, 76, 60, 0.85);
-        }
-        
-        .video-container.active .video-overlay {
-            opacity: 1;
-            background: rgba(231, 76, 60, 0.85);
-            pointer-events: none; 
-        }
-
-        /* Godard Collages Grid Item Fix */
-        #godard-collages {
-            background: transparent !important;
-            isolation: isolate;
-        }
-
-        #godard-collages img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: block;
-            background: transparent !important;
-            mix-blend-mode: normal !important;
-        }
-
-        /* Modal styles */   
-        .video-page {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            z-index: 1000;
-            overflow-y: auto;
-            padding: 40px;
-            margin: 0;
-        }
-            
-        .video-page-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            padding: 40px 0 30px;
-            border: none !important;
-            outline: none !important;
-            box-shadow: none !important;
-        } 
-                
-        /* Protect grid videos from modal styles */
-        .video-columns .video-container video {
-            position: static !important;
-            height: auto !important;
-            object-fit: cover !important;
-        }
-        
-        /* Modal player styles */
-        .video-page-player {
-            width: 100%;
-            max-width: 800px;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 0;
-            padding-bottom: 56.25%;
-            background: transparent;
-        }
-
-        .video-page-player video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background: transparent !important;
-            transform-style: preserve-3d;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            display: block;
-            margin: 0;
-            padding: 0;
-            line-height: 0;
-            outline: none;
-            transform: translateZ(0);
-            -webkit-mask-image: -webkit-radial-gradient(white, black);
-        }
-        
-        /* Enhanced iOS Fix */
-        @supports (-webkit-touch-callout: none) {
-            .video-page-player video {
-                -webkit-transform: translateZ(0);
-                mask-image: -webkit-radial-gradient(white, black);
-            }
-        } 
-        
-        /* Aspect ratio classes */
-        .video-ratio-16-9 { 
-            aspect-ratio: 16/9;
-        }
-        
-        .video-ratio-9-16 { 
-            aspect-ratio: 9/16;
-        }
-        
-        .video-ratio-1-1 { 
-            aspect-ratio: 1/1;
-        }
-
-        .video-page-title {
+            display: flex !important;
             font-size: 16px;
-            font-weight: 500;
-            margin: 20px 0 20px 0;
-            padding: 0;
-            border: none !important;
-            outline: none !important;
-            box-shadow: none !important;
-        }
-            
-        .video-page-description {
-            font-size: 14px;
-            line-height: 1.5;
-            margin: 0 0 20px 0;
-        }
-
-        #contact-page a.contact-email,
-        #contact-page a.contact-email:link,
-        #contact-page a.contact-email:visited,
-        #contact-page a.contact-email:hover {
-            color: #333 !important;
-            text-decoration: none !important;
-            font-size: 16px;
-            font-family: 'Helvetica Neue', Arial, sans-serif !important;
-            transition: color 0.2s ease;
-            display: inline-block;
-        }
-
-        #contact-page a.contact-email:hover {
-            color: #e74c3c !important;
-            text-decoration: underline !important;
-        }
-
-        .back-button {
-            position: fixed;
-            top: 40px;
-            right: 40px;
-            color: #999 !important;
-            background: transparent !important;
-            font-size: 24px;
-            z-index: 1001 !important;
-            transition: color 0.2s ease;
-            border: none !important;
-            box-shadow: none !important;
-            text-decoration: none !important;
-            padding: 0;
-            margin: 0;
-            cursor: pointer;
-        }
-
-        .back-button:hover {
-            color: #e74c3c !important;
-        }
-                
-        /* Desktop Footer */
-        .footer {
-            margin: 60px 0 0 40px;
-            padding: 0;
-            width: auto;
-            max-width: none;
-            font-size: 14px;
-            font-weight: normal;
-            color: #333;
-            background: white !important;
-            text-align: left;
-            border: none !important;
-            outline: none !important;
-            box-shadow: none !important;
-        }
-        
-        .footer div {
-            margin-bottom: 8px;
-            font-weight: normal;
-            display: block;
-            text-align: left !important;
-        }
-        
-        .footer a {
-            color: #333 !important;
-            font-weight: normal;
-            text-decoration: none !important;
-            transition: color 0.2s ease;
-            text-align: left !important;
-        }
-
-        .footer a:hover {
-            color: #e74c3c !important;
-            font-weight: normal;
-            text-decoration: none !important;
-        }
-
-        @media (max-width: 768px) {
-            /* Body & Layout */
-            body {
-                background: white !important;
-                padding: 30px 30px 60px 30px;
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
-                position: relative;
-                overflow-x: hidden;
-                -webkit-mask-image: none !important;
-            }
-            
-            /* Portfolio Title */
-            .portfolio-title {
-                text-align: left;
-                padding: 0 0 20px 0;
-                margin: 0;
-                font-size: 18px;
-                font-weight: 500 !important;
-                width: 100%;
-                border: none !important;
-                outline: none !important;
-                box-shadow: none !important;
-            }
-            
-            /* Mobile Navigation Header */
-            .mobile-nav-header {
-                display: flex !important;
-                font-size: 16px;
-                flex-direction: column;
-                gap: 6px;
-                font-weight: normal;
-                text-decoration: none;
-                padding: 0 0 15px 0;
-                margin: -10px 0 15px 0;
-            }
-            
-            /* Mobile About/Contact links */
-            .mobile-nav-header a:first-child {
-                margin-bottom: 2px;
-            }
-           
-            .mobile-nav-header a {
-                font-size: 16px;
-                font-weight: normal; 
-                color: #e74c3c !important;
-                text-decoration: none;
-                transition: color 0.2s ease;
-            }
-                
-            /* Mobile hover states */
-            .mobile-nav-header a:hover,
-            .mobile-nav-header a:focus,
-            .mobile-nav-header a:active {
-                color: #333 !important;
-                text-decoration: none !important;
-            }
-                
-            /* Hide desktop-specific elements */
-            .title-links,
-            .text-column,
-            .project-titles {
-                display: none !important;
-            }
-            
-            /* Main Content */
-            .main-content {
-                display: block;
-                background: white !important;
-                padding: 0 0 40px 0;
-                overflow-y: visible;
-                -webkit-overflow-scrolling: touch;
-                min-height: 0;
-                position: relative;
-                z-index: 1;
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-            }
-            
-            /* MOBILE BACK BUTTON */
-            .back-button:hover,
-            .back-button:focus,
-            .back-button:active {
-                color: #e74c3c !important;
-                text-decoration: none !important;
-            }
-            
-            @media (max-width: 768px) {
-                .back-button:active {
-                    color: #e74c3c !important;
-                }
-            }
-
-           /* Video Grid - MOBILE (1 column) */
-            .video-columns {
-                grid-template-columns: 1fr;
-                width: 100%;
-                gap: 15px;
-                padding: 0;
-                margin: 0;
-            } 
-                
-            /* Mobile Footer */
-            .footer {
-                width: 100% !important;
-                margin: 40px 0 0 0 !important;
-                padding: 0 !important;
-                text-align: center !important;
-            }
-            
-            .footer div {
-                text-align: center !important;
-                margin-bottom: 8px;
-            }
-            
-            .footer a {
-                text-align: center !important;
-            }
-            
-            /* Hide desktop navigation */
-            .text-column {
-                display: none;
-                border: none !important;
-                outline: none !important;
-                box-shadow: none !important;
-            }
-        }
-          
-        /* ===== GLOBAL STYLES ===== */
-        .video-container {
-            position: relative;
-            width: 100%;
-            margin: 0;
-            padding: 0;
-            max-width: 100%;
-            height: auto;
-            cursor: pointer;
-            background: transparent !important;
-        }
-        
-        /* Vertical Video Format */
-        .video-container.vertical {
-            aspect-ratio: 9/16;
-        }
-         
-        .video-overlay {
-            opacity: 0;
-            background: rgba(231, 76, 60, 0.6);
-        }
-        
-        .video-container.active .video-overlay {
-            opacity: 0.85;
-            background: black !important;
-        }   
-        
-        /* Main Grid Videos */
-        .video-container video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            display: block;
-            background: transparent;
-            -webkit-transform: translateZ(0);
-            -webkit-mask-image: -webkit-radial-gradient(white, black);
-            transform: translateZ(0);
-            -webkit-perspective: 1000;
-            perspective: 1000;
-        }
-        
-        /* Modal Video Player */
-        .video-page-player {
-            width: 100%;
-            background: black !important;
-            margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Horizontal videos (default 16:9) */
-        .video-page-player:not(.vertical) {
-            aspect-ratio: 16/9;
-        }
-
-        /* Vertical videos */
-        .video-page-player.vertical {
-            aspect-ratio: 9/16;
-            max-width: 300px;
-            margin: 0 auto 30px;
-        }
-
-        /* Modal Video Element */
-        .video-page-player video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background: transparent !important;
-            display: block;
-        }
-
-        /* Video captions */
-        .video-caption {
-            font-size: 12px;
-            color: #666;
-            margin: 8px 0 20px;
-            text-align: center;
-            display: block;
-        }
-
-        /* Special cases */
-        #video-page video[controls] {
-            cursor: default;
-        }
-        
-        #video-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white !important;
-            z-index: 100;
-            padding: 40px;
-        }
-
-        #video-modal .video-page-player {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto 30px;
-            aspect-ratio: 16/9;
-        }
-
-        #video-modal .video-page-player video {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background: black !important;
-        }
-        
-        #fire-walk-with-me.video-container {
-            aspect-ratio: 16/9;
-        }
-        
-        #fire-walk-with-me video {
-            object-fit: cover;
-        }
-        
-        #just-eat-expanded .video-page-player {
-            margin-bottom: 30px;
-        }
-
-        #just-eat-expanded .video-page-player.vertical {
-            max-width: 300px;
-            margin: 0 auto 30px;
-        }
-
-        /* Image Gallery Styles */
-        .image-gallery {
-            display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 6px;
+            padding: 0 0 15px 0;
+            margin: -10px 0 15px 0;
         }
 
-        .image-gallery img {
-            width: 100%;
-            max-width: 800px;
-            height: auto;
-            max-height: 70vh;
-            margin: 0 auto;
-            object-fit: contain;
-            display: block;
-            border: none !important;
-            transition: transform 0.3s ease;
+        .mobile-nav-header a {
+            color: #e74c3c !important;
+            text-decoration: none !important;
         }
-    </style>
+
+        .video-columns {
+            grid-template-columns: 1fr;
+            padding: 0;
+        }
+
+        .video-page {
+            padding: 30px;
+        }
+
+        .footer {
+            margin: 40px 0 0;
+            text-align: center !important;
+        }
+    }
+</style>
 </head>
 <body>
 
