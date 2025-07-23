@@ -302,6 +302,24 @@
             text-align: center !important;
         }
     }
+/* ===== DESKTOP STYLES (min-width: 769px) ===== */
+@media (min-width: 769px) {
+    /* Hide mobile header completely on desktop */
+    .mobile-nav-header {
+        display: none !important;
+    }
+
+    /* Show main navigation normally */
+    .main-nav {
+        display: flex !important;
+    }
+
+    /* Ensure About/Contact links appear in main nav */
+    .main-nav a[data-modal] {
+        display: inline !important;
+    }
+}
+    
 </style>
 </head>
 <body>
