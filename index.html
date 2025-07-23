@@ -1052,21 +1052,33 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Project navigation links - DESKTOP VERSION (scroll to container)
-        if (window.innerWidth > 768) {
-            document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    const target = document.getElementById(targetId);
-                    if (target) {
-                        target.scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'center'
-                        });
-                    }
-                });
+ if (window.innerWidth > 768) {
+        document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetContainer = document.getElementById(targetId);
+                
+                if (targetContainer) {
+                    // Scroll to the container
+                    targetContainer.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'nearest'
+                    });
+                    
+                    // Highlight briefly
+                    targetContainer.classList.add('active-click');
+                    const overlay = targetContainer.querySelector('.video-overlay');
+                    if (overlay) overlay.style.opacity = '1';
+                    
+                    setTimeout(() => {
+                        targetContainer.classList.remove('active-click');
+                        if (overlay) overlay.style.opacity = '0';
+                    }, 1000);
+                }
             });
-        }
+        });
+    }
 
         // Video container clicks (open modal when clicked)
         document.querySelectorAll('.video-container').forEach(container => {
