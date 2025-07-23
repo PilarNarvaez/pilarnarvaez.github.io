@@ -569,11 +569,11 @@ display: none !important;
     </div>  
               <!-- UOC corporative -->
 <div id="UOC-corporative" class="video-container"
-     data-video-src="https://pilarnarvaez.github.io/videos/UOC.mp4"
+     data-video-src="https://pilarnarvaez.github.io/videos/UOC-corporative.mp4"
      data-title="UOC Corporative"
           data-description="Online video for the Catalunya Open University (UOC). In Spanish (Editing &amp; Motion Graphics using Adobe Suite).&lt;br&gt;Camera Operator: &lt;a href='https://www.mariomartin.net' target='_blank'&gt;Mario Martin&lt;/a&gt;">
     <video poster="https://pilarnarvaez.github.io/images/UOC-poster.jpg" muted loop playsinline>
-        <source src="https://pilarnarvaez.github.io/videos/UOC.mp4" type="video/mp4">
+        <source src="https://pilarnarvaez.github.io/videos/UOC-corporative.mp4" type="video/mp4">
     </video>
     <div class="video-overlay">
         <span>UOC Corporative</span>
@@ -752,13 +752,14 @@ function openModal(modalId, container = null) {
         // Godard modal is already set up
     } // closes godard case
 
-else if (container && (container.id === "lizzo-spot" || container.id === "UOC-spot")) {
+else if (container && (container.id === "lizzo-spot" || container.id === "UOC-corporative")) {
     const desc = modal.querySelector('.video-page-description');
     if (desc) {
         // This preserves the HTML from data-description
         desc.innerHTML = container.dataset.description
             .replace(/&lt;/g, '<')
             .replace(/&gt;/g, '>');
+             .replace(/&amp;/g, '&');
         
         // Add hover effects to links
         const links = desc.querySelectorAll('a');
