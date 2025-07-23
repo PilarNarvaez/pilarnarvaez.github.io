@@ -248,7 +248,7 @@
     background: transparent !important;
     font-size: 28px; /* Increased from 24px */
     z-index: 1001;
-    transition: color 0.2s ease;
+    transition: color 0.5s ease;
     border: none !important;
     box-shadow: none !important;
     text-decoration: none !important;
@@ -553,8 +553,7 @@
 <div id="lizzo-spot" class="video-container"
      data-video-src="https://pilarnarvaez.github.io/videos/lizzo.mp4"
      data-title="Lizzo Spot"
-     data-description="Spot created for Lizzo.<br>Camera Operator: <a href='https://www.mariomartin.net/' target='_blank' rel='noopener noreferrer'>Mario Martin</a><br><a href='https://www.lizzo.net' target='_blank' rel='noopener noreferrer'>Lizzo Official Site</a>">
-     data-simple-description="Lizzo Spot">
+     data-description="Spot created for Lizzo.<br>Camera Operator: Mario Martin. Lizzo Official Site.">
     <video poster="https://pilarnarvaez.github.io/images/lizzo-poster.jpg" muted loop playsinline>
         <source src="https://pilarnarvaez.github.io/videos/lizzo.mp4" type="video/mp4">
     </video>
@@ -702,7 +701,7 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
 
-        // Special cases for Just Eat and Godard
+        // Special cases for Just Eat, Godard and Lizzo
         if (container && container.id === "just-eat") {
             const videos = modal.querySelectorAll('video');
             videos[0].src = container.dataset.videoSrc;
