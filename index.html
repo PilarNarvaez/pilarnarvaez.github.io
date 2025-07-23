@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -927,10 +926,11 @@ English version shown.">
         </div>
     </div>  
           <!-- Spot Lizzo -->
-<div id="lizzo-spot" class="video-container" 
+<div id="lizzo-spot" class="video-container"
      data-video-src="https://pilarnarvaez.github.io/videos/lizzo.mp4"
      data-title="Lizzo Spot"
-     data-description="Spot created for Lizzo. Camera Operator: Mario Martin (https://www.mariomartin.net). Lizzo Official Site (https://www.lizzo.net)">
+     data-description="Spot created for Lizzo.<br>Camera Operator: <a href='https://www.mariomartin.net/' target='_blank' rel='noopener noreferrer'>Mario Martin</a><br><a href='https://www.lizzo.net' target='_blank' rel='noopener noreferrer'>Lizzo Official Site</a>">
+     data-simple-description="Lizzo Spot">
     <video poster="https://pilarnarvaez.github.io/images/lizzo-poster.jpg" muted loop playsinline>
         <source src="https://pilarnarvaez.github.io/videos/lizzo.mp4" type="video/mp4">
     </video>
@@ -1070,16 +1070,37 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = '';
     }
 
-    // Open modal function (simplified)
+    // Open a modal with content
     function openModal(modalId, container = null) {
         closeAllModals();
+        
         const modal = document.getElementById(modalId);
         if (!modal) return;
         
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
 
-        if (container) {
+        // Special cases for Just Eat and Godard
+        if (container && container.id === "just-eat") {
+            const videos = modal.querySelectorAll('video');
+            videos[0].src = container.dataset.videoSrc;
+            videos.forEach(v => {
+                v.muted = true;
+                v.controls = true;
+                v.load();
+                v.addEventListener('play', function() {
+                    videos.forEach(otherV => {
+                        if (otherV !== v) otherV.pause();
+                    });
+                    this.muted = false;
+                });
+            });
+        }
+        else if (container && container.id === "godard-collages") {
+            // Godard modal is already set up
+        }
+        else if (container) {
+            // For regular video containers
             const videoPlayer = modal.querySelector('.video-page-player');
             if (videoPlayer) {
                 videoPlayer.innerHTML = `
@@ -1088,18 +1109,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     </video>
                 `;
             }
-            
-            const title = modal.querySelector('.video-page-title');
+                 const title = modal.querySelector('.video-page-title');
             if (title) title.textContent = container.dataset.title;
             
             const desc = modal.querySelector('.video-page-description');
-            if (desc) desc.textContent = container.dataset.description;
+            if (desc) desc.innerHTML = container.dataset.description; // Changed from textContent to innerHTML
         }
     }
 
-    // Setup event listeners (basic functionality only)
+    // Setup event listeners
     function setupEventListeners() {
-        // Modal links
+        // Modal links (About, Contact)
         document.querySelectorAll('[data-modal]').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1107,35 +1127,73 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Video container clicks
+        // Project navigation links - DESKTOP VERSION (scroll to container)
+ if (window.innerWidth > 768) {
+        document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetContainer = document.getElementById(targetId);
+                
+                if (targetContainer) {
+                    // Scroll to the container
+                    targetContainer.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'nearest'
+                    });
+                    
+                    // Highlight briefly
+                    targetContainer.classList.add('active-click');
+                    const overlay = targetContainer.querySelector('.video-overlay');
+                    if (overlay) overlay.style.opacity = '1';
+                    
+                    setTimeout(() => {
+                        targetContainer.classList.remove('active-click');
+                        if (overlay) overlay.style.opacity = '0';
+                    }, 1000);
+                }
+            });
+        });
+    }
+
+        // Video container clicks (open modal when clicked)
         document.querySelectorAll('.video-container').forEach(container => {
             container.addEventListener('click', function(e) {
                 if (e.target.tagName === 'A') return;
                 e.preventDefault();
                 
-                const tempModalId = 'video-modal-' + this.id;
-                let modal = document.getElementById(tempModalId);
-                
-                if (!modal) {
-                    modal = document.createElement('div');
-                    modal.id = tempModalId;
-                    modal.className = 'video-page';
-                    modal.innerHTML = `
-                        <div class="video-page-content">
-                            <button class="back-button">&lt;&lt;</button>
-                            <div class="video-page-player">
-                                <video controls autoplay>
-                                    <source src="${this.dataset.videoSrc}" type="video/mp4">
-                                </video>
-                            </div>
-                            <h1 class="video-page-title">${this.dataset.title}</h1>
-                            <p class="video-page-description">${this.dataset.description}</p>
-                        </div>
-                    `;
-                    document.body.appendChild(modal);
+                if (this.id === "just-eat") {
+                    openModal('just-eat-expanded', this);
+                } 
+                else if (this.id === "godard-collages") {
+                    openModal('godard-page', this);
                 }
-                
-                openModal(tempModalId, this);
+                else {
+                    // Create a temporary modal ID for regular videos
+                    const tempModalId = 'video-modal-' + this.id;
+                    let modal = document.getElementById(tempModalId);
+                    
+                    if (!modal) {
+                        modal = document.createElement('div');
+                        modal.id = tempModalId;
+                        modal.className = 'video-page';
+                        modal.innerHTML = `
+                            <div class="video-page-content">
+                                <button class="back-button">&lt;&lt;</button>
+                                <div class="video-page-player">
+                                    <video controls autoplay>
+                                        <source src="${this.dataset.videoSrc}" type="video/mp4">
+                                    </video>
+                                </div>
+                                <h1 class="video-page-title">${this.dataset.title}</h1>
+                                <p class="video-page-description">${this.dataset.description}</p>
+                            </div>
+                        `;
+                        document.body.appendChild(modal);
+                    }
+                    
+                    openModal(tempModalId, this);
+                }
             });
         });
 
