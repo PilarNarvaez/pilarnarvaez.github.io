@@ -829,7 +829,46 @@ else if (container && (container.id === "lizzo-spot" || container.id === "UOC-co
             }, 3000);
         }
     }
+    // Highlight a video container with red overlay
+    function highlightVideo(videoId) {
+        // Remove highlight from all videos first
+        document.querySelectorAll('.video-container').forEach(v => {
+            v.classList.remove('active-click');
+            const overlay = v.querySelector('.video-overlay');
+            if (overlay) overlay.style.opacity = '0';
+        });
+        
+        // Highlight the target video
+        const targetVideo = document.getElementById(videoId);
+        if (targetVideo) {
+            targetVideo.classList.add('active-click');
+            const overlay = targetVideo.querySelector('.video-overlay');
+            if (overlay) overlay.style.opacity = '1';
+            
+            // Remove highlight after 3 seconds
+            setTimeout(() => {
+                targetVideo.classList.remove('active-click');
+                if (overlay) overlay.style.opacity = '0';
+            }, 3000);
+        }
+    }
 
+    // Add hover play/pause for grid videos
+    function setupVideoHover() {
+        document.querySelectorAll('.video-container video').forEach(video => {
+            const container = video.closest('.video-container');
+            
+            container.addEventListener('mouseenter', () => {
+                video.play().catch(e => console.log("Autoplay prevented:", e));
+            });
+            
+            container.addEventListener('mouseleave', () => {
+                video.pause();
+                video.currentTime = 0;
+            });
+        });
+    }
+    
     // Setup event listeners
     function setupEventListeners() {
         // Modal links (About, Contact)
@@ -949,7 +988,8 @@ else if (container && (container.id === "lizzo-spot" || container.id === "UOC-co
             }
         });
     }
-
+    // Initialize
+    setupVideoHover(); // Add this before setupEventListeners
     // Initialize
     setupEventListeners();
 });
