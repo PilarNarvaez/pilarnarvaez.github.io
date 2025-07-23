@@ -97,9 +97,19 @@
         overflow: hidden;
         cursor: pointer;
         isolation: isolate;
+        background-color: transparent !important;
         background: transparent !important;
     }
-
+.video-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 0;
+}
     .video-container video {
         width: 100%;
         height: 100%;
@@ -416,7 +426,7 @@ display: none !important;
          data-video-src="https://pilarnarvaez.github.io/videos/Showreel.mp4"
          data-title="Showreel"
          data-description="A selection of my last works - video editing and motion graphics.">
-        <video poster="https://pilarnarvaez.github.io/images/showreel-poster.jpg" muted loop playsinline>
+        <video poster="https://pilarnarvaez.github.io/images/showreel-poster.jpg" muted loop playsinline preload="metadata" style="background: transparent;">
             <source src="https://pilarnarvaez.github.io/videos/Showreel.mp4" type="video/mp4">
         </video>
         <div class="video-overlay">
@@ -429,7 +439,7 @@ display: none !important;
          data-video-src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4"
          data-title="Tercer Campaign"
          data-description="Video generated with Runway AI from pre-existing photos, enhanced in After Effects with atmospheric lighting effects, refined color grading, and motion graphics.">
-        <video poster="https://pilarnarvaez.github.io/images/tercer-poster.jpg" muted loop playsinline>
+        <video poster="https://pilarnarvaez.github.io/images/tercer-poster.jpg" muted loop playsinline preload="metadata" style="background: transparent;">
             <source src="https://pilarnarvaez.github.io/videos/Tercer-Restaurant.mp4" type="video/mp4">
         </video>
         <div class="video-overlay">
@@ -443,7 +453,7 @@ display: none !important;
          data-title="Menopause Awareness Day"
          data-description="Minúsculas Producciones and I created a social media video for Spain's Women's Institute for World Menopause Day. &#10;Inspired by female artists Carmen Herrera and Barbara Stauffacher Solomon, I designed bold, minimalist graphics in Illustrator, animating them with abstract, dynamic compositions. The video prioritizes visuals over text, featuring two key messages and a vintage film-reel effect.
 &#10;Music: Bensound, license code PRF3J70PUMA2EYO6.">
-        <video poster="https://pilarnarvaez.github.io/images/menopause-poster.jpg" muted loop playsinline>
+        <video poster="https://pilarnarvaez.github.io/images/menopause-poster.jpg" muted loop playsinline preload="metadata" style="background: transparent;">
             <source src="https://pilarnarvaez.github.io/videos/Menopause-Awareness-Day.mp4" type="video/mp4">
         </video>
         <div class="video-overlay">
@@ -456,7 +466,7 @@ display: none !important;
          data-video-src="https://pilarnarvaez.github.io/videos/Pepsi-Recycle-to-Win-Reading-Festival.mp4"
          data-title="Pepsi Recycle to Win"
          data-description="Video created for Wireless and Reading Festival, adaptation from the Think Different campaign.">
-        <video poster="https://pilarnarvaez.github.io/images/pepsi-poster.jpg" muted loop playsinline>
+        <video poster="https://pilarnarvaez.github.io/images/pepsi-poster.jpg" muted loop playsinline preload="metadata" style="background: transparent;">
             <source src="https://pilarnarvaez.github.io/videos/Pepsi-Recycle-to-Win-Reading-Festival.mp4" type="video/mp4">
         </video>
         <div class="video-overlay">
@@ -469,7 +479,7 @@ display: none !important;
          data-video-src="https://pilarnarvaez.github.io/videos/Expedia-social.mp4"
          data-title="Expedia Social"
          data-description="Adaptation and localisation of Expedia (VRBO) campaign for social media.">
-        <video poster="https://pilarnarvaez.github.io/images/expedia-poster.jpg" muted loop playsinline>
+        <video poster="https://pilarnarvaez.github.io/images/expedia-poster.jpg" muted loop playsinline preload="metadata" style="background: transparent;">
             <source src="https://pilarnarvaez.github.io/videos/Expedia-social.mp4" type="video/mp4">
         </video>
         <div class="video-overlay">
@@ -482,7 +492,7 @@ display: none !important;
          data-video-src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4"
          data-title="Fire Walk With Me"
          data-description="I recreated Twin Peaks' iconic opening as a tribute to his work. Some scenes are flooded with light, an intentional reference to Fire Walk With Me, using Video Copilot's Saber plug-in to achieve a luminous glow. The goal was to create an abstract, experimental feel, inspired by László Moholy-Nagy's Light Space Modulator. The music is a cover by Xiu Xiu.">
-        <video poster="https://pilarnarvaez.github.io/images/fire-poster.jpg" muted loop playsinline>
+        <video poster="https://pilarnarvaez.github.io/images/fire-poster.jpg" muted loop playsinline preload="metadata" style="background: transparent;">
             <source src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4" type="video/mp4">
         </video>
         <div class="video-overlay">
@@ -495,7 +505,7 @@ display: none !important;
          data-video-src="https://pilarnarvaez.github.io/videos/Super-Car-Blondie-Facebook.mp4"
          data-title="Supercar Blondie Facebook"
          data-description="Social media content for Supercar Blondie's Facebook page. Motion graphics and edition.">
-        <video poster="https://pilarnarvaez.github.io/images/super-car-blondie-facebook-poster.jpg" muted loop playsinline>
+        <video poster="https://pilarnarvaez.github.io/images/super-car-blondie-facebook-poster.jpg" muted loop playsinline preload="metadata" style="background: transparent;">
             <source src="https://pilarnarvaez.github.io/videos/Super-Car-Blondie-Facebook.mp4" type="video/mp4">
         </video>
         <div class="video-overlay">
@@ -508,7 +518,7 @@ display: none !important;
          data-video-src="https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-Slovakia.mp4"
          data-title="Just Eat Adaptations"
          data-description="Localized adaptations for Just Eat's international markets: Endframe adaptation for Slovakia and campaign for Australia (IU mobile, endframe).">
-        <video poster="https://pilarnarvaez.github.io/images/just-eat-poster.jpg" muted loop playsinline>
+        <video poster="https://pilarnarvaez.github.io/images/just-eat-poster.jpg" muted loop playsinline preload="metadata" style="background: transparent;">
             <source src="https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-Slovakia.mp4" type="video/mp4">
         </video>
         <div class="video-overlay">
@@ -521,7 +531,7 @@ display: none !important;
          data-video-src="https://pilarnarvaez.github.io/videos/Groot-Twitter.mp4"
          data-title="I Am Groot Twitter"
          data-description="Social media campaign introducing Djibril Cissé as the newest player for Los Troncos FC.">
-        <video poster="https://pilarnarvaez.github.io/images/groot-poster.jpg" muted loop playsinline>
+        <video poster="https://pilarnarvaez.github.io/images/groot-poster.jpg" muted loop playsinline preload="metadata" style="background: transparent;">
             <source src="https://pilarnarvaez.github.io/videos/Groot-Twitter.mp4" type="video/mp4">
         </video>
         <div class="video-overlay">
@@ -534,7 +544,7 @@ display: none !important;
          data-video-src="https://pilarnarvaez.github.io/videos/jugador-13.mp4"
          data-title="Kings League: Jugador número 13"
          data-description="Video for the Kings League and Movistar. A contest to enjoy one day as a presenter during Los Troncos' match in the Kings League.">
-        <video poster="https://pilarnarvaez.github.io/images/jugador-13-poster.jpg" muted loop playsinline>
+        <video poster="https://pilarnarvaez.github.io/images/jugador-13-poster.jpg" muted loop playsinline preload="metadata" style="background: transparent;">
             <source src="https://pilarnarvaez.github.io/videos/jugador-13.mp4" type="video/mp4">
         </video>
         <div class="video-overlay">
@@ -547,7 +557,7 @@ display: none !important;
          data-video-src="https://pilarnarvaez.github.io/videos/Dries-Lacroix.mp4"
          data-title="Dries Van Noten Lacroix SS20"
          data-description="Video tribute to Dries Van Noten & Christian Lacroix Spring Summer 2020 collection.">
-        <video poster="https://pilarnarvaez.github.io/images/dries-lacroix-ss20-poster.jpg" muted loop playsinline>
+        <video poster="https://pilarnarvaez.github.io/images/dries-lacroix-ss20-poster.jpg" muted loop playsinline preload="metadata" style="background: transparent;">
             <source src="https://pilarnarvaez.github.io/videos/Dries-Lacroix.mp4" type="video/mp4">
         </video>
         <div class="video-overlay">
@@ -560,7 +570,7 @@ display: none !important;
          data-video-src="https://pilarnarvaez.github.io/videos/westwood-ss21.mp4"
          data-title="Vivienne Westwood AW21"
          data-description="Video tribute to Vivienne Westwood Autumn Winter 2021 collection.">
-        <video poster="https://pilarnarvaez.github.io/images/westwood-ss21-poster.jpg" muted loop playsinline>
+        <video poster="https://pilarnarvaez.github.io/images/westwood-ss21-poster.jpg" muted loop playsinline preload="metadata" style="background: transparent;">
             <source src="https://pilarnarvaez.github.io/videos/westwood-ss21.mp4" type="video/mp4">
         </video>
         <div class="video-overlay">
@@ -572,7 +582,7 @@ display: none !important;
      data-video-src="https://pilarnarvaez.github.io/videos/UOC-corporative.mp4"
      data-title="UOC Corporative"
           data-description="Online video for the Catalunya Open University (UOC). In Spanish (Editing &amp; Motion Graphics using Adobe Suite).&lt;br&gt;Camera Operator: &lt;a href='https://www.mariomartin.net' target='_blank'&gt;Mario Martin&lt;/a&gt;">
-    <video poster="https://pilarnarvaez.github.io/images/UOC-poster.jpg" muted loop playsinline>
+    <video poster="https://pilarnarvaez.github.io/images/UOC-poster.jpg" muted loop playsinline preload="metadata" style="background: transparent;">
         <source src="https://pilarnarvaez.github.io/videos/UOC-corporative.mp4" type="video/mp4">
     </video>
     <div class="video-overlay">
@@ -584,7 +594,7 @@ display: none !important;
      data-video-src="https://pilarnarvaez.github.io/videos/lizzo.mp4"
      data-title="Lizzo Spot"
      data-description="Spot created for Lizzo.&lt;br&gt;Camera Operator: &lt;a href='https://www.mariomartin.net' target='_blank' style='color:#e74c3c !important'&gt;Mario Martin&lt;br&gt; &lt;a href='https://www.lizzo.net' target='_blank' style='color:#e74c3c !important'&gt;Lizzo Official Site&lt;/a&gt;">
-    <video poster="https://pilarnarvaez.github.io/images/lizzo-poster.jpg" muted loop playsinline>
+    <video poster="https://pilarnarvaez.github.io/images/lizzo-poster.jpg" muted loop playsinline preload="metadata" style="background: transparent;">
         <source src="https://pilarnarvaez.github.io/videos/lizzo.mp4" type="video/mp4">
     </video>
     <div class="video-overlay">
