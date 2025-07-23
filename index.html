@@ -692,35 +692,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Open a modal with content
-    function openModal(modalId, container = null) {
-        closeAllModals();
-        
-        const modal = document.getElementById(modalId);
-        if (!modal) return;
-        
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
 
-        // Special cases for Just Eat, Godard and Lizzo
-        if (container && container.id === "just-eat") {
-            const videos = modal.querySelectorAll('video');
-            videos[0].src = container.dataset.videoSrc;
-            videos.forEach(v => {
-                v.muted = true;
-                v.controls = true;
-                v.load();
-                v.addEventListener('play', function() {
-                    videos.forEach(otherV => {
-                        if (otherV !== v) otherV.pause();
-                    });
-                    this.muted = false;
+function openModal(modalId, container = null) {
+    closeAllModals();
+    
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+
+    // Special cases for Just Eat, Godard and Lizzo
+    if (container && container.id === "just-eat") {
+        const videos = modal.querySelectorAll('video');
+        videos[0].src = container.dataset.videoSrc;
+        videos.forEach(v => {
+            v.muted = true;
+            v.controls = true;
+            v.load();
+            v.addEventListener('play', function() {
+                videos.forEach(otherV => {
+                    if (otherV !== v) otherV.pause();
                 });
-            });
-        }
-        else if (container && container.id === "godard-collages") {
-            // Godard modal is already set up
-        }
-                else if (container && container.id === "lizzo-spot") {
+                this.muted = false;
+            }); // closes play event listener
+        }); // closes videos.forEach
+    } // closes just-eat case
+    else if (container && container.id === "godard-collages") {
+        // Godard modal is already set up
+    } // closes godard case
+    else if (container && container.id === "lizzo-spot") {
         const desc = modal.querySelector('.video-page-description');
         if (desc) {
             desc.innerHTML = `
@@ -728,25 +729,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 Camera Operator: <a href='https://www.mariomartin.net/' target='_blank' rel='noopener noreferrer'>Mario Martin</a><br>
                 <a href='https://www.lizzo.net' target='_blank' rel='noopener noreferrer'>Lizzo Official Site</a>
             `;
-        }
-        else if (container) {
-            // For regular video containers
-            const videoPlayer = modal.querySelector('.video-page-player');
-            if (videoPlayer) {
-                videoPlayer.innerHTML = `
-                    <video controls autoplay>
-                        <source src="${container.dataset.videoSrc}" type="video/mp4">
-                    </video>
-                `;
-            }
-            
-            const title = modal.querySelector('.video-page-title');
-            if (title) title.textContent = container.dataset.title;
-            
-            const desc = modal.querySelector('.video-page-description');
-            if (desc) desc.textContent = container.dataset.description;
-        }
-    }
+        } // closes if(desc)
+    } // closes lizzo case
+    else if (container) {
+        // For regular video containers
+        const videoPlayer = modal.querySelector('.video-page-player');
+        if (videoPlayer) {
+            videoPlayer.innerHTML = `
+                <video controls autoplay>
+                    <source src="${container.dataset.videoSrc}" type="video/mp4">
+                </video>
+            `;
+        } // closes if(videoPlayer)
+        
+        const title = modal.querySelector('.video-page-title');
+        if (title) title.textContent = container.dataset.title;
+        
+        const desc = modal.querySelector('.video-page-description');
+        if (desc) desc.textContent = container.dataset.description;
+    } // closes regular container case
+} // closes openModal function
 
     // Highlight a video container with red overlay
     function highlightVideo(videoId) {
