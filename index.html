@@ -752,7 +752,7 @@ function openModal(modalId, container = null) {
         // Godard modal is already set up
     } // closes godard case
 
-else if (container && container.id === "lizzo-spot") {
+else if (container && (container.id === "lizzo-spot" || container.id === "UOC-spot")) {
     const desc = modal.querySelector('.video-page-description');
     if (desc) {
         // This preserves the HTML from data-description
