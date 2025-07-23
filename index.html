@@ -265,11 +265,12 @@
             margin: 0;
             width: 100%;
         }
-
+        
+  /* Hide main navigation completely on mobile */
         .main-nav {
             display: none !important;
         }
-
+  /* Style mobile header links */
         .mobile-nav-header {
             display: flex !important;
             font-size: 16px;
@@ -283,7 +284,10 @@
             color: #e74c3c !important;
             text-decoration: none !important;
         }
-
+    /* Ensure About/Contact links don't appear in main nav */
+    .main-nav a[data-modal] {
+        display: none !important;
+    }
         .video-columns {
             grid-template-columns: 1fr;
             padding: 0;
