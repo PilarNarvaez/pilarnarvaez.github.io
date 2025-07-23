@@ -47,7 +47,15 @@
             .mobile-nav-header {
                 display: flex !important;
             }
-            
+                .video-page {
+        padding: 30px 30px 60px; /* Matches your body padding */
+    }
+    
+    /* Specifically for JLG modal */
+    #godard-page .video-page-content {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
             #godard-page .video-page-content {
                 overflow-y: auto;
                 max-height: calc(100vh - 80px);
@@ -500,20 +508,39 @@
                 -ms-overflow-style: none;
                 scrollbar-width: none;
             }
-            
-            /* MOBILE BACK BUTTON */
-            .back-button:hover,
-            .back-button:focus,
-            .back-button:active {
-                color: #e74c3c !important;
-                text-decoration: none !important;
-            }
-            
-            @media (max-width: 768px) {
-                .back-button:active {
-                    color: #e74c3c !important;
-                }
-            }
+    /* MOBILE BACK BUTTON */
+.back-button {
+    /* Your existing button styles */
+    transition: color 0.1s ease; /* Faster transition for mobile taps */
+}
+
+/* Active state for all devices */
+.back-button:active {
+    color: #e74c3c !important;
+    text-decoration: none !important;
+}
+
+/* Hover state for devices that support it */
+@media (hover: hover) {
+    .back-button:hover {
+        color: #e74c3c !important;
+        text-decoration: none !important;
+    }
+}
+
+/* Focus state for keyboard navigation */
+.back-button:focus {
+    color: #e74c3c !important;
+    text-decoration: none !important;
+    outline: none !important; /* Remove default focus outline */
+}
+
+/* Mobile-specific enhancement */
+@media (max-width: 768px) {
+    .back-button:active {
+        transform: scale(0.95); /* Optional: slight press effect */
+    }
+}
 
            /* Video Grid - MOBILE (1 column) */
             .video-columns {
