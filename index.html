@@ -295,7 +295,7 @@
             overflow: hidden;
             margin-bottom: 0;
             padding-bottom: 56.25%;
-            background: transparent;
+            background: transparent !important;
         }
 
         .video-page-player video {
@@ -327,18 +327,24 @@
         } 
         
         /* Aspect ratio classes */
-        .video-ratio-16-9 { 
-            aspect-ratio: 16/9;
-        }
-        
-        .video-ratio-9-16 { 
-            aspect-ratio: 9/16;
-        }
-        
-        .video-ratio-1-1 { 
-            aspect-ratio: 1/1;
-        }
+.video-page-player {
+    aspect-ratio: 16/9; /* Default ratio */
+}
 
+.video-page-player.vertical {
+    aspect-ratio: 9/16;
+    max-width: 300px;
+}
+
+.video-page-player.square {
+    aspect-ratio: 1/1;
+    max-width: 500px;
+}
+
+.video-page-player.four-three {
+    aspect-ratio: 4/3;
+    max-width: 600px;
+}
         .video-page-title {
             font-size: 16px;
             font-weight: 500;
@@ -687,7 +693,7 @@
         }
         
         #fire-walk-with-me.video-container {
-            aspect-ratio: 16/9;
+            aspect-ratio: 4/3;
         }
         
         #fire-walk-with-me video {
@@ -830,6 +836,7 @@ English version shown.">
     <div id="fire-walk-with-me" class="video-container"
          data-video-src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4"
          data-title="Fire Walk With Me"
+        data-aspect-ratio="4-3" <!-- Add this line -->
          data-description="I recreated Twin Peaks' iconic opening as a tribute to his work. Some scenes are flooded with light, an intentional reference to Fire Walk With Me, using Video Copilot's Saber plug-in to achieve a luminous glow. The goal was to create an abstract, experimental feel, inspired by László Moholy-Nagy's Light Space Modulator. The music is a cover by Xiu Xiu.">
         <video poster="https://pilarnarvaez.github.io/images/fire-poster.jpg" muted loop playsinline>
             <source src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4" type="video/mp4">
