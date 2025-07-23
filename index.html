@@ -1057,6 +1057,7 @@ English version shown.">
 </footer>
 
 <script>
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     // Close all modals and reset videos
     function closeAllModals() {
@@ -1067,7 +1068,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 v.currentTime = 0;
             });
         });
-        document.body.style.overflow = '';
+        document.body.style.overflow = 'auto';
     }
 
     // Open a modal with content
@@ -1080,40 +1081,33 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
 
-        // Special cases for Just Eat and Godard
-        if (container && container.id === "just-eat") {
+        // Special handling for Just Eat expanded view
+        if (modalId === 'just-eat-expanded' && container) {
             const videos = modal.querySelectorAll('video');
             videos[0].src = container.dataset.videoSrc;
             videos.forEach(v => {
-                v.muted = true;
-                v.controls = true;
                 v.load();
-                v.addEventListener('play', function() {
-                    videos.forEach(otherV => {
-                        if (otherV !== v) otherV.pause();
-                    });
-                    this.muted = false;
-                });
+                v.play().catch(e => console.log('Autoplay prevented:', e));
             });
         }
-        else if (container && container.id === "godard-collages") {
-            // Godard modal is already set up
+        // Special handling for Godard collages (already set up)
+        else if (modalId === 'godard-page') {
+            // Nothing extra needed here
         }
+        // Regular video handling
         else if (container) {
-            // For regular video containers
-            const videoPlayer = modal.querySelector('.video-page-player');
-            if (videoPlayer) {
-                videoPlayer.innerHTML = `
-                    <video controls autoplay>
-                        <source src="${container.dataset.videoSrc}" type="video/mp4">
-                    </video>
-                `;
+            const video = modal.querySelector('video');
+            if (video) {
+                video.src = container.dataset.videoSrc;
+                video.load();
+                video.play().catch(e => video.controls = true);
             }
-                 const title = modal.querySelector('.video-page-title');
+            
+            const title = modal.querySelector('.video-page-title');
             if (title) title.textContent = container.dataset.title;
             
             const desc = modal.querySelector('.video-page-description');
-            if (desc) desc.innerHTML = container.dataset.description; // Changed from textContent to innerHTML
+            if (desc) desc.innerHTML = container.dataset.description;
         }
     }
 
@@ -1127,36 +1121,22 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Project navigation links - DESKTOP VERSION (scroll to container)
- if (window.innerWidth > 768) {
+        // Project navigation links - highlight and scroll
         document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
-                const targetContainer = document.getElementById(targetId);
+                const target = document.getElementById(targetId);
                 
-                if (targetContainer) {
-                    // Scroll to the container
-                    targetContainer.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'nearest'
-                    });
-                    
-                    // Highlight briefly
-                    targetContainer.classList.add('active-click');
-                    const overlay = targetContainer.querySelector('.video-overlay');
-                    if (overlay) overlay.style.opacity = '1';
-                    
-                    setTimeout(() => {
-                        targetContainer.classList.remove('active-click');
-                        if (overlay) overlay.style.opacity = '0';
-                    }, 1000);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    target.classList.add('active-click');
+                    setTimeout(() => target.classList.remove('active-click'), 1000);
                 }
             });
         });
-    }
 
-        // Video container clicks (open modal when clicked)
+        // Video container clicks
         document.querySelectorAll('.video-container').forEach(container => {
             container.addEventListener('click', function(e) {
                 if (e.target.tagName === 'A') return;
@@ -1169,46 +1149,24 @@ document.addEventListener('DOMContentLoaded', function() {
                     openModal('godard-page', this);
                 }
                 else {
-                    // Create a temporary modal ID for regular videos
-                    const tempModalId = 'video-modal-' + this.id;
-                    let modal = document.getElementById(tempModalId);
-                    
-                    if (!modal) {
-                        modal = document.createElement('div');
-                        modal.id = tempModalId;
-                        modal.className = 'video-page';
-                        modal.innerHTML = `
-                            <div class="video-page-content">
-                                <button class="back-button">&lt;&lt;</button>
-                                <div class="video-page-player">
-                                    <video controls autoplay>
-                                        <source src="${this.dataset.videoSrc}" type="video/mp4">
-                                    </video>
-                                </div>
-                                <h1 class="video-page-title">${this.dataset.title}</h1>
-                                <p class="video-page-description">${this.dataset.description}</p>
-                            </div>
-                        `;
-                        document.body.appendChild(modal);
-                    }
-                    
-                    openModal(tempModalId, this);
+                    openModal('video-page', this);
                 }
             });
         });
 
         // Back button
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('back-button')) {
+        document.querySelectorAll('.back-button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
                 e.preventDefault();
                 closeAllModals();
-            }
+            });
         });
     }
 
     // Initialize
     setupEventListeners();
 });
+</script>
 </script>
 </body>
 </html>
