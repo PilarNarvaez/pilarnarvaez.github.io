@@ -122,14 +122,20 @@
          z-index: 1; /* Place above poster */
   background: transparent !important;
     }
-.video-container:hover video {
-  opacity: 1; /* Show video on hover */
+    
+    .video-container:hover video {
+    opacity: 1; /* Show video on hover */
+    z-index: 1; /* Bring video to front */
 }
 /* Make sure poster is always visible by default */
 .video-container video[poster] {
+    opacity: 1 !important;
   display: block;
   object-fit: cover;
     z-index: 0;
+    }
+.video-container:hover video[poster] {
+    opacity: 0 !important; /* Hide poster when hovering */
 }
     /* Video Overlay */
     .video-overlay {
