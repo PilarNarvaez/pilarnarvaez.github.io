@@ -911,12 +911,25 @@ else if (container && (container.id === "lizzo-spot" || container.id === "UOC-co
 function setupVideoHover() {
   document.querySelectorAll('.video-container').forEach(container => {
     const video = container.querySelector('video');
+    const overlay = container.querySelector('.video-overlay');
     
     container.addEventListener('mouseenter', () => {
+      // Show video and red overlay
+      video.style.opacity = '1';
+      overlay.style.opacity = '1';
+      overlay.style.background = 'rgba(231, 76, 60, 0.85)';
+      
+      // Start playback
       video.play().catch(e => console.log("Autoplay prevented:", e));
     });
     
     container.addEventListener('mouseleave', () => {
+      // Hide video and overlay
+      video.style.opacity = '0';
+      overlay.style.opacity = '0';
+      overlay.style.background = 'rgba(231, 76, 60, 0)';
+      
+      // Reset playback
       video.pause();
       video.currentTime = 0;
     });
