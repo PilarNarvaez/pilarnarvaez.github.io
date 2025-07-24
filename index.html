@@ -118,15 +118,19 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-  opacity: 0; /* Video hidden by default */
-  transition: opacity 0.3s ease;
-         z-index: 1; /* Place above poster */
-  background: transparent !important;
+        opacity: 0; /* Video hidden by default */
+        transition: opacity 0.3s ease;
+        z-index: 1; /* Place above poster */
+        background: transparent !important;
     }
     
     .video-container:hover video {
     opacity: 1; /* Show video on hover */
     z-index: 1; /* Bring video to front */
+}
+    .video-container video[autoplay] {
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  transform: translateZ(0);
 }
 /* Make sure poster is always visible by default */
 .video-container video[poster] {
@@ -996,14 +1000,28 @@ else if (container && (container.id === "lizzo-spot" || container.id === "UOC-co
 function setupVideoHover() {
   document.querySelectorAll('.video-container').forEach(container => {
     const video = container.querySelector('video');
+    if (!video) return;
+
+    // Double-ensure muted state (Chrome 123+ requirement)
+    video.muted = true;
+    video.playsInline = true; // DOM property version
     
     container.addEventListener('mouseenter', () => {
-      video.play().catch(e => console.log("Autoplay prevented:", e));
+      // New: Must return a promise and handle rejection
+      video.play().then(() => {
+        console.log('Playback started');
+      }).catch(e => {
+        console.error('Playback failed:', e);
+        // Fallback: Toggle poster visibility
+        video.load(); 
+      });
     });
-    
+
     container.addEventListener('mouseleave', () => {
       video.pause();
       video.currentTime = 0;
+      // Force poster redisplay
+      if (video.poster) video.load();
     });
   });
 }
