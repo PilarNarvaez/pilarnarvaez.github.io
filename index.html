@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -111,26 +112,27 @@
   z-index: 0;
 }
     .video-container video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+  opacity: 0; /* Video hidden by default */
+  transition: opacity 0.3s ease;
+         z-index: 1; /* Place above poster */
   background: transparent !important;
     }
     
     .video-container:hover video {
-    opacity: 1;
-    z-index: 1;
+    opacity: 1; /* Show video on hover */
+    z-index: 1; /* Bring video to front */
 }
 /* Make sure poster is always visible by default */
 .video-container video[poster] {
-    display: block;
     opacity: 1 !important;
+  display: block;
+  object-fit: cover;
     z-index: 0;
     }
 .video-container:hover video[poster] {
@@ -213,7 +215,7 @@
     .video-page-title {
         font-size: 16px;
         font-weight: 500;
-        margin: 10px 0 !important; /* Top/Bottom spacing */
+        margin: 20px 0;
     }
 
     .video-page-description {
@@ -222,42 +224,17 @@
         margin: 0 0 20px 0;
         white-space: pre-line;
     }
-
-    /* About page specific */
-#about-page .video-page-content {
-    padding-top: 20px; /* Reduced from 40px */
-}
-    #about-page .video-page-title {
-    margin: 0 0 8px 0 !important;
-
-#about-page .video-page-description p {
-     margin: 0 0 6px 0 !important;
-    line-height: 1.4;
-}
-
-#about-page .video-page-description p:last-child {
-    margin-bottom: 0 !important;
-}
 /* ===== CONTACT MODAL ADJUSTMENT ===== */
 #contact-page .video-page-content {
     padding-top: 20px; /* Reduced from 40px */
 }
 
 #contact-page .video-page-title {
-   margin: 0 0 5px 0 !important;
+    margin-bottom: 10px; /* Reduced space below title */
 }
 
 #contact-page .video-page-description {
-  margin: 0 !important;
-}
-    #contact-page .contact-email {
-    margin-top: 5px;
-    display: inline-block;
-}
-
-/* Special contact email spacing */
-#contact-page .video-page-description {
-    margin-top: 5px !important; /* Reduced space above email */
+    margin-top: 5px; /* Reduced space above email */
 }
     /* ===== FOOTER ===== */
     .footer {
@@ -277,21 +254,17 @@
         color: #e74c3c !important;
     }
 /* ===== ABOUT MODAL TEXT SPACING ===== */
-/* Reduce space after modal titles */
-#about-page .video-page-title,
-#contact-page .video-page-title {
-    margin-bottom: 10px !important; /* Reduced from 20px */
+#about-page .video-page-description {
+    margin-bottom: 12px; /* Space after last paragraph */
 }
 
-/* Adjust paragraph spacing in About modal */
 #about-page .video-page-description p {
-    margin-bottom: 6px !important; /* Reduced from default */
-    line-height: 1.4; /* Slightly tighter than default 1.6 */
+    margin-bottom: 8px !important; /* Space between paragraphs */
+    line-height: 1.1; /* Slightly tighter line spacing */
 }
 
-/* Special contact email spacing */
-#contact-page .video-page-description {
-    margin-top: 5px !important; /* Reduced space above email */
+#about-page .video-page-description p:last-child {
+    margin-bottom: 0 !important; /* No space after last paragraph */
 }
     /* ===== BACK BUTTON STYLES ===== */
 .back-button {
@@ -451,7 +424,7 @@ display: none !important;
         <a href="#just-eat">Just Eat Adaptations</a>
         <a href="#kings-league">Kings League Twitch</a>
         <a href="#dries-lacroix-ss20">Dries Van Noten Lacroix SS20</a>
-        <a href="#westwood-aw21">Vivienne Westwood AW21</a>
+        <a href="#-westwood-aw21">Vivienne Westwood AW21</a>
         <a href="#UOC-corporative">UOC Corporative</a>
         <a href="#lizzo-spot">Lizzo Spot</a>
         <a href="#godard-collages">Godard: Collage Tributes to Histoire(s) du cinéma</a>
@@ -911,25 +884,12 @@ else if (container && (container.id === "lizzo-spot" || container.id === "UOC-co
 function setupVideoHover() {
   document.querySelectorAll('.video-container').forEach(container => {
     const video = container.querySelector('video');
-    const overlay = container.querySelector('.video-overlay');
     
     container.addEventListener('mouseenter', () => {
-      // Show video and red overlay
-      video.style.opacity = '1';
-      overlay.style.opacity = '1';
-      overlay.style.background = 'rgba(231, 76, 60, 0.85)';
-      
-      // Start playback
       video.play().catch(e => console.log("Autoplay prevented:", e));
     });
     
     container.addEventListener('mouseleave', () => {
-      // Hide video and overlay
-      video.style.opacity = '0';
-      overlay.style.opacity = '0';
-      overlay.style.background = 'rgba(231, 76, 60, 0)';
-      
-      // Reset playback
       video.pause();
       video.currentTime = 0;
     });
