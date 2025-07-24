@@ -214,7 +214,7 @@
     .video-page-title {
         font-size: 16px;
         font-weight: 500;
-        margin: 20px 0;
+        margin: 10px 0 !important; /* Top/Bottom spacing */
     }
 
     .video-page-description {
@@ -223,6 +223,19 @@
         margin: 0 0 20px 0;
         white-space: pre-line;
     }
+
+    /* About page specific */
+#about-page .video-page-content {
+    padding-top: 20px; /* Reduced from 40px */
+}
+
+#about-page .video-page-description p {
+    margin: 0 0 8px 0 !important; /* Top Right Bottom Left */
+}
+
+#about-page .video-page-description p:last-child {
+    margin-bottom: 0 !important;
+}
 /* ===== CONTACT MODAL ADJUSTMENT ===== */
 #contact-page .video-page-content {
     padding-top: 20px; /* Reduced from 40px */
@@ -233,7 +246,16 @@
 }
 
 #contact-page .video-page-description {
-    margin-top: 5px; /* Reduced space above email */
+     margin: 5px 0 0 0 !important;
+}
+    #contact-page .contact-email {
+    display: inline-block;
+    margin-top: 5px;
+}
+
+/* Special contact email spacing */
+#contact-page .video-page-description {
+    margin-top: 5px !important; /* Reduced space above email */
 }
     /* ===== FOOTER ===== */
     .footer {
@@ -253,17 +275,21 @@
         color: #e74c3c !important;
     }
 /* ===== ABOUT MODAL TEXT SPACING ===== */
-#about-page .video-page-description {
-    margin-bottom: 12px; /* Space after last paragraph */
+/* Reduce space after modal titles */
+#about-page .video-page-title,
+#contact-page .video-page-title {
+    margin-bottom: 10px !important; /* Reduced from 20px */
 }
 
+/* Adjust paragraph spacing in About modal */
 #about-page .video-page-description p {
-    margin-bottom: 8px !important; /* Space between paragraphs */
-    line-height: 1.1; /* Slightly tighter line spacing */
+    margin-bottom: 6px !important; /* Reduced from default */
+    line-height: 1.4; /* Slightly tighter than default 1.6 */
 }
 
-#about-page .video-page-description p:last-child {
-    margin-bottom: 0 !important; /* No space after last paragraph */
+/* Special contact email spacing */
+#contact-page .video-page-description {
+    margin-top: 5px !important; /* Reduced space above email */
 }
     /* ===== BACK BUTTON STYLES ===== */
 .back-button {
