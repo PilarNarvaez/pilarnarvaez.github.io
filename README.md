@@ -1,3 +1,4 @@
+<!-- Force update 24Jul2025-->
 # Pilar Narvaez Portfolio
 
 🚀 Live site: [https://pilarnarvaez.github.io](https://pilarnarvaez.github.io)  
