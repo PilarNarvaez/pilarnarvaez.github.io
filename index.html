@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -137,29 +138,27 @@
         width: 100%;
     }
 /* Hover States */
-/* ===== Video Hover States ===== */
 .video-container:hover .video-overlay {
-    opacity: 1; /* Show overlay */
-    background: rgba(231, 76, 60, 0.85); /* Semi-transparent red */
+    opacity: 1;
+    background: rgba(231, 76, 60, 0.85);
 }
 
-.video-container video {
-    position: absolute;
-    z-index: 0; /* Ensure video stays below overlay */
-    transition: opacity 0.3s ease;
-}
-
-.video-container:hover video {
-    opacity: 1 !important; /* Force video to stay visible */
+/* Active click state (for programmatic highlighting) */
+.video-container.active-click .video-overlay {
+    opacity: 1;
+    background: rgba(231, 76, 60, 0.85);
+    transition: none; /* Instant appearance when activated by JS */
 }
 
 .video-container video[poster] {
     opacity: 1;
-    z-index: -1; /* Keep poster image behind everything */
+    display: block;
+    object-fit: cover;
+    z-index: 0;
 }
 
 .video-container:hover video[poster] {
-    opacity: 0; /* Hide poster on hover */
+    opacity: 0;
 }
     /* ===== MODAL STYLES ===== */
     .video-page {
