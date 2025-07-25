@@ -178,25 +178,36 @@
         padding: 40px 0 30px;
     }
 
-    .video-page-player {
-        width: 100%;
-        max-width: 800px;
-        position: relative;
-        overflow: hidden;
-        margin-bottom: 30px;
-        aspect-ratio: 16/9;
-        background: white !important;
-    }
+/* Main video player (unchanged structure) */
+.video-page-player {
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 30px;
+    aspect-ratio: 16/9; /* Default for most videos */
+    background: white !important;
+}
 
-    .video-page-player video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        background: transparent;   
-    }
+.video-page-player video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: transparent;
+}
+
+/* Special aspect ratio overrides */
+#fire-walk-with-me .video-page-player {
+    aspect-ratio: 4/3; /* David Lynch tribute */
+}
+
+#supercar-blondie-facebook .video-page-player,
+#just-eat .video-page-player.vertical { /* Add 'vertical' class to the 9:16 video container */
+    aspect-ratio: 9/16;
+}
 
     .video-page-title {
         font-size: 16px;
@@ -740,21 +751,21 @@ display: none !important;
     <div class="video-page-content">
         <button class="back-button">&lt;&lt;</button>
         
-        <!-- First Video (Slovakia) -->
+        <!-- 1. Slovakia (16:9) - No changes -->
         <div class="video-page-player">
             <video controls autoplay>
                 <source src="https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-Slovakia.mp4" type="video/mp4">
             </video>
         </div>
         
-        <!-- Second Video (Australia) -->
+        <!-- 2. Australia Horizontal (16:9) - No changes -->
         <div class="video-page-player">
             <video controls>
                 <source src="https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-169.mp4" type="video/mp4">
             </video>
         </div>
         
-        <!-- Third Video (Mobile) -->
+        <!-- 3. Australia Vertical (9:16) - Added 'vertical' class -->
         <div class="video-page-player vertical">
             <video controls>
                 <source src="https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-AU-916.mp4" type="video/mp4">
@@ -763,7 +774,7 @@ display: none !important;
         
         <h1 class="video-page-title">Just Eat Adaptations</h1>
         <p class="video-page-description">
-            Localized adaptations for Just Eat's international markets: Endframe adaptation for Slovakia and campaign for Australia (IU mobile, endframe).
+            Localized adaptations for Just Eat's international markets...
         </p>
     </div>
 </div>
