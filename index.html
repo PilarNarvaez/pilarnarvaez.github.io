@@ -99,16 +99,6 @@
         background: transparent !important;
     }
 
-    /* Special aspect ratios for specific videos */
-    #fire-walk-with-me {
-        aspect-ratio: 4/3;
-    }
-    
-    #supercar-blondie-facebook,
-    #just-eat {
-        aspect-ratio: 9/16;
-    }
-
     .video-container video {
         position: absolute;
         top: 0;
@@ -131,6 +121,7 @@
         z-index: 1;
         pointer-events: none;
         transition: opacity 0.3s ease;
+        opacity: 0; /* Start with poster hidden */
     }
 
     /* Video Overlay */
@@ -196,24 +187,21 @@
         position: relative;
         overflow: hidden;
         margin-bottom: 30px;
-        aspect-ratio: 16/9;
         background: white !important;
     }
 
     /* Special aspect ratios for modal videos */
+    #fire-walk-with-me-modal .video-page-player,
     #fire-walk-with-me .video-page-player {
         aspect-ratio: 4/3;
     }
 
-    #supercar-blondie-facebook .video-page-player,
-    #just-eat .video-page-player.vertical {
+    #supercar-blondie-facebook-modal .video-page-player,
+    #just-eat-modal .video-page-player.vertical {
         aspect-ratio: 9/16;
     }
 
     .video-page-player video {
-        position: absolute;
-        top: 0;
-        left: 0;
         width: 100%;
         height: 100%;
         object-fit: contain;
@@ -449,42 +437,33 @@
         </div>
     </div>
     
-    <!-- Fire Walk With Me -->
+    <!-- Fire Walk With Me (4:3) - Only poster in grid, full video in modal -->
     <div id="fire-walk-with-me" class="video-container"
-         data-video-src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4"
+         data-modal="fire-walk-with-me-modal"
          data-title="Fire Walk With Me"
          data-description="I recreated Twin Peaks' iconic opening as a tribute to his work. Some scenes are flooded with light, an intentional reference to Fire Walk With Me, using Video Copilot's Saber plug-in to achieve a luminous glow. The goal was to create an abstract, experimental feel, inspired by László Moholy-Nagy's Light Space Modulator. The music is a cover by Xiu Xiu.">
-        <video muted playsinline disableRemotePlayback preload="auto" loop>
-            <source src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4" type="video/mp4">
-        </video>
         <img class="video-poster" src="https://pilarnarvaez.github.io/images/fire-poster.jpg" alt="Lynch Tribute">
         <div class="video-overlay">
             <span>Lynch Tribute</span>
         </div>
     </div>
     
-    <!-- Supercar Blondie Facebook -->
+    <!-- Supercar Blondie Facebook (9:16) - Only poster in grid, full video in modal -->
     <div id="supercar-blondie-facebook" class="video-container"
-         data-video-src="https://pilarnarvaez.github.io/videos/Super-Car-Blondie-Facebook.mp4"
+         data-modal="supercar-blondie-facebook-modal"
          data-title="Supercar Blondie Facebook"
          data-description="Social media content for Supercar Blondie's Facebook page. Motion graphics and edition.">
-        <video muted playsinline disableRemotePlayback preload="auto" loop>
-            <source src="https://pilarnarvaez.github.io/videos/Super-Car-Blondie-Facebook.mp4" type="video/mp4">
-        </video>
         <img class="video-poster" src="https://pilarnarvaez.github.io/images/super-car-blondie-facebook-poster.jpg" alt="Supercar Blondie">
         <div class="video-overlay">
             <span>Supercar Blondie</span>
         </div>
     </div>
 
-    <!-- Just Eat Adaptations -->
+    <!-- Just Eat Adaptations (9:16) - Only poster in grid, full video in modal -->
     <div id="just-eat" class="video-container" 
-         data-video-src="https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-Slovakia.mp4"
+         data-modal="just-eat-modal"
          data-title="Just Eat Adaptations"
          data-description="Localized adaptations for Just Eat's international markets: Endframe adaptation for Slovakia and campaign for Australia (IU mobile, endframe).">
-        <video muted playsinline disableRemotePlayback preload="auto" loop>
-            <source src="https://pilarnarvaez.github.io/videos/Just-Eat-Adaptation-Slovakia.mp4" type="video/mp4">
-        </video>
         <img class="video-poster" src="https://pilarnarvaez.github.io/images/just-eat-poster.jpg" alt="Just Eat Adaptations">
         <div class="video-overlay">
             <span>Just Eat Adaptations</span>
@@ -602,8 +581,40 @@ Video editing & Motion Graphics.">
     </div>
 </div>
 
-<!-- Just Eat Expanded Modal -->
-<div id="just-eat-expanded" class="video-page">
+<!-- Fire Walk With Me Modal (4:3) -->
+<div id="fire-walk-with-me-modal" class="video-page">
+    <div class="video-page-content">
+        <button class="back-button">&lt;&lt;</button>
+        <div class="video-page-player">
+            <video controls autoplay>
+                <source src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4" type="video/mp4">
+            </video>
+        </div>
+        <h1 class="video-page-title">Fire Walk With Me</h1>
+        <p class="video-page-description">
+            I recreated Twin Peaks' iconic opening as a tribute to his work. Some scenes are flooded with light, an intentional reference to Fire Walk With Me, using Video Copilot's Saber plug-in to achieve a luminous glow. The goal was to create an abstract, experimental feel, inspired by László Moholy-Nagy's Light Space Modulator. The music is a cover by Xiu Xiu.
+        </p>
+    </div>
+</div>
+
+<!-- Supercar Blondie Facebook Modal (9:16) -->
+<div id="supercar-blondie-facebook-modal" class="video-page">
+    <div class="video-page-content">
+        <button class="back-button">&lt;&lt;</button>
+        <div class="video-page-player">
+            <video controls autoplay>
+                <source src="https://pilarnarvaez.github.io/videos/Super-Car-Blondie-Facebook.mp4" type="video/mp4">
+            </video>
+        </div>
+        <h1 class="video-page-title">Supercar Blondie Facebook</h1>
+        <p class="video-page-description">
+            Social media content for Supercar Blondie's Facebook page. Motion graphics and edition.
+        </p>
+    </div>
+</div>
+
+<!-- Just Eat Modal (9:16) -->
+<div id="just-eat-modal" class="video-page">
     <div class="video-page-content">
         <button class="back-button">&lt;&lt;</button>
         
@@ -814,6 +825,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const poster = container.querySelector('.video-poster');
             const overlay = container.querySelector('.video-overlay');
 
+            // Only setup behavior for containers with videos (not the 4:3 or 9:16 ones)
             if (!video) return;
 
             // Initialize video (muted autoplay + loop)
@@ -879,11 +891,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 else {
                     const container = document.getElementById(targetId);
                     if (container) {
-                        if (targetId === "just-eat") {
-                            openModal('just-eat-expanded', container);
-                        } 
-                        else if (targetId === "godard-collages") {
-                            openModal('godard-page', container);
+                        if (container.dataset.modal) {
+                            openModal(container.dataset.modal, container);
                         }
                         else {
                             const tempModalId = 'video-modal-' + targetId;
@@ -921,11 +930,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (e.target.tagName === 'A') return;
                 e.preventDefault();
                 
-                if (this.id === "just-eat") {
-                    openModal('just-eat-expanded', this);
-                } 
-                else if (this.id === "godard-collages") {
-                    openModal('godard-page', this);
+                if (this.dataset.modal) {
+                    openModal(this.dataset.modal, this);
                 }
                 else {
                     const tempModalId = 'video-modal-' + this.id;
