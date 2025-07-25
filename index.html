@@ -227,22 +227,18 @@
 /* Main Grid View (16:9 container) */
 #godard-collages {
     background: white !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
 }
-
 #godard-collages .video-poster {
     object-fit: contain !important;
-    width: auto !important;
-    height: auto !important;
-    max-width: 100% !important;
-    max-height: 100% !important;
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    object-position: center !important;
 }
-
+    
 /* Modal View (full-size images) */
 #godard-page .image-gallery img {
     width: 100%;
