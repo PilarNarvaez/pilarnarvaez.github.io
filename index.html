@@ -847,173 +847,129 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = '';
     }
 
-    // Open a modal with content
+    function openModal(modalId, container = null) {
+        closeAllModals();
+        
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
+        
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
 
-function openModal(modalId, container = null) {
-    closeAllModals();
-    
-    const modal = document.getElementById(modalId);
-    if (!modal) return;
-    
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-
-    // Special cases for Just Eat, Godard and Lizzo
-    if (container && container.id === "just-eat") {
-        const videos = modal.querySelectorAll('video');
-        videos[0].src = container.dataset.videoSrc;
-        videos.forEach(v => {
-            v.muted = true;
-            v.controls = true;
-            v.load();
-            v.addEventListener('play', function() {
-                videos.forEach(otherV => {
-                    if (otherV !== v) otherV.pause();
+        // Special cases for Just Eat, Godard and Lizzo
+        if (container && container.id === "just-eat") {
+            const videos = modal.querySelectorAll('video');
+            videos[0].src = container.dataset.videoSrc;
+            videos.forEach(v => {
+                v.muted = true;
+                v.controls = true;
+                v.load();
+                v.addEventListener('play', function() {
+                    videos.forEach(otherV => {
+                        if (otherV !== v) otherV.pause();
+                    });
+                    this.muted = false;
                 });
-                this.muted = false;
-            }); // closes play event listener
-        }); // closes videos.forEach
-    } // closes just-eat case
-    else if (container && container.id === "godard-collages") {
-        // Godard modal is already set up
-    } // closes godard case
-
-else if (container && (container.id === "lizzo-spot" || container.id === "UOC-corporative")) {
-    const desc = modal.querySelector('.video-page-description');
-    if (desc) {
-        // This preserves the HTML from data-description
-        desc.innerHTML = container.dataset.description
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>')
-            .replace(/&amp;/g, '&');
-        
-        // Add hover effects to links
-        const links = desc.querySelectorAll('a');
-        links.forEach(link => {
-            // Set initial red color
-            link.style.color = '#e74c3c';
-            // Remove underline permanently
-            link.style.textDecoration = 'none';
-            // Add smooth transition
-            link.style.transition = 'color 0.2s ease';
-            
-            // 3. Preserve hover/click states
-            link.addEventListener('mouseenter', () => {
-                link.style.color = '#333';
             });
-            link.addEventListener('mouseleave', () => {
-                link.style.color = '#e74c3c';
-            });
-            link.addEventListener('mousedown', () => {
-                link.style.color = '#333';
-            });
-            link.addEventListener('mouseup', () => {
-                link.style.color = '#e74c3c';
-            });
-        });
-        } // closes if(desc)
-    } // closes lizzo case
-    else if (container) {
-        // For regular video containers
-        const videoPlayer = modal.querySelector('.video-page-player');
-        if (videoPlayer) {
-            videoPlayer.innerHTML = `
-                <video controls autoplay>
-                    <source src="${container.dataset.videoSrc}" type="video/mp4">
-                </video>
-            `;
-        } // closes if(videoPlayer)
-        
-        const title = modal.querySelector('.video-page-title');
-        if (title) title.textContent = container.dataset.title;
-        
-        const desc = modal.querySelector('.video-page-description');
-        if (desc) desc.textContent = container.dataset.description;
-    } // closes regular container case
-} // closes openModal function
-
-    // Highlight a video container with red overlay
-function highlightVideo(videoId) {
-    // Remove previous highlights
-    document.querySelectorAll('.video-container.active-click').forEach(v => {
-        v.classList.remove('active-click');
-    });
-
-    // Apply to new target (if exists)
-    const targetVideo = document.getElementById(videoId);
-    if (targetVideo) {
-        targetVideo.classList.add('active-click');
-        
-        // Auto-remove after 3 seconds (unless hovered)
-        setTimeout(() => {
-            if (!targetVideo.matches(':hover')) {
-                targetVideo.classList.remove('active-click');
+        }
+        else if (container && container.id === "godard-collages") {
+            // Godard modal is already set up
+        }
+        else if (container && (container.id === "lizzo-spot" || container.id === "UOC-corporative")) {
+            const desc = modal.querySelector('.video-page-description');
+            if (desc) {
+                desc.innerHTML = container.dataset.description
+                    .replace(/&lt;/g, '<')
+                    .replace(/&gt;/g, '>')
+                    .replace(/&amp;/g, '&');
+                
+                const links = desc.querySelectorAll('a');
+                links.forEach(link => {
+                    link.style.color = '#e74c3c';
+                    link.style.textDecoration = 'none';
+                    link.style.transition = 'color 0.2s ease';
+                    
+                    link.addEventListener('mouseenter', () => {
+                        link.style.color = '#333';
+                    });
+                    link.addEventListener('mouseleave', () => {
+                        link.style.color = '#e74c3c';
+                    });
+                    link.addEventListener('mousedown', () => {
+                        link.style.color = '#333';
+                    });
+                    link.addEventListener('mouseup', () => {
+                        link.style.color = '#e74c3c';
+                    });
+                });
             }
-        }, 3000);
+        }
+        else if (container) {
+            const videoPlayer = modal.querySelector('.video-page-player');
+            if (videoPlayer) {
+                videoPlayer.innerHTML = `
+                    <video controls autoplay>
+                        <source src="${container.dataset.videoSrc}" type="video/mp4">
+                    </video>
+                `;
+            }
+            
+            const title = modal.querySelector('.video-page-title');
+            if (title) title.textContent = container.dataset.title;
+            
+            const desc = modal.querySelector('.video-page-description');
+            if (desc) desc.textContent = container.dataset.description;
+        }
     }
-}
-    // Highlight a video container with red overlay
+
     function highlightVideo(videoId) {
-        // Remove highlight from all videos first
-        document.querySelectorAll('.video-container').forEach(v => {
+        // Remove previous highlights
+        document.querySelectorAll('.video-container.active-click').forEach(v => {
             v.classList.remove('active-click');
-            const overlay = v.querySelector('.video-overlay');
-            if (overlay) overlay.style.opacity = '0';
         });
-        
-        // Highlight the target video
+
+        // Apply to new target (if exists)
         const targetVideo = document.getElementById(videoId);
         if (targetVideo) {
             targetVideo.classList.add('active-click');
-            const overlay = targetVideo.querySelector('.video-overlay');
-            if (overlay) overlay.style.opacity = '1';
             
-            // Remove highlight after 3 seconds
+            // Auto-remove after 3 seconds (unless hovered)
             setTimeout(() => {
-                targetVideo.classList.remove('active-click');
-                if (overlay) overlay.style.opacity = '0';
+                if (!targetVideo.matches(':hover')) {
+                    targetVideo.classList.remove('active-click');
+                }
             }, 3000);
         }
     }
 
-    // Add hover play/pause for grid videos
-function setupVideoHover() {
-  document.querySelectorAll('.video-container').forEach(container => {
-    const video = container.querySelector('video');
-    const overlay = container.querySelector('.video-overlay');
+    function setupVideoHover() {
+        document.querySelectorAll('.video-container').forEach(container => {
+            const video = container.querySelector('video');
+            const overlay = container.querySelector('.video-overlay');
+            
+            if (!video || !overlay) return;
+
+            video.muted = true;
+            video.playsInline = true;
+            video.preload = "auto";
+
+            container.addEventListener('mouseenter', () => {
+                overlay.style.opacity = '1';
+                overlay.style.background = 'rgba(231, 76, 60, 0.85)';
+                video.play().catch(e => {
+                    console.log("Autoplay blocked:", e);
+                    video.load(); 
+                });
+            });
+
+            container.addEventListener('mouseleave', () => {
+                overlay.style.opacity = '0';
+                video.pause();
+                video.currentTime = 0;
+            });
+        });
+    }
     
-    if (!video || !overlay) return;
-
-    // Ensure video is playable
-    video.muted = true;
-    video.playsInline = true;
-    video.preload = "auto"; // Preload metadata for faster hover response
-
-    container.addEventListener('mouseenter', () => {
-      // 1. Show red overlay immediately
-      overlay.style.opacity = '1';
-      overlay.style.background = 'rgba(231, 76, 60, 0.85)';
-      
-      // 2. Play video (with error handling)
-      video.play().catch(e => {
-        console.log("Autoplay blocked:", e);
-        // Fallback: Reload video to show poster
-        video.load(); 
-      });
-    });
-
-    container.addEventListener('mouseleave', () => {
-      // 1. Hide overlay
-      overlay.style.opacity = '0';
-      
-      // 2. Reset video
-      video.pause();
-      video.currentTime = 0;
-    });
-  });
-}
-    
-    // Setup event listeners
     function setupEventListeners() {
         // Modal links (About, Contact)
         document.querySelectorAll('[data-modal]').forEach(link => {
@@ -1024,27 +980,25 @@ function setupVideoHover() {
         });
 
         // Project navigation links
-document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href').substring(1);
-        
-        // Highlight the video (using new improved function)
-        highlightVideo(targetId);
-        
-        // On desktop, scroll to the video
-        if (window.innerWidth > 768) {
-            const target = document.getElementById(targetId);
-            if (target) {
-                target.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'nearest'
-                });
-            }
-        }
-        // On mobile - just the highlight appears (no scroll)
-    });
-});
+        document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                
+                // Highlight the video
+                highlightVideo(targetId);
+                
+                // On desktop, scroll to the video
+                if (window.innerWidth > 768) {
+                    const target = document.getElementById(targetId);
+                    if (target) {
+                        target.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'nearest'
+                        });
+                    }
+                }
+                // On mobile, open the modal directly
                 else {
                     const container = document.getElementById(targetId);
                     if (container) {
@@ -1055,7 +1009,6 @@ document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(li
                             openModal('godard-page', container);
                         }
                         else {
-                            // Create temporary modal for regular videos
                             const tempModalId = 'video-modal-' + targetId;
                             let modal = document.getElementById(tempModalId);
                             
@@ -1085,7 +1038,7 @@ document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(li
             });
         });
 
-        // Video container clicks (open modal when clicked)
+        // Video container clicks
         document.querySelectorAll('.video-container').forEach(container => {
             container.addEventListener('click', function(e) {
                 if (e.target.tagName === 'A') return;
@@ -1098,7 +1051,6 @@ document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(li
                     openModal('godard-page', this);
                 }
                 else {
-                    // Create a temporary modal ID for regular videos
                     const tempModalId = 'video-modal-' + this.id;
                     let modal = document.getElementById(tempModalId);
                     
@@ -1134,9 +1086,9 @@ document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(li
             }
         });
     }
+
     // Initialize
-    setupVideoHover(); // Add this before setupEventListeners
-    // Initialize
+    setupVideoHover();
     setupEventListeners();
 });
 </script>
