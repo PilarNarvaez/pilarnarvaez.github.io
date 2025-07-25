@@ -227,26 +227,34 @@
 /* Main Grid View (16:9 container) */
 #godard-collages {
     background: white !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 0 !important; /* Remove any padding */
 }
 #godard-collages .video-poster {
     object-fit: contain !important;
-    width: 100% !important;
-    height: 100% !important;
-    position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    object-position: center !important;
+    width: 95% !important; /* Slightly smaller than container */
+    height: 95% !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
 }
     
 /* Modal View (full-size images) */
+    display: grid;
+    gap: 15px; /* Same as video grid gap */
+    margin-bottom: 30px; /* Same as video player margin */
+}
+    
 #godard-page .image-gallery img {
     width: 100%;
-    max-height: 80vh;
+    max-height: 70vh;
     object-fit: contain;
+    background: white;
     margin: 0 auto;
     display: block;
-    background: white;
 }
 
     /* ===== BACK BUTTON STYLES ===== */
@@ -931,14 +939,23 @@ document.querySelectorAll('.main-nav a[href^="#"], .mobile-nav-header a[href^="#
         const targetElement = document.getElementById(targetId);
         
         if (targetElement) {
-            // For regular videos
-            if (targetElement.classList.contains('video-container')) {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                
-                // If it has a modal, open it
-                if (targetElement.dataset.modal) {
+            // Scroll to element
+            targetElement.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+            });
+            
+            // Highlight briefly
+            targetElement.classList.add('active-click');
+            setTimeout(() => {
+                targetElement.classList.remove('active-click');
+            }, 1000);
+            
+            // If it's a modal item, open it
+            if (targetElement.dataset.modal) {
+                setTimeout(() => {
                     openModal(targetElement.dataset.modal, targetElement);
-                }
+                }, 500); // Small delay for scroll to complete
             }
         }
     });
