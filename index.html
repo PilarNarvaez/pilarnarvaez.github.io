@@ -222,6 +222,23 @@
         margin: 0 0 20px 0;
         white-space: pre-line;
     }
+/* ===== GODARD COLLAGE ===== */
+
+/* Main Grid View (16:9 container) */
+#godard-collages .video-poster {
+    object-fit: contain !important;
+    background: white !important;
+}
+
+/* Modal View (full-size images) */
+#godard-page .image-gallery img {
+    width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    margin: 0 auto;
+    display: block;
+    background: white;
+}
 
     /* ===== BACK BUTTON STYLES ===== */
     .back-button {
@@ -566,7 +583,7 @@ Video editing & Motion Graphics.">
         <video muted playsinline disableRemotePlayback preload="auto" loop>
             <source src="https://pilarnarvaez.github.io/videos/shoegaze-madrid.mp4" type="video/mp4">
         </video>
-        <img class="video-poster" src="https://pilarnarvaez.github.io/images/shoegaze-poster.jpg" alt="Shoegaze">
+        <img class="video-poster" src="https://pilarnarvaez.github.io/images/shoegaze-madrid-poster.jpg" alt="Shoegaze">
         <div class="video-overlay">
             <span>Shoegaze</span>
         </div>
@@ -897,57 +914,19 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Project navigation links - now properly linking to videos with overlay
-        document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal]), .mobile-nav-header a[href^="#"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const container = document.getElementById(targetId);
-                
-                if (container) {
-                    // Highlight the video container
-                    highlightVideo(targetId);
-                    
-                    // If it's a special modal case (4:3 or 9:16), open modal directly
-                    if (container.dataset.modal) {
-                        openModal(container.dataset.modal, container);
-                    } 
-                    // Otherwise scroll to it on desktop, open modal on mobile
-                    else {
-                        if (window.innerWidth > 768) {
-                            container.scrollIntoView({ 
-                                behavior: 'smooth', 
-                                block: 'nearest'
-                            });
-                        } else {
-                            const tempModalId = 'video-modal-' + targetId;
-                            let modal = document.getElementById(tempModalId);
-                            
-                            if (!modal) {
-                                modal = document.createElement('div');
-                                modal.id = tempModalId;
-                                modal.className = 'video-page';
-                                modal.innerHTML = `
-                                    <div class="video-page-content">
-                                        <button class="back-button">&lt;&lt;</button>
-                                        <div class="video-page-player">
-                                            <video controls autoplay>
-                                                <source src="${container.dataset.videoSrc}" type="video/mp4">
-                                            </video>
-                                        </div>
-                                        <h1 class="video-page-title">${container.dataset.title}</h1>
-                                        <p class="video-page-description">${container.dataset.description}</p>
-                                    </div>
-                                `;
-                                document.body.appendChild(modal);
-                            }
-                            
-                            openModal(tempModalId, container);
-                        }
-                    }
-                }
-            });
-        });
+// Project navigation links - simplified version
+document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal]), .mobile-nav-header a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const container = document.getElementById(targetId);
+        
+        if (container) {
+            // This single line handles all cases (highlights overlay AND opens modal)
+            container.click(); 
+        }
+    });
+});
 
         // Video container clicks
         document.querySelectorAll('.video-container').forEach(container => {
