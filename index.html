@@ -137,27 +137,29 @@
         width: 100%;
     }
 /* Hover States */
+/* ===== Video Hover States ===== */
 .video-container:hover .video-overlay {
-    opacity: 1;
-    background: rgba(231, 76, 60, 0.85);
+    opacity: 1; /* Show overlay */
+    background: rgba(231, 76, 60, 0.85); /* Semi-transparent red */
 }
 
-/* Active click state (for programmatic highlighting) */
-.video-container.active-click .video-overlay {
-    opacity: 1;
-    background: rgba(231, 76, 60, 0.85);
-    transition: none; /* Instant appearance when activated by JS */
+.video-container video {
+    position: absolute;
+    z-index: 0; /* Ensure video stays below overlay */
+    transition: opacity 0.3s ease;
+}
+
+.video-container:hover video {
+    opacity: 1 !important; /* Force video to stay visible */
 }
 
 .video-container video[poster] {
     opacity: 1;
-    display: block;
-    object-fit: cover;
-    z-index: 0;
+    z-index: -1; /* Keep poster image behind everything */
 }
 
 .video-container:hover video[poster] {
-    opacity: 0;
+    opacity: 0; /* Hide poster on hover */
 }
     /* ===== MODAL STYLES ===== */
     .video-page {
