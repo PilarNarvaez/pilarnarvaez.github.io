@@ -191,14 +191,16 @@
     }
 
     /* Special aspect ratios for modal videos */
-    #fire-walk-with-me-modal .video-page-player,
-    #fire-walk-with-me .video-page-player {
+    #fire-walk-with-me-modal .video-page-player {
         aspect-ratio: 4/3;
     }
 
     #supercar-blondie-facebook-modal .video-page-player,
     #just-eat-modal .video-page-player.vertical {
         aspect-ratio: 9/16;
+        max-width: 400px; /* Reduced size for vertical videos */
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .video-page-player video {
@@ -314,6 +316,12 @@
 
         .back-button:active {
             color: #e74c3c !important;
+        }
+
+        /* Smaller vertical videos on mobile */
+        #supercar-blondie-facebook-modal .video-page-player,
+        #just-eat-modal .video-page-player.vertical {
+            max-width: 300px;
         }
     }
 
@@ -750,12 +758,13 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = 'hidden';
 
         // Special cases for Just Eat, Godard and Lizzo/UOC
-        if (container && container.id === "just-eat") {
+        if (modalId === "just-eat-modal") {
             const videos = modal.querySelectorAll('video');
             videos.forEach(v => {
                 v.muted = false;
                 v.controls = true;
                 v.load();
+                v.play().catch(e => console.log("Autoplay prevented:", e));
                 v.addEventListener('play', function() {
                     videos.forEach(otherV => {
                         if (otherV !== v) otherV.pause();
@@ -763,8 +772,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         }
-        else if (container && container.id === "godard-collages") {
-            // Godard modal is already set up
+        else if (modalId === "fire-walk-with-me-modal" || modalId === "supercar-blondie-facebook-modal") {
+            const video = modal.querySelector('video');
+            if (video) {
+                video.muted = false;
+                video.controls = true;
+                video.load();
+                video.play().catch(e => console.log("Autoplay prevented:", e));
+            }
         }
         else if (container && (container.id === "lizzo-spot" || container.id === "UOC-corporative")) {
             const desc = modal.querySelector('.video-page-description');
@@ -798,13 +813,18 @@ document.addEventListener('DOMContentLoaded', function() {
                         <source src="${container.dataset.videoSrc}" type="video/mp4">
                     </video>
                 `;
+                const video = videoPlayer.querySelector('video');
+                if (video) {
+                    video.muted = false;
+                    video.play().catch(e => console.log("Autoplay prevented:", e));
+                }
             }
             
             const title = modal.querySelector('.video-page-title');
-            if (title) title.textContent = container.dataset.title;
+            if (title && container.dataset.title) title.textContent = container.dataset.title;
             
             const desc = modal.querySelector('.video-page-description');
-            if (desc) desc.textContent = container.dataset.description;
+            if (desc && container.dataset.description) desc.textContent = container.dataset.description;
         }
     }
 
@@ -854,14 +874,14 @@ document.addEventListener('DOMContentLoaded', function() {
             // Hover in - Play video + show overlay
             container.addEventListener('mouseenter', () => {
                 if (poster) poster.style.opacity = '0';
-                overlay.style.opacity = '1';
+                if (overlay) overlay.style.opacity = '1';
                 video.play().catch(() => {});
             });
 
             // Hover out - Pause video + show poster
             container.addEventListener('mouseleave', () => {
                 if (poster) poster.style.opacity = '1';
-                overlay.style.opacity = '0';
+                if (overlay) overlay.style.opacity = '0';
                 video.pause();
                 video.currentTime = 0;
             });
@@ -877,33 +897,29 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Project navigation links
+        // Project navigation links - now properly linking to videos with overlay
         document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal]), .mobile-nav-header a[href^="#"]').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
+                const container = document.getElementById(targetId);
                 
-                // Highlight the video
-                highlightVideo(targetId);
-                
-                // On desktop, scroll to the video
-                if (window.innerWidth > 768) {
-                    const target = document.getElementById(targetId);
-                    if (target) {
-                        target.scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'nearest'
-                        });
-                    }
-                }
-                // On mobile, open the modal directly
-                else {
-                    const container = document.getElementById(targetId);
-                    if (container) {
-                        if (container.dataset.modal) {
-                            openModal(container.dataset.modal, container);
-                        }
-                        else {
+                if (container) {
+                    // Highlight the video container
+                    highlightVideo(targetId);
+                    
+                    // If it's a special modal case (4:3 or 9:16), open modal directly
+                    if (container.dataset.modal) {
+                        openModal(container.dataset.modal, container);
+                    } 
+                    // Otherwise scroll to it on desktop, open modal on mobile
+                    else {
+                        if (window.innerWidth > 768) {
+                            container.scrollIntoView({ 
+                                behavior: 'smooth', 
+                                block: 'nearest'
+                            });
+                        } else {
                             const tempModalId = 'video-modal-' + targetId;
                             let modal = document.getElementById(tempModalId);
                             
