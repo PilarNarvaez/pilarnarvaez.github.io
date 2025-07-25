@@ -225,9 +225,22 @@
 /* ===== GODARD COLLAGE ===== */
 
 /* Main Grid View (16:9 container) */
+#godard-collages {
+    background: white !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
 #godard-collages .video-poster {
     object-fit: contain !important;
-    background: white !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
 }
 
 /* Modal View (full-size images) */
@@ -914,7 +927,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-// Project navigation links - simplified version
+// Project navigation links
 document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal]), .mobile-nav-header a[href^="#"]').forEach(link => {
     link.addEventListener('click', function(e) {
         e.preventDefault();
@@ -922,8 +935,15 @@ document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal]), .mobile-nav
         const container = document.getElementById(targetId);
         
         if (container) {
-            // This single line handles all cases (highlights overlay AND opens modal)
-            container.click(); 
+            // Scroll to the video container
+            container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Highlight the video briefly
+            highlightVideo(targetId);
+            
+            // If it's a modal container (like Godard), open the modal
+            if (container.dataset.modal) {
+                openModal(container.dataset.modal, container);
+            }
         }
     });
 });
