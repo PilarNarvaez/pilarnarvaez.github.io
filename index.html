@@ -109,6 +109,7 @@
          display: block;
         background: transparent !important;
         transition: opacity 0.3s ease;
+        --show-poster: none;
     }
 
     /* Video Overlay */
@@ -136,25 +137,41 @@
         padding: 0 20px;
         width: 100%;
     }
-/* Hover States */
 /* ===== Video Hover States ===== */
 .video-container:hover .video-overlay {
     opacity: 1;
-    background: rgba(231, 76, 60, 0.85); /* Semi-transparent red */
-    z-index: 2; /* Above video */
+    background: rgba(231, 76, 60, 0.85);
+    z-index: 3; /* Above both video and poster */
 }
 
 .video-container video {
-    z-index: 1; /* Below overlay but above poster */
-    opacity: 1 !important; /* Always visible */
+    z-index: 2; /* Above poster */
+    opacity: 1 !important;
+    position: relative; /* Needed for z-index */
 }
 
 .video-container video[poster] {
-    z-index: 0; /* Bottom layer */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1; /* Between overlay (z:2) and video (z:0) */
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    display: var(--show-poster, none); /* Controlled by JS/CSS var */
+    pointer-events: none; /* Allows clicks to pass through to video */
+}
+/* Hide poster when video is playing */
+.video-container video:not([paused]) + video[poster],
+.video-container:hover video[poster] {
+  opacity: 0;
 }
 
-.video-container:hover video[poster] {
-    opacity: 0; /* Hide poster on hover */
+/* Show poster when video is paused (after hover) */
+.video-container video[paused] + video[poster] {
+    opacity: 1;
 }
     /* ===== MODAL STYLES ===== */
     .video-page {
@@ -980,33 +997,33 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function setupVideoHover() {
-        document.querySelectorAll('.video-container').forEach(container => {
-            const video = container.querySelector('video');
-            const overlay = container.querySelector('.video-overlay');
-            
-            if (!video || !overlay) return;
+function setupVideoHover() {
+  document.querySelectorAll('.video-container').forEach(container => {
+    const video = container.querySelector('video');
+    const overlay = container.querySelector('.video-overlay');
 
-            video.muted = true;
-            video.playsInline = true;
-            video.preload = "auto";
+    // Initialize video (autoplay muted + loop)
+    video.muted = true;
+    video.loop = true;
+    video.play().catch(e => {
+      // Fallback if autoplay blocked (keeps poster visible)
+      video.load(); 
+    });
 
-            container.addEventListener('mouseenter', () => {
-                overlay.style.opacity = '1';
-                overlay.style.background = 'rgba(231, 76, 60, 0.85)';
-                video.play().catch(e => {
-                    console.log("Autoplay blocked:", e);
-                    video.load(); 
-                });
-            });
+    // Hover in - Keep playing + show overlay
+    container.addEventListener('mouseenter', () => {
+      overlay.style.opacity = '1';
+      video.play().catch(e => {}); // Ensure playback continues
+    });
 
-            container.addEventListener('mouseleave', () => {
-                overlay.style.opacity = '0';
-                video.pause();
-                video.currentTime = 0;
-            });
-        });
-    }
+    // Hover out - Pause + show poster
+    container.addEventListener('mouseleave', () => {
+      overlay.style.opacity = '0';
+      video.pause();
+      video.currentTime = 0; // Forces poster to show
+    });
+  });
+}
     
     function setupEventListeners() {
         // Modal links (About, Contact)
