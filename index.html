@@ -96,20 +96,9 @@
         aspect-ratio: 16/9;
         overflow: hidden;
         cursor: pointer;
-        isolation: isolate;
-        background-color: transparent !important;
         background: transparent !important;
     }
-.video-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  z-index: 0;
-}
+
     .video-container video {
         position: absolute;
         top: 0;
@@ -118,31 +107,10 @@
         height: 100%;
         object-fit: cover;
          display: block;
-        z-index: 1; /* Place above poster */
         background: transparent !important;
+        transition: opacity 0.3s ease;
     }
-    
-    .video-container:hover video {
-    z-index: 1; /* Bring video to front */
-}
-    .video-container video[autoplay] {
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
-  transform: translateZ(0);
-}
-    .video-container:hover .video-overlay {
-  opacity: 1 !important;
-  background: rgba(231, 76, 60, 0.85) !important;
-}
-/* Make sure poster is always visible by default */
-.video-container video[poster] {
-    opacity: 1 !important;
-  display: block;
-  object-fit: cover;
-    z-index: 0;
-    }
-.video-container:hover video[poster] {
-    opacity: 0 !important; /* Hide poster when hovering */
-}
+
     /* Video Overlay */
     .video-overlay {
         position: absolute;
@@ -156,7 +124,7 @@
         justify-content: center;
         opacity: 0;
         transition: opacity 0.3s ease, background 0.3s ease;
-        z-index: 2;
+        z-index: 1;
         pointer-events: none;
     }
 
@@ -167,16 +135,30 @@
         text-align: center;
         padding: 0 20px;
         width: 100%;
-        mix-blend-mode: screen;
     }
+/* Hover States */
+.video-container:hover .video-overlay {
+    opacity: 1;
+    background: rgba(231, 76, 60, 0.85);
+}
 
-    .video-container:hover .video-overlay,
-    .video-container.active .video-overlay,
-    .video-container.active-click .video-overlay {
-        opacity: 1;
-        background: rgba(231, 76, 60, 0.85) !important;
-    }
+/* Active click state (for programmatic highlighting) */
+.video-container.active-click .video-overlay {
+    opacity: 1;
+    background: rgba(231, 76, 60, 0.85);
+    transition: none; /* Instant appearance when activated by JS */
+}
 
+.video-container video[poster] {
+    opacity: 1;
+    display: block;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.video-container:hover video[poster] {
+    opacity: 0;
+}
     /* ===== MODAL STYLES ===== */
     .video-page {
         display: none;
@@ -951,28 +933,25 @@ else if (container && (container.id === "lizzo-spot" || container.id === "UOC-co
 } // closes openModal function
 
     // Highlight a video container with red overlay
-    function highlightVideo(videoId) {
-        // Remove highlight from all videos first
-        document.querySelectorAll('.video-container').forEach(v => {
-            v.classList.remove('active-click');
-            const overlay = v.querySelector('.video-overlay');
-            if (overlay) overlay.style.opacity = '0';
-        });
+function highlightVideo(videoId) {
+    // Remove previous highlights
+    document.querySelectorAll('.video-container.active-click').forEach(v => {
+        v.classList.remove('active-click');
+    });
+
+    // Apply to new target (if exists)
+    const targetVideo = document.getElementById(videoId);
+    if (targetVideo) {
+        targetVideo.classList.add('active-click');
         
-        // Highlight the target video
-        const targetVideo = document.getElementById(videoId);
-        if (targetVideo) {
-            targetVideo.classList.add('active-click');
-            const overlay = targetVideo.querySelector('.video-overlay');
-            if (overlay) overlay.style.opacity = '1';
-            
-            // Remove highlight after 3 seconds
-            setTimeout(() => {
+        // Auto-remove after 3 seconds (unless hovered)
+        setTimeout(() => {
+            if (!targetVideo.matches(':hover')) {
                 targetVideo.classList.remove('active-click');
-                if (overlay) overlay.style.opacity = '0';
-            }, 3000);
-        }
+            }
+        }, 3000);
     }
+}
     // Highlight a video container with red overlay
     function highlightVideo(videoId) {
         // Remove highlight from all videos first
@@ -1045,25 +1024,27 @@ function setupVideoHover() {
         });
 
         // Project navigation links
-        document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                
-                // Highlight the video
-                highlightVideo(targetId);
-                
-                // On desktop, scroll to the video
-                if (window.innerWidth > 768) {
-                    const target = document.getElementById(targetId);
-                    if (target) {
-                        target.scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'nearest'
-                        });
-                    }
-                }
-                // On mobile, open the modal directly
+document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        
+        // Highlight the video (using new improved function)
+        highlightVideo(targetId);
+        
+        // On desktop, scroll to the video
+        if (window.innerWidth > 768) {
+            const target = document.getElementById(targetId);
+            if (target) {
+                target.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'nearest'
+                });
+            }
+        }
+        // On mobile - just the highlight appears (no scroll)
+    });
+});
                 else {
                     const container = document.getElementById(targetId);
                     if (container) {
