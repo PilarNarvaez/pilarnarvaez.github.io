@@ -917,33 +917,43 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Project navigation links - DESKTOP VERSION (scroll to container)
- if (window.innerWidth > 768) {
-        document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetContainer = document.getElementById(targetId);
+if (window.innerWidth > 768) {
+    document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetContainer = document.getElementById(targetId);
+            
+            if (targetContainer) {
+                // Scroll to the container
+                targetContainer.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'nearest'
+                });
                 
-                if (targetContainer) {
-                    // Scroll to the container
-                    targetContainer.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'nearest'
-                    });
+                // Trigger overlay exactly like hover state
+                const overlay = targetContainer.querySelector('.video-overlay');
+                if (overlay) {
+                    // Temporarily force the hover styles
+                    overlay.style.opacity = '1';
+                    overlay.style.background = 'rgba(231, 76, 60, 0.85)';
                     
-                    // Highlight briefly
-                    targetContainer.classList.add('active-click');
-                    const overlay = targetContainer.querySelector('.video-overlay');
-                    if (overlay) overlay.style.opacity = '1';
-                    
+                    // Set timeout to match your hover transition
                     setTimeout(() => {
-                        targetContainer.classList.remove('active-click');
-                        if (overlay) overlay.style.opacity = '0';
+                        overlay.style.opacity = '';
+                        overlay.style.background = '';
                     }, 1000);
                 }
-            });
+                
+                // Highlight container
+                targetContainer.classList.add('active-click');
+                setTimeout(() => {
+                    targetContainer.classList.remove('active-click');
+                }, 1000);
+            }
         });
-    }
+    });
+}
 
         // Video container clicks
         document.querySelectorAll('.video-container').forEach(container => {
