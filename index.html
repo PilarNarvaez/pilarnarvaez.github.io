@@ -916,35 +916,34 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-// Project navigation links
-document.querySelectorAll('.main-nav a[href^="#"], .mobile-nav-header a[href^="#"]').forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href').substring(1);
-        const targetElement = document.getElementById(targetId);
-        
-        if (targetElement) {
-            // Scroll to element
-            targetElement.scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'center' 
+        // Project navigation links - DESKTOP VERSION (scroll to container)
+ if (window.innerWidth > 768) {
+        document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetContainer = document.getElementById(targetId);
+                
+                if (targetContainer) {
+                    // Scroll to the container
+                    targetContainer.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'nearest'
+                    });
+                    
+                    // Highlight briefly
+                    targetContainer.classList.add('active-click');
+                    const overlay = targetContainer.querySelector('.video-overlay');
+                    if (overlay) overlay.style.opacity = '1';
+                    
+                    setTimeout(() => {
+                        targetContainer.classList.remove('active-click');
+                        if (overlay) overlay.style.opacity = '0';
+                    }, 1000);
+                }
             });
-            
-            // Highlight briefly
-            targetElement.classList.add('active-click');
-            setTimeout(() => {
-                targetElement.classList.remove('active-click');
-            }, 1000);
-            
-            // If it's a modal item, open it
-            if (targetElement.dataset.modal) {
-                setTimeout(() => {
-                    openModal(targetElement.dataset.modal, targetElement);
-                }, 500); // Small delay for scroll to complete
-            }
-        }
-    });
-});
+        });
+    }
 
         // Video container clicks
         document.querySelectorAll('.video-container').forEach(container => {
