@@ -809,7 +809,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 video.play().catch(e => console.log("Autoplay prevented:", e));
             }
         }
-        else if (container && (container.id === "lizzo-spot" || container.id === "UOC-corporative" || container.id === "social-media")) {
+        else if (container && (
+                container.id === "lizzo-spot" || 
+    container.id === "UOC-corporative" || 
+    container.id === "social-media" ||
+    container.id === "fire-walk-with-me" ||
+    container.id === "menopause-campaign" ||
+    container.id === "godard-collages" ||
+    container.id === "groot-twitter" ||
+    container.id === "shoegaze-madrid" ||
+    container.id === "kings-league" ||
+    container.id === "dries-lacroix-ss20" ||
+    container.id === "westwood-aw21" ||
+    container.id === "pepsi-recycle" ||
+    container.id === "expedia-social" ||
+    container.id === "just-eat"
+)) {
             const desc = modal.querySelector('.video-page-description');
             if (desc) {
                 desc.innerHTML = container.dataset.description
