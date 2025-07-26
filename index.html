@@ -479,7 +479,7 @@
         </div>
     </div>
     
-    <!-- Social Media (9:16) - Only poster in grid, full video in modal -->
+    <!-- Social Media - Only poster in grid, full video in modal -->
     <div id="social-media" class="video-container" 
          data-modal="social-media-modal"
          data-title="Social Media Videos"
@@ -498,17 +498,13 @@
         
         <!-- 1. Erra Doritos (9:16) -->
         <div class="video-page-player vertical">
-                max-width: 400px; /* Desktop size */
-    margin: 0 auto 30px;
             <video controls autoplay>
                 <source src="https://pilarnarvaez.github.io/videos/erra-doritos.mp4" type="video/mp4">
             </video>
         </div>
         
-        <!-- 2. Supercar Blondie (9:16) -->
+        <!-- Supercar Blondie (9:16) -->
         <div class="video-page-player vertical">
-                max-width: 400px; /* Desktop size */
-    margin: 0 auto 30px;
             <video controls>
                 <source src="https://pilarnarvaez.github.io/videos/Super-Car-Blondie-Facebook.mp4" type="video/mp4">
             </video>
@@ -522,12 +518,7 @@
         </div>
         
         <h1 class="video-page-title">Social Media</h1>
-        <p class="video-page-description">
-            Some videos for social media creators. Video edition and motion graphics:
-            1) A TikTok video for <a href="https://www.tiktok.com/@erra.aslanii?lang=es">Erra Aslanii</a> (@erra.aslanii, 1.7M followers) in collaboration with Doritos Flaming Hot. 
-            2) <a href="https://supercarblondie.com">Supercar Blondie's</a> Facebook page. 
-            3) Instagram video for <a href="https://www.moviecarscentral.com/en">Movie Cars Central</a> created with <a href="https://jellysmack.com">Jellysmack</a>. For higher resolution <a href="https://www.behance.net/gallery/177720053/Videos-For-Social-Media">visit this link</a>.
-        </p>
+        <p class="video-page-description"></p>
     </div>
 </div>
     <!-- Just Eat Adaptations (9:16) - Only poster in grid, full video in modal -->
@@ -822,7 +813,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 video.play().catch(e => console.log("Autoplay prevented:", e));
             }
         }
-        else if (container && (container.id === "lizzo-spot" || container.id === "UOC-corporative")) {
+        else if (container && (container.id === "lizzo-spot" || container.id === "UOC-corporative" || container.id === "social-media")) {
             const desc = modal.querySelector('.video-page-description');
             if (desc) {
                 desc.innerHTML = container.dataset.description
