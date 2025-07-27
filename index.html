@@ -781,6 +781,16 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = '';
     }
 
+    // Preload videos immediately
+    function preloadVideos() {
+        document.querySelectorAll('.video-container video source').forEach(source => {
+            const video = document.createElement('video');
+            video.src = source.src;
+            video.preload = 'auto';
+            video.load();
+        });
+    }
+
     function openModal(modalId, container = null) {
         closeAllModals();
         
@@ -805,7 +815,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         }
-        else if (modalId === "fire-walk-with-me-modal" || modalId === "supercar-blondie-facebook-modal") {
+        else if (modalId === "fire-walk-with-me-modal") {
             const video = modal.querySelector('video');
             if (video) {
                 video.muted = false;
@@ -816,20 +826,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         else if (container && (
                 container.id === "lizzo-spot" || 
-    container.id === "UOC-corporative" || 
-    container.id === "social-media" ||
-    container.id === "fire-walk-with-me" ||
-    container.id === "menopause-campaign" ||
-    container.id === "godard-collages" ||
-    container.id === "groot-twitter" ||
-    container.id === "shoegaze-madrid" ||
-    container.id === "kings-league" ||
-    container.id === "dries-lacroix-ss20" ||
-    container.id === "westwood-aw21" ||
-    container.id === "pepsi-recycle" ||
-    container.id === "expedia-social" ||
-    container.id === "just-eat"
-)) {
+                container.id === "UOC-corporative" || 
+                container.id === "social-media" ||
+                container.id === "fire-walk-with-me" ||
+                container.id === "menopause-campaign" ||
+                container.id === "godard-collages" ||
+                container.id === "groot-twitter" ||
+                container.id === "shoegaze-madrid" ||
+                container.id === "kings-league" ||
+                container.id === "dries-lacroix-ss20" ||
+                container.id === "westwood-aw21" ||
+                container.id === "pepsi-recycle" ||
+                container.id === "expedia-social" ||
+                container.id === "just-eat"
+        )) {
             const desc = modal.querySelector('.video-page-description');
             if (desc) {
                 desc.innerHTML = container.dataset.description
@@ -876,48 +886,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function highlightVideo(videoId) {
-        // Remove previous highlights
-        document.querySelectorAll('.video-container.active-click').forEach(v => {
-            v.classList.remove('active-click');
-        });
-
-        // Apply to new target (if exists)
-        const targetVideo = document.getElementById(videoId);
-        if (targetVideo) {
-            targetVideo.classList.add('active-click');
-            
-            // Auto-remove after 3 seconds (unless hovered)
-            setTimeout(() => {
-                if (!targetVideo.matches(':hover')) {
-                    targetVideo.classList.remove('active-click');
-                }
-            }, 3000);
-        }
-    }
-
     function setupVideoBehavior() {
         document.querySelectorAll('.video-container').forEach(container => {
             const video = container.querySelector('video');
             const poster = container.querySelector('.video-poster');
             const overlay = container.querySelector('.video-overlay');
 
-            // Only setup behavior for containers with videos (not the 4:3 or 9:16 ones)
+            // Only setup behavior for containers with videos
             if (!video) return;
 
             // Initialize video (muted autoplay + loop)
             video.muted = true;
             video.loop = true;
+            video.preload = 'auto';
             
-            // Try to autoplay (will work in most modern browsers)
-            const playPromise = video.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.catch(() => {
-                    // Autoplay was prevented - show poster
-                    if (poster) poster.style.opacity = '1';
-                });
-            }
+            // Start loading immediately but don't autoplay
+            video.load().then(() => {
+                // Video is loaded and ready
+                console.log(`${container.id} video loaded`);
+            }).catch(e => {
+                console.log(`${container.id} video load error:`, e);
+            });
 
             // Hover in - Play video + show overlay
             container.addEventListener('mouseenter', () => {
@@ -946,43 +935,38 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Project navigation links - DESKTOP VERSION (scroll to container)
-if (window.innerWidth > 768) {
-    document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetContainer = document.getElementById(targetId);
-            
-            if (targetContainer) {
-                // Scroll to the container
-                targetContainer.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'nearest'
-                });
-                
-                // Trigger overlay exactly like hover state
-                const overlay = targetContainer.querySelector('.video-overlay');
-                if (overlay) {
-                    // Temporarily force the hover styles
-                    overlay.style.opacity = '1';
-                    overlay.style.background = 'rgba(231, 76, 60, 0.85)';
+        if (window.innerWidth > 768) {
+            document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetContainer = document.getElementById(targetId);
                     
-                    // Set timeout to match your hover transition
-                    setTimeout(() => {
-                        overlay.style.opacity = '';
-                        overlay.style.background = '';
-                    }, 1000);
-                }
-                
-                // Highlight container
-                targetContainer.classList.add('active-click');
-                setTimeout(() => {
-                    targetContainer.classList.remove('active-click');
-                }, 1000);
-            }
-        });
-    });
-}
+                    if (targetContainer) {
+                        targetContainer.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'nearest'
+                        });
+                        
+                        const overlay = targetContainer.querySelector('.video-overlay');
+                        if (overlay) {
+                            overlay.style.opacity = '1';
+                            overlay.style.background = 'rgba(231, 76, 60, 0.85)';
+                            
+                            setTimeout(() => {
+                                overlay.style.opacity = '';
+                                overlay.style.background = '';
+                            }, 1000);
+                        }
+                        
+                        targetContainer.classList.add('active-click');
+                        setTimeout(() => {
+                            targetContainer.classList.remove('active-click');
+                        }, 1000);
+                    }
+                });
+            });
+        }
 
         // Video container clicks
         document.querySelectorAll('.video-container').forEach(container => {
@@ -1031,6 +1015,7 @@ if (window.innerWidth > 768) {
     }
 
     // Initialize
+    preloadVideos(); // Add this line to preload videos immediately
     setupVideoBehavior();
     setupEventListeners();
 });
