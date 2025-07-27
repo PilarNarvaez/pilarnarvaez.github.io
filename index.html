@@ -663,6 +663,7 @@ the Dandy Diary Boys, chatting about blogging, style and ruling the city.">
         <source src="https://pilarnarvaez.github.io/videos/berlinstruck.mp4" type="video/mp4">
     </video>
     <img class="video-poster" src="https://pilarnarvaez.github.io/images/tipstr-tv.jpg" alt="Tipstr TV">
+     alt="Tipstr TV" loading="eager">
     <div class="video-overlay">
         <span>Tipstr TV</span>
     </div>
@@ -735,28 +736,28 @@ the Dandy Diary Boys, chatting about blogging, style and ruling the city.">
         
         <!-- 1. Berlinstruck -->
         <div class="video-page-player">
-            <video controls autoplay muted playsinline>
+            <video controls playsinline preload="metadata">
                 <source src="https://pilarnarvaez.github.io/videos/berlinstruck.mp4" type="video/mp4">
             </video>
         </div>
         
         <!-- 2. Dandy Diary -->
         <div class="video-page-player">
-            <video controls>
+            <video controls playsinline preload="none">
                 <source src="https://pilarnarvaez.github.io/videos/dandy-diary.mp4" type="video/mp4">
             </video>
         </div>
         
         <!-- 3. I Heart Berlin -->
         <div class="video-page-player">
-            <video controls>
+            <video controls playsinline preload="none">
                 <source src="https://pilarnarvaez.github.io/videos/i-heart-berlin.mp4" type="video/mp4">
             </video>
         </div>
         
         <!-- 4. LOUD! -->
         <div class="video-page-player">
-            <video controls>
+            <video controls playsinline preload="none">>
                 <source src="https://pilarnarvaez.github.io/videos/LOUD.mp4" type="video/mp4">
             </video>
         </div>
@@ -887,6 +888,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         }
+                else if (modalId === "tipstr-tv-modal") {
+        const videos = modal.querySelectorAll('video');
+        videos.forEach((v, index) => {
+            v.controls = true;
+            // Only autoplay first video (muted for reliability)
+            if (index === 0) {
+                v.muted = true;
+                v.play().catch(e => {
+                    console.log("Autoplay blocked, showing controls:", e);
+                    v.controls = true; // Ensure controls are visible
+                });
+            }
+            // Maintain pause-others behavior
+            v.addEventListener('play', () => {
+                videos.forEach(otherV => {
+                    if (otherV !== v) otherV.pause();
+                });
+            });
+        });
+    }
         else if (modalId === "fire-walk-with-me-modal" || modalId === "supercar-blondie-facebook-modal") {
             const video = modal.querySelector('video');
             if (video) {
