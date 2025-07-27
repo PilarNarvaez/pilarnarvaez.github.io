@@ -222,6 +222,24 @@
         margin: 0 0 20px 0;
         white-space: pre-line;
     }
+    /* ===== TIPSTR MODAL (16:9) ===== */
+#tipstr-modal .video-page-player {
+    aspect-ratio: 16/9; /* Explicit 16:9 ratio */
+    margin-bottom: 30px; /* Consistent spacing */
+}
+
+#tipstr-modal .video-page-player video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Same as other modals */
+    background: white; /* White background */
+}
+
+#tipstr-modal .video-page-description p {
+    font-size: 14px; /* Match existing */
+    line-height: 1.5; /* Match existing */
+    white-space: normal; /* No pre-line */
+}
 /* ===== GODARD COLLAGE ===== */
 
 /* Main Grid View (16:9 container) */
@@ -712,63 +730,45 @@
         </p>
     </div>
 </div>
-<!-- Modal -->
+<!-- Tipstr TV Modal -->
 <div id="tipstr-modal" class="video-page">
     <div class="video-page-content">
         <button class="back-button">&lt;&lt;</button>
         
-        <!-- 1. Berlinstruck -->
+        <!-- 1. Berlinstruck (16:9) -->
         <div class="video-page-player">
-            <video controls autoplay playsinline>
+            <video controls autoplay>
                 <source src="https://pilarnarvaez.github.io/videos/berlinstruck.mp4" type="video/mp4">
             </video>
         </div>
         
-        <!-- 2. I Heart Berlin -->
+        <!-- 2. I Heart Berlin (16:9) -->
         <div class="video-page-player">
-            <video controls playsinline>
+            <video controls>
                 <source src="https://pilarnarvaez.github.io/videos/i-heart-berlin.mp4" type="video/mp4">
             </video>
         </div>
         
-        <!-- 3. LOUD! -->
+        <!-- 3. LOUD! (16:9) -->
         <div class="video-page-player">
-            <video controls playsinline>
+            <video controls>
                 <source src="https://pilarnarvaez.github.io/videos/loud.mp4" type="video/mp4">
             </video>
         </div>
         
-        <!-- 4. Blogging Berlin -->
+        <!-- 4. Blogging Berlin (16:9) -->
         <div class="video-page-player">
-            <video controls playsinline>
+            <video controls>
                 <source src="https://pilarnarvaez.github.io/videos/blogging-berlin.mp4" type="video/mp4">
             </video>
         </div>
         
         <h1 class="video-page-title">Brand design for Tipstr TV</h1>
         <div class="video-page-description">
-            <!-- Full Description Content -->
-            <div class="project">
-                <p>Producer and Video Editor of the opening for I Heart Berlin, the program for tipstr.tv.
-                Creative director: Sahin MacKrodt / Script: Christine MacKrodt / Idea: Wesley Morrow
-                Camera: R. Daidone & G. Guarino / Music: Deep Sleep - Video Girls
-            </div>
-            
-            <div class="project">
-                <p>Producer and Video Editor of the opening for LOUD! a TipstR TV production about style and Berlin nightlife.
-                Creative Director: Sahin Mackrodt / Script & Concept: Anthony Mayer
-                Camera: James Winslett / Presenter: Clare Mcinerneynz
-            </div>
-            
-            <div class="project">
-                <p>Producer and Video Editor of the opening and stings for Berlinstruck, a TipstR TV production.
-                BERLINSTRUCK is TipstR TV's latest program to find all the happenings that make Berlin such a hot place to be. From concerts, galleries, fashion gatherings, clubs and bars to eateries and open air comedy.
-            </div>
-            
-            <div class="project">
-                <p>Producer and Video Editor of the opening and stings for Blogging Berlin of the blog Dandy Diary, a TipstR TV production.
-                Meeting the Kings of Blogging in men´s wear: the TipstR TV crew met with the Dandy Diary Boys, chatting about blogging, style and ruling the city.
-            </div>
+           Producer and Video Editor of the opening for I Heart Berlin, the program for tipstr.tv. Creative director: Sahin MacKrodt / Script: Christine MacKrodt / Idea: Wesley Morrow / Camera: R. Daidone & G. Guarino / Music: Deep Sleep - Video Girls
+             <p>Producer and Video Editor of the opening for LOUD! a TipstR TV production about style and Berlin nightlife. Creative Director: Sahin Mackrodt / Script & Concept: Anthony Mayer / Camera: James Winslett / Presenter: Clare Mcinerneynz
+             <p>Producer and Video Editor of the opening and stings for Berlinstruck, a TipstR TV production. BERLINSTRUCK is TipstR TV's latest program to find all the happenings that make Berlin such a hot place to be. From concerts, galleries, fashion gatherings, clubs and bars to eateries and open air comedy.
+             <p>Producer and Video Editor of the opening and stings for Blogging Berlin of the blog Dandy Diary, a TipstR TV production. Meeting the Kings of Blogging in men´s wear: the TipstR TV crew met with the Dandy Diary Boys, chatting about blogging, style and ruling the city.
         </div>
     </div>
 </div>
