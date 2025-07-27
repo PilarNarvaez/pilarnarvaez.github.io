@@ -768,6 +768,33 @@
 </footer>
 
 <script>
+    // ===== NEW: Video preloading =====
+function preloadAllVideos() {
+    const videoContainers = document.querySelectorAll('.video-container');
+    videoContainers.forEach(container => {
+        const video = container.querySelector('video');
+        if (video) {
+            video.preload = 'auto';
+            // Gentle loading (no autoplay attempts)
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                    // Silent error handling
+                });
+            }
+        }
+    });
+}
+
+// Start preloading IMMEDIATELY (no DOMContentLoaded wait)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', preloadAllVideos);
+} else {
+    preloadAllVideos(); // DOM already loaded
+}
+// ===== END NEW CODE =====
+
+// ===== YOUR ORIGINAL SCRIPT STARTS HERE =====
 document.addEventListener('DOMContentLoaded', function() {
     // Close all modals and reset videos
     function closeAllModals() {
