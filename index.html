@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -210,16 +211,9 @@
     }
 
     /* Special aspect ratios for modal videos */
-#fire-walk-with-me-modal .video-page-player {
-    aspect-ratio: 4/3;
-    /* No max-width - let it use full available width */
-    margin: 0 auto 30px;
-}
-
-#adult-swim-modal .video-page-player {
-    max-width: 640px;
-    margin: 0 auto 30px;
-}
+    #fire-walk-with-me-modal .video-page-player {
+        aspect-ratio: 4/3;
+    }
 
     #supercar-blondie-facebook-modal .video-page-player,
     #just-eat-modal .video-page-player.vertical {
@@ -410,7 +404,6 @@
         <a href="#tipstr-tv">Packaging Creation for Tipstr TV</a>
         <a href="#LOUD">LOUD Video Editing</a>
         <a href="#15m-documentary">15M From the Inside Documentary</a>
-        <a href="#adult-swim">Adult Swim Promos</a>
         <a href="#godard-collages">Godard: Collages</a>
        
     </nav>
@@ -711,23 +704,6 @@
         <span>15M Documentary</span>
     </div>
 </div>
-        <!-- Adult Swim (4:3) - Only poster in grid, full video in modal -->
-<div id="adult-swim" class="video-container"
-     data-modal="adult-swim-modal"
-     data-title="Adult Swim Promos"
-     data-description="Promo producer and video editor for Adult Swim Spain.
-     • Kill Your Idols (Adult Swim Spain launch)
-     • Robot Chicken: Violence Promo
-     • Aqua Teen Hunger Food: Junk Food Promo">
-    <video muted playsinline preload="auto" loop>
-        <source src="https://pilarnarvaez.github.io/videos/as-idols.mp4" type="video/mp4">
-    </video>
-    <img class="video-poster" src="https://pilarnarvaez.github.io/images/adult-swim-poster.jpg" alt="Adult Swim Promos">
-    <div class="video-overlay">
-        <span>Adult Swim</span>
-    </div>
-</div>
-    
     <!-- Godard Collages -->
     <div id="godard-collages" class="video-container"
          data-modal="godard-page"
@@ -826,42 +802,6 @@
     </div>
 </div>
 
-    <!-- Adult Swim Modal (4:3 videos) -->
-<div id="adult-swim-modal" class="video-page">
-    <div class="video-page-content">
-        <button class="back-button">&lt;&lt;</button>
-        
-        <!-- Video 1 (Autoplay) -->
-        <div class="video-page-player" style="aspect-ratio:4/3;">
-            <video controls autoplay muted>
-                <source src="https://pilarnarvaez.github.io/videos/as-idols.mp4" type="video/mp4">
-            </video>
-        </div>
-        
-        <!-- Video 2 -->
-        <div class="video-page-player" style="aspect-ratio:4/3;">
-            <video controls>
-                <source src="https://pilarnarvaez.github.io/videos/as-junk-food.mp4" type="video/mp4">
-            </video>
-        </div>
-        
-        <!-- Video 3 -->
-        <div class="video-page-player" style="aspect-ratio:4/3;">
-            <video controls>
-                <source src="https://pilarnarvaez.github.io/videos/as-violence.mp4" type="video/mp4">
-            </video>
-        </div>
-        
-        <h1 class="video-page-title">Adult Swim Promos</h1>
-        <p class="video-page-description">
-            Promo producer and video editor for Adult Swim Spain.
-            • Kill Your Idols (Adult Swim Spain launch)
-            • Robot Chicken: Violence Promo
-            • Aqua Teen Hunger Food: Junk Food Promo
-        </p>
-    </div>
-</div>
-    
 <!-- About Page Modal -->
 <div id="about-page" class="video-page">
     <div class="video-page-content">
@@ -968,34 +908,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 video.play().catch(e => console.log("Autoplay prevented:", e));
             }
         }
-
-else if (modalId === "adult-swim-modal") {
-    const videos = modal.querySelectorAll('video');
-    videos[0].muted = true; // First video muted for autoplay
-    videos[0].play().catch(e => console.log("Autoplay blocked:", e));
-    
-    // Pause others when one plays
-    videos.forEach(video => {
-        video.addEventListener('play', () => {
-            videos.forEach(v => {
-                if (v !== video) {
-                    v.pause();
-                    v.currentTime = 0;
-                }
-            });
-        });
-    });
-}
-    
-    // Set the description from data attributes
-    const desc = modal.querySelector('.video-page-description');
-    if (desc && container.dataset.description) {
-        desc.innerHTML = container.dataset.description
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>')
-            .replace(/&amp;/g, '&');
-    }
-}
         else if (container && (
                 container.id === "lizzo-spot" || 
     container.id === "UOC-corporative" || 
