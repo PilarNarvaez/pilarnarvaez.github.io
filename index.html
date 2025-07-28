@@ -430,14 +430,21 @@
          data-video-src="https://pilarnarvaez.github.io/videos/Showreel.mp4"
          data-title="Showreel"
          data-description="A selection of my last works - video editing and motion graphics.">
+        style="background: white;"> <!-- Force white BG -->
         <video muted playsinline preload="auto" loop controls>
             <source src="https://pilarnarvaez.github.io/videos/Showreel.mp4" type="video/mp4">
+        <video 
+            muted playsinline loop 
+            preload="metadata"
+            poster="https://pilarnarvaez.github.io/images/showreel-poster.jpg">
+            <source src="https://pilarnarvaez.github.io/videos/Showreel.mp4" type="video/mp4">
         </video>
-        <img class="video-poster" src="https://pilarnarvaez.github.io/images/showreel-poster.jpg" alt="Showreel">
+        
         <div class="video-overlay">
             <span>Showreel</span>
         </div>
     </div>
+</div>
 
     <!-- Tercer Campaign -->
     <div id="tercer-campaign" class="video-container" 
