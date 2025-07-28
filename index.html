@@ -159,14 +159,20 @@
     .video-container:hover .video-poster {
         opacity: 0;
     }
-/* Hide controls in grid while keeping HTML valid */
-.video-container video::-webkit-media-controls {
+/* Hide controls in GRID ONLY (Chrome/Safari/Edge) */
+.video-container video::-webkit-media-controls-enclosure {
   display: none !important;
 }
 
-/* Fallback for Firefox */
+/* Hide controls in GRID (Firefox) */
 .video-container video {
-  --moz-controls: none; /* Firefox */
+  --moz-controls: none;
+}
+
+/* Ensure modal controls ALWAYS show */
+.video-page-player video {
+  -webkit-media-controls: initial !important;
+  --moz-controls: initial !important;
 }
     /* ===== MODAL STYLES ===== */
     .video-page {
