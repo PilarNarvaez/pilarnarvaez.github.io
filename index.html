@@ -159,7 +159,15 @@
     .video-container:hover .video-poster {
         opacity: 0;
     }
+/* Hide controls in grid while keeping HTML valid */
+.video-container video::-webkit-media-controls {
+  display: none !important;
+}
 
+/* Fallback for Firefox */
+.video-container video {
+  --moz-controls: none; /* Firefox */
+}
     /* ===== MODAL STYLES ===== */
     .video-page {
         display: none;
