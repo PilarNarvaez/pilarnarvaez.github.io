@@ -210,7 +210,8 @@
     }
 
     /* Special aspect ratios for modal videos */
-    #fire-walk-with-me-modal .video-page-player {
+    #fire-walk-with-me-modal .video-page-player,
+    #adult-swim-modal .video-page-player {
         aspect-ratio: 4/3;
     }
 
@@ -403,6 +404,7 @@
         <a href="#tipstr-tv">Packaging Creation for Tipstr TV</a>
         <a href="#LOUD">LOUD Video Editing</a>
         <a href="#15m-documentary">15M From the Inside Documentary</a>
+        <a href="#adult-swim">Adult Swim Promos</a>
         <a href="#godard-collages">Godard: Collages</a>
        
     </nav>
@@ -703,6 +705,23 @@
         <span>15M Documentary</span>
     </div>
 </div>
+        <!-- Adult Swim (4:3) - Only poster in grid, full video in modal -->
+   <div id="adult-swim" class="video-container"
+         data-modal="adult-swim-modal"
+         data-title="Adult Swim Promos"
+     data-description="Promo producer and video editor for Adult Swim Spain.&lt;br&gt;&lt;br&gt;
+     Adult Swim generic: Kill Your Idols. Kill your idols (Adult Swim Spain web launch spot). Promo producer and video edition. Animation: Javier Peces. Postproduction: Daniel Key. Sound Mix: Roberto Fernández.&lt;br&gt;&lt;br&gt;
+     Robot Chicken Promo: Violence. Adult Swim Spain. Promo producer and video edition.&lt;br&gt;&lt;br&gt;
+     Aqua Teen Hunger Food: Junk Food. Adult Swim Spain. Promo producer and video edition.">
+        <video muted playsinline preload="auto" loop controls>
+        <source src="https://pilarnarvaez.github.io/videos/as-idols.mp4" type="video/mp4">
+        </video>
+        <img class="video-poster" src="https://pilarnarvaez.github.io/images/adult-swim-poster.jpg" alt="Adult Swim Promos">
+        <div class="video-overlay">
+            <span>Adult Swim</span>
+        </div>
+    </div>
+    
     <!-- Godard Collages -->
     <div id="godard-collages" class="video-container"
          data-modal="godard-page"
@@ -801,6 +820,45 @@
     </div>
 </div>
 
+<!-- Adult Swim Modal (4:3 videos) -->
+<div id="adult-swim-modal" class="video-page">
+    <div class="video-page-content">
+        <button class="back-button">&lt;&lt;</button>
+        
+        <!-- Kill Your Idols -->
+        <div class="video-page-player" style="aspect-ratio: 4/3; max-width: 640px; margin: 0 auto 30px;">
+            <video controls autoplay>
+                <source src="https://pilarnarvaez.github.io/videos/as-idols.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+        <!-- Junk Food -->
+        <div class="video-page-player" style="aspect-ratio: 4/3; max-width: 640px; margin: 0 auto 30px;">
+            <video controls>
+                <source src="https://pilarnarvaez.github.io/videos/as-junk-food.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+        <!-- Violence -->
+        <div class="video-page-player" style="aspect-ratio: 4/3; max-width: 640px; margin: 0 auto 30px;">
+            <video controls>
+                <source src="https://pilarnarvaez.github.io/videos/as-violence.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+        <h1 class="video-page-title">Adult Swim Promos</h1>
+        <p class="video-page-description">
+            Promo producer and video editor for Adult Swim Spain.
+            <br>
+            Adult Swim generic: Kill Your Idols. Kill your idols (Adult Swim Spain web launch spot). Promo producer and video edition. Animation: Javier Peces. Postproduction: Daniel Key. Sound Mix: Roberto Fernández.
+            <br>
+            Robot Chicken Promo: Violence. Adult Swim Spain. Promo producer and video edition.
+            <br>
+            Aqua Teen Hunger Food: Junk Food. Adult Swim Spain. Promo producer and video edition.
+        </p>
+    </div>
+</div>
+    
 <!-- About Page Modal -->
 <div id="about-page" class="video-page">
     <div class="video-page-content">
