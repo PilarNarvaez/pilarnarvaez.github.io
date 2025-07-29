@@ -415,6 +415,7 @@
         <a href="#adult-swim">Adult Swim Promos</a>
         <a href="#nomi">Arbol Music Video</a>
         <a href="#tv-promos">TV Promos</a>
+        <a href="#mashup-videos">Mashup Videos</a>
         <a href="#godard-collages">Godard: Collages</a>
        
     </nav>
@@ -762,6 +763,22 @@
     </div>
 </div>
     
+<!-- Mashup Videos Main Grid Item -->
+<div id="tv-promos" class="video-container" 
+     data-modal="mashup-videos-modal"
+     data-title="Mashup Videos"
+     data-description="Chase around trains... Cigarettes Vs Trains. Video tribute to Jiri Menzel's &lt;a href='https://en.wikipedia.org/wiki/Closely_Watched_Trains' target='_blank'&gt;Closely Watched Trains&lt;/a&gt; and My Bloody Valentine's &lt;a href='https://en.wikipedia.org/wiki/My_Bloody_Valentine_(band)' target='_blank'&gt;Cigarette in Your Bed&lt;/a&gt;.&lt;br&gt;
+    Marienbad33 video tribute to Alain Resnais' &lt;a href='https://en.wikipedia.org/wiki/Last_Year_at_Marienbad' target='_blank'&gt;Last Year at Marienbad&lt;/a&gt; and The Jesus &amp; Mary Chain's &lt;a href='https://en.wikipedia.org/wiki/The_Jesus_and_Mary_Chain' target='_blank'&gt;33 1/3&lt;/a&gt;.&lt;br&gt;
+    Haunt me video tribute to Françoise Truffaut's &lt;a href='https://en.wikipedia.org/wiki/Jules_and_Jim' target='_blank'&gt;Jules et Jim&lt;/a&gt; and Arab Strap's &lt;a href='https://en.wikipedia.org/wiki/Arab_Strap' target='_blank'&gt;Haunt me&lt;/a&gt;.">
+    <video muted playsinline preload="metadata" loop>
+        <source src="https://pilarnarvaez.github.io/videos/bloody-trains.mp4" type="video/mp4">
+    </video>
+    <img class="video-poster" src="https://pilarnarvaez.github.io/images/mashup-poster.jpg" alt="Mashup Videos">
+    <div class="video-overlay">
+        <span>Mashup Videos</span>
+    </div>
+</div>
+    
     <!-- Godard Collages -->
     <div id="godard-collages" class="video-container"
          data-modal="godard-page"
@@ -891,7 +908,43 @@
         </p>
     </div>
 </div>
-<!-- Godard Collages Modal -->
+
+    <!-- Mashup Videos Modal -->
+<div id="mashup-videos-modal" class="video-page">
+    <div class="video-page-content">
+        <button class="back-button">&lt;&lt;</button>
+        
+        <!-- 1. bloody trains (4:3) -->
+        <div style="aspect-ratio: 4/3; max-width: 640px; margin: 0 auto 30px;">
+            <video controls autoplay muted playsinline style="width:100%; height:100%">
+                <source src="https://pilarnarvaez.github.io/videos/bloody-trains.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+        <!-- 2. haunt-me (16:9) -->
+        <div style="aspect-ratio: 16/9; max-width: 800px; margin: 0 auto 30px;">
+            <video controls playsinline style="width:100%; height:100%">
+                <source src="https://pilarnarvaez.github.io/videos/haunt-me.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+        <!-- 3. Marienbad 33 (4:3) -->
+        <div style="aspect-ratio: 4/3; max-width: 640px; margin: 0 auto 30px;">
+            <video controls playsinline style="width:100%; height:100%">
+                <source src="https://pilarnarvaez.github.io/videos/marienbad-33.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+        <h1 class="video-page-title">Mashup Videos</h1>
+        <p class="video-page-description">
+            Chase around trains... Cigarettes Vs Trains. Video tribute to Jiri Menzel's <a href="https://en.wikipedia.org/wiki/Closely_Watched_Trains" target="_blank" style="color:#e74c3c; text-decoration:none">Closely Watched Trains</a> and My Bloody Valentine's <a href="https://en.wikipedia.org/wiki/My_Bloody_Valentine_(band)" target="_blank" style="color:#e74c3c; text-decoration:none">Cigarette in Your Bed</a>.
+            Marienbad33 video tribute to Alain Resnais' <a href="https://en.wikipedia.org/wiki/Last_Year_at_Marienbad" target="_blank" style="color:#e74c3c; text-decoration:none">Last Year at Marienbad</a> and The Jesus & Mary Chain's <a href="https://en.wikipedia.org/wiki/The_Jesus_and_Mary_Chain" target="_blank" style="color:#e74c3c; text-decoration:none">33 1/3</a>.
+            Haunt me video tribute to Françoise Truffaut's <a href="https://en.wikipedia.org/wiki/Jules_and_Jim" target="_blank" style="color:#e74c3c; text-decoration:none">Jules et Jim</a> and Arab Strap's <a href="https://en.wikipedia.org/wiki/Arab_Strap" target="_blank" style="color:#e74c3c; text-decoration:none">Haunt me</a>.
+        </p>
+    </div>
+</div>
+    
+    <!-- Godard Collages Modal -->
 <div id="godard-page" class="video-page">
     <div class="video-page-content">
         <button class="back-button">&lt;&lt;</button>
@@ -1052,7 +1105,8 @@ document.addEventListener('DOMContentLoaded', function() {
     container.id === "15m-documentary" ||
     container.id === "adult-swim" ||
     container.id === "nomi" ||
-    container.id === "tv-promos" 
+    container.id === "tv-promos" ||
+    container.id === "mashup-videos" 
 )) {
             const desc = modal.querySelector('.video-page-description');
             if (desc) {
