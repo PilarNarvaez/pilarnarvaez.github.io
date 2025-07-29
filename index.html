@@ -403,6 +403,7 @@
         <a href="#LOUD">LOUD Video Editing</a>
         <a href="#15m-documentary">15M From the Inside Documentary</a>
         <a href="#adult-swim">Adult Swim Promos</a>
+        <a href="#nomi">Arbol Music Video</a>
         <a href="#godard-collages">Godard: Collages</a>
        
     </nav>
@@ -714,9 +715,24 @@
     <video muted playsinline preload="metadata" loop>
         <source src="https://pilarnarvaez.github.io/videos/as-idols.mp4" type="video/mp4">
     </video>
-    <img class="video-poster" src="https://pilarnarvaez.github.io/images/adult-swim-poster.jpg" alt="Adult Swim Promo">
+    <img class="video-poster" src="https://pilarnarvaez.github.io/images/adult-swim-poster.jpg" alt="Adult Swim Promos">
     <div class="video-overlay">
         <span>Adult Swim</span>
+    </div>
+</div>
+
+        <!-- Nomi -->
+<div id="nomi" class="video-container" 
+     data-video-src="https://pilarnarvaez.github.io/videos/Nomi.mp4"
+     data-title="Arbol Music Video"
+     data-description="Music video for the song Nomi by Arbol, &lt;a href='https://miguel-marin.com' target='_blank' style='color:#e74c3c !important; text-decoration:none !important'&gt;Miguel Marin&lt;/a&gt;, from his album, You Travelled My Heart Inside Out.
+    Images taken in Albania by Alberto Panadero. Shoot in Red One, edited in Final cut Pro. ">
+    <video muted playsinline preload="metadata" loop>
+        <source src="https://pilarnarvaez.github.io/videos/Nomi.mp4" type="video/mp4">
+    </video>
+    <img class="video-poster" src="https://pilarnarvaez.github.io/images/nomi-poster.jpg" alt="Arbol Music Video">
+    <div class="video-overlay">
+        <span>Arbol Music Video/span>
     </div>
 </div>
     <!-- Godard Collages -->
@@ -939,7 +955,8 @@ document.addEventListener('DOMContentLoaded', function() {
     container.id === "expedia-social" ||
     container.id === "just-eat" ||
     container.id === "15m-documentary" ||
-    container.id === "adult-swim" 
+    container.id === "adult-swim" ||
+    container.id === "nomi" 
 )) {
             const desc = modal.querySelector('.video-page-description');
             if (desc) {
