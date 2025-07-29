@@ -1009,28 +1009,37 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function setupVideoBehavior() {
-        document.querySelectorAll('.video-container').forEach(container => {
-            const video = container.querySelector('video');
-            const poster = container.querySelector('.video-poster');
-            const overlay = container.querySelector('.video-overlay');
+function setupVideoBehavior() {
+    const videoContainers = document.querySelectorAll('.video-container');
+    let autoplayCount = 0;
+    const maxAutoplay = 6; // Limits to first 6 videos
+    
+    videoContainers.forEach(container => {
+        const video = container.querySelector('video');
+        const poster = container.querySelector('.video-poster');
+        const overlay = container.querySelector('.video-overlay');
 
-            // Only setup behavior for containers with videos (not the 4:3 or 9:16 ones)
-            if (!video) return;
+        if (!video) return;
 
-            // Initialize video (muted autoplay + loop)
-            video.muted = true;
-            video.loop = true;
-            
-            // Try to autoplay (will work in most modern browsers)
+        // Initialize video (muted + loop for all)
+        video.muted = true;
+        video.loop = true;
+        
+        // Only autoplay first 6 videos
+        if (autoplayCount < maxAutoplay) {
             const playPromise = video.play();
             
             if (playPromise !== undefined) {
                 playPromise.catch(() => {
-                    // Autoplay was prevented - show poster
                     if (poster) poster.style.opacity = '1';
                 });
             }
+            autoplayCount++;
+        } else {
+            // For videos beyond first 6:
+            video.preload = 'metadata'; // Lighter load
+            if (poster) poster.style.opacity = '1'; // Show poster by default
+        }
 
             // Hover in - Play video + show overlay
             container.addEventListener('mouseenter', () => {
