@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1010,10 +1008,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 function setupVideoBehavior() {
-    const videoContainers = document.querySelectorAll('.video-container');
-    let autoplayCount = 0;
-    const maxAutoplay = 6; // Limits to first 6 videos
-    
+    const videoContainers = Array.from(document.querySelectorAll('.video-container'));
+    const totalVideos = videoContainers.length;
+    const autoplayCount = Math.min(8, totalVideos); // Ensure we don't exceed available videos
+
+    // Shuffle array and pick first 8
+    const shuffledContainers = [...videoContainers]
+        .sort(() => 0.5 - Math.random())
+        .slice(0, autoplayCount);
+
     videoContainers.forEach(container => {
         const video = container.querySelector('video');
         const poster = container.querySelector('.video-poster');
@@ -1021,24 +1024,21 @@ function setupVideoBehavior() {
 
         if (!video) return;
 
-        // Initialize video (muted + loop for all)
         video.muted = true;
         video.loop = true;
-        
-        // Only autoplay first 6 videos
-        if (autoplayCount < maxAutoplay) {
-            const playPromise = video.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.catch(() => {
-                    if (poster) poster.style.opacity = '1';
-                });
-            }
-            autoplayCount++;
+        video.playsInline = true;
+
+        // Check if current video is in our randomly selected autoplay set
+        const shouldAutoplay = shuffledContainers.includes(container);
+
+        if (shouldAutoplay) {
+            video.play().catch(() => {
+                if (poster) poster.style.opacity = '1';
+            });
         } else {
-            // For videos beyond first 6:
-            video.preload = 'metadata'; // Lighter load
-            if (poster) poster.style.opacity = '1'; // Show poster by default
+            video.pause();
+            video.currentTime = 0;
+            if (poster) poster.style.opacity = '1';
         }
 
             // Hover in - Play video + show overlay
