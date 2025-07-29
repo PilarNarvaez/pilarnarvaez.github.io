@@ -214,7 +214,11 @@
     #fire-walk-with-me-modal .video-page-player {
         aspect-ratio: 4/3;
     }
-
+#adult-swim-modal .video-page-player {
+    aspect-ratio: 4/3;
+    max-width: 640px;
+    margin: 0 auto 30px;
+}
     #supercar-blondie-facebook-modal .video-page-player,
     #just-eat-modal .video-page-player.vertical {
     aspect-ratio: 9/16;
@@ -404,6 +408,7 @@
         <a href="#tipstr-tv">Packaging Creation for Tipstr TV</a>
         <a href="#LOUD">LOUD Video Editing</a>
         <a href="#15m-documentary">15M From the Inside Documentary</a>
+        <a href="#adult-swim">Adult Swim Promos</a>
         <a href="#godard-collages">Godard: Collages</a>
        
     </nav>
@@ -704,6 +709,23 @@
         <span>15M Documentary</span>
     </div>
 </div>
+
+<div id="adult-swim" class="video-container"
+     data-modal="adult-swim-modal"
+     data-title="Adult Swim Promos"
+     data-description="Promo producer and video editor for Adult Swim Spain.
+     • Kill Your Idols (Adult Swim Spain launch).
+     • Robot Chicken: Violence Promo.
+     • Aqua Teen Hunger Food: Junk Food Promo.">
+    <video muted playsinline preload="auto" loop>
+        <source src="https://pilarnarvaez.github.io/videos/as-idols.mp4" type="video/mp4">
+    </video>
+    <img class="video-poster" src="https://pilarnarvaez.github.io/images/adult-swim-poster.jpg" alt="Adult Swim Promos">
+    <div class="video-overlay">
+        <span>Adult Swim</span>
+    </div>
+</div>
+    
     <!-- Godard Collages -->
     <div id="godard-collages" class="video-container"
          data-modal="godard-page"
@@ -731,7 +753,34 @@
 </p>
     </div>
 </div>
-
+    
+<div id="adult-swim-modal" class="video-page">
+    <div class="video-page-content">
+        <button class="back-button">&lt;&lt;</button>
+        
+        <div class="video-page-player">
+            <video controls>
+                <source src="https://pilarnarvaez.github.io/videos/as-idols.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+        <div class="video-page-player">
+            <video controls>
+                <source src="https://pilarnarvaez.github.io/videos/as-junk-food.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+        <div class="video-page-player">
+            <video controls>
+                <source src="https://pilarnarvaez.github.io/videos/as-violence.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+        <h1 class="video-page-title">Adult Swim Promos</h1>
+        <p class="video-page-description"></p>
+    </div>
+</div>
+    
 <!-- Just Eat Modal (9:16) -->
 <div id="just-eat-modal" class="video-page">
     <div class="video-page-content">
@@ -899,6 +948,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         }
+        // Adult Swim Modal (3 videos, 4:3 ratio)
+        else if (modalId === "adult-swim-modal") {
+            const videos = modal.querySelectorAll('video');
+            videos.forEach((v, i) => {
+                v.muted = (i > 0); // Only first video unmuted
+                v.controls = true;
+                if (i === 0) {
+                    v.play().catch(e => console.log("First video autoplay prevented:", e));
+                }
+                v.addEventListener('play', function() {
+                    videos.forEach(otherV => {
+                        if (otherV !== v) {
+                            otherV.pause();
+                            otherV.currentTime = 0;
+                        }
+                    });
+                });
+            });
+            
+            if (container) {
+                const desc = modal.querySelector('.video-page-description');
+                if (desc) {
+                    desc.innerHTML = container.dataset.description
+                        .replace(/&lt;/g, '<')
+                        .replace(/&gt;/g, '>')
+                        .replace(/&amp;/g, '&');
+                }
+            }
+        }
         else if (modalId === "fire-walk-with-me-modal" || modalId === "supercar-blondie-facebook-modal") {
             const video = modal.querySelector('video');
             if (video) {
@@ -910,21 +988,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         else if (container && (
                 container.id === "lizzo-spot" || 
-    container.id === "UOC-corporative" || 
-    container.id === "social-media" ||
-    container.id === "fire-walk-with-me" ||
-    container.id === "menopause-campaign" ||
-    container.id === "godard-collages" ||
-    container.id === "groot-twitter" ||
-    container.id === "shoegaze-madrid" ||
-    container.id === "kings-league" ||
-    container.id === "dries-lacroix-ss20" ||
-    container.id === "westwood-aw21" ||
-    container.id === "pepsi-recycle" ||
-    container.id === "expedia-social" ||
-    container.id === "just-eat" ||
-    container.id === "15m-documentary"
-)) {
+                container.id === "UOC-corporative" || 
+                container.id === "social-media" ||
+                container.id === "fire-walk-with-me" ||
+                container.id === "menopause-campaign" ||
+                container.id === "godard-collages" ||
+                container.id === "groot-twitter" ||
+                container.id === "shoegaze-madrid" ||
+                container.id === "kings-league" ||
+                container.id === "dries-lacroix-ss20" ||
+                container.id === "westwood-aw21" ||
+                container.id === "pepsi-recycle" ||
+                container.id === "expedia-social" ||
+                container.id === "just-eat" ||
+                container.id === "15m-documentary" ||
+                container.id === "adult-swim"  // 
+        )) {
             const desc = modal.querySelector('.video-page-description');
             if (desc) {
                 desc.innerHTML = container.dataset.description
