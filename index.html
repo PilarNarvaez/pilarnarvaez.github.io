@@ -404,6 +404,7 @@
         <a href="#tipstr-tv">Packaging Creation for Tipstr TV</a>
         <a href="#LOUD">LOUD Video Editing</a>
         <a href="#15m-documentary">15M From the Inside Documentary</a>
+        <a href="#adult-swim-final">Adult Swim Promos</a>
         <a href="#godard-collages">Godard: Collages</a>
        
     </nav>
@@ -704,6 +705,22 @@
         <span>15M Documentary</span>
     </div>
 </div>
+
+    <!-- Adult Swim Promos (Single Video) -->
+<div id="adult-swim" class="video-container" 
+     data-video-src="https://pilarnarvaez.github.io/videos/as-idols.mp4"
+     data-title="Adult Swim Promos"
+     data-description="Promo producer and video editor for Adult Swim Spain.
+    Adult Swim generic: Kill Your Idols. Kill your idols (Adult Swim Spain web launch spot). Promo producer and video edition. Animation: Javier Peces. Postproduction: Daniel Key. Sound Mix: Roberto Fernández.
+    More promos on my &lt;a href='https://www.behance.net/gallery/901818/Adult-Swim-promos' target='_blank' style='color:#e74c3c !important; text-decoration:none !important'&gt;Behance&lt;/a&gt;">
+    <video muted playsinline preload="metadata" loop>
+        <source src="https://pilarnarvaez.github.io/videos/as-idols.mp4" type="video/mp4">
+    </video>
+    <img class="video-poster" src="https://pilarnarvaez.github.io/images/adult-swim-poster.jpg" alt="Adult Swim Promo">
+    <div class="video-overlay">
+        <span>Adult Swim</span>
+    </div>
+</div>
     <!-- Godard Collages -->
     <div id="godard-collages" class="video-container"
          data-modal="godard-page"
@@ -923,7 +940,8 @@ document.addEventListener('DOMContentLoaded', function() {
     container.id === "pepsi-recycle" ||
     container.id === "expedia-social" ||
     container.id === "just-eat" ||
-    container.id === "15m-documentary"
+    container.id === "15m-documentary" ||
+    container.id === "adult-swim" 
 )) {
             const desc = modal.querySelector('.video-page-description');
             if (desc) {
