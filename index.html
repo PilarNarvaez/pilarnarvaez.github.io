@@ -213,6 +213,11 @@
     #fire-walk-with-me-modal .video-page-player, {
         aspect-ratio: 4/3;
     }
+   #tv-promos-modal .video-page-player.four-three {
+    aspect-ratio: 4/3;
+    max-width: 640px; /* Optional but recommended for 640x480 videos */
+    margin: 0 auto 30px;
+}
     #supercar-blondie-facebook-modal .video-page-player,
     #just-eat-modal .video-page-player.vertical {
     aspect-ratio: 9/16;
@@ -818,7 +823,7 @@
         <button class="back-button">&lt;&lt;</button>
         
         <!-- 1. Angelica Promo (4:3) - Inline style ONLY -->
-        <div class="video-page-player" style="aspect-ratio: 4/3; margin: 0 auto 30px;">
+        <div class="video-page-player.four-three">
             <video controls>
                 <source src="https://pilarnarvaez.github.io/videos/angelica-promo.mp4" type="video/mp4">
             </video>
@@ -844,15 +849,6 @@
             Gordon's Ultimate Cookery Course promo. Canal Cocina, Chello Multicanal Spain. Producer &amp; Video Editor. 
             Spice trip promo. Canal Cocina, Chello Multicanal Spain. Producer &amp; Video Editor. 
             &lt;a href=&quot;https://www.behance.net/gallery/9775769/AMC-Chellomedia-promos&quot; target=&quot;_blank&quot; style=&quot;color:#e74c3c !important; text-decoration:none !important&quot;&gt;More TV promos here&lt;/a&gt;.
-        </p>
-    </div>
-</div>
-        
-        <h1 class="video-page-title">TV Promos</h1>
-        <p class="video-page-description">
-            Rugrats promo: Angelica vs Britney. Nickelodeon Spain. Producer and video editor.
-            Gordon's Ultimate Cookery Course promo. Canal Cocina, Chello Multicanal Spain. Producer & Video Editor.
-            Spice trip promo. Canal Cocina, Chello Multicanal Spain. Producer & Video Editor.
         </p>
     </div>
 </div>
@@ -1016,7 +1012,8 @@ document.addEventListener('DOMContentLoaded', function() {
     container.id === "just-eat" ||
     container.id === "15m-documentary" ||
     container.id === "adult-swim" ||
-    container.id === "nomi" 
+    container.id === "nomi" ||
+    container.id === "tv-promos" 
 )) {
             const desc = modal.querySelector('.video-page-description');
             if (desc) {
