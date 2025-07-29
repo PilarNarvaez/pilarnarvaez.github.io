@@ -1008,38 +1008,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 function setupVideoBehavior() {
-    const videoContainers = Array.from(document.querySelectorAll('.video-container'));
-    const totalVideos = videoContainers.length;
-    const autoplayCount = Math.min(10, totalVideos); // Ensure we don't exceed available videos
+        document.querySelectorAll('.video-container').forEach(container => {
+            const video = container.querySelector('video');
+            const poster = container.querySelector('.video-poster');
+            const overlay = container.querySelector('.video-overlay');
 
-    // Shuffle array and pick first 10
-    const shuffledContainers = [...videoContainers]
-        .sort(() => 0.5 - Math.random())
-        .slice(0, autoplayCount);
+            // Only setup behavior for containers with videos (not the 4:3 or 9:16 ones)
+            if (!video) return;
 
-    videoContainers.forEach(container => {
-        const video = container.querySelector('video');
-        const poster = container.querySelector('.video-poster');
-        const overlay = container.querySelector('.video-overlay');
-
-        if (!video) return;
-
-        video.muted = true;
-        video.loop = true;
-        video.playsInline = true;
-
-        // Check if current video is in our randomly selected autoplay set
-        const shouldAutoplay = shuffledContainers.includes(container);
-
-        if (shouldAutoplay) {
-            video.play().catch(() => {
-                if (poster) poster.style.opacity = '1';
-            });
-        } else {
-            video.pause();
-            video.currentTime = 0;
-            if (poster) poster.style.opacity = '1';
-        }
+            // Initialize video (muted autoplay + loop)
+            video.muted = true;
+            video.loop = true;
+            
+            // Try to autoplay (will work in most modern browsers)
+            const playPromise = video.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                    // Autoplay was prevented - show poster
+                    if (poster) poster.style.opacity = '1';
+                });
+            }
 
             // Hover in - Play video + show overlay
             container.addEventListener('mouseenter', () => {
