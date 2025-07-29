@@ -1008,27 +1008,72 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 function setupVideoBehavior() {
-        document.querySelectorAll('.video-container').forEach(container => {
-            const video = container.querySelector('video');
-            const poster = container.querySelector('.video-poster');
-            const overlay = container.querySelector('.video-overlay');
+    const videoContainers = Array.from(document.querySelectorAll('.video-container'));
+    const totalVideos = videoContainers.length;
+    const autoplayCount = Math.min(10, totalVideos); // Ensure we don't exceed available videos
 
-            // Only setup behavior for containers with videos (not the 4:3 or 9:16 ones)
-            if (!video) return;
+    // Shuffle array and pick first 10
+    const shuffledContainers = [...videoContainers]
+        .sort(() => 0.5 - Math.random())
+        .slice(0, autoplayCount);
 
-            // Initialize video (muted autoplay + loop)
-            video.muted = true;
-            video.loop = true;
-            
-            // Try to autoplay (will work in most modern browsers)
-            const playPromise = video.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.catch(() => {
-                    // Autoplay was prevented - show poster
-                    if (poster) poster.style.opacity = '1';
-                });
+    videoContainers.forEach(container => {
+        const video = container.querySelector('video');
+        const poster = container.querySelector('.video-poster');
+        const overlay = container.querySelector('.video-overlay');
+
+        if (!video) return;
+
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+
+        // Check if current video is in our randomly selected autoplay set
+        const shouldAutoplay = shuffledContainers.includes(container);
+
+        if (shouldAutoplay) {
+            video.play().catch(() => {
+                if (poster) poster.style.opacity = '1';
+            });
+        } else {
+            video.pause();
+            video.currentTime = 0;
+            if (poster) poster.style.opacity = '1';
+        }
+
+        // Consistent hover behavior for all videos
+        container.addEventListener('mouseenter', () => {
+            if (poster) poster.style.opacity = '0';
+            if (overlay) overlay.style.opacity = '1';
+            video.play().catch(() => {});
+        });
+
+        container.addEventListener('mouseleave', () => {
+            if (poster) poster.style.opacity = '1';
+            if (overlay) overlay.style.opacity = '0';
+            if (!shouldAutoplay) {  // Only reset if not in autoplay set
+                video.pause();
+                video.currentTime = 0;
             }
+        });
+    });
+}
+
+        // Hover behavior works for ALL videos
+        container.addEventListener('mouseenter', () => {
+            if (poster) poster.style.opacity = '0';
+            if (overlay) overlay.style.opacity = '1';
+            video.play().catch(() => {});
+        });
+
+        container.addEventListener('mouseleave', () => {
+            if (poster) poster.style.opacity = '1';
+            if (overlay) overlay.style.opacity = '0';
+            video.pause();
+            video.currentTime = 0;
+        });
+    });
+}
 
             // Hover in - Play video + show overlay
             container.addEventListener('mouseenter', () => {
