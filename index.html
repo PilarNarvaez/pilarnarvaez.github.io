@@ -712,10 +712,10 @@
      data-description="Promo producer and video editor for Adult Swim Spain.
     Adult Swim generic: Kill Your Idols. Kill your idols (Adult Swim Spain web launch spot). Promo producer and video edition. Animation: Javier Peces. Postproduction: Daniel Key. Sound Mix: Roberto Fernández.
     More promos on my &lt;a href='https://www.behance.net/gallery/901818/Adult-Swim-promos' target='_blank' style='color:#e74c3c !important; text-decoration:none !important'&gt;Behance&lt;/a&gt;">
-    <video muted playsinline preload="metadata" loop>
+    <video muted playsinline preload="none" loop>
         <source src="https://pilarnarvaez.github.io/videos/as-idols.mp4" type="video/mp4">
     </video>
-    <img class="video-poster" src="https://pilarnarvaez.github.io/images/adult-swim-poster.jpg" alt="Adult Swim Promos">
+       <img class="video-poster" src="https://pilarnarvaez.github.io/images/adult-swim-poster.jpg" alt="Adult Swim Promos" style="opacity:1">
     <div class="video-overlay">
         <span>Adult Swim</span>
     </div>
@@ -1029,8 +1029,11 @@ function setupVideoBehavior() {
     const totalVideos = videoContainers.length;
     const autoplayCount = Math.min(8, totalVideos); // Ensure we don't exceed available videos
 
-    // Shuffle array and pick first 8
-    const shuffledContainers = [...videoContainers]
+    // Filter out Adult Swim video from autoplay pool
+    const autoplayPool = videoContainers.filter(container => container.id !== "adult-swim");
+    
+    // Shuffle array and pick first 8 (from remaining videos)
+    const shuffledContainers = [...autoplayPool]
         .sort(() => 0.5 - Math.random())
         .slice(0, autoplayCount);
 
@@ -1045,36 +1048,44 @@ function setupVideoBehavior() {
         video.loop = true;
         video.playsInline = true;
 
-        // Check if current video is in our randomly selected autoplay set
-        const shouldAutoplay = shuffledContainers.includes(container);
-
-        if (shouldAutoplay) {
-            video.play().catch(() => {
-                if (poster) poster.style.opacity = '1';
-            });
-        } else {
+        // Special handling for Adult Swim video
+        if (container.id === "adult-swim") {
             video.pause();
             video.currentTime = 0;
             if (poster) poster.style.opacity = '1';
-        }
+        } 
+        // Normal behavior for all other videos
+        else {
+            // Check if current video is in our randomly selected autoplay set
+            const shouldAutoplay = shuffledContainers.includes(container);
 
-            // Hover in - Play video + show overlay
-            container.addEventListener('mouseenter', () => {
-                if (poster) poster.style.opacity = '0';
-                if (overlay) overlay.style.opacity = '1';
-                video.play().catch(() => {});
-            });
-
-            // Hover out - Pause video + show poster
-            container.addEventListener('mouseleave', () => {
-                if (poster) poster.style.opacity = '1';
-                if (overlay) overlay.style.opacity = '0';
+            if (shouldAutoplay) {
+                video.play().catch(() => {
+                    if (poster) poster.style.opacity = '1';
+                });
+            } else {
                 video.pause();
                 video.currentTime = 0;
-            });
+                if (poster) poster.style.opacity = '1';
+            }
+        }
+
+        // Hover in - Play video + show overlay (same for all videos)
+        container.addEventListener('mouseenter', () => {
+            if (poster) poster.style.opacity = '0';
+            if (overlay) overlay.style.opacity = '1';
+            video.play().catch(() => {});
         });
-    }
-    
+
+        // Hover out - Pause video + show poster (same for all videos)
+        container.addEventListener('mouseleave', () => {
+            if (poster) poster.style.opacity = '1';
+            if (overlay) overlay.style.opacity = '0';
+            video.pause();
+            video.currentTime = 0;
+        });
+    });
+}
     function setupEventListeners() {
         // Modal links (About, Contact)
         document.querySelectorAll('[data-modal]').forEach(link => {
