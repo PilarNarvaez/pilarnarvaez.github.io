@@ -664,7 +664,7 @@
          data-video-src="https://pilarnarvaez.github.io/videos/tipstr-tv.mp4"
          data-title="Packaging creation for Tipstr TV"
          data-description="Opening and stings creation for Berlinstruck, a lifestyle TipstR TV production.<br>
-           Opening creation for I Heart Berlin, the program for tipstr.tv. Creative director: Sahin MacKrodt / Script: Christine MacKrodt / Idea: Wesley Morrow / Camera: R. Daidone & G. Guarino / Music: Deep Sleep - Video Girls.<br>
+           Opening creation for I Heart Berlin, the program for tipstr.tv. Creative director: Sahin MacKrodt / Script: Christine MacKrodt / Idea: Wesley Morrow / Camera: R. Daidone & G. Guarino / Music: Deep Sleep - Video Girls.
            Opening and stings creation for Blogging Berlin, from the blog Dandy Diary, a TipstR TV production.">
         <video muted playsinline preload="metadata" loop>
             <source src="https://pilarnarvaez.github.io/videos/tipstr-tv.mp4" type="video/mp4">
@@ -1007,28 +1007,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function setupVideoBehavior() {
-        document.querySelectorAll('.video-container').forEach(container => {
-            const video = container.querySelector('video');
-            const poster = container.querySelector('.video-poster');
-            const overlay = container.querySelector('.video-overlay');
+function setupVideoBehavior() {
+    const videoContainers = Array.from(document.querySelectorAll('.video-container'));
+    const totalVideos = videoContainers.length;
+    const autoplayCount = Math.min(8, totalVideos); // Ensure we don't exceed available videos
 
-            // Only setup behavior for containers with videos (not the 4:3 or 9:16 ones)
-            if (!video) return;
+    // Shuffle array and pick first 8
+    const shuffledContainers = [...videoContainers]
+        .sort(() => 0.5 - Math.random())
+        .slice(0, autoplayCount);
 
-            // Initialize video (muted autoplay + loop)
-            video.muted = true;
-            video.loop = true;
-            
-            // Try to autoplay (will work in most modern browsers)
-            const playPromise = video.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.catch(() => {
-                    // Autoplay was prevented - show poster
-                    if (poster) poster.style.opacity = '1';
-                });
-            }
+    videoContainers.forEach(container => {
+        const video = container.querySelector('video');
+        const poster = container.querySelector('.video-poster');
+        const overlay = container.querySelector('.video-overlay');
+
+        if (!video) return;
+
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+
+        // Check if current video is in our randomly selected autoplay set
+        const shouldAutoplay = shuffledContainers.includes(container);
+
+        if (shouldAutoplay) {
+            video.play().catch(() => {
+                if (poster) poster.style.opacity = '1';
+            });
+        } else {
+            video.pause();
+            video.currentTime = 0;
+            if (poster) poster.style.opacity = '1';
+        }
 
             // Hover in - Play video + show overlay
             container.addEventListener('mouseenter', () => {
