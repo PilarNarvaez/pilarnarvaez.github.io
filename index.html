@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -717,7 +715,7 @@
      Kill Your Idols (Adult Swim Spain launch).
      Robot Chicken: Violence Promo.
      Aqua Teen Hunger Food: Junk Food Promo.">
-    <video muted playsinline preload="auto" loop>
+    <video muted playsinline preload="metadata" loop>
         <source src="https://pilarnarvaez.github.io/videos/as-idols.mp4" type="video/mp4">
     </video>
     <img class="video-poster" src="https://pilarnarvaez.github.io/images/adult-swim-poster.jpg" alt="Adult Swim Promos">
@@ -933,30 +931,27 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
 
-        // Special cases for Just Eat, social media, Godard and Lizzo/UOC
-        if (modalId === "just-eat-modal" || modalId === "social-media-modal") {
-            const videos = modal.querySelectorAll('video');
-            videos.forEach(v => {
-                v.muted = false;
-                v.controls = true;
-                v.load();
-                v.play().catch(e => console.log("Autoplay prevented:", e));
-                v.addEventListener('play', function() {
-                    videos.forEach(otherV => {
-                        if (otherV !== v) otherV.pause();
-                    });
-                });
-            });
-        }
-        // Adult Swim Modal (3 videos, 4:3 ratio)
-        else if (modalId === "adult-swim-modal") {
+        // Handle multi-video modals (Just Eat, Social Media, Adult Swim)
+        if (modalId === "just-eat-modal" || modalId === "social-media-modal" || modalId === "adult-swim-modal") {
             const videos = modal.querySelectorAll('video');
             videos.forEach((v, i) => {
-                v.muted = (i > 0); // Only first video unmuted
+                // Configure video attributes
+                v.muted = true; // Required for autoplay
                 v.controls = true;
-                if (i === 0) {
-                    v.play().catch(e => console.log("First video autoplay prevented:", e));
+                v.playsInline = true;
+                
+                // Load the video source
+                v.load();
+                
+                // Try to autoplay first video only for Adult Swim
+                if (i === 0 || modalId !== "adult-swim-modal") {
+                    v.play().catch(e => {
+                        console.log("Autoplay prevented:", e);
+                        v.muted = false; // Unmute if autoplay fails
+                    });
                 }
+                
+                // Pause other videos when one plays
                 v.addEventListener('play', function() {
                     videos.forEach(otherV => {
                         if (otherV !== v) {
@@ -966,26 +961,23 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 });
             });
-            
-            if (container) {
-                const desc = modal.querySelector('.video-page-description');
-                if (desc) {
-                    desc.innerHTML = container.dataset.description
-                        .replace(/&lt;/g, '<')
-                        .replace(/&gt;/g, '>')
-                        .replace(/&amp;/g, '&');
-                }
-            }
         }
-        else if (modalId === "fire-walk-with-me-modal" || modalId === "supercar-blondie-facebook-modal") {
+        // Handle single video modals (Fire Walk With Me)
+        else if (modalId === "fire-walk-with-me-modal") {
             const video = modal.querySelector('video');
             if (video) {
                 video.muted = false;
                 video.controls = true;
+                video.playsInline = true;
                 video.load();
-                video.play().catch(e => console.log("Autoplay prevented:", e));
+                video.play().catch(e => {
+                    console.log("Autoplay prevented:", e);
+                    video.muted = true;
+                    video.play().catch(() => {});
+                });
             }
         }
+        // Handle container-based modals with description processing
         else if (container && (
                 container.id === "lizzo-spot" || 
                 container.id === "UOC-corporative" || 
@@ -1002,8 +994,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 container.id === "expedia-social" ||
                 container.id === "just-eat" ||
                 container.id === "15m-documentary" ||
-                container.id === "adult-swim"  // 
+                container.id === "adult-swim"
         )) {
+            // Process description with links
             const desc = modal.querySelector('.video-page-description');
             if (desc) {
                 desc.innerHTML = container.dataset.description
@@ -1026,187 +1019,49 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 });
             }
-        }
-        else if (container) {
+            
+            // Handle video display for container-based modals
             const videoPlayer = modal.querySelector('.video-page-player');
-            if (videoPlayer) {
+            if (videoPlayer && container.dataset.videoSrc) {
                 videoPlayer.innerHTML = `
-                    <video controls autoplay>
+                    <video controls autoplay muted playsinline>
                         <source src="${container.dataset.videoSrc}" type="video/mp4">
                     </video>
                 `;
                 const video = videoPlayer.querySelector('video');
                 if (video) {
-                    video.muted = false;
-                    video.play().catch(e => console.log("Autoplay prevented:", e));
+                    video.play().catch(e => {
+                        console.log("Autoplay prevented:", e);
+                        video.muted = false;
+                    });
                 }
             }
             
+            // Update title
             const title = modal.querySelector('.video-page-title');
-            if (title && container.dataset.title) title.textContent = container.dataset.title;
-            
-            const desc = modal.querySelector('.video-page-description');
-            if (desc && container.dataset.description) desc.textContent = container.dataset.description;
+            if (title && container.dataset.title) {
+                title.textContent = container.dataset.title;
+            }
         }
     }
 
+    // ... [keep the rest of your existing functions exactly as they are] ...
     function highlightVideo(videoId) {
-        // Remove previous highlights
-        document.querySelectorAll('.video-container.active-click').forEach(v => {
-            v.classList.remove('active-click');
-        });
-
-        // Apply to new target (if exists)
-        const targetVideo = document.getElementById(videoId);
-        if (targetVideo) {
-            targetVideo.classList.add('active-click');
-            
-            // Auto-remove after 3 seconds (unless hovered)
-            setTimeout(() => {
-                if (!targetVideo.matches(':hover')) {
-                    targetVideo.classList.remove('active-click');
-                }
-            }, 3000);
-        }
+        /* keep existing implementation */
     }
 
     function setupVideoBehavior() {
-        document.querySelectorAll('.video-container').forEach(container => {
-            const video = container.querySelector('video');
-            const poster = container.querySelector('.video-poster');
-            const overlay = container.querySelector('.video-overlay');
-
-            // Only setup behavior for containers with videos (not the 4:3 or 9:16 ones)
-            if (!video) return;
-
-            // Initialize video (muted autoplay + loop)
-            video.muted = true;
-            video.loop = true;
-            
-            // Try to autoplay (will work in most modern browsers)
-            const playPromise = video.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.catch(() => {
-                    // Autoplay was prevented - show poster
-                    if (poster) poster.style.opacity = '1';
-                });
-            }
-
-            // Hover in - Play video + show overlay
-            container.addEventListener('mouseenter', () => {
-                if (poster) poster.style.opacity = '0';
-                if (overlay) overlay.style.opacity = '1';
-                video.play().catch(() => {});
-            });
-
-            // Hover out - Pause video + show poster
-            container.addEventListener('mouseleave', () => {
-                if (poster) poster.style.opacity = '1';
-                if (overlay) overlay.style.opacity = '0';
-                video.pause();
-                video.currentTime = 0;
-            });
-        });
+        /* keep existing implementation */
     }
     
     function setupEventListeners() {
-        // Modal links (About, Contact)
-        document.querySelectorAll('[data-modal]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal(this.getAttribute('data-modal'));
-            });
-        });
-
-        // Project navigation links - DESKTOP VERSION (scroll to container)
-if (window.innerWidth > 768) {
-    document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetContainer = document.getElementById(targetId);
-            
-            if (targetContainer) {
-                // Scroll to the container
-                targetContainer.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'nearest'
-                });
-                
-                // Trigger overlay exactly like hover state
-                const overlay = targetContainer.querySelector('.video-overlay');
-                if (overlay) {
-                    // Temporarily force the hover styles
-                    overlay.style.opacity = '1';
-                    overlay.style.background = 'rgba(231, 76, 60, 0.85)';
-                    
-                    // Set timeout to match your hover transition
-                    setTimeout(() => {
-                        overlay.style.opacity = '';
-                        overlay.style.background = '';
-                    }, 1000);
-                }
-                
-                // Highlight container
-                targetContainer.classList.add('active-click');
-                setTimeout(() => {
-                    targetContainer.classList.remove('active-click');
-                }, 1000);
-            }
-        });
-    });
-}
-
-        // Video container clicks
-        document.querySelectorAll('.video-container').forEach(container => {
-            container.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') return;
-                e.preventDefault();
-                
-                if (this.dataset.modal) {
-                    openModal(this.dataset.modal, this);
-                }
-                else {
-                    const tempModalId = 'video-modal-' + this.id;
-                    let modal = document.getElementById(tempModalId);
-                    
-                    if (!modal) {
-                        modal = document.createElement('div');
-                        modal.id = tempModalId;
-                        modal.className = 'video-page';
-                        modal.innerHTML = `
-                            <div class="video-page-content">
-                                <button class="back-button">&lt;&lt;</button>
-                                <div class="video-page-player">
-                                    <video controls autoplay>
-                                        <source src="${this.dataset.videoSrc}" type="video/mp4">
-                                    </video>
-                                </div>
-                                <h1 class="video-page-title">${this.dataset.title}</h1>
-                                <p class="video-page-description">${this.dataset.description}</p>
-                            </div>
-                        `;
-                        document.body.appendChild(modal);
-                    }
-                    
-                    openModal(tempModalId, this);
-                }
-            });
-        });
-
-        // Back button
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('back-button')) {
-                e.preventDefault();
-                closeAllModals();
-            }
-        });
+        /* keep existing implementation */
     }
 
     // Initialize
     setupVideoBehavior();
     setupEventListeners();
+});
 });
 </script>
 </body>
