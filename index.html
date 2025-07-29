@@ -1010,9 +1010,9 @@ document.addEventListener('DOMContentLoaded', function() {
 function setupVideoBehavior() {
     const videoContainers = Array.from(document.querySelectorAll('.video-container'));
     const totalVideos = videoContainers.length;
-    const autoplayCount = Math.min(8, totalVideos); // Ensure we don't exceed available videos
+    const autoplayCount = Math.min(10, totalVideos); // Ensure we don't exceed available videos
 
-    // Shuffle array and pick first 8
+    // Shuffle array and pick first 10
     const shuffledContainers = [...videoContainers]
         .sort(() => 0.5 - Math.random())
         .slice(0, autoplayCount);
