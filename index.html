@@ -443,9 +443,7 @@
         <video autoplay muted playsinline preload="metadata" fetchpriority="high" loop>
             <source src="https://pilarnarvaez.github.io/videos/Showreel.mp4" type="video/mp4">
         </video>
-        <img class="video-poster" src="https://pilarnarvaez.github.io/images/showreel-poster.jpg" alt="Showreel"
-         loading="eager"
-         decoding="async">
+        <img class="video-poster" src="https://pilarnarvaez.github.io/images/showreel-poster.jpg" alt="Showreel">
         <div class="video-overlay">
             <span>Showreel</span>
         </div>
@@ -1033,31 +1031,51 @@
 </footer>
 
 <script>
-    // ===== NEW: Video preloading =====
+// ===== MODIFIED Video Preloading =====
 function preloadAllVideos() {
-    const videoContainers = document.querySelectorAll('.video-container');
-    videoContainers.forEach(container => {
+    document.querySelectorAll('.video-container:not(#adult-swim)').forEach(container => {
         const video = container.querySelector('video');
+        const poster = container.querySelector('.video-poster');
+        
         if (video) {
+            // 1. Show poster immediately
+            poster.style.opacity = '1';
+            
+            // 2. Configure video loading (same as before)
             video.preload = 'auto';
-            // Gentle loading (no autoplay attempts)
-            const playPromise = video.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(() => {
-                    // Silent error handling
+            video.muted = true;
+            video.playsInline = true;
+            video.loop = true;
+            
+            // 3. Smarter autoplay attempt
+            video.addEventListener('loadeddata', function() {
+                video.play().then(() => {
+                    poster.style.opacity = '0'; // Hide poster when playing
+                }).catch(() => {
+                    // Silent fallback (poster remains visible)
                 });
-            }
+            });
+            
+            // 4. Start loading
+            video.load();
         }
     });
+    
+    // Explicitly handle Adult Swim
+    const asVideo = document.querySelector('#adult-swim video');
+    if (asVideo) {
+        asVideo.preload = 'none';
+        asVideo.pause();
+    }
 }
 
-// Start preloading IMMEDIATELY (no DOMContentLoaded wait)
+// Start preloading (same trigger as before)
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', preloadAllVideos);
 } else {
-    preloadAllVideos(); // DOM already loaded
+    preloadAllVideos();
 }
-// ===== END NEW CODE =====
+// ===== END MODIFIED CODE =====
 
 // ===== YOUR ORIGINAL SCRIPT STARTS HERE =====
 document.addEventListener('DOMContentLoaded', function() {
