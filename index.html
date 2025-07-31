@@ -393,10 +393,12 @@
     <h1 class="portfolio-title">Pilar Narvaez Portfolio</h1>
     <nav class="main-nav">
         <a href="#" data-modal="about-page">About</a>
-        <a href="#" class="email-link" 
-       data-user="pilar.narvaez.alvarez" 
-       data-domain="proton.me"
-       style="color: #e74c3c !important; text-decoration: none !important;">Contact</a>
+<a href="#" class="email-link nav-link" 
+   data-user="pilar.narvaez.alvarez" 
+   data-domain="proton.me"
+   style="color: #e74c3c !important; text-decoration: none !important;">
+   Contact
+</a>
         <a href="#showreel">Showreel</a>
         <a href="#tercer-campaign">Tercer Campaign</a>
         <a href="#menopause-campaign">Menopause Campaign</a>
@@ -427,10 +429,12 @@
 <!-- Mobile navigation -->
 <div class="mobile-nav-header">
     <a href="#" data-modal="about-page">About</a>
-    <a href="#" class="email-link" 
+<a href="#" class="email-link nav-link" 
    data-user="pilar.narvaez.alvarez" 
    data-domain="proton.me"
-   style="color: #e74c3c !important; text-decoration: none !important;">Contact</a>
+   style="color: #e74c3c !important; text-decoration: none !important;">
+   Contact
+</a>
 </div>
        
 <div class="video-columns">
@@ -1230,14 +1234,26 @@ function setupVideoBehavior() {
         });
     });
 }
-    function setupEventListeners() {
-        // Modal links (About, Contact)
-        document.querySelectorAll('[data-modal]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal(this.getAttribute('data-modal'));
-            });
+
+function setupEventListeners() {
+    // 1. Handle ALL modal links EXCEPT email links (preserves About + videos)
+    document.querySelectorAll('[data-modal]:not(.email-link)').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal(this.getAttribute('data-modal'));
         });
+    });
+
+    // 2. New dedicated email handler (for Contact links)
+    document.querySelectorAll('.email-link[data-user][data-domain]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = `mailto:${this.dataset.user}@${this.dataset.domain}`;
+            // For debugging:
+            console.log('Email link clicked:', `${this.dataset.user}@${this.dataset.domain}`); 
+        });
+    });
+}
 
         // Project navigation links - DESKTOP VERSION (scroll to container)
 if (window.innerWidth > 768) {
