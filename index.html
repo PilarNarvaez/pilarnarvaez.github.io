@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -393,12 +394,7 @@
     <h1 class="portfolio-title">Pilar Narvaez Portfolio</h1>
     <nav class="main-nav">
         <a href="#" data-modal="about-page">About</a>
-<a href="#" class="email-link nav-link" 
-   data-user="pilar.narvaez.alvarez" 
-   data-domain="proton.me"
-   style="color: #e74c3c !important; text-decoration: none !important;">
-   Contact
-</a>
+        <a href="#" data-modal="contact-page">Contact</a>
         <a href="#showreel">Showreel</a>
         <a href="#tercer-campaign">Tercer Campaign</a>
         <a href="#menopause-campaign">Menopause Campaign</a>
@@ -429,12 +425,7 @@
 <!-- Mobile navigation -->
 <div class="mobile-nav-header">
     <a href="#" data-modal="about-page">About</a>
-<a href="#" class="email-link nav-link" 
-   data-user="pilar.narvaez.alvarez" 
-   data-domain="proton.me"
-   style="color: #e74c3c !important; text-decoration: none !important;">
-   Contact
-</a>
+    <a href="#" data-modal="contact-page">Contact</a>
 </div>
        
 <div class="video-columns">
@@ -762,9 +753,8 @@
      data-modal="tv-promos-modal"
      data-title="TV Promos"
      data-description="Rugrats promo: Angelica vs Britney. Nickelodeon Spain. Producer and video editor.
-     Gordon's Ultimate Cookery Course promo. Canal Cocina, Chello Multicanal Spain. Producer and Video Editor.
-     Spice trip promo. Canal Cocina, Chello Multicanal Spain. Producer and Video Editor.
-     More promos on my &lt;a https://www.behance.net/gallery/9775769/AMC-Chellomedia-promos' target='_blank' style='color:#e74c3c !important; text-decoration:none !important'&gt;Behance&lt;/a&gt;">
+     Gordon's Ultimate Cookery Course promo. Canal Cocina, Chello Multicanal Spain. Producer & Video Editor.
+     Spice trip promo. Canal Cocina, Chello Multicanal Spain. Producer & Video Editor.">
     <video muted playsinline preload="metadata" loop>
         <source src="https://pilarnarvaez.github.io/videos/angelica-promo.mp4" type="video/mp4">
     </video>
@@ -775,7 +765,7 @@
 </div>
     
 <!-- Mashup Videos Main Grid Item -->
-<div id="mashup-videos" class="video-container" 
+<div id="tv-promos" class="video-container" 
      data-modal="mashup-videos-modal"
      data-title="Mashup Videos"
      data-description="Chase around trains... Cigarettes Vs Trains. Video tribute to Jiri Menzel's &lt;a href='https://en.wikipedia.org/wiki/Closely_Watched_Trains' target='_blank'&gt;Closely Watched Trains&lt;/a&gt; and My Bloody Valentine's &lt;a href='https://en.wikipedia.org/wiki/My_Bloody_Valentine_(band)' target='_blank'&gt;Cigarette in Your Bed&lt;/a&gt;.&lt;br&gt;
@@ -913,8 +903,8 @@
         <h1 class="video-page-title">TV Promos</h1>
         <p class="video-page-description">
            Rugrats promo: Angelica vs Britney. Nickelodeon Spain. Producer and video editor. 
-            Gordon's Ultimate Cookery Course promo. Canal Cocina, Chello Multicanal Spain. Producer and Video Editor. 
-            Spice trip promo. Canal Cocina, Chello Multicanal Spain. Producer and Video Editor. 
+            Gordon's Ultimate Cookery Course promo. Canal Cocina, Chello Multicanal Spain. Producer &amp; Video Editor. 
+            Spice trip promo. Canal Cocina, Chello Multicanal Spain. Producer &amp; Video Editor. 
             &lt;a href=&quot;https://www.behance.net/gallery/9775769/AMC-Chellomedia-promos&quot; target=&quot;_blank&quot; style=&quot;color:#e74c3c !important; text-decoration:none !important&quot;&gt;More TV promos here&lt;/a&gt;.
         </p>
     </div>
@@ -932,17 +922,17 @@
             </video>
         </div>
         
-         <!-- 2. Marienbad 33 (4:3) -->
-        <div style="aspect-ratio: 4/3; max-width: 640px; margin: 0 auto 30px;">
-            <video controls playsinline style="width:100%; height:100%">
-                <source src="https://pilarnarvaez.github.io/videos/marienbad-33.mp4" type="video/mp4">
-            </video>
-        </div>      
-        
-        <!-- 3. haunt-me (16:9) -->
+        <!-- 2. haunt-me (16:9) -->
         <div style="aspect-ratio: 16/9; max-width: 800px; margin: 0 auto 30px;">
             <video controls playsinline style="width:100%; height:100%">
                 <source src="https://pilarnarvaez.github.io/videos/haunt-me.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+        <!-- 3. Marienbad 33 (4:3) -->
+        <div style="aspect-ratio: 4/3; max-width: 640px; margin: 0 auto 30px;">
+            <video controls playsinline style="width:100%; height:100%">
+                <source src="https://pilarnarvaez.github.io/videos/marienbad-33.mp4" type="video/mp4">
             </video>
         </div>
         
@@ -1001,6 +991,19 @@
             I'm a video editor and motion graphics artist with experience in localizing advertising, TV, and film campaigns, creating social media content, and producing brand campaigns and television promos.<br>
             I work primarily with Adobe Creative Suite (Premiere, After Effects) and Avid Media Composer. As a bilingual (Spanish/English) professional, I can work with multilingual content, including French.<br>
             Known for being a fast learner, hard worker, and detail-oriented, I'm dedicated to delivering high-quality results and thriving in creative, fast-paced environments.
+        </p>
+    </div>
+</div>
+
+<!-- Contact Modal -->
+<div id="contact-page" class="video-page">
+    <div class="video-page-content">
+        <button class="back-button">&lt;&lt;</button>
+        <h1 class="video-page-title">Contact</h1>
+        <p class="video-page-description">
+            <a href="mailto:pilar.narvaez@gmail.com" class="contact-email">
+                pilar.narvaez@gmail.com
+            </a>
         </p>
     </div>
 </div>
@@ -1234,26 +1237,14 @@ function setupVideoBehavior() {
         });
     });
 }
-
-function setupEventListeners() {
-    // 1. Handle ALL modal links EXCEPT email links (preserves About + videos)
-    document.querySelectorAll('[data-modal]:not(.email-link)').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            openModal(this.getAttribute('data-modal'));
+    function setupEventListeners() {
+        // Modal links (About, Contact)
+        document.querySelectorAll('[data-modal]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal(this.getAttribute('data-modal'));
+            });
         });
-    });
-
-    // 2. New dedicated email handler (for Contact links)
-    document.querySelectorAll('.email-link[data-user][data-domain]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.location.href = `mailto:${this.dataset.user}@${this.dataset.domain}`;
-            // For debugging:
-            console.log('Email link clicked:', `${this.dataset.user}@${this.dataset.domain}`); 
-        });
-    });
-}
 
         // Project navigation links - DESKTOP VERSION (scroll to container)
 if (window.innerWidth > 768) {
