@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -537,7 +535,7 @@
     </div>
 <div id="social-media-modal" class="video-page">
     <div class="video-page-content">
-        <button class="back-button">&lt;&lt;</button>
+        ="back-button" aria-label="Close and return to portfolio">&lt;&lt;</button>
         
         <!-- 1. Erra Doritos (9:16) -->
         <div class="video-page-player" style="aspect-ratio: 9/16; max-width: 340px; margin: 0 auto 30px;">
@@ -803,7 +801,7 @@
 <!-- Fire Walk With Me Modal (4:3) -->
 <div id="fire-walk-with-me-modal" class="video-page">
     <div class="video-page-content">
-        <button class="back-button">&lt;&lt;</button>
+        <button class="back-button" aria-label="Close and return to portfolio">&lt;&lt;</button>
         <div class="video-page-player">
             <video controls autoplay muted>
                 <source src="https://pilarnarvaez.github.io/videos/Fire-Walk-With-Me.mp4" type="video/mp4">
@@ -819,7 +817,7 @@
 <!-- Just Eat Modal (9:16) -->
 <div id="just-eat-modal" class="video-page">
     <div class="video-page-content">
-        <button class="back-button">&lt;&lt;</button>
+        <button class="back-button" aria-label="Close and return to portfolio">&lt;&lt;</button>
         
         <!-- 1. Slovakia (16:9) -->
         <div class="video-page-player">
@@ -852,7 +850,7 @@
 <!-- Tipstr TV Modal -->
 <div id="tipstr-tv-modal" class="video-page">
     <div class="video-page-content">
-        <button class="back-button">&lt;&lt;</button>
+        <button class="back-button" aria-label="Close and return to portfolio">&lt;&lt;</button>
         
         <!-- 1. Berlinstruck (16:9) -->
         <div style="aspect-ratio: 16/9; max-width: 800px; margin: 0 auto 30px;">
@@ -885,7 +883,7 @@
     <!-- tv promos Modal -->
 <div id="tv-promos-modal" class="video-page">
     <div class="video-page-content">
-        <button class="back-button">&lt;&lt;</button>
+        <button class="back-button" aria-label="Close and return to portfolio">&lt;&lt;</button>
         
         <!-- 1. Angelica Promo (4:3) - Inline style ONLY -->
         <div class="video-page-player four-three">
@@ -921,7 +919,7 @@
     <!-- Mashup Videos Modal -->
 <div id="mashup-videos-modal" class="video-page">
     <div class="video-page-content">
-        <button class="back-button">&lt;&lt;</button>
+        <button class="back-button" aria-label="Close and return to portfolio">&lt;&lt;</button>
         
         <!-- 1. bloody trains (4:3) -->
         <div style="aspect-ratio: 4/3; max-width: 640px; margin: 0 auto 30px;">
@@ -956,7 +954,7 @@
     <!-- Godard Collages Modal -->
 <div id="godard-page" class="video-page">
     <div class="video-page-content">
-        <button class="back-button">&lt;&lt;</button>
+        <button class="back-button" aria-label="Close and return to portfolio">&lt;&lt;</button>
         
         <!-- Image Gallery -->
         <div class="image-gallery">
@@ -993,28 +991,12 @@
 <!-- About Page Modal -->
 <div id="about-page" class="video-page">
     <div class="video-page-content">
-        <button class="back-button">&lt;&lt;</button>
+        <button class="back-button" aria-label="Close and return to portfolio">&lt;&lt;</button>
         <h1 class="video-page-title">About</h1>
         <p class="video-page-description">
             I'm a video editor and motion graphics artist with experience in localizing advertising, TV, and film campaigns, creating social media content, and producing brand campaigns and television promos.<br>
             I work primarily with Adobe Creative Suite (Premiere, After Effects) and Avid Media Composer. As a bilingual (Spanish/English) professional, I can work with multilingual content, including French.<br>
             Known for being a fast learner, hard worker, and detail-oriented, I'm dedicated to delivering high-quality results and thriving in creative, fast-paced environments.
-        </p>
-    </div>
-</div>
-
-<!-- Contact Modal -->
-<div id="contact-page" class="video-page">
-    <div class="video-page-content">
-        <button class="back-button">&lt;&lt;</button>
-        <h1 class="video-page-title">Contact</h1>
-        <p class="video-page-description">
-            <a href="#" class="email-link" 
-               data-user="pilar.narvaez.alvarez" 
-               data-domain="proton.me"
-               style="color:#e74c3c !important; text-decoration:none !important">
-               pilar.narvaez.alvarez@proton.me
-            </a>
         </p>
     </div>
 </div>
@@ -1330,7 +1312,7 @@ if (window.innerWidth > 768) {
                         modal.className = 'video-page';
                         modal.innerHTML = `
                             <div class="video-page-content">
-                                <button class="back-button">&lt;&lt;</button>
+                                <button class="back-button" aria-label="Close modal">&lt;&lt;</button>
                                 <div class="video-page-player">
                                     <video controls autoplay>
                                         <source src="${this.dataset.videoSrc}" type="video/mp4">
