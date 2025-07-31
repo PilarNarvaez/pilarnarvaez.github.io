@@ -397,7 +397,7 @@
    style="color: #e74c3c !important; text-decoration: none !important">
    Contact
 </a>
-        <a href="#showreel">Showreel</a>
+        <a href="#">Showreel</a>
         <a href="#tercer-campaign">Tercer Campaign</a>
         <a href="#menopause-campaign">Menopause Campaign</a>
         <a href="#pepsi-recycle">Pepsi Recycle to Win</a>
@@ -440,10 +440,12 @@
          data-video-src="https://pilarnarvaez.github.io/videos/Showreel.mp4"
          data-title="Showreel"
          data-description="A selection of my last works - video editing and motion graphics.">
-        <video autoplay muted playsinline preload="auto" fetchpriority="high" loop>
+        <video autoplay muted playsinline preload="metadata" fetchpriority="high" loop>
             <source src="https://pilarnarvaez.github.io/videos/Showreel.mp4" type="video/mp4">
         </video>
-        <img class="video-poster" src="https://pilarnarvaez.github.io/images/showreel-poster.jpg" alt="Showreel">
+        <img class="video-poster" src="https://pilarnarvaez.github.io/images/showreel-poster.jpg" alt="Showreel"
+         loading="eager"
+         decoding="async">
         <div class="video-overlay">
             <span>Showreel</span>
         </div>
