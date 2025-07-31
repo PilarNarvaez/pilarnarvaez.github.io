@@ -1305,20 +1305,21 @@ if (window.innerWidth > 768) {
                     block: 'center'
                 });
                 
-                // Trigger overlay exactly like hover state
-                const overlay = targetContainer.querySelector('.video-overlay');
-                if (overlay) {
-                    // Temporarily force the hover styles
-                    overlay.style.opacity = '1';
-                    overlay.style.background = 'rgba(231, 76, 60, 0.85)';
-                    
-                    // Set timeout to match your hover transition
-                    setTimeout(() => {
-                        overlay.style.opacity = '';
-                        overlay.style.background = '';
-                    }, 1000);
-                }
-                
+     // Trigger overlay exactly like hover state
+const overlay = targetContainer.querySelector('.video-overlay');
+if (overlay) {
+    // Force the hover styles
+    overlay.style.opacity = '1';
+    overlay.style.background = 'rgba(231, 76, 60, 0.85)';
+    
+    // Only reset if user isn't hovering
+    setTimeout(() => {
+        if (!targetContainer.matches(':hover')) {
+            overlay.style.opacity = '';
+            overlay.style.background = '';
+        }
+    }, 1500); // Extended to 1.5s for better UX
+}
                 // Highlight container
                 targetContainer.classList.add('active-click');
                 setTimeout(() => {
