@@ -394,7 +394,11 @@
     <h1 class="portfolio-title">Pilar Narvaez Portfolio</h1>
     <nav class="main-nav">
         <a href="#" data-modal="about-page">About</a>
-        <a href="#" data-modal="contact-page">Contact</a>
+<a href="#" class="email-link" 
+   data-modal="contact-page"
+   style="color: #e74c3c !important; text-decoration: none !important">
+   Contact
+</a>
         <a href="#showreel">Showreel</a>
         <a href="#tercer-campaign">Tercer Campaign</a>
         <a href="#menopause-campaign">Menopause Campaign</a>
@@ -425,7 +429,11 @@
 <!-- Mobile navigation -->
 <div class="mobile-nav-header">
     <a href="#" data-modal="about-page">About</a>
-    <a href="#" data-modal="contact-page">Contact</a>
+    <a href="#" class="email-link" 
+       data-modal="contact-page"
+       style="color: #e74c3c !important; text-decoration: none !important">
+       Contact
+    </a>
 </div>
        
 <div class="video-columns">
@@ -1001,8 +1009,11 @@
         <button class="back-button">&lt;&lt;</button>
         <h1 class="video-page-title">Contact</h1>
         <p class="video-page-description">
-            <a href="mailto:pilar.narvaez.alvarez@proton.me" class="contact-email">
-                pilar.narvaez.alvarez@proton.me
+            <a href="#" class="email-link" 
+               data-user="pilar.narvaez.alvarez" 
+               data-domain="proton.me"
+               style="color:#e74c3c !important; text-decoration:none !important">
+               pilar.narvaez.alvarez@proton.me
             </a>
         </p>
     </div>
@@ -1237,14 +1248,22 @@ function setupVideoBehavior() {
         });
     });
 }
-    function setupEventListeners() {
-        // Modal links (About, Contact)
-        document.querySelectorAll('[data-modal]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal(this.getAttribute('data-modal'));
-            });
+function setupEventListeners() {
+    // Email link handler (NEW)
+    document.querySelectorAll('.email-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'mailto:pilar.narvaez.alvarez@proton.me';
         });
+    });
+
+    // Modal links (About) - keep this exactly as is
+    document.querySelectorAll('[data-modal]:not(.email-link)').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal(this.getAttribute('data-modal'));
+        });
+    });
 
         // Project navigation links - DESKTOP VERSION (scroll to container)
 if (window.innerWidth > 768) {
