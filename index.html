@@ -91,7 +91,15 @@
         width: 100%;
         padding: 0 40px;
     }
-
+/* Lock ellipse animation behavior */
+#ellipse-animation { 
+    pointer-events: none !important; 
+    cursor: default !important;
+}
+#ellipse-animation video {
+    opacity: 1 !important; /* Override hover fades */
+}
+    /* ===== END NEW RULES ===== */
     .video-container {
         position: relative;
         width: 100%;
@@ -626,7 +634,8 @@
     </div>  
     
 <!-- Autoplaying Ellipse Animation no poster/modal, no interaction -->
-<div id="ellipse-animation" class="video-container">
+<div id="ellipse-animation" class="video-container" 
+     style="background: white; pointer-events: none;">
     <div>
         <video autoplay muted playsinline loop
                style="width:100%;height:100%;object-fit:contain;">
@@ -1222,22 +1231,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 3000);
         }
     }
-// ===== Ellipse Animation Autoplay =====
-const ellipseVideo = document.querySelector('#ellipse-animation video');
-if (ellipseVideo) {
-    // Desktop attempt
-    ellipseVideo.play().catch(() => {
-        // Fallback: Start on first interaction
-        const startPlayback = () => {
-            ellipseVideo.play();
-            document.body.removeEventListener('click', startPlayback);
-            document.body.removeEventListener('touchstart', startPlayback);
-        };
-        document.body.addEventListener('click', startPlayback, { once: true });
-        document.body.addEventListener('touchstart', startPlayback, { once: true });
-    });
-}
-// ===== End Ellipse Code =====
+
 function setupVideoBehavior() {
     const videoContainers = Array.from(document.querySelectorAll('.video-container'));
     const totalVideos = videoContainers.length;
