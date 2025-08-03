@@ -623,10 +623,12 @@
         </div>
     </div>  
     
-<!-- Autoplaying Ellipse Animation no poster/modal -->
-<div id="ellipse-animation" class="video-container" style="background: white !important;">
+<!-- Autoplaying Ellipse Animation no poster/modal, no interaction -->
+<div id="ellipse-animation" class="video-container" 
+     style="background: white !important; cursor: default;">
     <video autoplay muted playsinline loop
-           style="width:100%; height:100%; object-fit: contain; display: block;">
+           style="width:100%; height:100%; object-fit: contain;"
+           onclick="return false;">
         <source src="https://pilarnarvaez.github.io/animations/elipse.mp4" type="video/mp4">
     </video>
 </div>
