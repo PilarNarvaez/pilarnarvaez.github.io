@@ -380,7 +380,40 @@
         .video-page {
             padding-top: 60px !important;
         }
+    /* 1. Force the overlay to appear on tap (not hover) */
+    .video-container:active .video-overlay {
+        opacity: 1 !important;
+        background: rgba(231, 76, 60, 0.85) !important;
+    }
 
+    /* 2. Hide overlay during scrolling/intermediate states */
+    .video-container:hover .video-overlay {
+        opacity: 0 !important;
+        transition: none !important; /* Disable animation during scroll */
+    }
+
+    /* 3. Ensure overlay exists and is styled */
+    .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+        opacity: 0; /* Start hidden */
+        transition: opacity 0.2s ease;
+    }
+
+    .video-overlay span {
+        font-size: 16px;
+        color: white;
+        padding: 0 20px;
+        text-align: center;
+    }
+}
         .footer {
             margin: 40px 0 0;
             text-align: center !important;
@@ -536,6 +569,23 @@
             <span>Expedia Social</span>
         </div>
     </div>
+
+    <!-- Summer in the City animation-->
+<div id="tunnel" class="video-container" 
+     data-modal="tunnel-modal"
+     data-video-src="https://pilarnarvaez.github.io/animations/Tunnel.mp4">
+    <video autoplay muted loop playsinline>
+        <source src="https://pilarnarvaez.github.io/animations/Tunnel.mp4" type="video/mp4">
+    </video>
+</div>
+        
+        <!-- Your text content goes here -->
+        <div class="tunnel-description">
+            <h1>Summer in the City</h1>
+            <p>Soon in your screens.</p>
+        </div>
+    </div>
+</div>
     
     <!-- Fire Walk With Me (4:3) - Only poster in grid, full video in modal -->
     <div id="fire-walk-with-me" class="video-container"
@@ -639,7 +689,16 @@
             <span>Kings League Twitch</span>
         </div>
     </div>  
-        
+    
+<!-- Autoplaying Ellipse Animation no poster/modal, no interaction -->
+<div id="ellipse-animation" class="ellipse-container">
+    <div class="ellipse-animation">
+        <video autoplay muted loop playsinline>
+            <source src="https://pilarnarvaez.github.io/animations/red-ellipse.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
+    
     <!-- Dries Van Noten Lacroix SS20 -->
     <div id="dries-lacroix-ss20" class="video-container"
          data-video-src="https://pilarnarvaez.github.io/videos/Dries-Lacroix.mp4"
@@ -653,15 +712,6 @@
             <span>Dries Lacroix SS20</span>
         </div>
     </div>  
-    
-<!-- Autoplaying Ellipse Animation no poster/modal, no interaction -->
-<div id="ellipse-animation" class="ellipse-container">
-    <div class="ellipse-animation">
-        <video autoplay muted loop playsinline>
-            <source src="https://pilarnarvaez.github.io/animations/red-ellipse.mp4" type="video/mp4">
-        </video>
-    </div>
-</div>
     
     <!-- Vivienne Westwood AW21 -->
     <div id="westwood-aw21" class="video-container"
