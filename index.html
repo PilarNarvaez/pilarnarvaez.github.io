@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,54 +92,14 @@
         width: 100%;
         padding: 0 40px;
     }
-/* Summer Tunnel specific styles */
-#summer-tunnel video {
-    opacity: 1 !important; /* Force visible */
-    pointer-events: none !important; /* Disable interaction */
+/* Lock ellipse animation behavior */
+#ellipse-animation { 
+    pointer-events: none !important; 
+    cursor: default !important;
 }
-
-#summer-tunnel .video-overlay {
-    display: none !important; /* Hide overlay */
-}
-
-#summer-tunnel {
-    cursor: pointer; /* Maintain clickability */
-}
-
-/* Optional: Disable hover effects if needed */
-#summer-tunnel:hover video {
-    transform: none !important; /* Disable scale effects */
-    opacity: 1 !important; /* Prevent fade changes */
-}
-        
-/* Ellipse Animation*/
-/* Container - maintains grid cell sizing */
-.ellipse-container {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16/9; /* Match other grid items */
-    background: white !important;
-    overflow: hidden;
-}
-
-/* Animation wrapper - controls the size */
-.ellipse-animation {
-    position: absolute;
-    width: 95%; /* Adjust this percentage to make smaller/larger */
-    height: 95%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-}
-
-/* Video element */
-.ellipse-animation video {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-    opacity: 1 !important;
+#ellipse-animation video {
+    opacity: 1 !important; /* Override hover fades */
+    pointer-events: none !important;
 }
     /* ===== END NEW RULES ===== */
     .video-container {
@@ -400,40 +361,7 @@
         .video-page {
             padding-top: 60px !important;
         }
-    /* 1. Force the overlay to appear on tap (not hover) */
-    .video-container:active .video-overlay {
-        opacity: 1 !important;
-        background: rgba(231, 76, 60, 0.85) !important;
-    }
 
-    /* 2. Hide overlay during scrolling/intermediate states */
-    .video-container:hover .video-overlay {
-        opacity: 0 !important;
-        transition: none !important; /* Disable animation during scroll */
-    }
-
-    /* 3. Ensure overlay exists and is styled */
-    .video-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 2;
-        opacity: 0; /* Start hidden */
-        transition: opacity 0.2s ease;
-    }
-
-    .video-overlay span {
-        font-size: 16px;
-        color: white;
-        padding: 0 20px;
-        text-align: center;
-    }
-}
         .footer {
             margin: 40px 0 0;
             text-align: center !important;
@@ -455,17 +383,19 @@
     }
 
     /* ===== DESKTOP STYLES ===== */
-@media (min-width: 769px) {
-    /* Hide mobile nav completely on desktop */
-    .mobile-nav-header {
-        display: none !important;
+    @media (min-width: 769px) {
+        .mobile-nav-header {
+            display: none !important;
+        }
+
+        .main-nav {
+            display: flex !important;
+        }
+
+        .main-nav a[data-modal] {
+            display: inline !important;
+        }
     }
-    
-    /* Hide About/Contact in main nav (they're in mobile header) */
-    .main-nav a[data-modal] {
-        display: none !important;
-    }
-}
 </style>
 </head>
 <body>
@@ -587,15 +517,6 @@
             <span>Expedia Social</span>
         </div>
     </div>
-
-<!-- Summer Tunnel Animation -->
-<div id="summer-tunnel" class="video-container no-hover-autoplay" 
-     data-modal="summer-tunnel-modal"
-     data-video-src="https://pilarnarvaez.github.io/animations/tunnel.mp4">
-    <video autoplay muted loop playsinline>
-        <source src="https://pilarnarvaez.github.io/animations/tunnel.mp4" type="video/mp4">
-    </video>
-</div>
     
     <!-- Fire Walk With Me (4:3) - Only poster in grid, full video in modal -->
     <div id="fire-walk-with-me" class="video-container"
@@ -699,16 +620,7 @@
             <span>Kings League Twitch</span>
         </div>
     </div>  
-    
-<!-- Autoplaying Ellipse Animation no poster/modal, no interaction -->
-<div id="ellipse-animation" class="ellipse-container">
-    <div class="ellipse-animation">
-        <video autoplay muted loop playsinline>
-            <source src="https://pilarnarvaez.github.io/animations/red-ellipse.mp4" type="video/mp4">
-        </video>
-    </div>
-</div>
-    
+        
     <!-- Dries Van Noten Lacroix SS20 -->
     <div id="dries-lacroix-ss20" class="video-container"
          data-video-src="https://pilarnarvaez.github.io/videos/Dries-Lacroix.mp4"
@@ -722,6 +634,13 @@
             <span>Dries Lacroix SS20</span>
         </div>
     </div>  
+    
+<!-- Autoplaying Ellipse Animation no poster/modal, no interaction -->
+<div id="ellipse-animation" class="video-container" style="background: white; pointer-events: none;">
+    <video autoplay muted playsinline loop style="width:100%;height:100%;object-fit:contain;">
+        <source src="https://pilarnarvaez.github.io/animations/red-elipse.mp4" type="video/mp4">
+    </video>
+</div>
     
     <!-- Vivienne Westwood AW21 -->
     <div id="westwood-aw21" class="video-container"
@@ -897,23 +816,7 @@
         </div>
     </div>
 </div>
-    <!-- Summer Tunnel Modal -->
-<div id="summer-tunnel-modal" class="video-page">
-    <div class="video-page-content">
-        <button class="back-button">&lt;&lt;</button>
-        
-        <div class="video-page-player">
-            <video controls autoplay>
-                <source src="https://pilarnarvaez.github.io/animations/tunnel.mp4" type="video/mp4">
-            </video>
-        </div>
-        
-        <h1 class="video-page-title">Summer in the City</h1>
-        <p class="video-page-description">
-            <!-- Add your description later if needed -->
-        </p>
-    </div>
-</div>
+    
 <!-- Fire Walk With Me Modal (4:3) -->
 <div id="fire-walk-with-me-modal" class="video-page">
     <div class="video-page-content">
