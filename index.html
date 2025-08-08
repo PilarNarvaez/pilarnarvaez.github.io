@@ -98,6 +98,9 @@
     aspect-ratio: 1/1;           /* Force square container */
     max-width: 100%;             /* Prevent overflow */
     margin: 0 auto;              /* Center horizontally */
+    position: relative;
+    overflow: hidden;
+    background: white !important;
 }
 
 .ellipse-animation video {
@@ -107,7 +110,10 @@
     height: 100%;
     object-fit: contain;         /* Scales video to fit container */
     object-position: center;
-    display: block;             /* Removes extra space */
+    display: block;              /* Removes extra space */
+    position: absolute;
+    top: 0;
+    left: 0;
 }
     /* ===== END NEW RULES ===== */
     .video-container {
@@ -644,7 +650,7 @@
     </div>  
     
 <!-- Autoplaying Ellipse Animation no poster/modal, no interaction -->
-<div id="ellipse-animation" class="video-container" style="background: white; pointer-events: none;">
+<div id="ellipse-animation" class="ellipse-animation">
     <video autoplay muted loop playsinline>
         <source src="https://pilarnarvaez.github.io/animations/red-ellipse.mp4" type="video/mp4">
     </video>
