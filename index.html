@@ -91,23 +91,34 @@
         width: 100%;
         padding: 0 40px;
     }
-/* Ellipse Animation Container */
-.ellipse-animation {
+/* Ellipse Animation*/
+/* Container - maintains grid cell sizing */
+.ellipse-container {
+    position: relative;
     width: 100%;
-    aspect-ratio: 1/1;           /* Square container */
+    aspect-ratio: 16/9; /* Match other grid items */
     background: white !important;
-    pointer-events: none !important; /* Disable interactions */
     overflow: hidden;
-    margin: 0 auto;              /* Center horizontally */
 }
 
-/* Ellipse Video */
+/* Animation wrapper - controls the size */
+.ellipse-animation {
+    position: absolute;
+    width: 50%; /* Adjust this percentage to make smaller/larger */
+    height: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+/* Video element */
 .ellipse-animation video {
     width: 100%;
     height: 100%;
-    object-fit: contain;         /* Scale video to fit */
+    object-fit: contain;
     display: block;
-    opacity: 1 !important;       /* Override any fade effects */
+    opacity: 1 !important;
 }
     /* ===== END NEW RULES ===== */
     .video-container {
@@ -644,10 +655,12 @@
     </div>  
     
 <!-- Autoplaying Ellipse Animation no poster/modal, no interaction -->
-<div id="ellipse-animation" class="ellipse-animation">
-    <video autoplay muted loop playsinline>
-        <source src="https://pilarnarvaez.github.io/animations/red-ellipse.mp4" type="video/mp4">
-    </video>
+<div id="ellipse-animation" class="ellipse-container">
+    <div class="ellipse-animation">
+        <video autoplay muted loop playsinline>
+            <source src="https://pilarnarvaez.github.io/animations/red-ellipse.mp4" type="video/mp4">
+        </video>
+    </div>
 </div>
     
     <!-- Vivienne Westwood AW21 -->
