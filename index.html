@@ -92,23 +92,23 @@
         padding: 0 40px;
     }
 /* Summer Tunnel specific styles */
-#summer-tunnel {
-    cursor: pointer;
-}
-
 #summer-tunnel video {
-    opacity: 1 !important;
-    pointer-events: none;
+    opacity: 1 !important; /* Force visible */
+    pointer-events: none !important; /* Disable interaction */
 }
 
-/* Hide any inherited overlay elements */
 #summer-tunnel .video-overlay {
-    display: none !important;
+    display: none !important; /* Hide overlay */
 }
 
-/* Disable hover effects */
-#summer-tunnel:hover .video-overlay {
-    opacity: 0 !important;
+#summer-tunnel {
+    cursor: pointer; /* Maintain clickability */
+}
+
+/* Optional: Disable hover effects if needed */
+#summer-tunnel:hover video {
+    transform: none !important; /* Disable scale effects */
+    opacity: 1 !important; /* Prevent fade changes */
 }
         
 /* Ellipse Animation*/
@@ -455,19 +455,17 @@
     }
 
     /* ===== DESKTOP STYLES ===== */
-    @media (min-width: 769px) {
-        .mobile-nav-header {
-            display: none !important;
-        }
-
-        .main-nav {
-            display: flex !important;
-        }
-
-        .main-nav a[data-modal] {
-            display: inline !important;
-        }
+@media (min-width: 769px) {
+    /* Hide mobile nav completely on desktop */
+    .mobile-nav-header {
+        display: none !important;
     }
+    
+    /* Hide About/Contact in main nav (they're in mobile header) */
+    .main-nav a[data-modal] {
+        display: none !important;
+    }
+}
 </style>
 </head>
 <body>
@@ -591,7 +589,7 @@
     </div>
 
 <!-- Summer Tunnel Animation -->
-<div id="summer-tunnel" class="video-container" 
+<div id="summer-tunnel" class="video-container no-hover-autoplay" 
      data-modal="summer-tunnel-modal"
      data-video-src="https://pilarnarvaez.github.io/animations/tunnel.mp4">
     <video autoplay muted loop playsinline>
