@@ -91,6 +91,7 @@
         width: 100%;
         padding: 0 40px;
     }
+        
 /* Ellipse Animation*/
 /* Container - maintains grid cell sizing */
 .ellipse-container {
@@ -121,6 +122,13 @@
     opacity: 1 !important;
 }
 
+    #summer-modal .video-page-player video {
+    opacity: 1 !important; /* Force visibility */
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+        
     /* ===== END NEW RULES ===== */
     .video-container {
         position: relative;
@@ -840,15 +848,14 @@
     </div>
 </div>
       <!-- Summer Tunnel Modal -->
-<!-- Summer Modal -->
 <div id="summer-modal" class="video-page">
     <div class="video-page-content">
         <button class="back-button">&lt;&lt;</button>
    
         <!-- Tunnel Video -->
         <div class="video-page-player">
-            <video controls autoplay>
-                <source src="https://pilarnarvaez.github.io/animations/tunnel.mp4">
+            <video controls autoplay muted playsinline>  <!-- Added attributes -->
+                <source src="https://pilarnarvaez.github.io/animations/tunnel.mp4" type="video/mp4">
             </video>
         </div>
         
