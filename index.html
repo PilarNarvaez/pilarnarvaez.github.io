@@ -120,51 +120,6 @@
     display: block;
     opacity: 1 !important;
 }
-/* Summer Tunnel Animation (class-based) */
-.summer-tunnel {
-    cursor: pointer;
-    position: relative; /* Needed for absolute positioning */
-}
-
-/* Poster styling */
-.summer-tunnel .video-poster {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 1;
-    transition: opacity 0.3s ease;
-    z-index: 1;
-}
-
-/* Video styling */
-.summer-tunnel video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 0;
-}
-
-/* Hover states */
-.summer-tunnel:hover .video-poster {
-    opacity: 0;
-}
-
-.summer-tunnel:hover video {
-    opacity: 1;
-}
-
-/* Disable all overlay/interference */
-.summer-tunnel .video-overlay {
-    display: none !important;
-}
         
     /* ===== END NEW RULES ===== */
     .video-container {
@@ -582,15 +537,6 @@
             <span>Expedia Social</span>
         </div>
     </div>
-<!-- Summer Tunnel Animation -->
-<div id="summer-tunnel" class="video-container" 
-     data-modal="summer-tunnel-modal"
-     data-video-src="https://pilarnarvaez.github.io/animations/tunnel.mp4">
-    <video muted loop playsinline preload="metadata">
-        <source src="https://pilarnarvaez.github.io/animations/tunnel.mp4" type="video/mp4">
-    </video>
-    <img class="video-poster" src="https://pilarnarvaez.github.io/images/tunnel-poster.jpg" alt="Summer in the City">
-</div>
     
     <!-- Fire Walk With Me (4:3) - Only poster in grid, full video in modal -->
     <div id="fire-walk-with-me" class="video-container"
@@ -694,16 +640,7 @@
             <span>Kings League Twitch</span>
         </div>
     </div>  
-    
-<!-- Autoplaying Ellipse Animation no poster/modal, no interaction -->
-<div id="ellipse-animation" class="ellipse-container">
-    <div class="ellipse-animation">
-        <video autoplay muted loop playsinline>
-            <source src="https://pilarnarvaez.github.io/animations/red-ellipse.mp4" type="video/mp4">
-        </video>
-    </div>
-</div>
-    
+        
         <!-- Dries Van Noten Lacroix SS20 -->
     <div id="dries-lacroix-ss20" class="video-container"
          data-video-src="https://pilarnarvaez.github.io/videos/Dries-Lacroix.mp4"
@@ -717,6 +654,15 @@
             <span>Dries Lacroix SS20</span>
         </div>
     </div>  
+    
+<!-- Autoplaying Ellipse Animation no poster/modal, no interaction -->
+<div id="ellipse-animation" class="video-container" 
+     data-modal="summer-modal"
+     data-video-src="https://pilarnarvaez.github.io/animations/red-ellipse.mp4">
+    <video autoplay muted loop playsinline>
+        <source src="https://pilarnarvaez.github.io/animations/red-ellipse.mp4" type="video/mp4">
+    </video>
+</div>
     
     <!-- Vivienne Westwood AW21 -->
     <div id="westwood-aw21" class="video-container"
@@ -893,22 +839,30 @@
     </div>
 </div>
       <!-- Summer Tunnel Modal -->
-<div id="summer-tunnel-modal" class="video-page">
+<!-- Summer Modal -->
+<div id="summer-modal" class="video-page">
     <div class="video-page-content">
         <button class="back-button">&lt;&lt;</button>
         
+        <!-- Ellipse Video -->
         <div class="video-page-player">
+            <video autoplay muted loop controls>
+                <source src="https://pilarnarvaez.github.io/animations/red-ellipse.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+        <!-- Tunnel Video -->
+        <div class="video-page-player" style="margin-top: 30px;">
             <video controls autoplay>
                 <source src="https://pilarnarvaez.github.io/animations/tunnel.mp4" type="video/mp4">
             </video>
         </div>
         
         <h1 class="video-page-title">Summer in the City</h1>
-        <p class="video-page-description">
-            <!-- Add your description later if needed -->
-        </p>
+        <p class="video-page-description">Work in progress</p>
     </div>
-</div>  
+</div>
+    
 <!-- Fire Walk With Me Modal (4:3) -->
 <div id="fire-walk-with-me-modal" class="video-page">
     <div class="video-page-content">
