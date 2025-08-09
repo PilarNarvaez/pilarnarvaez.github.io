@@ -104,8 +104,8 @@
 /* Animation wrapper - controls the size */
 .ellipse-animation {
     position: absolute;
-    width: 95%; /* Adjust this percentage to make smaller/larger */
-    height: 95%;
+    width: 75%; /* Adjust this percentage to make smaller/larger */
+    height: 75%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -120,7 +120,24 @@
     display: block;
     opacity: 1 !important;
 }
-        
+     /* ===== Modal Overrides ===== */
+/* Target ONLY the ellipse in modal */
+#summer-modal .ellipse-animation {
+    width: 50%;
+    height: 50%;
+    position: relative; /* Reset absolute */
+    top: auto;
+    left: auto;
+    transform: none;
+    margin: 20px auto; /* Add spacing */
+}
+
+/* Modal video container */
+#summer-modal .video-page-player {
+    max-width: 600px; /* Constrain width */
+    margin: 0 auto;
+    padding: 20px 0;
+}   
     /* ===== END NEW RULES ===== */
     .video-container {
         position: relative;
