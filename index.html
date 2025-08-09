@@ -120,27 +120,50 @@
     display: block;
     opacity: 1 !important;
 }
-/* Tunnel animation (class-based) */
+/* Summer Tunnel Animation (class-based) */
 .summer-tunnel {
-    cursor: pointer; /* Maintain clickability */
+    cursor: pointer;
+    position: relative; /* Needed for absolute positioning */
 }
 
-.summer-tunnel video {
-    opacity: 1 !important;
-    pointer-events: none !important;
+/* Poster styling */
+.summer-tunnel .video-poster {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain; /* or 'cover' if preferred */
-    display: block;
+    object-fit: cover;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    z-index: 1;
 }
 
-.summer-tunnel .video-overlay {
-    display: none !important; /* Hide overlay */
+/* Video styling */
+.summer-tunnel video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
 }
 
-/* Optional: Disable hover effects if needed */
+/* Hover states */
+.summer-tunnel:hover .video-poster {
+    opacity: 0;
+}
+
 .summer-tunnel:hover video {
-    transform: none !important; /* Disable scale effects */
+    opacity: 1;
+}
+
+/* Disable all overlay/interference */
+.summer-tunnel .video-overlay {
+    display: none !important;
 }
         
     /* ===== END NEW RULES ===== */
@@ -559,13 +582,14 @@
             <span>Expedia Social</span>
         </div>
     </div>
-    <!-- Summer  Animation -->
-<div id="summer-tunnel" class="video-container summer-tunnel" 
+<!-- Summer Tunnel Animation -->
+<div id="summer-tunnel" class="video-container" 
      data-modal="summer-tunnel-modal"
      data-video-src="https://pilarnarvaez.github.io/animations/tunnel.mp4">
-    <video autoplay muted loop playsinline>
+    <video muted loop playsinline preload="metadata">
         <source src="https://pilarnarvaez.github.io/animations/tunnel.mp4" type="video/mp4">
     </video>
+    <img class="video-poster" src="https://pilarnarvaez.github.io/images/tunnel-poster.jpg" alt="Summer in the City">
 </div>
     
     <!-- Fire Walk With Me (4:3) - Only poster in grid, full video in modal -->
