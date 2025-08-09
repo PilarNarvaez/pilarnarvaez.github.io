@@ -104,8 +104,8 @@
 /* Animation wrapper - controls the size */
 .ellipse-animation {
     position: absolute;
-    width: 75%; /* Adjust this percentage to make smaller/larger */
-    height: 75%;
+    width: 95%; /* Adjust this percentage to make smaller/larger */
+    height: 95%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -120,24 +120,7 @@
     display: block;
     opacity: 1 !important;
 }
-     /* ===== Modal Overrides ===== */
-/* Target ONLY the ellipse in modal */
-#summer-modal .ellipse-animation {
-    width: 50%;
-    height: 50%;
-    position: relative; /* Reset absolute */
-    top: auto;
-    left: auto;
-    transform: none;
-    margin: 20px auto; /* Add spacing */
-}
 
-/* Modal video container */
-#summer-modal .video-page-player {
-    max-width: 600px; /* Constrain width */
-    margin: 0 auto;
-    padding: 20px 0;
-}   
     /* ===== END NEW RULES ===== */
     .video-container {
         position: relative;
@@ -672,13 +655,14 @@
         </div>
     </div>  
     
-<!-- Autoplaying Ellipse Animation no poster/modal, no interaction -->
-<div id="ellipse-animation" class="video-container" 
-     data-modal="summer-modal"
-     data-video-src="https://pilarnarvaez.github.io/animations/red-ellipse.mp4">
-    <video autoplay muted loop playsinline>
-        <source src="https://pilarnarvaez.github.io/animations/red-ellipse.mp4" type="video/mp4">
-    </video>
+<!-- Autoplaying Ellipse Animation no poster, no interaction -->
+<div id="ellipse-animation" class="ellipse-container" 
+     data-modal="summer-modal">
+    <div class="ellipse-animation">
+        <video autoplay muted loop playsinline>
+            <source src="https://pilarnarvaez.github.io/animations/red-ellipse.mp4">
+        </video>
+    </div>
 </div>
     
     <!-- Vivienne Westwood AW21 -->
@@ -860,23 +844,15 @@
 <div id="summer-modal" class="video-page">
     <div class="video-page-content">
         <button class="back-button">&lt;&lt;</button>
-        
-        <!-- Ellipse Video -->
-        <div class="video-page-player">
-            <video autoplay muted loop controls>
-                <source src="https://pilarnarvaez.github.io/animations/red-ellipse.mp4" type="video/mp4">
-            </video>
-        </div>
-        
+   
         <!-- Tunnel Video -->
-        <div class="video-page-player" style="margin-top: 30px;">
+        <div class="video-page-player">
             <video controls autoplay>
-                <source src="https://pilarnarvaez.github.io/animations/tunnel.mp4" type="video/mp4">
+                <source src="https://pilarnarvaez.github.io/animations/tunnel.mp4">
             </video>
         </div>
         
         <h1 class="video-page-title">Summer in the City</h1>
-        <p class="video-page-description">Work in progress</p>
     </div>
 </div>
     
