@@ -1378,42 +1378,59 @@ if (overlay) {
     });
 }
 
-        // Video container clicks
-        document.querySelectorAll('.video-container').forEach(container => {
-            container.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') return;
-                e.preventDefault();
+       // Video container clicks
+document.querySelectorAll('.video-container').forEach(container => {
+    container.addEventListener('click', function(e) {
+        if (e.target.tagName === 'A') return;
+        e.preventDefault();
+        
+        // Show overlay on mobile (matches your media query breakpoint)
+        if (window.innerWidth <= 768) {
+            const overlay = this.querySelector('.video-overlay');
+            if (overlay) {
+                overlay.style.opacity = '1';
+                overlay.style.background = 'rgba(231, 76, 60, 0.85)';
                 
-                if (this.dataset.modal) {
-                    openModal(this.dataset.modal, this);
-                }
-                else {
-                    const tempModalId = 'video-modal-' + this.id;
-                    let modal = document.getElementById(tempModalId);
-                    
-                    if (!modal) {
-                        modal = document.createElement('div');
-                        modal.id = tempModalId;
-                        modal.className = 'video-page';
-                        modal.innerHTML = `
-                            <div class="video-page-content">
-                                <button class="back-button">&lt;&lt;</button>
-                                <div class="video-page-player">
-                                    <video controls autoplay>
-                                        <source src="${this.dataset.videoSrc}" type="video/mp4">
-                                    </video>
-                                </div>
-                                <h1 class="video-page-title">${this.dataset.title}</h1>
-                                <p class="video-page-description">${this.dataset.description}</p>
-                            </div>
-                        `;
-                        document.body.appendChild(modal);
+                // Hide after 1.5 seconds if not hovering
+                setTimeout(() => {
+                    if (!this.matches(':hover')) {
+                        overlay.style.opacity = '0';
+                        overlay.style.background = 'rgba(231, 76, 60, 0)';
                     }
-                    
-                    openModal(tempModalId, this);
-                }
-            });
-        });
+                }, 1500);
+            }
+        }
+        
+        if (this.dataset.modal) {
+            openModal(this.dataset.modal, this);
+        }
+        else {
+            const tempModalId = 'video-modal-' + this.id;
+            let modal = document.getElementById(tempModalId);
+            
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = tempModalId;
+                modal.className = 'video-page';
+                modal.innerHTML = `
+                    <div class="video-page-content">
+                        <button class="back-button">&lt;&lt;</button>
+                        <div class="video-page-player">
+                            <video controls autoplay>
+                                <source src="${this.dataset.videoSrc}" type="video/mp4">
+                            </video>
+                        </div>
+                        <h1 class="video-page-title">${this.dataset.title}</h1>
+                        <p class="video-page-description">${this.dataset.description}</p>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+            }
+            
+            openModal(tempModalId, this);
+        }
+    });
+});
 
         // Back button
         document.addEventListener('click', function(e) {
