@@ -411,6 +411,14 @@
         #just-eat-modal .video-page-player.vertical {
             max-width: 300px;
         }
+  #adult-swim .video-poster {
+    opacity: 1 !important; /* Override any JS changes */
+    pointer-events: none; /* Allow clicks to pass through */
+    z-index: 2; /* Ensure poster stays on top */
+  }
+  #adult-swim video {
+    opacity: 0 !important; /* Hide video but keep it in DOM */
+  }
     }
 
     /* ===== DESKTOP STYLES ===== */
