@@ -1,15 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Optimized Mobile Tags -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- Validated Mobile Fixes -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="format-detection" content="telephone=no">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
     <title>Pilar Narvaez Portfolio</title>
     <style>
     /* ===== GLOBAL RESETS ===== */
@@ -1133,33 +1129,16 @@ if (document.readyState === 'loading') {
 // ===== YOUR ORIGINAL SCRIPT STARTS HERE =====
 document.addEventListener('DOMContentLoaded', function() {
     // Close all modals and reset videos
-function closeAllModals() {
-    // Get all modals first
-    const modals = document.querySelectorAll('.video-page');
-    
-    // Clean up videos in two phases:
-    modals.forEach(modal => {
-        // 1. Pause all videos and reset time
-        modal.querySelectorAll('video').forEach(v => {
-            try {
+    function closeAllModals() {
+        document.querySelectorAll('.video-page').forEach(modal => {
+            modal.style.display = 'none';
+            modal.querySelectorAll('video').forEach(v => {
                 v.pause();
                 v.currentTime = 0;
-                // iOS-specific: remove src to free memory (safer than removeAttribute)
-                if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
-                    v.src = '';
-                }
-            } catch (e) {
-                console.error('Error cleaning video:', e);
-            }
+            });
         });
-        
-        // 2. Hide the modal
-        modal.style.display = 'none';
-    });
-    
-    // Reset body overflow
-    document.body.style.overflow = '';
-}
+        document.body.style.overflow = '';
+    }
 
     function openModal(modalId, container = null) {
         closeAllModals();
@@ -1282,45 +1261,6 @@ function closeAllModals() {
     }
 
 function setupVideoBehavior() {
-    const videoContainers = Array.from(document.querySelectorAll('.video-container'));
-    
-    // ===== SAFER iOS OPTIMIZATIONS =====
-    videoContainers.forEach(container => {
-        const video = container.querySelector('video');
-        if (!video) return;
-
-        // Safer attribute setting
-        try {
-            video.setAttribute('playsinline', '');
-            video.setAttribute('webkit-playsinline', '');
-            video.setAttribute('x-webkit-airplay', 'allow');
-            
-            // Conservative loading (changed from 'metadata' to 'none' for iOS)
-            video.setAttribute('preload', navigator.userAgent.match(/iPhone|iPad/i) ? 'none' : 'metadata');
-            
-            // Disable automatic picture-in-picture
-            video.setAttribute('disablepictureinpicture', '');
-        } catch (e) {
-            console.warn('Video attribute error:', e);
-        }
-
-        // Robust error handling
-        video.addEventListener('error', function() {
-            console.error('Video error:', this.error);
-            const poster = container.querySelector('.video-poster');
-            if (poster) {
-                poster.style.opacity = '1';
-                video.style.display = 'none'; // Hide broken video
-            }
-        });
-
-        // iOS-specific load strategy
-        if (navigator.userAgent.match(/iPhone|iPad/i)) {
-            video.load(); // Trigger early loading
-        }
-    });
-    // ===== END SAFER CODE =====
-    
     const videoContainers = Array.from(document.querySelectorAll('.video-container'));
     const totalVideos = videoContainers.length;
     const autoplayCount = Math.min(8, totalVideos); // Ensure we don't exceed available videos
