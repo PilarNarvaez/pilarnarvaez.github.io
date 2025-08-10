@@ -1201,13 +1201,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         }
-            else if (modalId === "pepsi-campaigns-modal") {
+else if (modalId === "pepsi-campaigns-modal") {
     const videos = modal.querySelectorAll('video');
-    videos.forEach(v => {
-        v.muted = false;
-        v.controls = true;
-        v.play().catch(e => console.log("Autoplay prevented:", e));
-    });
+    
+    // 1. Handle 16:9 video (first video - autoplay)
+    videos[0].muted = false;
+    videos[0].controls = true;
+    videos[0].play().catch(e => console.log("16:9 autoplay prevented:", e));
+    
+    // 2. Handle 9:16 video (second video - manual play)
+    videos[1].muted = false;
+    videos[1].controls = true; 
+    // No autoplay for this one
 }
         else if (modalId === "fire-walk-with-me-modal" || modalId === "supercar-blondie-facebook-modal") {
             const video = modal.querySelector('video');
