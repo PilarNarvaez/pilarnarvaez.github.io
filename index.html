@@ -190,6 +190,13 @@
     .video-container:hover .video-poster {
         opacity: 0;
     }
+
+/* Target ONLY the Supercar Blondie video in the grid */
+#social-media .video-container video {
+  object-fit: cover;
+  object-position: top center; /* Focus on top portion */
+}
+        
 /* Hide ONLY in grid */
 .video-container video::-webkit-media-controls-enclosure,
 .video-container video::-webkit-media-controls-panel,
