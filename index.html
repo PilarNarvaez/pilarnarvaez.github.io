@@ -526,7 +526,6 @@
         <video muted playsinline preload="metadata" loop>
  <source src="https://pilarnarvaez.github.io/videos/Pepsi-Recycle-to-Win-Reading-Festival.mp4" type="video/mp4">
         </video>
-        </video>
         <img class="video-poster" src="https://pilarnarvaez.github.io/images/pepsi-poster.jpg" alt="Recycle to Win">
         <div class="video-overlay">
             <span>Pepsi Campaigns</span>
@@ -1202,6 +1201,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         }
+            else if (modalId === "pepsi-campaigns-modal") {
+    const videos = modal.querySelectorAll('video');
+    videos.forEach(v => {
+        v.muted = false;
+        v.controls = true;
+        v.play().catch(e => console.log("Autoplay prevented:", e));
+    });
+}
         else if (modalId === "fire-walk-with-me-modal" || modalId === "supercar-blondie-facebook-modal") {
             const video = modal.querySelector('video');
             if (video) {
@@ -1223,7 +1230,7 @@ document.addEventListener('DOMContentLoaded', function() {
     container.id === "kings-league" ||
     container.id === "dries-lacroix-ss20" ||
     container.id === "westwood-aw21" ||
-    container.id === "pepsi-recycle" ||
+    container.id === "pepsi-campaigns" ||
     container.id === "expedia-social" ||
     container.id === "just-eat" ||
     container.id === "15m-documentary" ||
