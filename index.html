@@ -1,11 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <!-- Validated Mobile Fixes -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    
     <title>Pilar Narvaez Portfolio</title>
     <style>
     /* ===== GLOBAL RESETS ===== */
@@ -228,6 +230,8 @@
         z-index: 1000;
         overflow-y: auto;
         padding: 40px;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    transform: translateZ(0); /* Force hardware acceleration */
     }
 
     .video-page-content {
@@ -1163,6 +1167,17 @@ if (document.readyState === 'loading') {
 }
 // ===== END MODIFIED CODE =====
 
+// ===== NEW IOS FIXES =====
+function isIOS() {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+           (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+    function isMobile() {
+    return window.innerWidth <= 768 || isIOS();
+}
+
+// ===== END IOS FIXES =====
+    
 // ===== YOUR ORIGINAL SCRIPT STARTS HERE =====
 document.addEventListener('DOMContentLoaded', function() {
     // Close all modals and reset videos
@@ -1314,7 +1329,8 @@ function setupVideoBehavior() {
     const videoContainers = Array.from(document.querySelectorAll('.video-container'));
     const totalVideos = videoContainers.length;
     const autoplayCount = Math.min(8, totalVideos); // Ensure we don't exceed available videos
-
+    const isMobileView = window.innerWidth <= 768 || isIOS();
+    
     // Filter out Adult Swim video from autoplay pool
     const autoplayPool = videoContainers.filter(container => container.id !== "adult-swim");
     
@@ -1333,6 +1349,8 @@ function setupVideoBehavior() {
         video.muted = true;
         video.loop = true;
         video.playsInline = true;
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
 
         // Special handling for Adult Swim video
         if (container.id === "adult-swim") {
@@ -1340,7 +1358,14 @@ function setupVideoBehavior() {
             video.currentTime = 0;
             if (poster) poster.style.opacity = '1';
         } 
-        // Normal behavior for all other videos
+        // MOBILE BEHAVIOR
+        if (isMobileView) {
+            video.play().catch(() => {
+                if (poster) poster.style.opacity = '1';
+            });
+            if (poster) poster.style.opacity = '0';
+        } 
+        // DESKTOP BEHAVIOR 
         else {
             // Check if current video is in our randomly selected autoplay set
             const shouldAutoplay = shuffledContainers.includes(container);
