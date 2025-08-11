@@ -121,6 +121,14 @@
     object-fit: contain;
     opacity: 1 !important;
 }
+      .clickable-wrapper {
+    display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
         
     /* ===== END NEW RULES ===== */
     .video-container {
@@ -675,14 +683,19 @@
         </div>
     </div>  
     
-<!-- Ellipse Animation (main grid, non-clickable) -->
-<div class="ellipse-container">
-    <div class="ellipse-animation">
-        <video autoplay muted loop playsinline>
-            <source src="https://pilarnarvaez.github.io/animations/red-ellipse.mp4">
-        </video>
+<!-- Ellipse Animation main grid, clickable-only -->
+    <div class="ellipse-container">
+        <a href="https://www.behance.net/gallery/232210347/Summer-Doodles" 
+           target="_blank" 
+           rel="noopener noreferrer"
+           class="clickable-wrapper">
+           <div class="ellipse-animation">
+               <video autoplay muted loop playsinline webkit-playsinline>
+                   <source src="https://pilarnarvaez.github.io/animations/red-ellipse.mp4" type="video/mp4">
+               </video>
+           </div>
+        </a>
     </div>
-</div>
     
     <!-- Vivienne Westwood AW21 -->
     <div id="westwood-aw21" class="video-container"
@@ -740,14 +753,19 @@
         </div>
     </div>
 
-      <!-- Tunnel Video (standalone, autoplaying) -->
-<div class="ellipse-container">
-    <div class="ellipse-animation">
-        <video autoplay muted loop playsinline>
-            <source src="https://pilarnarvaez.github.io/animations/tunnel.mp4" type="video/mp4">
-        </video>
+      <!-- Tunnel Video standalone, autoplaying,only clickable -->
+    <div class="ellipse-container">
+        <a href="https://www.behance.net/gallery/232210347/Summer-Doodles" 
+           target="_blank" 
+           rel="noopener noreferrer"
+           class="clickable-wrapper">
+           <div class="ellipse-animation">
+               <video autoplay muted loop playsinline webkit-playsinline>
+                   <source src="https://pilarnarvaez.github.io/animations/tunnel.mp4" type="video/mp4">
+               </video>
+           </div>
+        </a>
     </div>
-</div> 
 
 <!-- Tipstr TV Grid Item -->
 <div id="tipstr-tv" class="video-container"
