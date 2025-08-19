@@ -1149,34 +1149,36 @@ Video created for Wireless and Reading Festival, adaptation from the Think Diffe
 <script>
 // ===== MODIFIED Video Preloading =====
 function preloadAllVideos() {
-    // Only preload videos that are currently visible
-    const observer = new IntersectionObserver((entries) => {
+    const isMobile = window.innerWidth <= 768; // Mobile detection
+    
+    // Store observer globally for cleanup
+    window.videoObserver = new IntersectionObserver((entries) => {
+        let autoplayCounter = 0;
+        const MAX_AUTOPLAY = isMobile ? 2 : 6; // Limit autoplay on mobile
+        
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const video = entry.target.querySelector('video');
-                const poster = entry.target.querySelector('.video-poster');
+                const container = entry.target;
+                const video = container.querySelector('video');
+                const poster = container.querySelector('.video-poster');
                 
                 if (video) {
-                    // Show poster initially
-                    if (poster) poster.style.opacity = '1';
+                    // Load all videos (metadata only)
+                    video.preload = 'metadata';
+                    video.load();
                     
-                    // Configure video
-                    video.preload = 'auto';
-                    video.muted = true;
-                    video.playsInline = true;
-                    video.loop = true;
-                    
-                    // Handle when video is ready
-                    video.addEventListener('loadeddata', function() {
+                    // Conditional autoplay
+                    if (autoplayCounter < MAX_AUTOPLAY && 
+                        !container.id.includes('adult-swim')) {
+                        
                         video.play().then(() => {
                             if (poster) poster.style.opacity = '0';
                         }).catch(() => {
                             // Silent fallback if autoplay fails
                         });
-                    }, { once: true });
-                    
-                    // Start loading
-                    video.load();
+                        
+                        autoplayCounter++;
+                    }
                 }
             }
         });
@@ -1184,7 +1186,7 @@ function preloadAllVideos() {
     
     // Observe all video containers except Adult Swim
     document.querySelectorAll('.video-container:not(#adult-swim)').forEach(container => {
-        observer.observe(container);
+        window.videoObserver.observe(container);
     });
     
     // Explicitly handle Adult Swim
@@ -1192,8 +1194,7 @@ function preloadAllVideos() {
     if (asVideo) {
         asVideo.preload = 'none';
         asVideo.pause();
-        const asPoster = document.querySelector('#adult-swim .video-poster');
-        if (asPoster) asPoster.style.opacity = '1';
+        document.querySelector('#adult-swim .video-poster').style.opacity = '1';
     }
 }
 
