@@ -1147,14 +1147,14 @@ Video created for Wireless and Reading Festival, adaptation from the Think Diffe
 </footer>
 
 <script>
-// ===== MODIFIED Video Preloading =====
+// ===== VIDEO PRELOADING =====
 function preloadAllVideos() {
-    const isMobile = window.innerWidth <= 768; // Mobile detection
+    const isMobile = window.innerWidth <= 768;
     
     // Store observer globally for cleanup
     window.videoObserver = new IntersectionObserver((entries) => {
         let autoplayCounter = 0;
-        const MAX_AUTOPLAY = isMobile ? 2 : 6; // Limit autoplay on mobile
+        const MAX_AUTOPLAY = isMobile ? 2 : 6;
         
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -1163,20 +1163,17 @@ function preloadAllVideos() {
                 const poster = container.querySelector('.video-poster');
                 
                 if (video) {
-                    // Load all videos (metadata only)
-                    video.preload = 'metadata';
+                    // Load video metadata
                     video.load();
                     
                     // Conditional autoplay
                     if (autoplayCounter < MAX_AUTOPLAY && 
                         !container.id.includes('adult-swim')) {
-                        
                         video.play().then(() => {
                             if (poster) poster.style.opacity = '0';
                         }).catch(() => {
-                            // Silent fallback if autoplay fails
+                            if (poster) poster.style.opacity = '1';
                         });
-                        
                         autoplayCounter++;
                     }
                 }
@@ -1184,250 +1181,40 @@ function preloadAllVideos() {
         });
     }, { threshold: 0.1 });
     
-    // Observe all video containers except Adult Swim
+    // Observe all containers except Adult Swim
     document.querySelectorAll('.video-container:not(#adult-swim)').forEach(container => {
         window.videoObserver.observe(container);
     });
     
-    // Explicitly handle Adult Swim
+    // Explicit Adult Swim handling
     const asVideo = document.querySelector('#adult-swim video');
     if (asVideo) {
-        asVideo.preload = 'none';
         asVideo.pause();
         document.querySelector('#adult-swim .video-poster').style.opacity = '1';
     }
 }
 
-// Start preloading (same trigger as before)
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', preloadAllVideos);
-} else {
-    preloadAllVideos();
-}
-// ===== END MODIFIED CODE =====
-
-// ===== NEW IOS FIXES =====
-function isIOS() {
-    return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-           (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-}
-    function isMobile() {
-    return window.innerWidth <= 768 || isIOS();
-}
-
-// ===== END IOS FIXES =====
-    
-// ===== YOUR ORIGINAL SCRIPT STARTS HERE =====
-document.addEventListener('DOMContentLoaded', function() {
-    // Close all modals and reset videos
-    function closeAllModals() {
-        document.querySelectorAll('.video-page').forEach(modal => {
-            modal.style.display = 'none';
-            modal.querySelectorAll('video').forEach(v => {
-                v.pause();
-                v.currentTime = 0;
-            });
-        });
-        document.body.style.overflow = '';
-    }
-
-    function openModal(modalId, container = null) {
-        closeAllModals();
-        
-        const modal = document.getElementById(modalId);
-        if (!modal) return;
-        
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-
-        // Special cases for Just Eat, social media, Godard and Lizzo/UOC
-        if (modalId === "just-eat-modal" || modalId === "social-media-modal") {
-            const videos = modal.querySelectorAll('video');
-            videos.forEach(v => {
-                v.muted = false;
-                v.controls = true;
-                v.load();
-                v.play().catch(e => console.log("Autoplay prevented:", e));
-                v.addEventListener('play', function() {
-                    videos.forEach(otherV => {
-                        if (otherV !== v) otherV.pause();
-                    });
-                });
-            });
-        }
-else if (modalId === "pepsi-campaigns-modal") {
-    const videos = modal.querySelectorAll('video');
-    
-    // 1. Handle 16:9 video (first video - autoplay)
-    videos[0].muted = false;
-    videos[0].controls = true;
-    videos[0].play().catch(e => console.log("16:9 autoplay prevented:", e));
-    
-    // 2. Handle 9:16 video (second video - manual play)
-    videos[1].muted = false;
-    videos[1].controls = true; 
-    // No autoplay for this one
-}
-        else if (modalId === "fire-walk-with-me-modal" || modalId === "supercar-blondie-facebook-modal") {
-            const video = modal.querySelector('video');
-            if (video) {
-                video.muted = false;
-                video.controls = true;
-                video.load();
-                video.play().catch(e => console.log("Autoplay prevented:", e));
-            }
-        }
-        else if (container && (
-                container.id === "lizzo-spot" || 
-    container.id === "UOC-corporative" || 
-    container.id === "social-media" ||
-    container.id === "fire-walk-with-me" ||
-    container.id === "menopause-campaign" ||
-    container.id === "godard-collages" ||
-    container.id === "groot-twitter" ||
-    container.id === "shoegaze-madrid" ||
-    container.id === "kings-league" ||
-    container.id === "dries-lacroix-ss20" ||
-    container.id === "westwood-aw21" ||
-    container.id === "pepsi-campaigns" ||
-    container.id === "expedia-social" ||
-    container.id === "just-eat" ||
-    container.id === "15m-documentary" ||
-    container.id === "adult-swim" ||
-    container.id === "nomi" ||
-    container.id === "tv-promos" ||
-    container.id === "mashup-videos" 
-)) {
-            const desc = modal.querySelector('.video-page-description');
-            if (desc) {
-                desc.innerHTML = container.dataset.description
-                    .replace(/&lt;/g, '<')
-                    .replace(/&gt;/g, '>')
-                    .replace(/&amp;/g, '&');
-                
-                // Style links in description
-                const links = desc.querySelectorAll('a');
-                links.forEach(link => {
-                    link.style.color = '#e74c3c';
-                    link.style.textDecoration = 'none';
-                    link.style.transition = 'color 0.2s ease';
-                    
-                    link.addEventListener('mouseenter', () => {
-                        link.style.color = '#333';
-                    });
-                    link.addEventListener('mouseleave', () => {
-                        link.style.color = '#e74c3c';
-                    });
-                });
-            }
-        }
-        else if (container) {
-            const videoPlayer = modal.querySelector('.video-page-player');
-            if (videoPlayer) {
-                videoPlayer.innerHTML = `
-                    <video controls autoplay>
-                        <source src="${container.dataset.videoSrc}" type="video/mp4">
-                    </video>
-                `;
-                const video = videoPlayer.querySelector('video');
-                if (video) {
-                    video.muted = false;
-                    video.play().catch(e => console.log("Autoplay prevented:", e));
-                }
-            }
-            
-            const title = modal.querySelector('.video-page-title');
-            if (title && container.dataset.title) title.textContent = container.dataset.title;
-            
-            const desc = modal.querySelector('.video-page-description');
-            if (desc && container.dataset.description) desc.textContent = container.dataset.description;
-        }
-    }
-
-    function highlightVideo(videoId) {
-        // Remove previous highlights
-        document.querySelectorAll('.video-container.active-click').forEach(v => {
-            v.classList.remove('active-click');
-        });
-
-        // Apply to new target (if exists)
-        const targetVideo = document.getElementById(videoId);
-        if (targetVideo) {
-            targetVideo.classList.add('active-click');
-            
-            // Auto-remove after 3 seconds (unless hovered)
-            setTimeout(() => {
-                if (!targetVideo.matches(':hover')) {
-                    targetVideo.classList.remove('active-click');
-                }
-            }, 3000);
-        }
-    }
-
+// ===== CORE FUNCTIONALITY =====
 function setupVideoBehavior() {
-    const videoContainers = Array.from(document.querySelectorAll('.video-container'));
-    const totalVideos = videoContainers.length;
-    const autoplayCount = Math.min(8, totalVideos); // Ensure we don't exceed available videos
-    const isMobileView = window.innerWidth <= 768 || isIOS();
-    
-    // Filter out Adult Swim video from autoplay pool
-    const autoplayPool = videoContainers.filter(container => container.id !== "adult-swim");
-    
-    // Shuffle array and pick first 8 (from remaining videos)
-    const shuffledContainers = [...autoplayPool]
-        .sort(() => 0.5 - Math.random())
-        .slice(0, autoplayCount);
-
-    videoContainers.forEach(container => {
+    document.querySelectorAll('.video-container').forEach(container => {
         const video = container.querySelector('video');
         const poster = container.querySelector('.video-poster');
         const overlay = container.querySelector('.video-overlay');
 
         if (!video) return;
 
+        // Initial setup
         video.muted = true;
         video.loop = true;
         video.playsInline = true;
-        video.setAttribute('playsinline', '');
-        video.setAttribute('webkit-playsinline', '');
 
-        // Special handling for Adult Swim video
-        if (container.id === "adult-swim") {
-            video.pause();
-            video.currentTime = 0;
-            if (poster) poster.style.opacity = '1';
-        } 
-        // MOBILE BEHAVIOR
-        if (isMobileView) {
-            video.play().catch(() => {
-                if (poster) poster.style.opacity = '1';
-            });
-            if (poster) poster.style.opacity = '0';
-        } 
-        // DESKTOP BEHAVIOR 
-        else {
-            // Check if current video is in our randomly selected autoplay set
-            const shouldAutoplay = shuffledContainers.includes(container);
-
-            if (shouldAutoplay) {
-                video.play().catch(() => {
-                    if (poster) poster.style.opacity = '1';
-                });
-            } else {
-                video.pause();
-                video.currentTime = 0;
-                if (poster) poster.style.opacity = '1';
-            }
-        }
-
-        // Hover in - Play video + show overlay (same for all videos)
+        // Hover behaviors
         container.addEventListener('mouseenter', () => {
             if (poster) poster.style.opacity = '0';
             if (overlay) overlay.style.opacity = '1';
             video.play().catch(() => {});
         });
 
-        // Hover out - Pause video + show poster (same for all videos)
         container.addEventListener('mouseleave', () => {
             if (poster) poster.style.opacity = '1';
             if (overlay) overlay.style.opacity = '0';
@@ -1436,8 +1223,121 @@ function setupVideoBehavior() {
         });
     });
 }
+
+function closeAllModals() {
+    document.querySelectorAll('.video-page').forEach(modal => {
+        modal.style.display = 'none';
+        modal.querySelectorAll('video').forEach(v => {
+            v.pause();
+            v.currentTime = 0;
+        });
+    });
+    document.body.style.overflow = '';
+}
+
+function openModal(modalId, container = null) {
+    closeAllModals();
+    
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+
+    // Special cases for multi-video modals
+    if (modalId === "just-eat-modal" || modalId === "social-media-modal" || 
+        modalId === "pepsi-campaigns-modal" || modalId === "tipstr-tv-modal" ||
+        modalId === "tv-promos-modal" || modalId === "mashup-videos-modal") {
+        
+        const videos = modal.querySelectorAll('video');
+        videos.forEach((v, index) => {
+            v.muted = false;
+            v.controls = true;
+            v.load();
+            
+            // Only autoplay the first video in each modal
+            if (index === 0) {
+                v.play().catch(e => console.log("Autoplay prevented:", e));
+            }
+            
+            v.addEventListener('play', function() {
+                videos.forEach(otherV => {
+                    if (otherV !== v) otherV.pause();
+                });
+            });
+        });
+    }
+    // Single video modals with custom descriptions
+    else if (container && (
+        container.id === "lizzo-spot" || 
+        container.id === "UOC-corporative" || 
+        container.id === "social-media" ||
+        container.id === "fire-walk-with-me" ||
+        container.id === "menopause-campaign" ||
+        container.id === "godard-collages" ||
+        container.id === "groot-twitter" ||
+        container.id === "shoegaze-madrid" ||
+        container.id === "kings-league" ||
+        container.id === "dries-lacroix-ss20" ||
+        container.id === "westwood-aw21" ||
+        container.id === "pepsi-campaigns" ||
+        container.id === "expedia-social" ||
+        container.id === "just-eat" ||
+        container.id === "15m-documentary" ||
+        container.id === "adult-swim" ||
+        container.id === "nomi" ||
+        container.id === "tv-promos" ||
+        container.id === "mashup-videos")) {
+        
+        const desc = modal.querySelector('.video-page-description');
+        if (desc) {
+            desc.innerHTML = container.dataset.description
+                .replace(/&lt;/g, '<')
+                .replace(/&gt;/g, '>')
+                .replace(/&amp;/g, '&');
+            
+            // Style links in description
+            const links = desc.querySelectorAll('a');
+            links.forEach(link => {
+                link.style.color = '#e74c3c';
+                link.style.textDecoration = 'none';
+                link.style.transition = 'color 0.2s ease';
+                
+                link.addEventListener('mouseenter', () => {
+                    link.style.color = '#333';
+                });
+                link.addEventListener('mouseleave', () => {
+                    link.style.color = '#e74c3c';
+                });
+            });
+        }
+    }
+    // Default single video modal
+    else if (container) {
+        const videoPlayer = modal.querySelector('.video-page-player');
+        if (videoPlayer) {
+            videoPlayer.innerHTML = `
+                <video controls autoplay>
+                    <source src="${container.dataset.videoSrc}" type="video/mp4">
+                </video>
+            `;
+            const video = videoPlayer.querySelector('video');
+            if (video) {
+                video.muted = false;
+                video.play().catch(e => console.log("Autoplay prevented:", e));
+            }
+        }
+        
+        const title = modal.querySelector('.video-page-title');
+        if (title && container.dataset.title) title.textContent = container.dataset.title;
+        
+        const desc = modal.querySelector('.video-page-description');
+        if (desc && container.dataset.description) desc.textContent = container.dataset.description;
+    }
+}
+
 function setupEventListeners() {
-    // Email link handler (NEW)
+    // Email link handler
     document.querySelectorAll('.email-link').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -1445,142 +1345,111 @@ function setupEventListeners() {
         });
     });
 
-    // Modal links (About) - keep this exactly as is
+    // Modal links
     document.querySelectorAll('[data-modal]:not(.email-link)').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            openModal(this.getAttribute('data-modal'));
+            const modalId = this.getAttribute('data-modal');
+            openModal(modalId);
         });
     });
 
-        // Project navigation links - DESKTOP VERSION (scroll to container)
-if (window.innerWidth > 768) {
+    // Navigation links
     document.querySelectorAll('.main-nav a[href^="#"]:not([data-modal])').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href').substring(1);
-            const targetContainer = document.getElementById(targetId);
+            const target = document.getElementById(targetId);
             
-            if (targetContainer) {
-                // Scroll to the container
-                targetContainer.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'center'
-                });
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 
-     // Trigger overlay exactly like hover state
-const overlay = targetContainer.querySelector('.video-overlay');
-if (overlay) {
-    // Force the hover styles
-    overlay.style.opacity = '1';
-    overlay.style.background = 'rgba(231, 76, 60, 0.85)';
-    
-    // Only reset if user isn't hovering
-    setTimeout(() => {
-        if (!targetContainer.matches(':hover')) {
-            overlay.style.opacity = '';
-            overlay.style.background = '';
-        }
-    }, 1500); // Extended to 1.5s for better UX
-}
-                // Highlight container
-                targetContainer.classList.add('active-click');
-                setTimeout(() => {
-                    targetContainer.classList.remove('active-click');
-                }, 1000);
+                // Highlight effect
+                const overlay = target.querySelector('.video-overlay');
+                if (overlay) {
+                    overlay.style.opacity = '1';
+                    overlay.style.background = 'rgba(231, 76, 60, 0.85)';
+                    setTimeout(() => {
+                        if (!target.matches(':hover')) {
+                            overlay.style.opacity = '0';
+                            overlay.style.background = 'rgba(231, 76, 60, 0)';
+                        }
+                    }, 1500);
+                }
             }
         });
     });
-}
 
-       // Video container clicks
-document.querySelectorAll('.video-container').forEach(container => {
-    container.addEventListener('click', function(e) {
-        if (e.target.tagName === 'A') return;
-        e.preventDefault();
-        
-        // Show overlay on mobile (matches your media query breakpoint)
-        if (window.innerWidth <= 768) {
-            const overlay = this.querySelector('.video-overlay');
-            if (overlay) {
-                overlay.style.opacity = '1';
-                overlay.style.background = 'rgba(231, 76, 60, 0.85)';
+    // Video container clicks
+    document.querySelectorAll('.video-container').forEach(container => {
+        container.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A') return;
+            e.preventDefault();
+            
+            if (this.dataset.modal) {
+                openModal(this.dataset.modal, this);
+            } else {
+                const tempModalId = 'video-modal-' + this.id;
+                let modal = document.getElementById(tempModalId);
                 
-                // Hide after 1.5 seconds if not hovering
-                setTimeout(() => {
-                    if (!this.matches(':hover')) {
-                        overlay.style.opacity = '0';
-                        overlay.style.background = 'rgba(231, 76, 60, 0)';
-                    }
-                }, 1500);
-            }
-        }
-        
-        if (this.dataset.modal) {
-            openModal(this.dataset.modal, this);
-        }
-        else {
-            const tempModalId = 'video-modal-' + this.id;
-            let modal = document.getElementById(tempModalId);
-            
-            if (!modal) {
-                modal = document.createElement('div');
-                modal.id = tempModalId;
-                modal.className = 'video-page';
-                modal.innerHTML = `
-                    <div class="video-page-content">
-                        <button class="back-button">&lt;&lt;</button>
-                        <div class="video-page-player">
-                            <video controls autoplay>
-                                <source src="${this.dataset.videoSrc}" type="video/mp4">
-                            </video>
+                if (!modal) {
+                    modal = document.createElement('div');
+                    modal.id = tempModalId;
+                    modal.className = 'video-page';
+                    modal.innerHTML = `
+                        <div class="video-page-content">
+                            <button class="back-button">&lt;&lt;</button>
+                            <div class="video-page-player">
+                                <video controls autoplay>
+                                    <source src="${this.dataset.videoSrc}" type="video/mp4">
+                                </video>
+                            </div>
+                            <h1 class="video-page-title">${this.dataset.title}</h1>
+                            <p class="video-page-description">${this.dataset.description}</p>
                         </div>
-                        <h1 class="video-page-title">${this.dataset.title}</h1>
-                        <p class="video-page-description">${this.dataset.description}</p>
-                    </div>
-                `;
-                document.body.appendChild(modal);
+                    `;
+                    document.body.appendChild(modal);
+                }
+                
+                openModal(tempModalId, this);
             }
-            
-            openModal(tempModalId, this);
+        });
+    });
+
+    // Back buttons
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('back-button')) {
+            e.preventDefault();
+            closeAllModals();
         }
     });
+}
+
+// ===== INITIALIZATION =====
+document.addEventListener('DOMContentLoaded', function() {
+    preloadAllVideos();
+    setupVideoBehavior();
+    setupEventListeners();
 });
 
-        // Back button
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('back-button')) {
-                e.preventDefault();
-                closeAllModals();
-            }
-        });
-    }
-
-    window.addEventListener('beforeunload', function() {
-    // Pause and unload all videos
+// ===== CLEANUP =====
+window.addEventListener('beforeunload', function() {
     document.querySelectorAll('video').forEach(video => {
         video.pause();
-        video.removeAttribute('src'); // Force unloading
+        video.removeAttribute('src');
         video.load();
     });
     
-    // Disconnect any IntersectionObservers
     if (window.videoObserver) {
         window.videoObserver.disconnect();
     }
 });
-    
-    // Initialize
-    setupVideoBehavior();
-    setupEventListeners();
 
-// Add visibility change listener (no extra closures needed)
 document.addEventListener('visibilitychange', function() {
     if (document.hidden) {
         document.querySelectorAll('video').forEach(v => v.pause());
     }
 });
-    
 </script>
 </body>
 </html>
