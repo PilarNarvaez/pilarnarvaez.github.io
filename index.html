@@ -1573,7 +1573,14 @@ document.querySelectorAll('.video-container').forEach(container => {
     // Initialize
     setupVideoBehavior();
     setupEventListeners();
+
+// Add visibility change listener (no extra closures needed)
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        document.querySelectorAll('video').forEach(v => v.pause());
+    }
 });
+    
 </script>
 </body>
 </html>
