@@ -1162,6 +1162,14 @@ Video created for Wireless and Reading Festival, adaptation from the Think Diffe
 </footer>
 
 <script>
+    // ===== CUSTOM DESCRIPTION VIDEOS =====
+const CUSTOM_DESC_VIDEOS = new Set([
+    "lizzo-spot", "UOC-corporative", "social-media", "fire-walk-with-me",
+    "menopause-campaign", "godard-collages", "groot-twitter", "shoegaze-madrid",
+    "kings-league", "dries-lacroix-ss20", "westwood-aw21", "pepsi-campaigns",
+    "expedia-social", "just-eat", "15m-documentary", "adult-swim", "nomi",
+    "tv-promos", "tarwater-stone", "mashup-videos"
+]);
 // ===== VIDEO PRELOADING =====
 function preloadAllVideos() {
     const isMobile = window.innerWidth <= 768;
@@ -1282,52 +1290,32 @@ function openModal(modalId, container = null) {
             });
         });
     }
-    // Single video modals with custom descriptions
-    else if (container && (
-        container.id === "lizzo-spot" || 
-        container.id === "UOC-corporative" || 
-        container.id === "social-media" ||
-        container.id === "fire-walk-with-me" ||
-        container.id === "menopause-campaign" ||
-        container.id === "godard-collages" ||
-        container.id === "groot-twitter" ||
-        container.id === "shoegaze-madrid" ||
-        container.id === "kings-league" ||
-        container.id === "dries-lacroix-ss20" ||
-        container.id === "westwood-aw21" ||
-        container.id === "pepsi-campaigns" ||
-        container.id === "expedia-social" ||
-        container.id === "just-eat" ||
-        container.id === "15m-documentary" ||
-        container.id === "adult-swim" ||
-        container.id === "nomi" ||
-        container.id === "tv-promos" ||
-        container.id === "tarwater-stone" ||
-        container.id === "mashup-videos")) {
+// Single video modals with custom descriptions
+else if (container && CUSTOM_DESC_VIDEOS.has(container.id)) {
+    const desc = modal.querySelector('.video-page-description');
+    if (desc) {
+        desc.innerHTML = container.dataset.description
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/&amp;/g, '&');
         
-        const desc = modal.querySelector('.video-page-description');
-        if (desc) {
-            desc.innerHTML = container.dataset.description
-                .replace(/&lt;/g, '<')
-                .replace(/&gt;/g, '>')
-                .replace(/&amp;/g, '&');
+        // Style links in description
+        const links = desc.querySelectorAll('a');
+        links.forEach(link => {
+            link.style.color = '#e74c3c';
+            link.style.textDecoration = 'none';
+            link.style.transition = 'color 0.2s ease';
             
-            // Style links in description
-            const links = desc.querySelectorAll('a');
-            links.forEach(link => {
-                link.style.color = '#e74c3c';
-                link.style.textDecoration = 'none';
-                link.style.transition = 'color 0.2s ease';
-                
-                link.addEventListener('mouseenter', () => {
-                    link.style.color = '#333';
-                });
-                link.addEventListener('mouseleave', () => {
-                    link.style.color = '#e74c3c';
-                });
+            link.addEventListener('mouseenter', () => {
+                link.style.color = '#333';
             });
-        }
+            link.addEventListener('mouseleave', () => {
+                link.style.color = '#e74c3c';
+            });
+        });
     }
+}
+
     // Default single video modal
     else if (container) {
         const videoPlayer = modal.querySelector('.video-page-player');
