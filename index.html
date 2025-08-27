@@ -1184,14 +1184,15 @@ Video created for Wireless and Reading Festival, adaptation from the Think Diffe
 </footer>
 
 <script>
-    // ===== CUSTOM DESCRIPTION VIDEOS =====
+// ===== CUSTOM DESCRIPTION VIDEOS =====
 const CUSTOM_DESC_VIDEOS = new Set([
     "lizzo-spot", "UOC-corporative", "social-media", "fire-walk-with-me",
     "menopause-campaign", "godard-collages", "groot-twitter", "shoegaze-madrid",
     "kings-league", "dries-lacroix-ss20", "westwood-aw21", "pepsi-campaigns",
     "expedia-social", "just-eat", "15m-documentary", "adult-swim", "nomi",
-    "tv-promos", "tarwater-stone", "mashup-videos""mashup-videos"
+    "tv-promos", "tarwater-stone", "mashup-videos"
 ]);
+
 // ===== VIDEO PRELOADING =====
 function preloadAllVideos() {
     const isMobile = window.innerWidth <= 768;
@@ -1207,7 +1208,10 @@ function preloadAllVideos() {
                 const video = container.querySelector('video');
                 const poster = container.querySelector('.video-poster');
                 
-                if (video) {
+                if (video && !video.dataset.loaded) {
+                    // Mark as loaded to prevent re-processing
+                    video.dataset.loaded = true;
+                    
                     // Load video metadata
                     video.load();
                     
@@ -1216,11 +1220,22 @@ function preloadAllVideos() {
                         !container.id.includes('adult-swim')) {
                         video.play().then(() => {
                             if (poster) poster.style.opacity = '0';
-                        }).catch(() => {
+                        }).catch((e) => {
+                            console.log("Autoplay prevented:", e);
                             if (poster) poster.style.opacity = '1';
                         });
                         autoplayCounter++;
                     }
+                }
+            } else {
+                // Pause videos when they leave viewport
+                const container = entry.target;
+                const video = container.querySelector('video');
+                const poster = container.querySelector('.video-poster');
+                
+                if (video) {
+                    video.pause();
+                    if (poster) poster.style.opacity = '1';
                 }
             }
         });
@@ -1239,7 +1254,7 @@ function preloadAllVideos() {
     }
 }
 
-// ===== CORE FUNCTIONALITY =====
+// ===== SETUP VIDEO BEHAVIOR =====
 function setupVideoBehavior() {
     document.querySelectorAll('.video-container').forEach(container => {
         const video = container.querySelector('video');
@@ -1252,23 +1267,58 @@ function setupVideoBehavior() {
         video.muted = true;
         video.loop = true;
         video.playsInline = true;
+        video.preload = "metadata";
 
-        // Hover behaviors
-        container.addEventListener('mouseenter', () => {
-            if (poster) poster.style.opacity = '0';
-            if (overlay) overlay.style.opacity = '1';
-            video.play().catch(() => {});
-        });
-
-        container.addEventListener('mouseleave', () => {
-            if (poster) poster.style.opacity = '1';
-            if (overlay) overlay.style.opacity = '0';
-            video.pause();
+        // Reset video when it ends
+        video.addEventListener('ended', () => {
             video.currentTime = 0;
         });
+
+        // Hover behaviors for desktop
+        if (window.innerWidth > 768) {
+            container.addEventListener('mouseenter', () => {
+                if (poster) poster.style.opacity = '0';
+                if (overlay) overlay.style.opacity = '1';
+                video.play().catch(e => console.log("Hover play prevented:", e));
+            });
+
+            container.addEventListener('mouseleave', () => {
+                if (poster) poster.style.opacity = '1';
+                if (overlay) overlay.style.opacity = '0';
+                video.pause();
+                video.currentTime = 0;
+            });
+        } else {
+            // Mobile - tap to play
+            let tapCount = 0;
+            container.addEventListener('click', (e) => {
+                if (e.target.tagName === 'A') return;
+                
+                tapCount++;
+                if (tapCount === 1) {
+                    // Single tap - play/pause
+                    setTimeout(function() {
+                        if (tapCount === 1) {
+                            if (video.paused) {
+                                video.play().then(() => {
+                                    if (poster) poster.style.opacity = '0';
+                                    if (overlay) overlay.style.opacity = '1';
+                                }).catch(e => console.log("Tap play prevented:", e));
+                            } else {
+                                video.pause();
+                                if (poster) poster.style.opacity = '1';
+                                if (overlay) overlay.style.opacity = '0';
+                            }
+                        }
+                        tapCount = 0;
+                    }, 300);
+                }
+            });
+        }
     });
 }
 
+// ===== CORE FUNCTIONALITY =====
 function closeAllModals() {
     document.querySelectorAll('.video-page').forEach(modal => {
         modal.style.display = 'none';
@@ -1312,31 +1362,31 @@ function openModal(modalId, container = null) {
             });
         });
     }
-// Single video modals with custom descriptions
-else if (container && CUSTOM_DESC_VIDEOS.has(container.id)) {
-    const desc = modal.querySelector('.video-page-description');
-    if (desc) {
-        desc.innerHTML = container.dataset.description
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>')
-            .replace(/&amp;/g, '&');
-        
-        // Style links in description
-        const links = desc.querySelectorAll('a');
-        links.forEach(link => {
-            link.style.color = '#e74c3c';
-            link.style.textDecoration = 'none';
-            link.style.transition = 'color 0.2s ease';
+    // Single video modals with custom descriptions
+    else if (container && CUSTOM_DESC_VIDEOS.has(container.id)) {
+        const desc = modal.querySelector('.video-page-description');
+        if (desc) {
+            desc.innerHTML = container.dataset.description
+                .replace(/&lt;/g, '<')
+                .replace(/&gt;/g, '>')
+                .replace(/&amp;/g, '&');
             
-            link.addEventListener('mouseenter', () => {
-                link.style.color = '#333';
-            });
-            link.addEventListener('mouseleave', () => {
+            // Style links in description
+            const links = desc.querySelectorAll('a');
+            links.forEach(link => {
                 link.style.color = '#e74c3c';
+                link.style.textDecoration = 'none';
+                link.style.transition = 'color 0.2s ease';
+                
+                link.addEventListener('mouseenter', () => {
+                    link.style.color = '#333';
+                });
+                link.addEventListener('mouseleave', () => {
+                    link.style.color = '#e74c3c';
+                });
             });
-        });
+        }
     }
-}
 
     // Default single video modal
     else if (container) {
@@ -1453,9 +1503,12 @@ function setupEventListeners() {
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', function() {
-    preloadAllVideos();
-    setupVideoBehavior();
-    setupEventListeners();
+    // Start with a small delay to ensure DOM is fully ready
+    setTimeout(() => {
+        preloadAllVideos();
+        setupVideoBehavior();
+        setupEventListeners();
+    }, 100);
 });
 
 // ===== CLEANUP =====
